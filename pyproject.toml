@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = [
+    "--import-mode=importlib",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[project]
+name = "excaligen"
+version = "0.1"
