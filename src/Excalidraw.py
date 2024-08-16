@@ -3,12 +3,18 @@ from .config.Config import Config
 from .impl.Rectangle import Rectangle
 from .impl.Diamond import Diamond
 from .impl.Ellipse import Ellipse
+from .impl.Arrow import Arrow
+from .impl.Line import Line
+from .impl.Text import Text
+from .impl.Image import Image
+from .impl.Group import Group
+from .impl.Frame import Frame
 
 class Excalidraw(ExcalidrawStructure):
     def __init__(self):
-        super()
+        super().__init__()
 
-    def config(self, config: Config) -> Excalidraw:
+    def config(self, config: Config) -> "Excalidraw":
         self.config(config)
         return self
 
@@ -21,25 +27,23 @@ class Excalidraw(ExcalidrawStructure):
     def ellipse(self) -> Ellipse:
         return super().ellipse()
 
-    def arrow(self):
+    def arrow(self) -> Arrow:
         return super().arrow()
 
-    def line(self):
+    def line(self) -> Line:
         return super().line()
 
-    def text(self):
+    def text(self) -> Text:
         return super().text()
 
-    def image(self):
+    def image(self) -> Image:
         return super().image()
 
-    def group(self):
+    def group(self) -> Group:
         return super().group()
 
-    def frame(self):
+    def frame(self) -> Frame:
         return super().frame()
 
     def to_json(self) -> str:
         return super().to_json()
-
-

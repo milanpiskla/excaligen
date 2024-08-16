@@ -1,8 +1,14 @@
-from AbstractElement import AbstractElement
+from .AbstractElement import AbstractElement
 from ..ElementFactory import ElementFactory
 from ..Rectangle import Rectangle
 from ..Diamond import Diamond
 from ..Ellipse import Ellipse
+from ..Arrow import Arrow
+from ..Line import Line
+from ..Text import Text
+from ..Image import Image
+from ..Group import Group
+from ..Frame import Frame
 
 from ...config.Config import Config
 
@@ -29,31 +35,23 @@ class ExcalidrawStructure:
     def ellipse(self) -> Ellipse:
         return self._append_element(self._factory.ellipse())
 
-    def arrow(self):
-        # TODO: implementation
-        pass
+    def arrow(self) -> Arrow:
+        return self._append_element(self._factory.arrow())
 
-    def line(self):
-        # TODO: implementation
-        pass
+    def line(self) -> Line:
+        return self._append_element(self._factory.line())
 
-    def text(self):
-        # TODO: implementation
-        pass
+    def text(self) -> Text:
+        return self._append_element(self._factory.text())
 
-    def image(self):
-        # TODO: implementation
-        pass
+    def image(self) -> Image:
+        return self._append_element(self._factory.image())
 
-    def group(self):
-        # TODO: implementation
-        pass
+    def group(self) -> Group:
+        return self._append_element(self._factory.group())
 
-    def frame(self):
-        # TODO: implementation
-        pass
-
-
+    def frame(self) -> Frame:
+        return self._append_element(self._factory.frame())
 
     def to_json(self) -> str:
         return json.dumps(self.__dict__)

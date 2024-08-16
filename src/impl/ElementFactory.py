@@ -2,6 +2,12 @@ from ..config.Config import Config, DEFAULT_CONFIG
 from .Rectangle import Rectangle
 from .Diamond import Diamond
 from .Ellipse import Ellipse
+from .Arrow import Arrow
+from .Line import Line
+from .Text import Text
+from .Image import Image
+from .Group import Group
+from .Frame import Frame
 
 class ElementFactory():
     def __init__(self):
@@ -20,4 +26,20 @@ class ElementFactory():
     def ellipse(self):
         return Ellipse(self.config)
 
-    # TODO: add other Excalidraw elements
+    def arrow(self):
+        return Arrow(self.config)
+
+    def line(self):
+        return Line(self.config)
+
+    def text(self):
+        return Text(self.config)
+
+    def image(self):
+        return Image(self.config)
+
+    def group(self):
+        return Group(self.config)
+
+    def frame(self):
+        return Frame(self.config)
