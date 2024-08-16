@@ -1,40 +1,45 @@
-from impl.ElementFactory import ElementFactory
+from .impl.base.ExcalidrawStructure import ExcalidrawStructure
+from .config.Config import Config
+from .impl.Rectangle import Rectangle
+from .impl.Diamond import Diamond
+from .impl.Ellipse import Ellipse
 
-class Excalidraw():
+class Excalidraw(ExcalidrawStructure):
     def __init__(self):
-        self.factory = ElementFactory()
+        super()
 
-    def config(self):
-        self.factory.config()
+    def config(self, config: Config) -> Excalidraw:
+        self.config(config)
         return self
 
-    def rectangle(self):
-        return self.factory.rectangle()
+    def rectangle(self) -> Rectangle:
+        return super().rectangle()
 
-    def diamond(self):
-        pass
+    def diamond(self) -> Diamond:
+        return super().diamond()
 
-    def ellipse(self):
-        pass
+    def ellipse(self) -> Ellipse:
+        return super().ellipse()
 
     def arrow(self):
-        pass
+        return super().arrow()
 
     def line(self):
-        pass
+        return super().line()
 
     def text(self):
-        pass
+        return super().text()
 
     def image(self):
-        pass
+        return super().image()
 
     def group(self):
-        pass
+        return super().group()
 
     def frame(self):
-        pass
+        return super().frame()
 
-
+    def to_json(self) -> str:
+        return super().to_json()
 
 

@@ -1,7 +1,6 @@
 from base.AbstractElement import AbstractElement
 from ..config.Config import Config, DEFAULT_CONFIG
 
-class Rectangle(AbstractElement):
+class Diamond(AbstractElement):
     def __init__(self, config: Config):
-        super().__init__("rectangle", config)
-
+        super().__init__("diamond", config)
