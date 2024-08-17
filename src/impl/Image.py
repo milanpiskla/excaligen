@@ -1,4 +1,4 @@
-from base.AbstractElement import AbstractElement
+from .base.AbstractElement import AbstractElement
 from ..config.Config import Config, DEFAULT_CONFIG
 
 class Image(AbstractElement):

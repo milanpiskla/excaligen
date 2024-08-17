@@ -11,6 +11,7 @@ from ..Group import Group
 from ..Frame import Frame
 
 from ...config.Config import Config
+from typing import Any
 
 import json
 
@@ -20,6 +21,12 @@ class ExcalidrawStructure:
         self.version = 2
         self.source = "https://excalidraw.com"
         self.elements: list[AbstractElement] = []
+        self.appState = {
+            "gridSize": None,
+            "viewBackgroundColor": "#ffffff"
+        }
+        self.files = {
+        }
         
         self._factory = ElementFactory()
 
@@ -54,8 +61,19 @@ class ExcalidrawStructure:
         return self._append_element(self._factory.frame())
 
     def to_json(self) -> str:
-        return json.dumps(self.__dict__)
+        public_dictionary = self._get_public_attributes_dictionary(self)
+        return json.dumps(public_dictionary)
 
     def _append_element(self, element: AbstractElement) -> AbstractElement:
-        self.elements.append(element.to_dictionary())
+        self.elements.append(self._get_public_attributes_dictionary(element))
         return element
+
+    def _append_file(self) -> None:
+        # TODO: implement
+        pass
+
+    def _get_public_attributes_dictionary(self, obj) -> dict[str, Any]:
+        """Returns the object's public attributes in dictionary.
+        
+        The private attributes starting with '_' are excluded."""
+        return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
