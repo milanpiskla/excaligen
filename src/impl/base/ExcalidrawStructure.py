@@ -16,6 +16,14 @@ from typing import Any
 import json
 
 class ExcalidrawStructure:
+    class ElementEncoder(json.JSONEncoder):
+        """JSON encoder for Excalidraw elements
+        
+        It serializes the object attributes to JSON except the ones starting with underscore '_'.
+        """
+        def default(self, obj):
+            return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
+
     def __init__(self):
         self.type = "excalidraw"
         self.version = 2
@@ -61,19 +69,18 @@ class ExcalidrawStructure:
         return self._append_element(self._factory.frame())
 
     def to_json(self) -> str:
-        public_dictionary = self._get_public_attributes_dictionary(self)
-        return json.dumps(public_dictionary)
+        return json.dumps(self, cls = self.ElementEncoder, indent = 2)
 
     def _append_element(self, element: AbstractElement) -> AbstractElement:
-        self.elements.append(self._get_public_attributes_dictionary(element))
+        self.elements.append(element)
         return element
 
     def _append_file(self) -> None:
         # TODO: implement
         pass
 
-    def _get_public_attributes_dictionary(self, obj) -> dict[str, Any]:
-        """Returns the object's public attributes in dictionary.
+    # def _get_public_attributes_dictionary(self, obj) -> dict[str, Any]:
+    #     """Returns the object's public attributes in dictionary.
         
-        The private attributes starting with '_' are excluded."""
-        return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
+    #     The private attributes starting with '_' are excluded."""
+    #     return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}

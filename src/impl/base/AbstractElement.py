@@ -26,13 +26,8 @@ class AbstractElement:
         self.frameId = config.get("frameId", None)
         self.link = config.get("link", None)
 
-    # def to_dictionary(self) -> dict[str, Any]:
-    #     """Creates a dictionary from public attributes."""
-    #     return self._get_public_attributes_dictionary(self)
-
-    # def _get_public_attributes_dictionary(self, obj) -> dict:
-    #     """Returns the object's public attributes in dictionary.
+    def position(self, x: float, y: float) -> "AbstractElement":
+        self.x = x
+        self.y = y
         
-    #     The private attributes starting with '_' are excluded."""
-    #     return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
-
+        return self
