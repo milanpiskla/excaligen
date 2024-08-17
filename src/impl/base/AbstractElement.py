@@ -1,5 +1,5 @@
 import uuid
-from typing import Any
+from typing import Self
 from ...config.Config import Config
 
 class AbstractElement:
@@ -26,7 +26,7 @@ class AbstractElement:
         self.frameId = config.get("frameId", None)
         self.link = config.get("link", None)
 
-    def position(self, x: float, y: float) -> "AbstractElement":
+    def position(self, x: float, y: float) -> Self:
         self.x = x
         self.y = y
         
