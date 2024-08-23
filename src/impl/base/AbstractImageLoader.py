@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 
-class AbstractImageListener(ABC):
+class AbstractImageLoader(ABC):
     def __init__(self):
         pass
 
     @abstractmethod
-    def on_image(self, id: str, mime_type: str, data_url: str) -> None:
+    def load(self, file_path: str) -> bytes:
         pass
-

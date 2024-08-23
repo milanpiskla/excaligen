@@ -1,14 +1,14 @@
 from .impl.base.ExcalidrawStructure import ExcalidrawStructure
 from .config.Config import Config
-from .impl.Rectangle import Rectangle
-from .impl.Diamond import Diamond
-from .impl.Ellipse import Ellipse
-from .impl.Arrow import Arrow
-from .impl.Line import Line
-from .impl.Text import Text
-from .impl.Image import Image
-from .impl.Group import Group
-from .impl.Frame import Frame
+from .impl.elements.Rectangle import Rectangle
+from .impl.elements.Diamond import Diamond
+from .impl.elements.Ellipse import Ellipse
+from .impl.elements.Arrow import Arrow
+from .impl.elements.Line import Line
+from .impl.elements.Text import Text
+from .impl.elements.Image import Image
+from .impl.elements.Group import Group
+from .impl.elements.Frame import Frame
 
 class Excalidraw(ExcalidrawStructure):
     def __init__(self):

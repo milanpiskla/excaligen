@@ -1,14 +1,15 @@
 from .AbstractElement import AbstractElement
-from ..ElementFactory import ElementFactory
-from ..Rectangle import Rectangle
-from ..Diamond import Diamond
-from ..Ellipse import Ellipse
-from ..Arrow import Arrow
-from ..Line import Line
-from ..Text import Text
-from ..Image import Image
-from ..Group import Group
-from ..Frame import Frame
+from ..elements.ElementFactory import ElementFactory
+from ..elements.Rectangle import Rectangle
+from ..elements.Diamond import Diamond
+from ..elements.Ellipse import Ellipse
+from ..elements.Arrow import Arrow
+from ..elements.Line import Line
+from ..elements.Text import Text
+from ..elements.Image import Image
+from ..elements.Group import Group
+from ..elements.Frame import Frame
+from ..ImageLoader import ImageLoader
 
 from .AbstractImageListener import AbstractImageListener
 
@@ -38,6 +39,7 @@ class ExcalidrawStructure(AbstractImageListener):
         }
         
         self._factory = ElementFactory()
+        self._image_loader = ImageLoader()
 
     def config(self, config: Config):
         self._factory.config(config)
@@ -61,7 +63,7 @@ class ExcalidrawStructure(AbstractImageListener):
         return self._append_element(self._factory.text())
 
     def image(self) -> Image:
-        return self._append_element(self._factory.image(self))
+        return self._append_element(self._factory.image(self, self._image_loader))
 
     def group(self) -> Group:
         return self._append_element(self._factory.group())

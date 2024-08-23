@@ -1,5 +1,6 @@
-from ..config.Config import Config, DEFAULT_CONFIG
-from .base.AbstractImageListener import AbstractImageListener
+from ...config.Config import Config, DEFAULT_CONFIG
+from ..base.AbstractImageListener import AbstractImageListener
+from ..base.AbstractImageLoader import AbstractImageLoader
 
 from .Rectangle import Rectangle
 from .Diamond import Diamond
@@ -37,8 +38,8 @@ class ElementFactory():
     def text(self):
         return Text(self.config)
 
-    def image(self, listener: AbstractImageListener):
-        return Image(listener, self.config)
+    def image(self, listener: AbstractImageListener, loader: AbstractImageLoader):
+        return Image(listener, loader, self.config)
 
     def group(self):
         return Group(self.config)
