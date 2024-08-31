@@ -14,8 +14,10 @@ from ..ImageLoader import ImageLoader
 from .AbstractImageListener import AbstractImageListener
 
 from ...config.Config import Config
+from typing import Self
 
 import json
+
 
 class ExcalidrawStructure(AbstractImageListener):
     class ElementEncoder(json.JSONEncoder):
@@ -41,8 +43,9 @@ class ExcalidrawStructure(AbstractImageListener):
         self._factory = ElementFactory()
         self._image_loader = ImageLoader()
 
-    def config(self, config: Config):
+    def config(self, config: Config) -> Self:
         self._factory.config(config)
+        return self
 
     def rectangle(self) -> Rectangle:
         return self._append_element(self._factory.rectangle())
@@ -71,8 +74,18 @@ class ExcalidrawStructure(AbstractImageListener):
     def frame(self) -> Frame:
         return self._append_element(self._factory.frame())
 
-    def to_json(self) -> str:
+    def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)
+
+    def save(self, file: str) -> Self:
+        try:
+            with open(file, 'w', encoding='utf-8') as file:
+                file.write(self.json())
+                return self
+
+        except Exception as e:
+            print(f"Error Writing '{file}': {e}")      
+            return self  
 
     def on_image(self, id: str, mime_type: str, data_url: str) -> None:
         self.files[id] = {

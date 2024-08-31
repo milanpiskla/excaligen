@@ -74,7 +74,7 @@ class AbstractShape(AbstractElement):
         """Set the fill style (hatchure, cross-hatch, solid)."""
         match style:
             case "hatchure" | "cross-hatch" | "solid":
-                self.strokeSfillStyletyle = style
+                self.fillStyle = style
             case _:
                 raise ValueError(f"Invalid style '{style}' for fill. Use 'hatchure', 'cross-hatch', 'solid'.")
         return self

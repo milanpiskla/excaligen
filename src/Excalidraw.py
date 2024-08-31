@@ -10,13 +10,14 @@ from .impl.elements.Image import Image
 from .impl.elements.Group import Group
 from .impl.elements.Frame import Frame
 
+from typing import Self
+
 class Excalidraw(ExcalidrawStructure):
     def __init__(self):
         super().__init__()
 
-    def config(self, config: Config) -> "Excalidraw":
-        self.config(config)
-        return self
+    def config(self, config: Config) -> Self:
+        return super().config(config)
 
     def rectangle(self) -> Rectangle:
         return super().rectangle()
@@ -45,5 +46,8 @@ class Excalidraw(ExcalidrawStructure):
     def frame(self) -> Frame:
         return super().frame()
 
-    def to_json(self) -> str:
-        return super().to_json()
+    def json(self) -> str:
+        return super().json()
+
+    def save(self, file: str) -> Self:
+        return super().save(file)

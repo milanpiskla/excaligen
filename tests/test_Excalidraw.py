@@ -8,13 +8,5 @@ def test_Excalidraw():
     e.rectangle().position(100, 200).size(200, 400)
     # e.image().svg("<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><circle cx='100' cy='100' r='80' fill='green' /></svg>")
     e.image().file('c:/Users/Milan/Pictures/home.png')
-    
-    try:
-        with open('test.excalidraw', 'w', encoding='utf-8') as file:
-            file.write(e.to_json())
-            assert True
-
-    except Exception as e:
-        print(f"Error Writing {'test.excalidraw'}: {e}")
-        assert False
+    e.save('test.excalidraw')
 
