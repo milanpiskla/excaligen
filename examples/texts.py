@@ -1,3 +1,4 @@
+# Example of generating texts
 from src.Excalidraw import Excalidraw
 
 xd = Excalidraw()
