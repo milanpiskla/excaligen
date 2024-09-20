@@ -25,9 +25,14 @@ class AbstractElement:
         self.groupIds = config.get("groupIds", [])
         self.frameId = config.get("frameId", None)
         self.link = config.get("link", None)
+        self.boundElements = None
 
     def position(self, x: float, y: float) -> Self:
         self.x = x
         self.y = y
         
         return self
+    
+    def _addBoundElement(self, element: "AbstractElement") -> None:
+        self.boundElements = self.boundElements or []
+        self.boundElements.append({"id": element.id, "type": element.type})

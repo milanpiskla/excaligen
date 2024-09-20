@@ -38,7 +38,8 @@ class Arrow(AbstractElement):
             "gap": 1  # Minimal gap
         }
 
-        # TODO notify binding
+        start._addBoundElement(self)
+        end._addBoundElement(self)
 
         return self
 
