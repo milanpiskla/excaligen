@@ -1,4 +1,5 @@
 from .AbstractElement import AbstractElement
+from ..elements.Text import Text
 from ...config.Config import Config
 from typing import Self
 from typing import Union
@@ -77,4 +78,14 @@ class AbstractShape(AbstractElement):
                 self.fillStyle = style
             case _:
                 raise ValueError(f"Invalid style '{style}' for fill. Use 'hatchure', 'cross-hatch', 'solid'.")
+        return self
+    
+    def label(self, text: Text) -> Self:
+        text._calculate_dimensions()
+        #text.width = min(self.width * 0.8, text.width)  # Fit within 80% of the shape width
+        #text.height = min(self.height * 0.8, text.height)  # Fit within 80% of the shape height
+        text.x = self.x + (self.width - text.width) / 2  # Center horizontally
+        text.y = self.y + (self.height - text.height) / 2  # Center vertically
+
+        self._addBoundElement(text)
         return self
