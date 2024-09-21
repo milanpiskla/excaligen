@@ -81,11 +81,11 @@ class AbstractShape(AbstractElement):
         return self
     
     def label(self, text: Text) -> Self:
-        text._calculate_dimensions()
+        #text._calculate_dimensions() # TODO is this needed?
         #text.width = min(self.width * 0.8, text.width)  # Fit within 80% of the shape width
         #text.height = min(self.height * 0.8, text.height)  # Fit within 80% of the shape height
         text.x = self.x + (self.width - text.width) / 2  # Center horizontally
-        text.y = self.y + (self.height - text.height) / 2  # Center vertically
+        text.y = self.y + (self.height - text.height - text.lineHeight) / 2  # Center vertically
 
         self._addBoundElement(text)
         return self

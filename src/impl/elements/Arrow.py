@@ -14,6 +14,10 @@ class Arrow(AbstractElement):
         self.endArrowhead = config.get("endArrowhead", "arrow")
         self.points = []
 
+    def plot(self, points: list[tuple[float, float]]) -> Self:
+        self.points = points
+        return self
+
     def bind(self, start: AbstractEdgedShape, end: AbstractEdgedShape) -> Self:
         end_center_x = end.x + end.width / 2
         end_center_y = end.y + end.height / 2
