@@ -27,6 +27,11 @@ class AbstractElement:
         self.y = y
         
         return self
+
+    def rotate(self, angle: float) -> Self:
+        self.angle = angle
+
+        return self
     
     def _addBoundElement(self, element: "AbstractElement") -> None:
         self.boundElements = self.boundElements or []
