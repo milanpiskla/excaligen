@@ -32,6 +32,11 @@ class AbstractElement:
         self.angle = angle
 
         return self
+
+    def fade(self, opacity: float) -> Self:
+        self.opacity = opacity
+
+        return self
     
     def _addBoundElement(self, element: "AbstractElement") -> None:
         self.boundElements = self.boundElements or []
