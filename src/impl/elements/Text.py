@@ -53,11 +53,12 @@ class Text(AbstractElement):
         if isinstance(size, int):
             self.fontSize = size
         elif isinstance(size, str):
+            original_size = size
             size = size.lower()
             if size in self.SIZE_MAPPING:
                 self.fontSize = self.SIZE_MAPPING[size]
             else:
-                raise ValueError(f"Invalid size '{size}'. Use 'S', 'M', 'L', 'XL'.")
+                raise ValueError(f"Invalid size '{original_size}'. Use 'S', 'M', 'L', 'XL'.")
         else:
             raise TypeError("Font size must be an int or one of 'S', 'M', 'L', 'XL'.")
         self._calculate_dimensions()  # Recalculate dimensions when font size changes
