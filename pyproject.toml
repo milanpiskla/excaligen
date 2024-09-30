@@ -13,4 +13,4 @@ packages = ["src"]
 
 [project]
 name = "excaligen"
-version = "0.2"
+version = "0.3"
