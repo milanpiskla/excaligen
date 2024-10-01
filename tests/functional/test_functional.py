@@ -19,10 +19,18 @@ def reference_json(request) -> Dict[str, Any]:
     with open(reference_file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def evaluate(reference_json: Dict[str, Any], xd: Excalidraw) -> None:
+    generated_json = json.loads(xd.json())
+    comparator = ExcalidrawComparator(
+        ignore_fields={'version', 'versionNonce', 'seed'}
+    )
+
+    assert comparator.compare(
+        reference_json,
+        generated_json
+    ), "Generated JSON does not match the reference JSON"
+
 def test_arrow_star(reference_json: Dict[str, Any]) -> None:
-    """
-    Functional test comparing generated Excalidraw JSON to a reference JSON.
-    """
     xd = Excalidraw()
 
     start_element = xd.ellipse().position(-50, -50).size(100, 100).label(xd.text().content("center"))
@@ -33,19 +41,7 @@ def test_arrow_star(reference_json: Dict[str, Any]) -> None:
         end_element = xd.rectangle().position(x - 50, y - 25).size(100, 50).label(xd.text().content(str(angle))).edges('round')
         xd.arrow().bind(start_element, end_element)
 
-    # Generate JSON from the Excalidraw object
-    generated_json = json.loads(xd.json())
-
-    # Create a comparator instance with fields to ignore
-    comparator = ExcalidrawComparator(
-        ignore_fields={'version', 'versionNonce', 'seed'}
-    )
-
-    # Compare the generated JSON with the reference JSON
-    assert comparator.compare(
-        reference_json,
-        generated_json
-    ), "Generated JSON does not match the reference JSON"
+    evaluate(reference_json, xd)
 
 def test_texts(reference_json: Dict[str, Any]) -> None:
     xd = Excalidraw()
@@ -53,11 +49,5 @@ def test_texts(reference_json: Dict[str, Any]) -> None:
     xd.text().position(100, 100).content("Hello, Excalifont!").fontsize(40).font("excalifont").align("center").baseline("top").spacing(1.5).color("#0000FF").autoresize(True)
     xd.save('texts.excalidraw')
 
-    generated_json = json.loads(xd.json())
-    comparator = ExcalidrawComparator(
-        ignore_fields={'version', 'versionNonce', 'seed'}
-    )
-    assert comparator.compare(
-        reference_json,
-        generated_json
-    ), "Generated JSON does not match the reference JSON"
+    evaluate(reference_json, xd)
+
