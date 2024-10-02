@@ -4,26 +4,26 @@ from src.config.Config import DEFAULT_CONFIG
 
 def test_excalidraw_init():
     xd = Excalidraw()
-    assert xd.type == "excalidraw"
-    assert xd.version == 2
-    assert xd.source == "https://excalidraw.com"
-    assert isinstance(xd.elements, list)
-    assert len(xd.elements) == 0
+    assert xd._type == "excalidraw"
+    assert xd._version == 2
+    assert xd._source == "https://excalidraw.com"
+    assert isinstance(xd._elements, list)
+    assert len(xd._elements) == 0
 
 def test_add_rectangle():
     xd = Excalidraw()
     rect = xd.rectangle()
-    assert rect.type == "rectangle"
-    assert len(xd.elements) == 1
-    assert xd.elements[0].type == "rectangle"
+    assert rect._type == "rectangle"
+    assert len(xd._elements) == 1
+    assert xd._elements[0]._type == "rectangle"
 
 def test_add_text():
     xd = Excalidraw()
     text = xd.text().content("Hello, Excalidraw!")
-    assert text.text == "Hello, Excalidraw!"
-    assert text.fontSize == DEFAULT_CONFIG['fontSize']
-    assert len(xd.elements) == 1
-    assert xd.elements[0].type == "text"
+    assert text._text == "Hello, Excalidraw!"
+    assert text._font_size == DEFAULT_CONFIG['font_size']
+    assert len(xd._elements) == 1
+    assert xd._elements[0]._type == "text"
 
 def test_json_output():
     xd = Excalidraw()

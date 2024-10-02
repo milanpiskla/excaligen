@@ -14,65 +14,87 @@ from ..ImageLoader import ImageLoader
 from .AbstractImageListener import AbstractImageListener
 
 from ...config.Config import Config
-from typing import Self
+from typing import Self, List
 
 import json
 
-
 class ExcalidrawStructure(AbstractImageListener):
     class ElementEncoder(json.JSONEncoder):
-        """JSON encoder for Excalidraw elements
-        
-        It serializes the object attributes to JSON except the ones starting with underscore '_'.
+        """JSON encoder for Excalidraw elements.
+
+        Serializes object attributes starting with a single underscore,
+        converting them from snake_case to camelCase for JSON output.
+        Ignores attributes starting with double underscores or without leading underscores.
         """
+
         def default(self, obj):
-            return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
+            if hasattr(obj, '__dict__'):
+                # Prepare a dictionary for serialization
+                result = {}
+                for attr_name, value in obj.__dict__.items():
+                    # Only include attributes starting with a single underscore
+                    if attr_name.startswith('_') and not attr_name.startswith('__'):
+                        # Strip the leading underscore and convert to camelCase
+                        json_key = self._snake_to_camel(attr_name.lstrip('_'))
+                        # Recursively encode value if necessary
+                        result[json_key] = self.default(value) if hasattr(value, '__dict__') else value
+                return result
+            elif isinstance(obj, list):
+                return [self.default(item) for item in obj]
+            elif isinstance(obj, dict):
+                return {key: self.default(value) for key, value in obj.items()}
+            else:
+                return obj  # Base case: return the value as is
+
+        @staticmethod
+        def _snake_to_camel(snake_str: str) -> str:
+            """Convert snake_case string to camelCase."""
+            components = snake_str.split('_')
+            return components[0] + ''.join(x.title() for x in components[1:])
 
     def __init__(self):
-        self.type = "excalidraw"
-        self.version = 2
-        self.source = "https://excalidraw.com"
-        self.elements: list[AbstractElement] = []
-        self.appState = {
+        self._type = "excalidraw"
+        self._version = 2
+        self._source = "https://excalidraw.com"
+        self._elements: List[AbstractElement] = []
+        self._app_state = {
             "gridSize": None,
             "viewBackgroundColor": "#ffffff"
         }
-        self.files = {
-        }
-        
-        self._factory = ElementFactory()
-        self._image_loader = ImageLoader()
+        self._files = {}
+        self.__factory = ElementFactory()
+        self.__image_loader = ImageLoader()
 
     def config(self, config: Config) -> Self:
-        self._factory.config(config)
+        self.__factory.config(config)
         return self
 
     def rectangle(self) -> Rectangle:
-        return self._append_element(self._factory.rectangle())
+        return self.__append_element(self.__factory.rectangle())
 
     def diamond(self) -> Diamond:
-        return self._append_element(self._factory.diamond())
+        return self.__append_element(self.__factory.diamond())
 
     def ellipse(self) -> Ellipse:
-        return self._append_element(self._factory.ellipse())
+        return self.__append_element(self.__factory.ellipse())
 
     def arrow(self) -> Arrow:
-        return self._append_element(self._factory.arrow())
+        return self.__append_element(self.__factory.arrow())
 
     def line(self) -> Line:
-        return self._append_element(self._factory.line())
+        return self.__append_element(self.__factory.line())
 
     def text(self) -> Text:
-        return self._append_element(self._factory.text())
+        return self.__append_element(self.__factory.text())
 
     def image(self) -> Image:
-        return self._append_element(self._factory.image(self, self._image_loader))
+        return self.__append_element(self.__factory.image(self, self.__image_loader))
 
     def group(self) -> Group:
-        return self._append_element(self._factory.group())
+        return self.__append_element(self.__factory.group())
 
     def frame(self) -> Frame:
-        return self._append_element(self._factory.frame())
+        return self.__append_element(self.__factory.frame())
 
     def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)
@@ -94,7 +116,7 @@ class ExcalidrawStructure(AbstractImageListener):
             "dataURL": data_url
         }
 
-    def _append_element(self, element: AbstractElement) -> AbstractElement:
-        self.elements.append(element)
+    def __append_element(self, element: AbstractElement) -> AbstractElement:
+        self._elements.append(element)
         return element
         

@@ -7,68 +7,68 @@ from typing import Self
 class Arrow(AbstractElement):
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("arrow", config)
-        self.startBinding = None
-        self.endBinding = None
-        self.startArrowhead = config.get("startArrowhead", None)
-        self.endArrowhead = config.get("endArrowhead", "arrow")
-        self.points = []
+        self._start_binding = None
+        self._end_binding = None
+        self._start_arrowhead = config.get("start_arrowhead", None)
+        self._end_arrowhead = config.get("end_arrowhead", "arrow")
+        self._points = []
 
     def plot(self, points: list[tuple[float, float]]) -> Self:
-        self.points = points
+        self._points = points
         return self
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
         """Bind the arrow between two elements."""
         # Calculate the center positions of the start and end elements
-        start_center_x, start_center_y = self._get_element_center(start)
-        end_center_x, end_center_y = self._get_element_center(end)
+        start_center_x, start_center_y = self.__get_element_center(start)
+        end_center_x, end_center_y = self.__get_element_center(end)
 
         # Calculate edge points
-        start_x, start_y = self._calculate_edge_point(start, end_center_x, end_center_y)
-        end_x, end_y = self._calculate_edge_point(end, start_center_x, start_center_y)
+        start_x, start_y = self.__calculate_edge_point(start, end_center_x, end_center_y)
+        end_x, end_y = self.__calculate_edge_point(end, start_center_x, start_center_y)
 
         # Set arrow points relative to the arrow's position
-        self.points = [
+        self._points = [
             [0, 0],  # Start point at (0, 0)
             [end_x - start_x, end_y - start_y]  # End point relative to start
         ]
 
         # Set arrow position at the calculated start point
-        self.x = start_x
-        self.y = start_y
+        self._x = start_x
+        self._y = start_y
 
         # Set bindings
-        self.startBinding = {
-            "elementId": start.id,
+        self._start_binding = {
+            "elementId": start._id,
             "focus": 0,
             "gap": 1
         }
-        self.endBinding = {
-            "elementId": end.id,
+        self._end_binding = {
+            "elementId": end._id,
             "focus": 0,
             "gap": 1
         }
 
         # Add bound elements
-        start._addBoundElement(self)
-        end._addBoundElement(self)
+        start._add_bound_element(self)
+        end._add_bound_element(self)
 
         return self
 
-    def _get_element_center(self, element: AbstractElement) -> tuple[float, float]:
+    def __get_element_center(self, element: AbstractElement) -> tuple[float, float]:
         """Calculate the center of an element."""
         width = getattr(element, 'width', 0)
         height = getattr(element, 'height', 0)
-        center_x = element.x + width / 2
-        center_y = element.y + height / 2
+        center_x = element._x + width / 2
+        center_y = element._y + height / 2
         return center_x, center_y
 
-    def _calculate_edge_point(self, element: AbstractElement, target_x: float, target_y: float) -> tuple[float, float]:
+    def __calculate_edge_point(self, element: AbstractElement, target_x: float, target_y: float) -> tuple[float, float]:
         """Calculate the point on the edge of the element closest to the target point."""
-        x, y = element.x, element.y
+        x, y = element._x, element._y
         width = getattr(element, 'width', 0)
         height = getattr(element, 'height', 0)
-        center_x, center_y = self._get_element_center(element)
+        center_x, center_y = self.__get_element_center(element)
 
         dx = target_x - center_x
         dy = target_y - center_y

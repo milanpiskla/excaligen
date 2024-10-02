@@ -12,13 +12,13 @@ from ...config.Config import Config, DEFAULT_CONFIG
 class Image(AbstractShape):
     def __init__(self, listener: AbstractImageListener, loader: AbstractImageLoader, config: Config = DEFAULT_CONFIG):
         super().__init__("image", config)
-        self.fileId = str(uuid.uuid4())
-        self.scale = [1, 1]
-        self.status = "pending"
-        self.strokeColor = "#808080"
-        self.backgroundColor = "transparent"
-        self._listener = listener
-        self._loader = loader
+        self._file_id = str(uuid.uuid4())
+        self._scale = [1, 1]
+        self._status = "pending"
+        self._stroke_color = "#808080"
+        self._background_color = "transparent"
+        self.__listener = listener
+        self.__loader = loader
 
     def file(self, path: str) -> Self:
         """Load image data from a file and set it. Supports both SVG and binary image files."""
@@ -28,7 +28,7 @@ class Image(AbstractShape):
             # SVG files are handled as text
             with open(path, "r", encoding="utf-8") as svg_file:
                 svg_content = svg_file.read()
-            width, height = self._get_svg_size(svg_content)
+            width, height = self.__get_svg_size(svg_content)
             self.size(width, height)
             return self.data(svg_content)
         else:
@@ -36,8 +36,8 @@ class Image(AbstractShape):
             with open(path, "rb") as image_file:
                 binary_data = image_file.read()
             # Detect MIME type without imghdr
-            mime_type = self._detect_mime_type(binary_data)
-            width, height = self._detect_image_size(binary_data, mime_type)
+            mime_type = self.__detect_mime_type(binary_data)
+            width, height = self.__detect_image_size(binary_data, mime_type)
             self.size(width, height)
             return self.data(binary_data)
 
@@ -45,24 +45,24 @@ class Image(AbstractShape):
         """Set image data. Supports raw bytes for images and SVG strings."""
         if isinstance(data, str):
             # Validate and handle SVG data
-            if self._is_valid_svg(data):
-                width, height = self._get_svg_size(data)
+            if self.__is_valid_svg(data):
+                width, height = self.__get_svg_size(data)
                 self.size(width, height)
-                return self._set_svg_data(data)
+                return self.__set_svg_data(data)
             else:
                 raise ValueError("Invalid SVG data. Ensure the string is a well-formed SVG.")
         elif isinstance(data, bytes):
             # Handle binary image data (PNG, JPEG)
-            mime_type = self._detect_mime_type(data)
-            width, height = self._detect_image_size(data, mime_type)
+            mime_type = self.__detect_mime_type(data)
+            width, height = self.__detect_image_size(data, mime_type)
             self.size(width, height)
-            return self._set_binary_data(data)
+            return self.__set_binary_data(data)
         else:
             raise TypeError("Unsupported data type. Use 'bytes' for images and 'str' for SVG.")
 
     def fit(self, max_width: float, max_height: float) -> Self:
         """Scale the image to fit within a bounding box while maintaining aspect ratio."""
-        original_width, original_height = self.width, self.height
+        original_width, original_height = self._width, self._height
         
         if original_width == 0 or original_height == 0:
             raise ValueError("Cannot fit image with zero width or height.")
@@ -79,7 +79,7 @@ class Image(AbstractShape):
         # Update the size of the image
         return self.size(new_width, new_height)
 
-    def _get_svg_size(self, svg_data: str) -> tuple[float, float]:
+    def __get_svg_size(self, svg_data: str) -> tuple[float, float]:
         """Get the width and height of an SVG image from its string content.
 
         If width and height are not provided, fall back to viewBox. If neither is provided, return (0, 0).
@@ -111,7 +111,7 @@ class Image(AbstractShape):
         # Return default size if neither width/height nor viewBox are available or valid
         return 0, 0
 
-    def _get_png_size(self, data: bytes) -> tuple[int, int]:
+    def __get_png_size(self, data: bytes) -> tuple[int, int]:
         """Get the width and height of a PNG image from its binary data."""
         try:
             # PNG IHDR chunk starts at byte offset 8
@@ -120,7 +120,7 @@ class Image(AbstractShape):
         except struct.error:
             return 0, 0
 
-    def _get_jpeg_size(self, data: bytes) -> tuple[int, int]:
+    def __get_jpeg_size(self, data: bytes) -> tuple[int, int]:
         """Get the width and height of a JPEG image from its binary data."""
         index = 0
         data_len = len(data)
@@ -171,34 +171,34 @@ class Image(AbstractShape):
             # Not a JPEG file
             return 0, 0
             
-    def _detect_image_size(self, data: bytes, mime_type: str = None) -> tuple[int, int]:
+    def __detect_image_size(self, data: bytes, mime_type: str = None) -> tuple[int, int]:
         """Detect the size of an image based on its data and MIME type."""
         if not mime_type:
-            mime_type = self._detect_mime_type(data)
+            mime_type = self.__detect_mime_type(data)
 
         if mime_type == "image/png":
-            return self._get_png_size(data)
+            return self.__get_png_size(data)
         elif mime_type == "image/jpeg":
-            return self._get_jpeg_size(data)
+            return self.__get_jpeg_size(data)
         else:
             return 0, 0
 
-    def _is_valid_svg(self, data: str) -> bool:
+    def __is_valid_svg(self, data: str) -> bool:
         """Validate if the string is a well-formed SVG."""
         root = ET.fromstring(data)
         return root.tag == '{http://www.w3.org/2000/svg}svg'
 
-    def _set_svg_data(self, svg: str) -> Self:
+    def __set_svg_data(self, svg: str) -> Self:
         """Handle valid SVG string data."""
         mime_type = "image/svg+xml"
         content = base64.b64encode(svg.encode('utf-8')).decode('utf-8')
         data_url = f"data:{mime_type};base64,{content}"
-        self._listener.on_image(self.fileId, mime_type, data_url)
+        self.__listener.on_image(self._file_id, mime_type, data_url)
         return self
 
-    def _set_binary_data(self, data: bytes) -> Self:
+    def __set_binary_data(self, data: bytes) -> Self:
         """Handle binary image data (PNG, JPEG)."""
-        mime_type = self._detect_mime_type(data)
+        mime_type = self.__detect_mime_type(data)
         if mime_type is None:
             raise ValueError("Unsupported image format. Only SVG, PNG, and JPEG are supported.")
 
@@ -207,11 +207,11 @@ class Image(AbstractShape):
         data_url = f"data:{mime_type};base64,{encoded_data}"
         
         # Notify the listener with the image data
-        self._listener.on_image(self.fileId, mime_type, data_url)
+        self.__listener.on_image(self._file_id, mime_type, data_url)
         
         return self
 
-    def _detect_mime_type(self, data: bytes) -> str:
+    def __detect_mime_type(self, data: bytes) -> str:
         """Detect the MIME type of the image data."""
         if data.startswith(b'\x89PNG\r\n\x1a\n'):
             return 'image/png'

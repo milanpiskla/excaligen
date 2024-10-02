@@ -48,5 +48,5 @@ def test_image_fit(image_listener, image_loader):
     image_element = Image(image_listener, image_loader, DEFAULT_CONFIG)
     svg_data = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"></svg>'
     image_element.data(svg_data).fit(100, 100)
-    assert image_element.width == 100
-    assert image_element.height == 50
+    assert image_element._width == 100
+    assert image_element._height == 50

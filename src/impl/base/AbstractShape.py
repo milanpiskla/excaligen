@@ -7,37 +7,37 @@ from typing import Union
 class AbstractShape(AbstractElement):
     def __init__(self, type: str, config: Config):
         super().__init__(type, config)
-        self.width = config.get("width", 100)
-        self.height = config.get("height", 100)
-        self.strokeColor = config.get("strokeColor", "#000000")
-        self.strokeWidth = config.get("strokeWidth", 1)
-        self.strokeStyle = config.get("strokeStyle", "solid")
-        self.backgroundColor = config.get("backgroundColor", "transparent")
-        self.fillStyle = config.get("fillStyle", "hachure")
-        self.roughness = config.get("roughness", 1)
+        self._width = config.get("width", 100)
+        self._height = config.get("height", 100)
+        self._stroke_color = config.get("stroke_color", "#000000")
+        self._stroke_width = config.get("stroke_width", 1)
+        self._stroke_style = config.get("stroke_style", "solid")
+        self._background_color = config.get("background_color", "transparent")
+        self._fill_style = config.get("fill_Style", "hachure")
+        self._roughness = config.get("roughness", 1)
 
     def size(self, width: float, height: float) -> Self:
         """Set the shape size."""
-        self.width = width
-        self.height = height
+        self._width = width
+        self._height = height
         return self
 
     def color(self, color: str) -> Self:
         """Set the stroke (outline) color."""
-        self.strokeColor = color
+        self._stroke_color = color
         return self
 
     def thickness(self, thickness: Union[int, str]) -> Self:
         """Set the stroke thickness by int (1, 2, 3) or by string ('thin', 'bold', 'extra-bold')."""
         match thickness:
             case 1 | 2 | 3:
-                self.strokeWidth = thickness
+                self._stroke_width = thickness
             case "thin":
-                self.roughness = 0
+                self._roughness = 0
             case "bold":
-                self.roughness = 1
+                self._roughness = 1
             case "extra-bold":
-                self.roughness = 2
+                self._roughness = 2
             case _:
                 raise ValueError(f"Invalid thickness '{thickness}'. Use 1, 2, 3 or 'thin', 'bold', 'extra-bold'.")
         return self
@@ -46,13 +46,13 @@ class AbstractShape(AbstractElement):
         """Set the stroke sloppiness by int (0, 1, 2) or by string ('architect', 'artist', 'cartoonist')."""
         match value:
             case 0 | 1 | 2:
-                self.roughness = value
+                self._roughness = value
             case "architect":
-                self.roughness = 0
+                self._roughness = 0
             case "artist":
-                self.roughness = 1
+                self._roughness = 1
             case "cartoonist":
-                self.roughness = 2
+                self._roughness = 2
             case _:
                 raise ValueError(f"Invalid value '{value}' for sloppiness. Use 0, 1, 2 or 'architect', 'artist', 'cartoonist'.")
         return self
@@ -61,21 +61,21 @@ class AbstractShape(AbstractElement):
         """Set the stroke style (solid, dotted, dashed)."""
         match style:
             case "solid" | "dotted" | "dashed":
-                self.strokeStyle = style
+                self._stroke_style = style
             case _:
                 raise ValueError(f"Invalid style '{style}' for stroke. Use 'solid', 'dotted', 'dashed'.")
         return self
 
     def background(self, color: str) -> Self:
         """Set the background (fill) color."""
-        self.backgroundColor = color
+        self._background_color = color
         return self
 
     def fill(self, style: str) -> Self:
         """Set the fill style (hatchure, cross-hatch, solid)."""
         match style:
             case "hatchure" | "cross-hatch" | "solid":
-                self.fillStyle = style
+                self._fill_style = style
             case _:
                 raise ValueError(f"Invalid style '{style}' for fill. Use 'hatchure', 'cross-hatch', 'solid'.")
         return self
@@ -84,8 +84,8 @@ class AbstractShape(AbstractElement):
         #text._calculate_dimensions() # TODO is this needed?
         #text.width = min(self.width * 0.8, text.width)  # Fit within 80% of the shape width
         #text.height = min(self.height * 0.8, text.height)  # Fit within 80% of the shape height
-        text.x = self.x + (self.width - text.width) / 2  # Center horizontally
-        text.y = self.y + (self.height - text.height - text.lineHeight) / 2  # Center vertically
+        text._x = self._x + (self._width - text._width) / 2  # Center horizontally
+        text._y = self._y + (self._height - text._height - text._line_height) / 2  # Center vertically
 
-        self._addBoundElement(text)
+        self._add_bound_element(text)
         return self

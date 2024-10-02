@@ -25,50 +25,50 @@ class Text(AbstractElement):
 
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("text", config)
-        self.text = config.get("text", "")
-        self.fontSize = config.get("fontSize", 16)
-        self.fontFamily = config.get("fontFamily", 1)
-        self.textAlign = config.get("textAlign", "center")
-        self.verticalAlign = config.get("verticalAlign", "middle")
-        self.lineHeight = config.get("lineHeight", 1.25)
-        self.autoResize = config.get("autoResize", True)
-        self.strokeColor = config.get("strokeColor", "#000000")  # Default to black
-        self.width = config.get("width", 100)
-        self.height = config.get("height", 100)
+        self._text = config.get("text", "")
+        self._font_size = config.get("font_size", 16)
+        self._font_family = config.get("font_family", 1)
+        self._text_align = config.get("text_align", "center")
+        self._vertical_align = config.get("vertical_align", "middle")
+        self._line_height = config.get("line_height", 1.25)
+        self._auto_resize = config.get("auto_resize", True)
+        self._stroke_color = config.get("stroke_color", "#000000")  # Default to black
+        self._width = config.get("width", 100)
+        self._height = config.get("height", 100)
 
     def content(self, text: str) -> Self:
         """Set the text content and automatically calculate width and height."""
-        self.text = text
-        self._calculate_dimensions()
+        self._text = text
+        self.__calculate_dimensions()
         return self
 
-    def _calculate_dimensions(self):
+    def __calculate_dimensions(self):
         """Calculate the width and height based on the text content."""
-        lines = self.text.split("\n")
-        self.width = max(len(line) for line in lines) * self.fontSize * self.CHAR_WIDTH_FACTOR
-        self.height = len(lines) * self.fontSize * self.LINE_HEIGHT_FACTOR
+        lines = self._text.split("\n")
+        self._width = max(len(line) for line in lines) * self._font_size * self.CHAR_WIDTH_FACTOR
+        self._height = len(lines) * self._font_size * self.LINE_HEIGHT_FACTOR
 
     def fontsize(self, size: Union[int, str]) -> Self:
         """Set the font size by int or by string ('S', 'M', 'L', 'XL')."""
         if isinstance(size, int):
-            self.fontSize = size
+            self._font_size = size
         elif isinstance(size, str):
             original_size = size
             size = size.lower()
             if size in self.SIZE_MAPPING:
-                self.fontSize = self.SIZE_MAPPING[size]
+                self._font_size = self.SIZE_MAPPING[size]
             else:
                 raise ValueError(f"Invalid size '{original_size}'. Use 'S', 'M', 'L', 'XL'.")
         else:
             raise TypeError("Font size must be an int or one of 'S', 'M', 'L', 'XL'.")
-        self._calculate_dimensions()  # Recalculate dimensions when font size changes
+        self.__calculate_dimensions()  # Recalculate dimensions when font size changes
         return self
 
     def font(self, family: str) -> Self:
         """Set the font family ('Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code')."""
         family = family.lower().replace(" ", "-")
         if family in self.FONT_MAPPING:
-            self.fontFamily = self.FONT_MAPPING[family]
+            self._font_family = self.FONT_MAPPING[family]
         else:
             raise ValueError(f"Invalid font '{family}'. Use 'Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code'.")
         return self
@@ -77,7 +77,7 @@ class Text(AbstractElement):
         """Set the horizontal text alignment (left, center, right)."""
         match align:
             case "left" | "center" | "right":
-                self.textAlign = align
+                self._text_align = align
             case _:
                 raise ValueError(f"Invalid alignment '{align}'. Use 'left', 'center', 'right'.")
         return self
@@ -86,22 +86,22 @@ class Text(AbstractElement):
         """Set the vertical text alignment (top, middle, bottom)."""
         match align:
             case "top" | "middle" | "bottom":
-                self.verticalAlign = align
+                self._vertical_align = align
             case _:
                 raise ValueError(f"Invalid vertical alignment '{align}'. Use 'top', 'middle', 'bottom'.")
         return self
 
     def spacing(self, height: float) -> Self:
         """Set the line height manually."""
-        self.lineHeight = height
+        self._line_height = height
         return self
 
     def autoresize(self, enabled: bool) -> Self:
         """Enable or disable automatic text box resizing."""
-        self.autoResize = enabled
+        self._auto_resize = enabled
         return self
 
     def color(self, color: str) -> Self:
         """Set the text color."""
-        self.strokeColor = color
+        self._stroke_color = color
         return self

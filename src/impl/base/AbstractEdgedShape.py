@@ -5,15 +5,15 @@ from typing import Self
 class AbstractEdgedShape(AbstractShape):
     def __init__(self, type: str, config: Config):
         super().__init__(type, config)
-        self.roundness = config.get("roundness", None)
+        self._roundness = config.get("roundness", None)
 
     def edges(self, edges: str) -> Self:
         """Set the roundness style (sharp, round)."""
         match edges:
             case "sharp":
-                self.roundness = None
+                self._roundness = None
             case "round":
-                self.roundness = { "type": 3 }
+                self._roundness = { "type": 3 }
             case _:
                 raise ValueError(f"Invalid edges '{edges}'. Use 'sharp', 'round'")
         return self

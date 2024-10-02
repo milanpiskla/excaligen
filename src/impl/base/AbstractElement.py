@@ -3,41 +3,38 @@ from typing import Self
 from ...config.Config import Config
 
 class AbstractElement:
-    """Base class for all Excalidraw elements"""
+    """Base class for all Excalidraw elements."""
 
-    def __init__(self, type: str, config: Config):
-        self.type = type
-        self.id = str(uuid.uuid4())
-        self.seed = int(uuid.uuid4().int % 1000000000)
-        self.version = 1
-        self.versionNonce = int(uuid.uuid4().int % 1000000000)
-        self.isDeleted = False
-        self.x = config.get("x", 0)
-        self.y = config.get("y", 0)
-        self.opacity = config.get("opacity", 100)
-        self.angle = config.get("angle", 0)
-        self.index = config.get("index", None)
-        self.groupIds = config.get("groupIds", [])
-        self.frameId = config.get("frameId", None)
-        self.link = config.get("link", None)
-        self.boundElements = None
+    def __init__(self, element_type: str, config: Config):
+        self._type = element_type
+        self._id = str(uuid.uuid4())
+        self._seed = int(uuid.uuid4().int % 1000000000)
+        self._version = 1
+        self._version_nonce = int(uuid.uuid4().int % 1000000000)
+        self._is_deleted = False
+        self._x = config.get("x", 0)
+        self._y = config.get("y", 0)
+        self._opacity = config.get("opacity", 100)
+        self._angle = config.get("angle", 0)
+        self._index = config.get("index", None)
+        self._group_ids = config.get("group_ids", [])
+        self._frame_id = config.get("frame_id", None)
+        self._link = config.get("link", None)
+        self._bound_elements = None
 
     def position(self, x: float, y: float) -> Self:
-        self.x = x
-        self.y = y
-        
+        self._x = x
+        self._y = y
         return self
 
     def rotate(self, angle: float) -> Self:
-        self.angle = angle
-
+        self._angle = angle
         return self
 
     def fade(self, opacity: float) -> Self:
-        self.opacity = opacity
-
+        self._opacity = opacity
         return self
-    
-    def _addBoundElement(self, element: "AbstractElement") -> None:
-        self.boundElements = self.boundElements or []
-        self.boundElements.append({"id": element.id, "type": element.type})
+
+    def _add_bound_element(self, element: "AbstractElement") -> None:
+        self._bound_elements = self._bound_elements or []
+        self._bound_elements.append({"id": element._id, "type": element._type})
