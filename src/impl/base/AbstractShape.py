@@ -9,11 +9,11 @@ class AbstractShape(AbstractElement):
         super().__init__(type, config)
         self._width = config.get("width", 100)
         self._height = config.get("height", 100)
-        self._stroke_color = config.get("stroke_color", "#000000")
-        self._stroke_width = config.get("stroke_width", 1)
-        self._stroke_style = config.get("stroke_style", "solid")
-        self._background_color = config.get("background_color", "transparent")
-        self._fill_style = config.get("fill_Style", "hachure")
+        self._stroke_color = config.get("strokeColor", "#000000")
+        self._stroke_width = config.get("strokeWidth", 1)
+        self._stroke_style = config.get("strokeStyle", "solid")
+        self._background_color = config.get("backgroundColor", "transparent")
+        self._fill_style = config.get("fillStyle", "hachure")
         self._roughness = config.get("roughness", 1)
 
     def size(self, width: float, height: float) -> Self:

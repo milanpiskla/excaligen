@@ -21,7 +21,7 @@ def test_add_text():
     xd = Excalidraw()
     text = xd.text().content("Hello, Excalidraw!")
     assert text._text == "Hello, Excalidraw!"
-    assert text._font_size == DEFAULT_CONFIG['font_size']
+    assert text._font_size == DEFAULT_CONFIG['fontSize']
     assert len(xd._elements) == 1
     assert xd._elements[0]._type == "text"
 

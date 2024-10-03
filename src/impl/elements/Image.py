@@ -18,7 +18,7 @@ class Image(AbstractShape):
         self._stroke_color = "#808080"
         self._background_color = "transparent"
         self.__listener = listener
-        self.__loader = loader
+        # self.__loader = loader TODO delegate the below functionality to ImageLoader
 
     def file(self, path: str) -> Self:
         """Load image data from a file and set it. Supports both SVG and binary image files."""

@@ -9,8 +9,8 @@ class Arrow(AbstractElement):
         super().__init__("arrow", config)
         self._start_binding = None
         self._end_binding = None
-        self._start_arrowhead = config.get("start_arrowhead", None)
-        self._end_arrowhead = config.get("end_arrowhead", "arrow")
+        self._start_arrowhead = config.get("startArrowhead", None)
+        self._end_arrowhead = config.get("endArrowhead", "arrow")
         self._points = []
 
     def plot(self, points: list[tuple[float, float]]) -> Self:

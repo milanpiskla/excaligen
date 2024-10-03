@@ -26,13 +26,13 @@ class Text(AbstractElement):
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("text", config)
         self._text = config.get("text", "")
-        self._font_size = config.get("font_size", 16)
-        self._font_family = config.get("font_family", 1)
-        self._text_align = config.get("text_align", "center")
-        self._vertical_align = config.get("vertical_align", "middle")
-        self._line_height = config.get("line_height", 1.25)
-        self._auto_resize = config.get("auto_resize", True)
-        self._stroke_color = config.get("stroke_color", "#000000")  # Default to black
+        self._font_size = config.get("fontSize", 16)
+        self._font_family = config.get("fontFamily", 1)
+        self._text_align = config.get("textAlign", "center")
+        self._vertical_align = config.get("verticalAlign", "middle")
+        self._line_height = config.get("lineHeight", 1.25)
+        self._auto_resize = config.get("autoResize", True)
+        self._stroke_color = config.get("strokeColor", "#000000")  # Default to black
         self._width = config.get("width", 100)
         self._height = config.get("height", 100)
 
