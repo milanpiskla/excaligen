@@ -33,7 +33,7 @@ class ExcalidrawStructure(AbstractImageListener):
                 result = {}
                 for attr_name, value in obj.__dict__.items():
                     # Only include attributes starting with a single underscore
-                    if attr_name.startswith('_') and not attr_name.startswith('__'):
+                    if attr_name.startswith('_') and not '__' in attr_name:
                         # Strip the leading underscore and convert to camelCase
                         json_key = self._snake_to_camel(attr_name.lstrip('_'))
                         # Recursively encode value if necessary

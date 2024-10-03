@@ -57,8 +57,8 @@ class Arrow(AbstractElement):
 
     def __get_element_center(self, element: AbstractElement) -> tuple[float, float]:
         """Calculate the center of an element."""
-        width = getattr(element, 'width', 0)
-        height = getattr(element, 'height', 0)
+        width = getattr(element, '_width', 0)
+        height = getattr(element, '_height', 0)
         center_x = element._x + width / 2
         center_y = element._y + height / 2
         return center_x, center_y
@@ -66,8 +66,8 @@ class Arrow(AbstractElement):
     def __calculate_edge_point(self, element: AbstractElement, target_x: float, target_y: float) -> tuple[float, float]:
         """Calculate the point on the edge of the element closest to the target point."""
         x, y = element._x, element._y
-        width = getattr(element, 'width', 0)
-        height = getattr(element, 'height', 0)
+        width = getattr(element, '_width', 0)
+        height = getattr(element, '_height', 0)
         center_x, center_y = self.__get_element_center(element)
 
         dx = target_x - center_x
