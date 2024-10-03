@@ -99,18 +99,18 @@ class ExcalidrawStructure(AbstractImageListener):
     def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)
 
-    def save(self, file: str) -> Self:
+    def save(self, file_path: str) -> Self:
         try:
-            with open(file, 'w', encoding='utf-8') as file:
+            with open(file_path, 'w', encoding='utf-8') as file:
                 file.write(self.json())
                 return self
 
         except Exception as e:
-            print(f"Error Writing '{file}': {e}")      
+            print(f"Error Writing '{file_path}': {e}")      
             return self  
 
     def on_image(self, id: str, mime_type: str, data_url: str) -> None:
-        self.files[id] = {
+        self._files[id] = {
             "mimeType": mime_type,
             "id": id,
             "dataURL": data_url

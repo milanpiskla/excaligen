@@ -6,5 +6,6 @@ xd.image().data('<svg xmlns="http://www.w3.org/2000/svg" id="mdi-home" viewBox="
 xd.image().file('../symboliq/static/assets/material_design/wifi.svg').position(150, 200).fit(100, 100)
 xd.image().file('c:/Users/Milan/Pictures/home.png').position(-150, 200).fit(100, 100)
 xd.image().file('c:/Users/Milan/Pictures/Unity-logo.jpg').position(-150, -200).fit(100, 100)
+xd.image().file('c:/Users/Milan/Pictures/arrow-point.gif').position(150, -200).fit(100, 100)
 
 xd.save('image.excalidraw')
