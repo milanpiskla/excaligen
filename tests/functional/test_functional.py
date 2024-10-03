@@ -4,11 +4,12 @@ import os
 from typing import Dict, Any
 from src.Excalidraw import Excalidraw
 from tests.functional.ExcalidrawComparator import ExcalidrawComparator
+from pytest import FixtureRequest
 
 import math
 
 @pytest.fixture
-def reference_json(request) -> Dict[str, Any]:
+def reference_json(request: FixtureRequest) -> Dict[str, Any]:
     """
     Load the reference JSON file for the test.
     The name of the reference file is derived from the test name.
@@ -19,7 +20,7 @@ def reference_json(request) -> Dict[str, Any]:
     with open(reference_file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def evaluate(reference_json: Dict[str, Any], xd: Excalidraw, request) -> None:
+def evaluate(reference_json: Dict[str, Any], xd: Excalidraw, request: FixtureRequest) -> None:
     generated_json = json.loads(xd.json())
     comparator = ExcalidrawComparator(
         ignore_fields={'version', 'versionNonce', 'seed'}
@@ -36,12 +37,7 @@ def evaluate(reference_json: Dict[str, Any], xd: Excalidraw, request) -> None:
             f.write(xd.json())
         assert False, f"Generated JSON does not match the reference JSON. See '{generated_file}' for details."
 
-    assert comparator.compare(
-        reference_json,
-        generated_json
-    ), "Generated JSON does not match the reference JSON"
-
-def test_arrow_star(reference_json: Dict[str, Any], request) -> None:
+def test_arrow_star(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
     xd = Excalidraw()
 
     start_element = xd.ellipse().position(-50, -50).size(100, 100).label(xd.text().content("center"))
@@ -54,21 +50,21 @@ def test_arrow_star(reference_json: Dict[str, Any], request) -> None:
 
     evaluate(reference_json, xd, request)
 
-def test_texts(reference_json: Dict[str, Any], request) -> None:
+def test_texts(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
     xd = Excalidraw()
     xd.text().content("Hello, World!").fontsize("L").font("Hand-drawn").align("center").baseline("top").spacing(1.5).color("#FF0000")
     xd.text().position(100, 100).content("Hello, Excalifont!").fontsize(40).font("excalifont").align("center").baseline("top").spacing(1.5).color("#0000FF").autoresize(True)
 
     evaluate(reference_json, xd, request)
 
-def test_labels(reference_json: Dict[str, Any], request) -> None:
+def test_labels(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
     xd = Excalidraw()
     label = xd.text().content("Hello, World!").fontsize("M").font("Hand-drawn").spacing(1.5).color("#FF0000")
     xd.rectangle().position(10, 20).size(300, 100).label(label)
 
     evaluate(reference_json, xd, request)
 
-def test_sandbox(reference_json: Dict[str, Any], request) -> None:
+def test_sandbox(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
     xd = Excalidraw()
 
     def cross(center: tuple[float, float], color: str) -> None:
