@@ -3,11 +3,9 @@
 If you love Excalidraw as much as I do and wish you could automate your diagram creation, this library is for you.
 Now you can generate complex diagrams programmatically—perfect for automating workflows, generating reports, or just having fun with code.
 
----
 ## Why This Library?
 Excalidraw is an amazing tool for sketching diagrams and visualizing ideas. However, creating diagrams programmatically isn't fully supported out of the box. This library bridges that gap, allowing you to generate Excalidraw-compatible JSON files with Python code.
 
----
 ## Features 🚀
 - Programmatic Diagram Creation: Build diagrams using Python—add shapes, text, images, and more.
 - Full Customization: Control position, size, colors, opacity, and styles.
@@ -15,7 +13,6 @@ Excalidraw is an amazing tool for sketching diagrams and visualizing ideas. Howe
 - Group and Frame Elements: Organize your diagrams better.
 - Export to Excalidraw: Generate JSON files ready to be imported into Excalidraw.
 
----
 ## Installation 🛠️
 Clone the repository:
 ```
@@ -27,7 +24,6 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
----
 ## Quick Start 🌟
 Here's how to get started:
 
@@ -48,7 +44,6 @@ xd.save('my_diagram.excalidraw')
 ```
 Open my_diagram.excalidraw in the Excalidraw web app to see your creation!
 
----
 ## Supported Elements 🎨
 - Shapes: Rectangle, Diamond, Ellipse, Line, Arrow
 - Text: Customizable fonts, sizes, and alignments
@@ -56,7 +51,6 @@ Open my_diagram.excalidraw in the Excalidraw web app to see your creation!
 - Groups: Organize elements together
 - Frames: Encapsulate content within frames
 
----
 ## Customization Options 🧩
 Each element can be customized:
 
@@ -73,7 +67,6 @@ Example:
 xd.arrow().position(150, 150).size(100, 0).color("#0000FF").thickness(2).stroke("dashed")
 ```
 
----
 ## Image Handling 🖼️
 Add images to your diagrams:
 ```Python
@@ -84,7 +77,6 @@ xd.image().file('path/to/image.svg').position(50, 300).fit(200, 200)
 xd.image().file('path/to/image.png').position(300, 300).fit(150, 150)
 ```
 
----
 ## Configuration ⚙️
 Customize default settings using the Config class:
 ```Python
@@ -99,7 +91,6 @@ custom_config = Config({
 xd.config(custom_config)
 ```
 
----
 ## Exporting 📤
 Export your diagram:
 ```Python
@@ -110,9 +101,8 @@ Or just get the JSON string:
 json_data = xd.json()
 ```
 
----
 ## About the Author ✍️
-My name is Milan Piskla, I love Excalidraw and wanted to make it easier to generate diagrams programmatically. This library is the result of my passion, aiming to help others automate and enhance their diagram creation process.✨
+My name is Milan Piskla. My career as a developer is over; now I'm just coding for fun 😊.
 
 
 
