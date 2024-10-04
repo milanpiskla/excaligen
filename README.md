@@ -16,8 +16,8 @@ Excalidraw is an amazing tool for sketching diagrams and visualizing ideas. Howe
 ## Installation 🛠️
 Clone the repository:
 ```
-git clone https://github.com/yourusername/excalidraw-file-generator.git
-cd excalidraw-file-generator
+git clone https://github.com/milanpiskla/excaligen.git
+cd excaligen
 ```
 Install dependencies:
 ```
@@ -37,12 +37,14 @@ xd = Excalidraw()
 xd.rectangle().position(50, 50).size(200, 100).color("#FF5733").background("#C70039")
 
 # Add text
-xd.text().content("Hello, Excalidraw!").position(100, 200).fontsize(24).color("#154360")
+xd.text().content("Hello, Excalidraw!").position(50, 0).fontsize(24).color("#154360")
 
-# Export to JSON file
+# Export to file
 xd.save('my_diagram.excalidraw')
 ```
 Open my_diagram.excalidraw in the Excalidraw web app to see your creation!
+
+![example](./assets/example.png)
 
 ## Supported Elements 🎨
 - Shapes: Rectangle, Diamond, Ellipse, Line, Arrow
