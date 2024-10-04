@@ -31,7 +31,7 @@ class AbstractElement:
         self._angle = angle
         return self
 
-    def fade(self, opacity: float) -> Self:
+    def opacity(self, opacity: float) -> Self:
         self._opacity = opacity
         return self
 

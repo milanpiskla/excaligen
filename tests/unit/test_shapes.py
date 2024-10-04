@@ -149,9 +149,9 @@ def test_text_autoresize():
     text = Text(DEFAULT_CONFIG).autoresize(False)
     assert text._auto_resize is False
 
-def test_arrow_plot():
+def test_arrow_points():
     arrow = Arrow(DEFAULT_CONFIG)
-    arrow.plot([(0, 0), (100, 100)])
+    arrow.points([(0, 0), (100, 100)])
     assert arrow._points == [(0, 0), (100, 100)]
 
 def test_arrow_bind():
@@ -238,9 +238,9 @@ def test_diamond():
     assert diamond._width == 80
     assert diamond._height == 80
 
-def test_line_plot():
+def test_line_points():
     line = Line(DEFAULT_CONFIG)
-    line.plot([(0, 0), (50, 50), (100, 0)])
+    line.points([(0, 0), (50, 50), (100, 0)])
     assert line._points == [(0, 0), (50, 50), (100, 0)]
 
 def test_line_color():

@@ -13,7 +13,7 @@ class Arrow(AbstractElement):
         self._end_arrowhead = config.get("endArrowhead", "arrow")
         self._points = []
 
-    def plot(self, points: list[tuple[float, float]]) -> Self:
+    def points(self, points: list[tuple[float, float]]) -> Self:
         self._points = points
         return self
 

@@ -1,3 +1,9 @@
+"""Excalidraw files generator.
+
+This module defines the Excalidraw class, which serves as the main interface with fluent API for creating
+Excalidraw diagram. 
+"""
+
 from .impl.base.ExcalidrawStructure import ExcalidrawStructure
 from .config.Config import Config
 from .impl.elements.Rectangle import Rectangle
@@ -13,6 +19,11 @@ from .impl.elements.Frame import Frame
 from typing import Self
 
 class Excalidraw(ExcalidrawStructure):
+    """The Excalidraw class provides methods to add various diagram elements.
+
+    The elemnts include rectangles, diamonds, ellipses, arrows, lines, text, images, groups, and frames.
+    Additionally, it offers serialization of the diagram to JSON and allows saving it to a file.
+    """
     def __init__(self):
         super().__init__()
 

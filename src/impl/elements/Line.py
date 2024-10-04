@@ -7,7 +7,7 @@ class Line(AbstractElement):
         super().__init__("line", config)
         self._points = config.get("points", [])
 
-    def plot(self, points: list[tuple[float, float]]) -> Self:
+    def points(self, points: list[tuple[float, float]]) -> Self:
         self._points = points
         return self
 
