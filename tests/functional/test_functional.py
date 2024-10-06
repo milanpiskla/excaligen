@@ -45,7 +45,7 @@ def test_arrow_star(reference_json: Dict[str, Any], request: FixtureRequest) -> 
     for angle in range(0, 360, 30):
         x = 300 * math.cos(angle * math.pi / 180)
         y = 300 * math.sin(angle * math.pi / 180)
-        end_element = xd.rectangle().position(x - 50, y - 25).size(100, 50).label(xd.text().content(str(angle))).edges('round')
+        end_element = xd.rectangle().position(x - 50, y - 25).size(100, 50).label(xd.text().content(str(angle))).roudness('round')
         xd.arrow().bind(start_element, end_element)
 
     evaluate(reference_json, xd, request)
@@ -87,6 +87,6 @@ def test_lines(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
 
     xd.line().color('#00FF00').points([(0, 0), (100, 50)]).sloppiness(2).stroke('solid')
     xd.line().color('#0000FF').points([(0, 0), (100, -50)]).sloppiness(0).stroke('dotted')
-    xd.line().color('#FF0000').points([(0, 0), (-100, -50), (-100, 50)]).sloppiness(0).stroke('dashed').edges('round')
+    xd.line().color('#FF0000').points([(0, 0), (-100, -50), (-100, 50)]).sloppiness(0).stroke('dashed').roundness('round')
 
     evaluate(reference_json, xd, request)

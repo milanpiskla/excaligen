@@ -85,13 +85,13 @@ def test_rectangle_label():
 
 def test_rectangle_edges_valid():
     rect = Rectangle(DEFAULT_CONFIG)
-    rect.edges("round")
+    rect.roudness("round")
     assert rect._roundness == {"type": 3}
 
 def test_rectangle_edges_invalid():
     rect = Rectangle(DEFAULT_CONFIG)
     with pytest.raises(ValueError, match="Invalid edges 'curved'. Use 'sharp', 'round'"):
-        rect.edges("curved")
+        rect.roudness("curved")
 
 def test_text_content():
     text = Text(DEFAULT_CONFIG).content("Sample Text")

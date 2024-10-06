@@ -12,13 +12,13 @@ class Line(AbstractStrokedElement):
         self._points = points
         return self
 
-    def edges(self, edges: str) -> Self:
+    def roundness(self, roundness: str) -> Self:
         """Set the roundness style (sharp, round)."""
-        match edges:
+        match roundness:
             case "sharp":
                 self._roundness = None
             case "round":
                 self._roundness = { "type": 3 }
             case _:
-                raise ValueError(f"Invalid edges '{edges}'. Use 'sharp', 'round'")
+                raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
         return self
