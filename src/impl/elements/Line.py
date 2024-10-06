@@ -1,8 +1,8 @@
-from ..base.AbstractElement import AbstractElement
+from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ...config.Config import Config, DEFAULT_CONFIG
 from typing import Self
 
-class Line(AbstractElement):
+class Line(AbstractStrokedElement):
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("line", config)
         self._points = config.get("points", [])

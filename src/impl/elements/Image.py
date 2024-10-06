@@ -1,19 +1,20 @@
 import uuid
 from typing import Self, Union
-from ..base.AbstractShape import AbstractShape
+from ..base.AbstractElement import AbstractElement
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
 from ..base.ImageData import ImageData
 from ...config.Config import Config, DEFAULT_CONFIG
 
-class Image(AbstractShape):
+class Image(AbstractElement):
     def __init__(self, listener: AbstractImageListener, loader: AbstractImageLoader, config: Config = DEFAULT_CONFIG):
         super().__init__("image", config)
         self._file_id = str(uuid.uuid4())
         self._scale = [1, 1]
         self._status = "pending"
-        self._stroke_color = "#808080"
         self._background_color = "transparent"
+        self._width = 0
+        self._height = 0
         self.__listener = listener
         self.__loader = loader
 
@@ -31,7 +32,7 @@ class Image(AbstractShape):
 
     def _apply_image_data(self, image_data: ImageData) -> None:
         """Apply image data to the Image element."""
-        self.size(image_data.width, image_data.height)
+        self._size(image_data.width, image_data.height)
         self.__listener.on_image(self._file_id, image_data.mime_type, image_data.data_url)
 
     def fit(self, max_width: float, max_height: float) -> Self:
@@ -48,4 +49,10 @@ class Image(AbstractShape):
         new_width = original_width * scaling_factor
         new_height = original_height * scaling_factor
 
-        return self.size(new_width, new_height)
+        return self._size(new_width, new_height)
+
+    def _size(self, width: float, height: float) -> Self:
+        """Set the shape size."""
+        self._width = width
+        self._height = height
+        return self

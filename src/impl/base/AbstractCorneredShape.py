@@ -1,8 +1,9 @@
+from .AbstractStrokedElement import AbstractStrokedElement
 from .AbstractShape import AbstractShape
 from ...config.Config import Config
 from typing import Self
 
-class AbstractEdgedShape(AbstractShape):
+class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
     def __init__(self, type: str, config: Config):
         super().__init__(type, config)
         self._roundness = config.get("roundness", None)

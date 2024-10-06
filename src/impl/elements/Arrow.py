@@ -1,10 +1,10 @@
 import math
 from ..base.AbstractElement import AbstractElement
-from ..base.AbstractShape import AbstractShape
+from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ...config.Config import Config, DEFAULT_CONFIG
 from typing import Self
 
-class Arrow(AbstractElement):
+class Arrow(AbstractStrokedElement):
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("arrow", config)
         self._start_binding = None
