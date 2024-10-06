@@ -81,3 +81,12 @@ def test_sandbox(reference_json: Dict[str, Any], request: FixtureRequest) -> Non
     xd.text().position(0, 0).content('Center').fontsize('L').align('center').baseline('middle').rotate(3.14 / 4)
 
     evaluate(reference_json, xd, request)
+
+def test_lines(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+    xd = Excalidraw()
+
+    xd.line().color('#00FF00').points([(0, 0), (100, 50)]).sloppiness(2).stroke('solid')
+    xd.line().color('#0000FF').points([(0, 0), (100, -50)]).sloppiness(0).stroke('dotted')
+    xd.line().color('#FF0000').points([(0, 0), (-100, -50), (-100, 50)]).sloppiness(0).stroke('dashed').edges('round')
+
+    evaluate(reference_json, xd, request)

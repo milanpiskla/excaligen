@@ -1,0 +1,114 @@
+{
+    "type": "excalidraw",
+    "version": 2,
+    "source": "https://excalidraw.com",
+    "elements": [
+      {
+        "type": "line",
+        "id": "ea533646-9880-426e-9ba6-8583d56a7fe5",
+        "seed": 306171536,
+        "version": 1,
+        "versionNonce": 419726146,
+        "isDeleted": false,
+        "x": 0,
+        "y": 0,
+        "opacity": 100,
+        "angle": 0,
+        "index": null,
+        "groupIds": [],
+        "frameId": null,
+        "link": null,
+        "boundElements": null,
+        "strokeColor": "#00FF00",
+        "strokeWidth": 1,
+        "strokeStyle": "solid",
+        "roughness": 2,
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            100,
+            50
+          ]
+        ],
+        "roundness": null
+      },
+      {
+        "type": "line",
+        "id": "aa6ecf46-a014-4153-b53e-c29c9b43c11f",
+        "seed": 90559636,
+        "version": 1,
+        "versionNonce": 126676809,
+        "isDeleted": false,
+        "x": 0,
+        "y": 0,
+        "opacity": 100,
+        "angle": 0,
+        "index": null,
+        "groupIds": [],
+        "frameId": null,
+        "link": null,
+        "boundElements": null,
+        "strokeColor": "#0000FF",
+        "strokeWidth": 1,
+        "strokeStyle": "dotted",
+        "roughness": 0,
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            100,
+            -50
+          ]
+        ],
+        "roundness": null
+      },
+      {
+        "type": "line",
+        "id": "f74e6c64-86d5-4038-b68e-82bbb3026043",
+        "seed": 501047924,
+        "version": 1,
+        "versionNonce": 373077066,
+        "isDeleted": false,
+        "x": 0,
+        "y": 0,
+        "opacity": 100,
+        "angle": 0,
+        "index": null,
+        "groupIds": [],
+        "frameId": null,
+        "link": null,
+        "boundElements": null,
+        "strokeColor": "#FF0000",
+        "strokeWidth": 1,
+        "strokeStyle": "dashed",
+        "roughness": 0,
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            -100,
+            -50
+          ],
+          [
+            -100,
+            50
+          ]
+        ],
+        "roundness": {
+          "type": 3
+        }
+      }
+    ],
+    "appState": {
+      "gridSize": null,
+      "viewBackgroundColor": "#ffffff"
+    },
+    "files": {}
+  }
