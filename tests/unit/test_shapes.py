@@ -246,3 +246,16 @@ def test_line_points():
 def test_line_color():
     line = Line(DEFAULT_CONFIG).color("#ABCDEF")
     assert line._stroke_color == "#ABCDEF"
+
+def test_center():
+    rect = Rectangle(DEFAULT_CONFIG).position(12, 23).center(10, 20).size(210, 108)
+    assert rect._x == 10 - 0.5 * 210
+    assert rect._y == 20 - 0.5 * 108
+
+    rect = Rectangle(DEFAULT_CONFIG).position(12, 23).size(210, 108).center(10, 20)
+    assert rect._x == 10 - 0.5 * 210
+    assert rect._y == 20 - 0.5 * 108
+
+    rect = Rectangle(DEFAULT_CONFIG).center(10, 20).size(210, 108)
+    assert rect._x == 10 - 0.5 * 210
+    assert rect._y == 20 - 0.5 * 108
