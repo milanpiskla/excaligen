@@ -1,4 +1,5 @@
 from .AbstractElement import AbstractElement
+from ..ElementCenterer import ElementCenterer
 from ...config.Config import Config
 from typing import Self
 
@@ -9,12 +10,11 @@ class AbstractShape(AbstractElement):
         self._height = config.get("height", 100)
         self._background_color = config.get("backgroundColor", "transparent")
         self._fill_style = config.get("fillStyle", "hachure")
-        self._is_centered__ = False
+        self.__centerer = ElementCenterer(self)
 
     def size(self, width: float, height: float) -> Self:
         """Set the shape size."""
-        if self._is_centered__:
-            self._set_position_for_new_size(width, height)
+        self.__centerer.size(width, height)
 
         self._width = width
         self._height = height
@@ -23,8 +23,7 @@ class AbstractShape(AbstractElement):
 
     def center(self, x: float, y: float) -> Self:
         """Set the center coordinates of the shape"""
-        self._is_centered__ = True
-        self._set_position_for_new_center(x, y)
+        self.__centerer.center(x, y)
 
         return self
 
@@ -41,13 +40,4 @@ class AbstractShape(AbstractElement):
             case _:
                 raise ValueError(f"Invalid style '{style}' for fill. Use 'hatchure', 'cross-hatch', 'solid'.")
         return self
-    
-    def _set_position_for_new_center(self, x: float, y: float) -> None:
-        self._x = x - 0.5 * self._width
-        self._y = y - 0.5 * self._height
-
-    def _set_position_for_new_size(self, width: float, height: float) -> None:
-        self._x = self._x + 0.5 * self._width - 0.5 * width
-        self._y = self._y + 0.5 * self._height - 0.5 * height
-
 

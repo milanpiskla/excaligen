@@ -1,6 +1,7 @@
 import uuid
 from typing import Self, Union
 from ..base.AbstractElement import AbstractElement
+from ..ElementCenterer import ElementCenterer
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
 from ..base.ImageData import ImageData
@@ -17,6 +18,7 @@ class Image(AbstractElement):
         self._height = 0
         self.__listener = listener
         self.__loader = loader
+        self.__centerer = ElementCenterer(self)
 
     def file(self, path: str) -> Self:
         """Load image data from a file and set it."""
@@ -34,6 +36,12 @@ class Image(AbstractElement):
         """Apply image data to the Image element."""
         self._size(image_data.width, image_data.height)
         self.__listener.on_image(self._file_id, image_data.mime_type, image_data.data_url)
+
+    def center(self, x: float, y: float) -> Self:
+        """Set the center coordinates of the image"""
+        self.__centerer.center(x, y)
+
+        return self
 
     def fit(self, max_width: float, max_height: float) -> Self:
         """Scale the image to fit within a bounding box while maintaining aspect ratio."""
@@ -53,6 +61,7 @@ class Image(AbstractElement):
 
     def _size(self, width: float, height: float) -> Self:
         """Set the shape size."""
+        self.__centerer.size(width, height)
         self._width = width
         self._height = height
         return self

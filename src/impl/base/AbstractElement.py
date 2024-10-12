@@ -12,8 +12,8 @@ class AbstractElement:
         self._version = 1
         self._version_nonce = int(uuid.uuid4().int % 1000000000)
         self._is_deleted = False
-        self._x = config.get("x", 0)
-        self._y = config.get("y", 0)
+        self._x: float = config.get("x", 0)
+        self._y: float = config.get("y", 0)
         self._opacity = config.get("opacity", 100)
         self._angle = config.get("angle", 0)
         self._index = config.get("index", None)
