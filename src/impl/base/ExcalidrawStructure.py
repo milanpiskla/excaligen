@@ -9,7 +9,7 @@ from ..elements.Text import Text
 from ..elements.Image import Image
 from ..elements.Group import Group
 from ..elements.Frame import Frame
-from ..ImageLoader import ImageLoader
+from ..images.ImageLoader import ImageLoader
 
 from .AbstractImageListener import AbstractImageListener
 

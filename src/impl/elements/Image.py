@@ -1,10 +1,10 @@
 import uuid
 from typing import Self, Union
 from ..base.AbstractElement import AbstractElement
-from ..ElementCenterer import ElementCenterer
+from ..helpers.ElementCenterer import ElementCenterer
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
-from ..base.ImageData import ImageData
+from ..images.ImageData import ImageData
 from ...config.Config import Config, DEFAULT_CONFIG
 
 class Image(AbstractElement):

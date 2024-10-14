@@ -1,7 +1,7 @@
 import pytest
 from src.impl.elements.Image import Image
 from src.impl.base.AbstractImageListener import AbstractImageListener
-from src.impl.ImageLoader import ImageLoader
+from src.impl.images.ImageLoader import ImageLoader
 from src.config.Config import DEFAULT_CONFIG
 import os
 import io

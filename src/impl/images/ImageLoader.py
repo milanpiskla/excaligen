@@ -1,7 +1,7 @@
 # impl/ImageLoader.py
 
-from .base.AbstractImageLoader import AbstractImageLoader
-from .base.ImageData import ImageData
+from ..base.AbstractImageLoader import AbstractImageLoader
+from .ImageData import ImageData
 from typing import Union
 import os
 import base64

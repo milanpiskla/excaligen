@@ -1,5 +1,5 @@
 from .AbstractElement import AbstractElement
-from ..ElementCenterer import ElementCenterer
+from ..helpers.ElementCenterer import ElementCenterer
 from ...config.Config import Config
 from typing import Self
 

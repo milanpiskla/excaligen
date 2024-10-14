@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Union
-from .ImageData import ImageData
+from ..images.ImageData import ImageData
 
 class AbstractImageLoader(ABC):
     @abstractmethod
