@@ -1,10 +1,11 @@
-import math
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ...config.Config import Config, DEFAULT_CONFIG
 from typing import Self
 
 class Arrow(AbstractStrokedElement):
+    """ TODO self._points will be generated after calling bind or (x)spline, arc
+    """
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("arrow", config)
         self._start_binding = None
@@ -16,6 +17,39 @@ class Arrow(AbstractStrokedElement):
     def points(self, points: list[tuple[float, float]]) -> Self:
         self._points = points
         return self
+
+    def spline(self, start_vector, end_vector) -> Self:
+        # TODO arg type hints
+        # TODO implementation
+        return self
+    
+    def hspline(self) -> Self:
+        # TODO
+        return self
+
+    def vspline(self) -> Self:
+        # TODO
+        return self
+
+    def arc(self, radius: float) -> Self:
+        # TODO
+        return self
+
+    def focus(self, focus: float, end_focus: float = None) -> Self:
+        # TODO
+        return self
+
+    def gap(self, gap: float, end_gap: float = None) -> Self:
+        # TODO
+        return self
+
+    def arrowheads(self, start: str, end: str) -> Self:
+        # TODO bar, arrow, triangle
+        return self
+
+    def elbow(self) -> Self:
+        # TODO
+        return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
         """Bind the arrow between two elements."""
