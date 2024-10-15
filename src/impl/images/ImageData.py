@@ -1,5 +1,3 @@
-from typing import Union
-
 class ImageData:
     def __init__(
         self,
@@ -7,7 +5,7 @@ class ImageData:
         height: float,
         mime_type: str,
         data_url: str,
-        content: Union[str, bytes] = None
+        content: str | bytes = None
     ):
         self.width = width
         self.height = height

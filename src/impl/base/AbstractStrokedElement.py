@@ -2,7 +2,6 @@ from .AbstractElement import AbstractElement
 from ..elements.Text import Text
 from ...config.Config import Config
 from typing import Self
-from typing import Union
 
 class AbstractStrokedElement(AbstractElement):
     def __init__(self, type: str, config: Config):
@@ -17,7 +16,7 @@ class AbstractStrokedElement(AbstractElement):
         self._stroke_color = color
         return self
 
-    def thickness(self, thickness: Union[int, str]) -> Self:
+    def thickness(self, thickness: int | str) -> Self:
         """Set the stroke thickness by int (1, 2, 3) or by string ('thin', 'bold', 'extra-bold')."""
         match thickness:
             case 1 | 2 | 3:
@@ -32,7 +31,7 @@ class AbstractStrokedElement(AbstractElement):
                 raise ValueError(f"Invalid thickness '{thickness}'. Use 1, 2, 3 or 'thin', 'bold', 'extra-bold'.")
         return self
 
-    def sloppiness(self, value: Union[int, str]):
+    def sloppiness(self, value: int | str):
         """Set the stroke sloppiness by int (0, 1, 2) or by string ('architect', 'artist', 'cartoonist')."""
         match value:
             case 0 | 1 | 2:

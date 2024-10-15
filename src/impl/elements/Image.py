@@ -1,5 +1,5 @@
 import uuid
-from typing import Self, Union
+from typing import Self
 from ..base.AbstractElement import AbstractElement
 from ..helpers.ElementCenterer import ElementCenterer
 from ..base.AbstractImageListener import AbstractImageListener
@@ -26,7 +26,7 @@ class Image(AbstractElement):
         self._apply_image_data(image_data)
         return self
 
-    def data(self, data: Union[bytes, str]) -> Self:
+    def data(self, data: bytes | str) -> Self:
         """Set image data from raw bytes or SVG string."""
         image_data = self.__loader.load_from_data(data)
         self._apply_image_data(image_data)

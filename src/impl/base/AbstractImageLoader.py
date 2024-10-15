@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Union
 from ..images.ImageData import ImageData
 
 class AbstractImageLoader(ABC):
@@ -8,5 +7,5 @@ class AbstractImageLoader(ABC):
         pass
 
     @abstractmethod
-    def load_from_data(self, data: Union[bytes, str]) -> ImageData:
+    def load_from_data(self, data: bytes | str) -> ImageData:
         pass

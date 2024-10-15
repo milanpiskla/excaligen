@@ -1,7 +1,7 @@
 from ..base.AbstractElement import AbstractElement
 from ..helpers.ElementCenterer import ElementCenterer
 from ...config.Config import Config, DEFAULT_CONFIG
-from typing import Self, Union
+from typing import Self
 
 class Text(AbstractElement):
     FONT_MAPPING = {
@@ -61,7 +61,7 @@ class Text(AbstractElement):
         self._width = width
         self._height = height
 
-    def fontsize(self, size: Union[int, str]) -> Self:
+    def fontsize(self, size: int | str) -> Self:
         """Set the font size by int or by string ('S', 'M', 'L', 'XL')."""
         if isinstance(size, int):
             self._font_size = size

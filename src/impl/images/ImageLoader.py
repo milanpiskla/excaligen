@@ -1,8 +1,5 @@
-# impl/ImageLoader.py
-
 from ..base.AbstractImageLoader import AbstractImageLoader
 from .ImageData import ImageData
-from typing import Union
 import os
 import base64
 import struct
@@ -22,7 +19,7 @@ class ImageLoader(AbstractImageLoader):
                 binary_data = image_file.read()
             return self._process_binary_image(binary_data)
 
-    def load_from_data(self, data: Union[bytes, str]) -> ImageData:
+    def load_from_data(self, data: bytes | str) -> ImageData:
         if isinstance(data, str):
             if self._is_valid_svg(data):
                 return self._process_svg(data)
@@ -84,7 +81,7 @@ class ImageLoader(AbstractImageLoader):
         # Return default size if neither width/height nor viewBox are available or valid
         return 0, 0
 
-    def _detect_mime_type(self, data: bytes) -> Union[str, None]:
+    def _detect_mime_type(self, data: bytes) -> str | None:
         if data.startswith(b'\x89PNG\r\n\x1a\n'):
             return 'image/png'
         elif data.startswith(b'\xff\xd8'):
