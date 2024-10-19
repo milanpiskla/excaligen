@@ -24,7 +24,7 @@ class ExcalidrawStructure(AbstractImageListener):
 
         Serializes object attributes starting with a single underscore,
         converting them from snake_case to camelCase for JSON output.
-        Ignores attributes starting with double underscores or without leading underscores.
+        Ignores attributes containing double underscores or without leading underscores.
         """
 
         def default(self, obj):

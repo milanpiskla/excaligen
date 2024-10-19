@@ -1,6 +1,10 @@
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractStrokedElement import AbstractStrokedElement
+from ..splines.ArcApproximation import ArcApproximation
+from ..splines.BezierApproximation import BezierApproximation
+
 from ...config.Config import Config, DEFAULT_CONFIG
+
 from typing import Self
 
 class Arrow(AbstractStrokedElement):
@@ -19,23 +23,22 @@ class Arrow(AbstractStrokedElement):
         return self
 
     def spline(self, start_vector, end_vector) -> Self:
-        # TODO arg type hints
+        """Approximates a Bezier spline using the given start and end tangent vecors."""
         # TODO implementation
         return self
     
     def hspline(self) -> Self:
+        """Approximates a Bezier spline with horizontal start and end tangent vectors."""
         # TODO
         return self
 
     def vspline(self) -> Self:
+        """Approximates a Bezier spline with vertical start and end tangent vectors."""
         # TODO
         return self
 
     def arc(self, radius: float) -> Self:
-        # TODO
-        return self
-
-    def focus(self, focus: float, end_focus: float = None) -> Self:
+        """Approximates an arc."""
         # TODO
         return self
 
@@ -52,6 +55,7 @@ class Arrow(AbstractStrokedElement):
         return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
+        # TODO the following code is for binding by using direct lines. It needs to be extended to handle splines and arcs.
         """Bind the arrow between two elements."""
         # Calculate the center positions of the start and end elements
         start_center_x, start_center_y = self.__get_element_center(start)
