@@ -15,6 +15,6 @@ class ArcApproximation:
     def __init__(self):
         pass
 
-    def generate_points(a0: Point, a1: Point, radius: float, points_per_circle = 12) -> list[Point]:
+    def generate_points(self, a0: Point, a1: Point, radius: float, points_per_circle = 12) -> list[Point]:
         return [] # TODO
 
