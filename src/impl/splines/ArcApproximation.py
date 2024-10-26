@@ -33,7 +33,7 @@ class ArcApproximation:
             points_per_circle (int, optional): Number of points to use for a full circle.
 
         Returns:
-            List[Point]: A list of points approximating the arc.
+            list[Point]: A list of points approximating the arc.
 
         Raises:
             ValueError: If the arc cannot be created with the given parameters.
@@ -47,9 +47,23 @@ class ArcApproximation:
         # Step 2: Choose the appropriate circle center
         circle_center = self._select_circle_center(circle_centers, center_start, center_end)
 
+        # Compute angles from circle center to element centers
+        angle_start_element = math.atan2(center_start[1] - circle_center[1], center_start[0] - circle_center[0]) % (2 * math.pi)
+        angle_end_element = math.atan2(center_end[1] - circle_center[1], center_end[0] - circle_center[0]) % (2 * math.pi)
+
+        # Determine arc direction
+        arc_direction = (angle_end_element - angle_start_element) % (2 * math.pi)
+        if arc_direction > math.pi:
+            # Arc goes the other way
+            angle_start_element, angle_end_element = angle_end_element, angle_start_element
+
         # Step 3: Find intersection points with the elements
-        start_edge_point = self._find_intersection_with_element(circle_center, radius, element_start, center_start)
-        end_edge_point = self._find_intersection_with_element(circle_center, radius, element_end, center_end)
+        start_edge_point = self._find_intersection_with_element(
+            circle_center, radius, element_start, center_start, angle_start_element, angle_end_element
+        )
+        end_edge_point = self._find_intersection_with_element(
+            circle_center, radius, element_end, center_end, angle_start_element, angle_end_element
+        )
 
         if not start_edge_point or not end_edge_point:
             raise ValueError("Cannot find intersection points between circle and elements.")
@@ -112,7 +126,9 @@ class ArcApproximation:
         circle_center: Point,
         radius: float,
         element: 'AbstractElement',
-        element_center: Point
+        element_center: Point,
+        angle_start_element: float,
+        angle_end_element: float
     ) -> Point:
         """Find the precise intersection point between the circle and the element's edge.
 
@@ -121,6 +137,8 @@ class ArcApproximation:
             radius (float): The radius of the circle.
             element (AbstractElement): The element to find the intersection with.
             element_center (Point): The center of the element.
+            angle_start_element (float): Angle from circle center to start element center.
+            angle_end_element (float): Angle from circle center to end element center.
 
         Returns:
             Point: The intersection point on the edge of the element.
@@ -161,32 +179,46 @@ class ArcApproximation:
         if not intersection_points:
             return None
 
-        # Choose the intersection point that is closest to the line from the circle center to the element center
-        min_angle_diff = float('inf')
-        selected_point = None
+        # Prepare to select the correct intersection point
+        valid_points = []
         for ix, iy in intersection_points:
-            # Angle from circle center to intersection point
-            angle_point = math.atan2(iy - dy, ix - dx)
-            # Angle from circle center to element center (which is at origin in local coords)
-            angle_center = math.atan2(-dy, -dx)
-            angle_diff = abs((angle_point - angle_center + math.pi) % (2 * math.pi) - math.pi)
-            if angle_diff < min_angle_diff:
-                min_angle_diff = angle_diff
-                selected_point = (ix, iy)
+            # Rotate back
+            if angle != 0:
+                cos_a = math.cos(angle)
+                sin_a = math.sin(angle)
+                ix_rot, iy_rot = ix * cos_a - iy * sin_a, ix * sin_a + iy * cos_a
+            else:
+                ix_rot, iy_rot = ix, iy
 
-        # Rotate back
-        if angle != 0:
-            cos_a = math.cos(angle)
-            sin_a = math.sin(angle)
-            ix_rot, iy_rot = selected_point[0] * cos_a - selected_point[1] * sin_a, selected_point[0] * sin_a + selected_point[1] * cos_a
-        else:
-            ix_rot, iy_rot = selected_point
+            # Translate back to global coordinates
+            ix_global = ix_rot + element_center[0]
+            iy_global = iy_rot + element_center[1]
 
-        # Translate back to global coordinates
-        ix_global = ix_rot + element_center[0]
-        iy_global = iy_rot + element_center[1]
+            # Calculate angle from circle center to intersection point
+            angle_point = math.atan2(iy_global - circle_center[1], ix_global - circle_center[0]) % (2 * math.pi)
 
-        return (ix_global, iy_global)
+            # Check if angle_point lies between angle_start_element and angle_end_element
+            if angle_start_element <= angle_end_element:
+                if angle_start_element <= angle_point <= angle_end_element:
+                    valid_points.append((ix_global, iy_global))
+            else:
+                # Angles wrap around 2*pi
+                if angle_point >= angle_start_element or angle_point <= angle_end_element:
+                    valid_points.append((ix_global, iy_global))
+
+        if not valid_points:
+            return None
+
+        # Select the intersection point closest to the element center
+        min_dist = float('inf')
+        selected_point = None
+        for point in valid_points:
+            dist = math.hypot(point[0] - element_center[0], point[1] - element_center[1])
+            if dist < min_dist:
+                min_dist = dist
+                selected_point = point
+
+        return selected_point
 
     def _generate_arc_points(
         self,
