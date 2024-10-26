@@ -6,30 +6,82 @@ class CircleIntersection:
     """Provides methods to compute precise intersections between a circle and various shapes."""
 
     @staticmethod
-    def circle_ellipse_intersections(dx, dy, R, a, b) -> list[Point]:
+    def circle_ellipse_intersections(dx, dy, R, a, b, tolerance=1e-5) -> list[Point]:
         """Find precise intersections between a circle and an ellipse centered at origin.
 
-        Solves the system:
-            (x - dx)^2 + (y - dy)^2 = R^2
-            (x/a)^2 + (y/b)^2 = 1
+        Solves the equation:
+            f(theta) = (a * cos(theta) - dx)^2 + (b * sin(theta) - dy)^2 - R^2 = 0
+
+        Args:
+            dx, dy (float): Coordinates of the circle center.
+            R (float): Radius of the circle.
+            a, b (float): Semi-major and semi-minor axes of the ellipse.
+            tolerance (float): Tolerance for root finding.
 
         Returns:
             list[Point]: Intersection points in local coordinates.
         """
-        # Solving the system analytically can be complex.
-        # Here, we use a numerical approach with a fine angle step.
+        def f(theta):
+            return (a * math.cos(theta) - dx)**2 + (b * math.sin(theta) - dy)**2 - R**2
+
+        # Initialize list of possible roots
+        roots = []
+
+        # Number of intervals to divide [0, 2*pi]
+        num_intervals = 360  # Adjust for accuracy
+
+        # Generate theta values
+        theta_values = [i * 2 * math.pi / num_intervals for i in range(num_intervals + 1)]
+
+        # Find intervals where f(theta) changes sign
+        for i in range(num_intervals):
+            theta1 = theta_values[i]
+            theta2 = theta_values[i + 1]
+            f1 = f(theta1)
+            f2 = f(theta2)
+
+            # Check for sign change
+            if f1 * f2 <= 0:
+                # Possible root in this interval
+                root = CircleIntersection.bisect(f, theta1, theta2, tolerance)
+                if root is not None:
+                    # Check for duplicates
+                    if all(abs(root - existing_root) > tolerance for existing_root in roots):
+                        roots.append(root)
+
+        # Compute intersection points
         points = []
-        angle_step = 1  # degrees
-        for angle_deg in range(0, 360, angle_step):
-            t = math.radians(angle_deg)
-            x = a * math.cos(t)
-            y = b * math.sin(t)
-            # Check if point lies on the circle
-            left_side = (x - dx) ** 2 + (y - dy) ** 2
-            right_side = R ** 2
-            if abs(left_side - right_side) < 1e-5:
-                points.append((x, y))
+        for theta in roots:
+            x = a * math.cos(theta)
+            y = b * math.sin(theta)
+            points.append((x, y))
+
         return points
+
+    @staticmethod
+    def bisect(f, a, b, tol):
+        """Bisection method to find root of function f in interval [a, b]."""
+        fa = f(a)
+        fb = f(b)
+
+        if fa * fb > 0:
+            return None  # No root in this interval
+
+        for _ in range(100):  # Maximum iterations
+            c = (a + b) / 2
+            fc = f(c)
+
+            if abs(fc) < tol:
+                return c
+
+            if fa * fc < 0:
+                b = c
+                fb = fc
+            else:
+                a = c
+                fa = fc
+
+        return (a + b) / 2  # Return the midpoint if no exact root found
 
     @staticmethod
     def circle_rectangle_intersections(dx, dy, R, a, b) -> list[Point]:
