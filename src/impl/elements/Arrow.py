@@ -137,13 +137,29 @@ class Arrow(AbstractStrokedElement):
             self._points = relative_points
         elif self.__connection == 'arc':
             # Use ArcApproximation to generate arc points
-            start_point = (start_x, start_y)
-            end_point = (end_x, end_y)
+        # Calculate the center positions of the start and end elements
+            start_center = self.__get_element_center(start)
+            end_center = self.__get_element_center(end)
             arc_approx = ArcApproximation()
-            arc_points = arc_approx.generate_points(start_point, end_point, self.__radius)
+            try:
+                arc_points = arc_approx.generate_points(
+                    start_center,
+                    end_center,
+                    self.__radius,
+                    start,
+                    end
+                )
+            except ValueError as e:
+                raise ValueError(f"Cannot create arc: {e}")
+
+            # Set arrow's position to the first point
+            self._x = arc_points[0][0]
+            self._y = arc_points[0][1]
+
             # Convert arc_points to relative coordinates
             relative_points = [[x - self._x, y - self._y] for x, y in arc_points]
             self._points = relative_points
+
         else:
             # Default is straight line
             self._points = [
