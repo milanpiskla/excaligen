@@ -1,5 +1,5 @@
 import math
-from ..helpers.CircleIntersection import CircleIntersection
+from ..geometry.CircleIntersection import CircleIntersection
 
 Point = tuple[float, float]
 

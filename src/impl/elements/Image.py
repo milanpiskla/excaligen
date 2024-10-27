@@ -1,7 +1,7 @@
 import uuid
 from typing import Self
 from ..base.AbstractElement import AbstractElement
-from ..helpers.ElementCenterer import ElementCenterer
+from ..geometry.ElementCenterer import ElementCenterer
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
 from ..images.ImageData import ImageData
