@@ -113,3 +113,11 @@ def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> N
         start_element = elements[i]
 
     evaluate(reference_json, xd, request)
+
+def test_arrow_hspline(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+    xd = Excalidraw()
+    start_element = xd.rectangle().center(-150, -150).size(100, 100).label(xd.text().content("center 1"))
+    end_element = xd.rectangle().center(150, 150).size(100, 100).label(xd.text().content("center 2"))
+    xd.arrow().hspline().bind(start_element, end_element)
+    
+    evaluate(reference_json, xd, request)

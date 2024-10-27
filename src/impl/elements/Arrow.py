@@ -2,10 +2,12 @@ from ..base.AbstractElement import AbstractElement
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..splines.ArcApproximation import ArcApproximation
 from ..splines.BezierApproximation import BezierApproximation
+from ..geometry.HalfLineIntersection import HalfLineIntersection
 
 from ...config.Config import Config, DEFAULT_CONFIG
 
-from typing import Self, Tuple, List
+from typing import Self, Tuple, List, Optional
+import math
 
 class Arrow(AbstractStrokedElement):
     """Represents an arrow element in Excalidraw, capable of different styles like straight lines, splines, arcs, etc."""
@@ -105,36 +107,54 @@ class Arrow(AbstractStrokedElement):
                 [mid_x - start_x, mid_y - start_y],
                 [end_x - start_x, end_y - start_y]
             ]
-        elif self.__connection in ['hspline', 'vspline', 'spline']:
-            # Use Bezier approximation to create spline
-            start_point = (start_x, start_y)
-            end_point = (end_x, end_y)
 
+        elif self.__connection in ['hspline', 'vspline', 'spline']:
+            start_center = self.__get_element_center(start)
+            end_center = self.__get_element_center(end)
+
+            # Calculate tangent vectors if necessary
             if self.__connection == 'hspline':
-                # Horizontal tangents
-                delta_x = (end_x - start_x) / 2
+                delta_x = (end_center[0] - start_center[0]) / 2
                 self.__start_vector = (delta_x, 0)
                 self.__end_vector = (-delta_x, 0)
             elif self.__connection == 'vspline':
-                # Vertical tangents
-                delta_y = (end_y - start_y) / 2
+                delta_y = (end_center[1] - start_center[1]) / 2
                 self.__start_vector = (0, delta_y)
                 self.__end_vector = (0, -delta_y)
-            # For 'spline', use the provided start_vector and end_vector
+            # For 'spline', use the provided self.__start_vector and self.__end_vector
+
+            # Find intersection points with elements
+            start_edge_point = self.__find_intersection_with_element(
+                start, start_center, self.__start_vector
+            )
+            if start_edge_point is None:
+                raise ValueError("Cannot find intersection with start element")
+
+            end_edge_point = self.__find_intersection_with_element(
+                end, end_center, self.__end_vector
+            )
+            if end_edge_point is None:
+                raise ValueError("Cannot find intersection with end element")
 
             # Control points for Bezier curve
-            b0 = start_point
-            b1 = (start_point[0] + self.__start_vector[0], start_point[1] + self.__start_vector[1])
-            b2 = (end_point[0] + self.__end_vector[0], end_point[1] + self.__end_vector[1])
-            b3 = end_point
+            b0 = start_edge_point
+            b1 = (b0[0] + self.__start_vector[0], b0[1] + self.__start_vector[1])
+            b3 = end_edge_point
+            b2 = (b3[0] + self.__end_vector[0], b3[1] + self.__end_vector[1])
 
             # Use BezierApproximation to generate points
             bezier = BezierApproximation()
             bezier_points = bezier.generate_points(b0, b1, b2, b3)
 
+            # Set arrow's position to the first point
+            self._x = bezier_points[0][0]
+            self._y = bezier_points[0][1]
+
             # Convert bezier_points to relative coordinates
             relative_points = [[x - self._x, y - self._y] for x, y in bezier_points]
             self._points = relative_points
+
+
         elif self.__connection == 'arc':
             # Use ArcApproximation to generate arc points
         # Calculate the center positions of the start and end elements
@@ -225,3 +245,68 @@ class Arrow(AbstractStrokedElement):
         ey = center_y + t * dy
 
         return ex, ey
+
+    def __find_intersection_with_element(self, element: AbstractElement, element_center: Tuple[float, float], vector: Tuple[float, float]) -> Optional[Tuple[float, float]]:
+        """Find the precise intersection point between a half-line and the element's edge.
+
+        Args:
+            element (AbstractElement): The element to find the intersection with.
+            element_center (Tuple[float, float]): The center of the element.
+            vector (Tuple[float, float]): The direction vector of the half-line.
+
+        Returns:
+            Optional[Tuple[float, float]]: The intersection point on the edge of the element.
+        """
+        # Shift coordinates to element's local coordinate system
+        # In local coordinates, the element center is at (0, 0)
+        # The half-line starts at (0, 0)
+        # The vector is the direction vector
+
+        # If the element is rotated, we need to rotate the vector accordingly
+        angle = getattr(element, '_angle', 0)
+        if angle != 0:
+            cos_a = math.cos(-angle)
+            sin_a = math.sin(-angle)
+            vx, vy = vector
+            vx_rot = vx * cos_a - vy * sin_a
+            vy_rot = vx * sin_a + vy * cos_a
+        else:
+            vx_rot, vy_rot = vector
+
+        # Depending on element type, compute intersection
+        ew, eh = getattr(element, '_width', 0), getattr(element, '_height', 0)
+
+        if element._type == 'ellipse':
+            a = ew / 2
+            b = eh / 2
+            intersection_point = HalfLineIntersection.with_ellipse(0, 0, vx_rot, vy_rot, a, b)
+        elif element._type == 'rectangle':
+            a = ew / 2
+            b = eh / 2
+            intersection_point = HalfLineIntersection.with_rectangle(0, 0, vx_rot, vy_rot, a, b)
+        elif element._type == 'diamond':
+            a = ew / 2
+            b = eh / 2
+            intersection_point = HalfLineIntersection.with_diamond(0, 0, vx_rot, vy_rot, a, b)
+        else:
+            return None  # Unsupported element type
+
+        if intersection_point is None:
+            return None
+
+        ix, iy = intersection_point
+
+        # Rotate back if necessary
+        if angle != 0:
+            cos_a = math.cos(angle)
+            sin_a = math.sin(angle)
+            ix_global = ix * cos_a - iy * sin_a
+            iy_global = ix * sin_a + iy * cos_a
+        else:
+            ix_global, iy_global = ix, iy
+
+        # Translate back to global coordinates
+        ix_global += element_center[0]
+        iy_global += element_center[1]
+
+        return (ix_global, iy_global)
