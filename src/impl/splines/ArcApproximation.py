@@ -164,15 +164,15 @@ class ArcApproximation:
             # Equation of an ellipse: (x/a)^2 + (y/b)^2 = 1
             a = ew / 2
             b = eh / 2
-            intersection_points = CircleIntersection.circle_ellipse_intersections(dx, dy, radius, a, b)
+            intersection_points = CircleIntersection.of_ellipse(dx, dy, radius, a, b)
         elif element._type == 'rectangle':
             a = ew / 2
             b = eh / 2
-            intersection_points = CircleIntersection.circle_rectangle_intersections(dx, dy, radius, a, b)
+            intersection_points = CircleIntersection.of_rectangle(dx, dy, radius, a, b)
         elif element._type == 'diamond':
             a = ew / 2
             b = eh / 2
-            intersection_points = CircleIntersection.circle_diamond_intersections(dx, dy, radius, a, b)
+            intersection_points = CircleIntersection.of_diamond(dx, dy, radius, a, b)
         else:
             return None  # Unsupported element type
 

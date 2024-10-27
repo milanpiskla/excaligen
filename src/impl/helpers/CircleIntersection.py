@@ -6,7 +6,7 @@ class CircleIntersection:
     """Provides methods to compute precise intersections between a circle and various shapes."""
 
     @staticmethod
-    def circle_ellipse_intersections(dx, dy, R, a, b, tolerance=1e-5) -> list[Point]:
+    def of_ellipse(dx, dy, R, a, b, tolerance=1e-5) -> list[Point]:
         """Find precise intersections between a circle and an ellipse centered at origin.
 
         Solves the equation:
@@ -84,7 +84,7 @@ class CircleIntersection:
         return (a + b) / 2  # Return the midpoint if no exact root found
 
     @staticmethod
-    def circle_rectangle_intersections(dx, dy, R, a, b) -> list[Point]:
+    def of_rectangle(dx, dy, R, a, b) -> list[Point]:
         """Find precise intersections between a circle and a rectangle centered at origin.
 
         Returns:
@@ -104,7 +104,7 @@ class CircleIntersection:
         return points
 
     @staticmethod
-    def circle_diamond_intersections(dx, dy, R, a, b) -> list[Point]:
+    def of_diamond(dx, dy, R, a, b) -> list[Point]:
         """Find precise intersections between a circle and a diamond centered at origin.
 
         Returns:
@@ -126,7 +126,7 @@ class CircleIntersection:
         return points
 
     @staticmethod
-    def circle_line_intersections(cx, cy, R, x1, y1, x2, y2) -> list[Point]:
+    def of_line(cx, cy, R, x1, y1, x2, y2) -> list[Point]:
         """Find intersections between a circle and a line segment.
 
         Args:
