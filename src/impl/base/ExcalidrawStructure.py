@@ -14,7 +14,7 @@ from ..images.ImageLoader import ImageLoader
 from .AbstractImageListener import AbstractImageListener
 
 from ...config.Config import Config
-from typing import Self, List
+from typing import Self
 
 import json
 
@@ -28,23 +28,12 @@ class ExcalidrawStructure(AbstractImageListener):
         """
 
         def default(self, obj):
-            if hasattr(obj, '__dict__'):
-                # Prepare a dictionary for serialization
-                result = {}
-                for attr_name, value in obj.__dict__.items():
-                    # Only include attributes starting with a single underscore
-                    if attr_name.startswith('_') and not '__' in attr_name:
-                        # Strip the leading underscore and convert to camelCase
-                        json_key = self._snake_to_camel(attr_name.lstrip('_'))
-                        # Recursively encode value if necessary
-                        result[json_key] = self.default(value) if hasattr(value, '__dict__') else value
-                return result
-            elif isinstance(obj, list):
-                return [self.default(item) for item in obj]
-            elif isinstance(obj, dict):
-                return {key: self.default(value) for key, value in obj.items()}
-            else:
-                return obj  # Base case: return the value as is
+            result = {}
+            for attr_name, value in obj.__dict__.items():
+                if attr_name.startswith('_') and not '__' in attr_name:
+                    json_key = self._snake_to_camel(attr_name.lstrip('_'))
+                    result[json_key] = value
+            return result
 
         @staticmethod
         def _snake_to_camel(snake_str: str) -> str:
@@ -56,7 +45,7 @@ class ExcalidrawStructure(AbstractImageListener):
         self._type = "excalidraw"
         self._version = 2
         self._source = "https://excalidraw.com"
-        self._elements: List[AbstractElement] = []
+        self._elements: list[AbstractElement] = []
         self._app_state = {
             "gridSize": None,
             "viewBackgroundColor": "#ffffff"
