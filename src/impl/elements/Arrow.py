@@ -1,7 +1,7 @@
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractStrokedElement import AbstractStrokedElement
-from ..splines.ArcApproximation import ArcApproximation
-from ..splines.BezierApproximation import BezierApproximation
+from ..geometry.ArcApproximation import ArcApproximation
+from ..geometry.BezierApproximation import BezierApproximation
 from ..geometry.HalfLineIntersection import HalfLineIntersection
 
 from ...config.Config import Config, DEFAULT_CONFIG
