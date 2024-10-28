@@ -30,6 +30,17 @@ class Arrow(AbstractStrokedElement):
         self._points = points
         return self
 
+    def roundness(self, roundness: str) -> Self:
+        """Set the roundness style (sharp, round)."""
+        match roundness:
+            case "sharp":
+                self._roundness = None
+            case "round":
+                self._roundness = { "type": 3 }
+            case _:
+                raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
+        return self
+
     def spline(self, start_vector: Tuple[float, float], end_vector: Tuple[float, float]) -> Self:
         """Approximates a Bezier spline using the given start and end tangent vectors."""
         self.__connection = 'spline'
@@ -109,6 +120,7 @@ class Arrow(AbstractStrokedElement):
             ]
 
         elif self.__connection in ['hspline', 'vspline', 'spline']:
+            self.roundness('round')
             start_center = self.__get_element_center(start)
             end_center = self.__get_element_center(end)
 
@@ -158,6 +170,7 @@ class Arrow(AbstractStrokedElement):
         elif self.__connection == 'arc':
             # Use ArcApproximation to generate arc points
         # Calculate the center positions of the start and end elements
+            self.roundness('round')
             start_center = self.__get_element_center(start)
             end_center = self.__get_element_center(end)
             arc_approx = ArcApproximation()
