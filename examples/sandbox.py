@@ -1,6 +1,6 @@
-from src.Excalidraw import Excalidraw
+from src.Excaligen import Excaligen
 
-xd = Excalidraw()
+xd = Excaligen()
 
 def cross(center: tuple[float, float], color: str) -> None:
     x, y = center

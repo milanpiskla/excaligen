@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 from typing import Dict, Any
-from src.Excalidraw import Excalidraw
+from src.Excaligen import Excaligen
 from tests.functional.ExcalidrawComparator import ExcalidrawComparator
 from pytest import FixtureRequest
 
@@ -20,7 +20,7 @@ def reference_json(request: FixtureRequest) -> Dict[str, Any]:
     with open(reference_file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def evaluate(reference_json: Dict[str, Any], xd: Excalidraw, request: FixtureRequest) -> None:
+def evaluate(reference_json: Dict[str, Any], xd: Excaligen, request: FixtureRequest) -> None:
     generated_json = json.loads(xd.json())
     comparator = ExcalidrawComparator(
         ignore_fields={'version', 'versionNonce', 'seed'}
@@ -38,7 +38,7 @@ def evaluate(reference_json: Dict[str, Any], xd: Excalidraw, request: FixtureReq
         assert False, f"Generated JSON does not match the reference JSON. See '{generated_file}' for details."
 
 def test_arrow_star(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
 
     start_element = xd.ellipse().center(0, 0).size(100, 100).label(xd.text().content("center"))
 
@@ -52,21 +52,21 @@ def test_arrow_star(reference_json: Dict[str, Any], request: FixtureRequest) -> 
     evaluate(reference_json, xd, request)
 
 def test_texts(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
     xd.text().content("Hello, World!").fontsize("L").font("Hand-drawn").align("center").baseline("top").spacing(1.5).color("#FF0000")
     xd.text().position(100, 100).content("Hello, Excalifont!").fontsize(40).font("excalifont").align("center").baseline("top").spacing(1.5).color("#0000FF").autoresize(True)
 
     evaluate(reference_json, xd, request)
 
 def test_labels(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
     label = xd.text().content("Hello, World!").fontsize("M").font("Hand-drawn").spacing(1.5).color("#FF0000")
     xd.rectangle().position(10, 20).size(300, 100).label(label)
 
     evaluate(reference_json, xd, request)
 
 def test_sandbox(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
 
     def cross(center: tuple[float, float], color: str) -> None:
         x, y = center
@@ -84,7 +84,7 @@ def test_sandbox(reference_json: Dict[str, Any], request: FixtureRequest) -> Non
     evaluate(reference_json, xd, request)
 
 def test_lines(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
 
     xd.line().color('#00FF00').points([(0, 0), (100, 50)]).sloppiness(2).stroke('solid')
     xd.line().color('#0000FF').points([(0, 0), (100, -50)]).sloppiness(0).stroke('dotted')
@@ -93,7 +93,7 @@ def test_lines(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
     evaluate(reference_json, xd, request)
 
 def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
 
     RADIUS = 300
     elements = []
@@ -115,7 +115,7 @@ def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> N
     evaluate(reference_json, xd, request)
 
 def test_arrow_hspline(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xd = Excalidraw()
+    xd = Excaligen()
     start_element = xd.rectangle().center(-150, -150).size(100, 100).label(xd.text().content("center 1"))
     end_element = xd.rectangle().center(150, 150).size(100, 100).label(xd.text().content("center 2"))
     xd.arrow().hspline().bind(start_element, end_element)

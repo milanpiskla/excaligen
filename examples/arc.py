@@ -1,7 +1,7 @@
-from src.Excalidraw import Excalidraw
+from src.Excaligen import Excaligen
 import math
 
-xd = Excalidraw()
+xd = Excaligen()
 
 RADIUS = 300
 elements = []

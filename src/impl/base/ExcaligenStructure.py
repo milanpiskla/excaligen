@@ -18,7 +18,7 @@ from typing import Self
 
 import json
 
-class ExcalidrawStructure(AbstractImageListener):
+class ExcaligenStructure(AbstractImageListener):
     class ElementEncoder(json.JSONEncoder):
         """JSON encoder for Excalidraw elements.
 
