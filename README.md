@@ -28,19 +28,19 @@ pip install -r requirements.txt
 Here's how to get started:
 
 ```Python
-from Excalidraw import Excalidraw
+from Excaligen import Excaligen
 
 # Initialize Excalidraw instance
-xd = Excalidraw()
+xg = Excaligen()
 
 # Add a rectangle
-xd.rectangle().position(50, 50).size(200, 100).color("#FF5733").background("#C70039")
+xg.rectangle().position(50, 50).size(200, 100).color("#FF5733").background("#C70039")
 
 # Add text
-xd.text().content("Hello, Excalidraw!").position(50, 0).fontsize(24).color("#154360")
+xg.text().content("Hello, Excalidraw!").position(50, 0).fontsize(24).color("#154360")
 
 # Export to file
-xd.save('my_diagram.excalidraw')
+xg.save('my_diagram.excalidraw')
 ```
 Open my_diagram.excalidraw in the Excalidraw web app to see your creation!
 
@@ -66,17 +66,17 @@ Each element can be customized:
 
 Example:
 ```Python
-xd.arrow().position(150, 150).size(100, 0).color("#0000FF").thickness(2).stroke("dashed")
+xg.arrow().position(150, 150).size(100, 0).color("#0000FF").thickness(2).stroke("dashed")
 ```
 
 ## Image Handling 🖼️
 Add images to your diagrams:
 ```Python
 # Load an SVG image
-xd.image().file('path/to/image.svg').position(50, 300).fit(200, 200)
+xg.image().file('path/to/image.svg').position(50, 300).fit(200, 200)
 
 # Load a PNG, JPEG or GIF image
-xd.image().file('path/to/image.png').position(300, 300).fit(150, 150)
+xg.image().file('path/to/image.png').position(300, 300).fit(150, 150)
 ```
 
 ## Configuration ⚙️
@@ -90,21 +90,21 @@ custom_config = Config({
     "strokeWidth": 2,
 })
 
-xd.config(custom_config)
+xg.config(custom_config)
 ```
 
 ## Exporting 📤
 Export your diagram:
 ```Python
-xd.save('my_diagram.excalidraw')
+xg.save('my_diagram.excalidraw')
 ```
 Or just get the JSON string:
 ```Python
-json_data = xd.json()
+json_data = xg.json()
 ```
 
 ## About the Author ✍️
-My name is Milan Piskla. My career as a developer is over; now I'm just coding for fun 😊.
+My name is Milan Piskla. I'm just coding for fun 😊.
 
 
 

@@ -10,6 +10,7 @@ class AbstractStrokedElement(AbstractElement):
         self._stroke_width = config.get("strokeWidth", 1)
         self._stroke_style = config.get("strokeStyle", "solid")
         self._roughness = config.get("roughness", 1)
+        self.__label: Text = None
 
     def color(self, color: str) -> Self:
         """Set the stroke (outline) color."""
@@ -56,11 +57,14 @@ class AbstractStrokedElement(AbstractElement):
         return self
 
     def label(self, text: Text) -> Self:
-        #text._calculate_dimensions() # TODO is this needed?
-        #text.width = min(self.width * 0.8, text.width)  # Fit within 80% of the shape width
-        #text.height = min(self.height * 0.8, text.height)  # Fit within 80% of the shape height
+        self.__label = text
         text._x = self._x + (self._width - text._width) / 2  # Center horizontally
         text._y = self._y + (self._height - text._height - text._line_height) / 2  # Center vertically
 
         self._add_bound_element(text)
         return self
+
+    def _add_group_id(self, id: str) -> None:
+        self._group_ids.append(id)
+        if self.__label:
+            self.__label._group_ids.append(id)

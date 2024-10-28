@@ -9,40 +9,44 @@ from .Arrow import Arrow
 from .Line import Line
 from .Text import Text
 from .Image import Image
-from .Group import Group
 from .Frame import Frame
+from .Group import Group
+
+from typing import Self
+
+Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image | Frame
 
 class ElementFactory():
     def __init__(self):
         self.config = DEFAULT_CONFIG
 
-    def config(self, config: Config):
+    def config(self, config: Config) -> Self:
         self.config = config
         return self
 
-    def rectangle(self):
+    def rectangle(self) -> Rectangle:
         return Rectangle(self.config)
 
-    def diamond(self):
+    def diamond(self) -> Diamond:
         return Diamond(self.config)
 
-    def ellipse(self):
+    def ellipse(self) -> Ellipse:
         return Ellipse(self.config)
 
-    def arrow(self):
+    def arrow(self) -> Arrow:
         return Arrow(self.config)
 
-    def line(self):
+    def line(self) -> Line:
         return Line(self.config)
 
-    def text(self):
+    def text(self) -> Text:
         return Text(self.config)
 
-    def image(self, listener: AbstractImageListener, loader: AbstractImageLoader):
+    def image(self, listener: AbstractImageListener, loader: AbstractImageLoader) -> Image:
         return Image(listener, loader, self.config)
 
-    def group(self):
-        return Group(self.config)
-
-    def frame(self):
+    def frame(self) -> Frame:
         return Frame(self.config)
+
+    def group(self, *args: Element) -> Group:
+        return Group(*args)

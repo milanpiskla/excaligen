@@ -4,7 +4,7 @@ This module defines the Excalidraw class, which serves as the main interface wit
 Excalidraw diagram. 
 """
 
-from .impl.base.ExcaligenStructure import ExcaligenStructure
+from .impl.base.ExcaligenStructure import ExcaligenStructure, Element
 from .config.Config import Config
 from .impl.elements.Rectangle import Rectangle
 from .impl.elements.Diamond import Diamond
@@ -13,8 +13,8 @@ from .impl.elements.Arrow import Arrow
 from .impl.elements.Line import Line
 from .impl.elements.Text import Text
 from .impl.elements.Image import Image
-from .impl.elements.Group import Group
 from .impl.elements.Frame import Frame
+from .impl.elements.Group import Group
 
 from typing import Self
 
@@ -51,11 +51,11 @@ class Excaligen(ExcaligenStructure):
     def image(self) -> Image:
         return super().image()
 
-    def group(self) -> Group:
-        return super().group()
-
     def frame(self) -> Frame:
         return super().frame()
+
+    def group(self, *args: Element) -> None:
+        return super().group(*args)
 
     def json(self) -> str:
         return super().json()

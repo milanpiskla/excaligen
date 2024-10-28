@@ -7,8 +7,8 @@ from ..elements.Arrow import Arrow
 from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
-from ..elements.Group import Group
 from ..elements.Frame import Frame
+from ..elements.Group import Element
 from ..images.ImageLoader import ImageLoader
 
 from .AbstractImageListener import AbstractImageListener
@@ -17,6 +17,8 @@ from ...config.Config import Config
 from typing import Self
 
 import json
+
+#Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image | Frame
 
 class ExcaligenStructure(AbstractImageListener):
     class ElementEncoder(json.JSONEncoder):
@@ -79,11 +81,11 @@ class ExcaligenStructure(AbstractImageListener):
     def image(self) -> Image:
         return self.__append_element(self.__factory.image(self, self.__image_loader))
 
-    def group(self) -> Group:
-        return self.__append_element(self.__factory.group())
-
     def frame(self) -> Frame:
         return self.__append_element(self.__factory.frame())
+
+    def group(self, *args: Element) -> None:
+        self.__factory.group(*args)
 
     def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)

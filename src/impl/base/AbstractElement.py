@@ -16,10 +16,10 @@ class AbstractElement:
         self._y: float = config.get("y", 0)
         self._opacity = config.get("opacity", 100)
         self._angle = config.get("angle", 0)
-        self._index = config.get("index", None)
-        self._group_ids = config.get("groupIds", [])
-        self._frame_id = config.get("frameId", None)
-        self._link = config.get("link", None)
+        self._index = None
+        self._group_ids = []
+        self._frame_id = None
+        self._link = None
         self._bound_elements = None
 
     def position(self, x: float, y: float) -> Self:
