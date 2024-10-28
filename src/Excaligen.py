@@ -54,8 +54,8 @@ class Excaligen(ExcaligenStructure):
     def frame(self) -> Frame:
         return super().frame()
 
-    def group(self, *args: Element) -> None:
-        return super().group(*args)
+    def group(self, *elements: Element) -> None:
+        return super().group(*elements)
 
     def json(self) -> str:
         return super().json()

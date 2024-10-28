@@ -48,5 +48,5 @@ class ElementFactory():
     def frame(self) -> Frame:
         return Frame(self.config)
 
-    def group(self, *args: Element) -> Group:
-        return Group(*args)
+    def group(self, *elements: Element) -> Group:
+        return Group(*elements)

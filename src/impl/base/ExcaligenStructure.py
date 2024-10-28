@@ -84,8 +84,8 @@ class ExcaligenStructure(AbstractImageListener):
     def frame(self) -> Frame:
         return self.__append_element(self.__factory.frame())
 
-    def group(self, *args: Element) -> None:
-        self.__factory.group(*args)
+    def group(self, *elements: Element) -> None:
+        self.__factory.group(*elements)
 
     def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)

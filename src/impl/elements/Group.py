@@ -18,10 +18,7 @@ import uuid
 Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image | Frame
 
 class Group():
-    def __init__(self, *args: Element):
+    def __init__(self, *elements: Element):
         id = str(uuid.uuid4())
-        for arg in args:
-            if isinstance(arg, Element):
-                arg._add_group_id(id)
-            else:
-                raise ValueError(f"All arguments of Group must be Elements, not `{str(arg)}`")
+        for element in elements:
+            element._add_group_id(id)
