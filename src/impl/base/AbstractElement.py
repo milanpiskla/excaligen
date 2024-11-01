@@ -2,6 +2,8 @@ import uuid
 from typing import Self
 from ...config.Config import Config
 
+# TODO fix it according to excalidraw/packages/excalidraw/element/types.ts
+
 class AbstractElement:
     """Base class for all Excalidraw elements."""
 
@@ -14,6 +16,8 @@ class AbstractElement:
         self._is_deleted = False
         self._x: float = config.get("x", 0)
         self._y: float = config.get("y", 0)
+        self._width = 0
+        self._height = 0
         self._opacity = config.get("opacity", 100)
         self._angle = config.get("angle", 0)
         self._index = None
@@ -21,10 +25,17 @@ class AbstractElement:
         self._frame_id = None
         self._link = None
         self._bound_elements = None
+        self.__is_centered = False
 
     def position(self, x: float, y: float) -> Self:
         self._x = x
         self._y = y
+        return self
+    
+    def center(self, x: float, y: float) -> None:
+        self.__is_centered = True
+        self._x = x - 0.5 * self._width
+        self._y = y - 0.5 * self._height
         return self
 
     def rotate(self, angle: float) -> Self:
@@ -34,6 +45,20 @@ class AbstractElement:
     def opacity(self, opacity: float) -> Self:
         self._opacity = opacity
         return self
+
+    def _size(self, width: float, height: float) -> Self:
+        """Set the shape size."""
+        if self.__is_centered:
+            self._x = self._x + 0.5 * self._width - 0.5 * width
+            self._y = self._y + 0.5 * self._height - 0.5 * height
+
+        self._width = width
+        self._height = height
+        
+        return self
+
+    def get_center(self) -> tuple[float, float]:
+        return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
 
     def _add_bound_element(self, element: "AbstractElement") -> None:
         self._bound_elements = self._bound_elements or []

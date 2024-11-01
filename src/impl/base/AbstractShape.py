@@ -1,5 +1,4 @@
 from .AbstractElement import AbstractElement
-from ..geometry.ElementCenterer import ElementCenterer
 from ...config.Config import Config
 from typing import Self
 
@@ -10,22 +9,10 @@ class AbstractShape(AbstractElement):
         self._height = config.get("height", 100)
         self._background_color = config.get("backgroundColor", "transparent")
         self._fill_style = config.get("fillStyle", "hachure")
-        self.__centerer = ElementCenterer(self)
 
     def size(self, width: float, height: float) -> Self:
         """Set the shape size."""
-        self.__centerer.size(width, height)
-
-        self._width = width
-        self._height = height
-
-        return self
-
-    def center(self, x: float, y: float) -> Self:
-        """Set the center coordinates of the shape"""
-        self.__centerer.center(x, y)
-
-        return self
+        return self._size(width, height)
 
     def background(self, color: str) -> Self:
         """Set the background (fill) color."""

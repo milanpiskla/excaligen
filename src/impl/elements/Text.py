@@ -1,5 +1,4 @@
 from ..base.AbstractElement import AbstractElement
-from ..geometry.ElementCenterer import ElementCenterer
 from ...config.Config import Config, DEFAULT_CONFIG
 from typing import Self
 
@@ -36,18 +35,11 @@ class Text(AbstractElement):
         self._stroke_color = config.get("strokeColor", "#000000")  # Default to black
         self._width = config.get("width", 100)
         self._height = config.get("height", 100)
-        self.__centerer = ElementCenterer(self)
 
     def content(self, text: str) -> Self:
         """Set the text content and automatically calculate width and height."""
         self._text = text
         self.__calculate_dimensions()
-        return self
-
-    def center(self, x: float, y: float) -> Self:
-        """Set the center coordinates of the text element"""
-        self.__centerer.center(x, y)
-
         return self
 
     def __calculate_dimensions(self):
@@ -56,7 +48,7 @@ class Text(AbstractElement):
         width = max(len(line) for line in lines) * self._font_size * self.CHAR_WIDTH_FACTOR
         height = len(lines) * self._font_size * self.LINE_HEIGHT_FACTOR
 
-        self.__centerer.size(width, height)
+        self._size(width, height)
 
         self._width = width
         self._height = height

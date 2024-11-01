@@ -32,7 +32,7 @@ def evaluate(reference_json: Dict[str, Any], xg: Excaligen, request: FixtureRequ
         test_name = request.node.name
         generated_dir = os.path.join(os.path.dirname(__file__), 'generated')
         os.makedirs(generated_dir, exist_ok=True)
-        generated_file = os.path.join(generated_dir, f"{test_name}_generated_bad.json")
+        generated_file = os.path.join(generated_dir, f"{test_name}_generated_bad.excalidraw")
         with open(generated_file, 'w', encoding='utf-8') as f:
             f.write(xg.json())
         assert False, f"Generated JSON does not match the reference JSON. See '{generated_file}' for details."
