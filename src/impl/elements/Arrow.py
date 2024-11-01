@@ -98,8 +98,8 @@ class Arrow(AbstractStrokedElement):
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
         """Bind the arrow between two elements, supporting different connection styles."""
         # Calculate the center positions of the start and end elements
-        start_center_x, start_center_y = self.__get_element_center(start)
-        end_center_x, end_center_y = self.__get_element_center(end)
+        start_center_x, start_center_y = start.get_center()
+        end_center_x, end_center_y = end.get_center()
 
         # Calculate edge points
         start_x, start_y = self.__calculate_edge_point(start, end_center_x, end_center_y)
@@ -121,8 +121,8 @@ class Arrow(AbstractStrokedElement):
 
         elif self.__connection in ['hspline', 'vspline', 'spline']:
             self.roundness('round')
-            start_center = self.__get_element_center(start)
-            end_center = self.__get_element_center(end)
+            start_center = start.get_center()
+            end_center = end.get_center()
 
             # Calculate tangent vectors if necessary
             if self.__connection == 'hspline':
@@ -171,8 +171,8 @@ class Arrow(AbstractStrokedElement):
             # Use ArcApproximation to generate arc points
         # Calculate the center positions of the start and end elements
             self.roundness('round')
-            start_center = self.__get_element_center(start)
-            end_center = self.__get_element_center(end)
+            start_center = start.get_center()
+            end_center = end.get_center()
             arc_approx = ArcApproximation()
             try:
                 arc_points = arc_approx.generate_points(
@@ -218,20 +218,11 @@ class Arrow(AbstractStrokedElement):
 
         return self
 
-    def __get_element_center(self, element: AbstractElement) -> Tuple[float, float]:
-        """Calculate the center of an element."""
-        width = getattr(element, '_width', 0)
-        height = getattr(element, '_height', 0)
-        center_x = element._x + width / 2
-        center_y = element._y + height / 2
-        return center_x, center_y
-
     def __calculate_edge_point(self, element: AbstractElement, target_x: float, target_y: float) -> Tuple[float, float]:
         """Calculate the point on the edge of the element closest to the target point."""
         x, y = element._x, element._y
-        width = getattr(element, '_width', 0)
-        height = getattr(element, '_height', 0)
-        center_x, center_y = self.__get_element_center(element)
+        width, height = element._width, element._height
+        center_x, center_y = element.get_center()
 
         dx = target_x - center_x
         dy = target_y - center_y
@@ -276,7 +267,7 @@ class Arrow(AbstractStrokedElement):
         # The vector is the direction vector
 
         # If the element is rotated, we need to rotate the vector accordingly
-        angle = getattr(element, '_angle', 0)
+        angle = element._angle
         if angle != 0:
             cos_a = math.cos(-angle)
             sin_a = math.sin(-angle)
@@ -287,7 +278,7 @@ class Arrow(AbstractStrokedElement):
             vx_rot, vy_rot = vector
 
         # Depending on element type, compute intersection
-        ew, eh = getattr(element, '_width', 0), getattr(element, '_height', 0)
+        ew, eh = element._width, element._height
 
         if element._type == 'ellipse':
             a = ew / 2
