@@ -220,7 +220,6 @@ class Arrow(AbstractStrokedElement):
 
     def __calculate_edge_point(self, element: AbstractElement, target_x: float, target_y: float) -> Tuple[float, float]:
         """Calculate the point on the edge of the element closest to the target point."""
-        x, y = element._x, element._y
         width, height = element._width, element._height
         center_x, center_y = element.get_center()
 
