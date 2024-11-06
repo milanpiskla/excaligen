@@ -1,13 +1,16 @@
 import math
-from typing import Optional, Tuple
+from typing import Optional
 
-Point = Tuple[float, float]
+from .Vector2D import Vector2D
+
+
+Point = tuple[float, float]
 
 class HalfLineIntersection:
     """Provides methods to compute precise intersections between a half-line and various shapes."""
 
     @staticmethod
-    def with_ellipse(dx, dy, vx, vy, a, b) -> Optional[Point]:
+    def with_ellipse(dx: float, dy: float, vx: float, vy: float, a: float, b: float, angle: float) -> Optional[Point]:
         """Find the intersection between a half-line and an ellipse centered at origin.
 
         The half-line starts at point (dx, dy) and moves in direction (vx, vy).
@@ -26,9 +29,11 @@ class HalfLineIntersection:
         # Substitute the parametric equations into the ellipse equation
         # Solve for t >= 0
 
+        vxr, vyr = Vector2D.rotate(vx, vy, -angle)
+
         # Coefficients of the quadratic equation At^2 + Bt + C = 0
-        A = (vx**2) / a**2 + (vy**2) / b**2
-        B = 2 * (dx * vx) / a**2 + 2 * (dy * vy) / b**2
+        A = (vxr**2) / a**2 + (vyr**2) / b**2
+        B = 2 * (dx * vxr) / a**2 + 2 * (dy * vyr) / b**2
         C = (dx**2) / a**2 + (dy**2) / b**2 - 1
 
         discriminant = B**2 - 4 * A * C
@@ -51,13 +56,13 @@ class HalfLineIntersection:
         t = min(ts)
 
         # Compute the intersection point
-        x = dx + t * vx
-        y = dy + t * vy
+        ix = dx + t * vxr
+        iy = dy + t * vyr
 
-        return (x, y)
+        return Vector2D.rotate(ix, iy, angle)
 
     @staticmethod
-    def with_rectangle(dx, dy, vx, vy, a, b) -> Optional[Point]:
+    def with_rectangle(dx: float, dy: float, vx: float, vy: float, a: float, b: float, angle: float) -> Optional[Point]:
         """Find the intersection between a half-line and a rectangle centered at origin.
 
         Returns:
@@ -73,8 +78,10 @@ class HalfLineIntersection:
 
         intersections = []
 
+        vxr, vyr = Vector2D.rotate(vx, vy, -angle)
+
         for (x1, y1), (x2, y2) in lines:
-            intersection = HalfLineIntersection.half_line_line_intersection(dx, dy, vx, vy, x1, y1, x2, y2)
+            intersection = HalfLineIntersection.half_line_line_intersection(dx, dy, vxr, vyr, x1, y1, x2, y2)
             if intersection:
                 intersections.append(intersection)
 
@@ -90,10 +97,10 @@ class HalfLineIntersection:
                 min_dist = dist
                 closest_point = (x, y)
 
-        return closest_point
+        return Vector2D.rotate(closest_point[0], closest_point[1], angle)
 
     @staticmethod
-    def with_diamond(dx, dy, vx, vy, a, b) -> Optional[Point]:
+    def with_diamond(dx: float, dy: float, vx: float, vy: float, a: float, b: float, angle: float) -> Optional[Point]:
         """Find the intersection between a half-line and a diamond centered at origin.
 
         Returns:
@@ -109,8 +116,10 @@ class HalfLineIntersection:
 
         intersections = []
 
+        vxr, vyr = Vector2D.rotate(vx, vy, -angle)
+
         for (x1, y1), (x2, y2) in lines:
-            intersection = HalfLineIntersection.half_line_line_intersection(dx, dy, vx, vy, x1, y1, x2, y2)
+            intersection = HalfLineIntersection.half_line_line_intersection(dx, dy, vxr, vyr, x1, y1, x2, y2)
             if intersection:
                 intersections.append(intersection)
 
@@ -126,7 +135,7 @@ class HalfLineIntersection:
                 min_dist = dist
                 closest_point = (x, y)
 
-        return closest_point
+        return Vector2D.rotate(closest_point[0], closest_point[1], angle)
 
     @staticmethod
     def half_line_line_intersection(px, py, vx, vy, x1, y1, x2, y2) -> Optional[Point]:

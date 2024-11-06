@@ -4,13 +4,28 @@ from ..geometry.ArcApproximation import ArcApproximation
 from ..geometry.BezierApproximation import BezierApproximation
 from ..geometry.HalfLineIntersection import HalfLineIntersection
 
+from ..geometry.StraightConnection import StraightConnection
+from ..geometry.ArcConnection import ArcConnection
+from ..geometry.BezierConnection import BezierConnection
+from ..geometry.ElbowConnection import ElbowConnection
+
+
 from ...config.Config import Config, DEFAULT_CONFIG
 
+from enum import Enum
 from typing import Self, Tuple, List, Optional
 import math
 
 class Arrow(AbstractStrokedElement):
     """Represents an arrow element in Excalidraw, capable of different styles like straight lines, splines, arcs, etc."""
+
+    class ConnectionType(Enum):
+        STRAIGHT = 0
+        ARC = 1
+        SPLINE = 2
+        HSPLINE = 3
+        VSPLINE = 4
+        ELBOW = 5
 
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("arrow", config)
@@ -25,6 +40,9 @@ class Arrow(AbstractStrokedElement):
         self.__start_vector = (0, 0)
         self.__end_vector = (0, 0)
         self.__radius = None  # For arc connections
+        self.__start_element: AbstractElement = None
+        self.__end_element: AbstractElement = None
+        self.__connection_type = Arrow.ConnectionType.STRAIGHT
 
     def points(self, points: List[Tuple[float, float]]) -> Self:
         self._points = points
@@ -313,3 +331,42 @@ class Arrow(AbstractStrokedElement):
         iy_global += element_center[1]
 
         return (ix_global, iy_global)
+
+    def __do_binding(self) -> Self:
+        match self.__connection_type:
+            case Arrow.ConnectionType.STRAIGHT:
+                self._points = StraightConnection(self.__start_element, self.__end_element).points()
+
+            case Arrow.ConnectionType.ARC:
+                self._points = ArcConnection(self.__start_element, self.__end_element).points()
+
+            case Arrow.ConnectionType.SPLINE:
+                self._points = BezierConnection(self.__start_element, self.__end_element, self.__start_vector, self.__end_vector).points()
+
+            case Arrow.ConnectionType.HSPLINE:
+                self._points = BezierConnection(self.__start_element, self.__end_element, self.__start_vector, self.__end_vector).points()
+
+            case Arrow.ConnectionType.VSPLINE:
+                self._points = BezierConnection(self.__start_element, self.__end_element, self.__start_vector, self.__end_vector).points()
+
+            case Arrow.ConnectionType.ELBOW:
+                self._points = ElbowConnection(self.__start_element, self.__end_element).points()
+
+        return self.__set_binding_attributes()
+
+    def __set_binding_attributes(self) -> Self:
+        self._start_binding = {
+            "elementId": self.__start_element._id,
+            "focus": 0,
+            "gap": self.__start_gap
+        }
+        self._end_binding = {
+            "elementId": self.__end_element._id,
+            "focus": 0,
+            "gap": self.__end_gap
+        }
+
+        self.__start_element._add_bound_element(self)
+        self.__end_element._add_bound_element(self)
+
+        return self
