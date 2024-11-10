@@ -4,7 +4,7 @@ The Excalidraw uses Catmull-Rom splines; however using cubic Bezier splines migh
 more practical for some visualisations.
 """
 
-Point = list[float, float] | tuple[float, float]
+from .Point import Point
 
 class BezierApproximation:
     """This class generates list of points for the given Bezier control points.

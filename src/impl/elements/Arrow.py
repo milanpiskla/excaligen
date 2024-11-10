@@ -8,7 +8,7 @@ from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
 from ..geometry.BezierConnection import BezierConnection
 from ..geometry.ElbowConnection import ElbowConnection
-
+from ..geometry.Point import Point
 
 from ...config.Config import Config, DEFAULT_CONFIG
 
@@ -23,9 +23,7 @@ class Arrow(AbstractStrokedElement):
         STRAIGHT = 0
         ARC = 1
         SPLINE = 2
-        HSPLINE = 3
-        VSPLINE = 4
-        ELBOW = 5
+        ELBOW = 3
 
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("arrow", config)
@@ -36,9 +34,8 @@ class Arrow(AbstractStrokedElement):
         self._points = []
         self.__start_gap = 1
         self.__end_gap = 1
-        self.__connection = 'straight'  # default connection style
-        self.__start_vector = (0, 0)
-        self.__end_vector = (0, 0)
+        self.__start_angle = 0.0
+        self.__end_angle = 0.0
         self.__radius = None  # For arc connections
         self.__start_element: AbstractElement = None
         self.__end_element: AbstractElement = None
@@ -61,25 +58,17 @@ class Arrow(AbstractStrokedElement):
 
     def spline(self, start_vector: Tuple[float, float], end_vector: Tuple[float, float]) -> Self:
         """Approximates a Bezier spline using the given start and end tangent vectors."""
-        self.__connection = 'spline'
+        self.__connection_type = Arrow.ConnectionType.SPLINE
         self.__start_vector = start_vector
         self.__end_vector = end_vector
+        self.roundness('round')
         return self
     
-    def hspline(self) -> Self:
-        """Approximates a Bezier spline with horizontal start and end tangent vectors."""
-        self.__connection = 'hspline'
-        return self
-
-    def vspline(self) -> Self:
-        """Approximates a Bezier spline with vertical start and end tangent vectors."""
-        self.__connection = 'vspline'
-        return self
-
     def arc(self, radius: float) -> Self:
         """Approximates an arc between the bound elements with the given radius."""
-        self.__connection = 'arc'
+        self.__connection_type = Arrow.ConnectionType.ARC
         self.__radius = radius
+        self.roundness('round')
         return self
 
     def gap(self, gap: float, end_gap: float = None) -> Self:
@@ -110,247 +99,29 @@ class Arrow(AbstractStrokedElement):
 
     def elbow(self) -> Self:
         """Set the arrow to have an elbow (right-angle turn)."""
-        self.__connection = 'elbow'
+        self.__connection_type = Arrow.ConnectionType.ELBOW
         return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
         """Bind the arrow between two elements, supporting different connection styles."""
-        # Calculate the center positions of the start and end elements
-        start_center_x, start_center_y = start.get_center()
-        end_center_x, end_center_y = end.get_center()
-
-        # Calculate edge points
-        start_x, start_y = self.__calculate_edge_point(start, end_center_x, end_center_y)
-        end_x, end_y = self.__calculate_edge_point(end, start_center_x, start_center_y)
-
-        # Set arrow position at the calculated start point
-        self._x = start_x
-        self._y = start_y
-
-        if self.__connection == 'elbow':
-            # Create an elbow path
-            mid_x = end_x if abs(end_x - start_x) > abs(end_y - start_y) else start_x
-            mid_y = start_y if abs(end_x - start_x) > abs(end_y - start_y) else end_y
-            self._points = [
-                [0, 0],
-                [mid_x - start_x, mid_y - start_y],
-                [end_x - start_x, end_y - start_y]
-            ]
-
-        elif self.__connection in ['hspline', 'vspline', 'spline']:
-            self.roundness('round')
-            start_center = start.get_center()
-            end_center = end.get_center()
-
-            # Calculate tangent vectors if necessary
-            if self.__connection == 'hspline':
-                delta_x = (end_center[0] - start_center[0]) / 2
-                self.__start_vector = (delta_x, 0)
-                self.__end_vector = (-delta_x, 0)
-            elif self.__connection == 'vspline':
-                delta_y = (end_center[1] - start_center[1]) / 2
-                self.__start_vector = (0, delta_y)
-                self.__end_vector = (0, -delta_y)
-            # For 'spline', use the provided self.__start_vector and self.__end_vector
-
-            # Find intersection points with elements
-            start_edge_point = self.__find_intersection_with_element(
-                start, start_center, self.__start_vector
-            )
-            if start_edge_point is None:
-                raise ValueError("Cannot find intersection with start element")
-
-            end_edge_point = self.__find_intersection_with_element(
-                end, end_center, self.__end_vector
-            )
-            if end_edge_point is None:
-                raise ValueError("Cannot find intersection with end element")
-
-            # Control points for Bezier curve
-            b0 = start_edge_point
-            b1 = (b0[0] + self.__start_vector[0], b0[1] + self.__start_vector[1])
-            b3 = end_edge_point
-            b2 = (b3[0] + self.__end_vector[0], b3[1] + self.__end_vector[1])
-
-            # Use BezierApproximation to generate points
-            bezier = BezierApproximation()
-            bezier_points = bezier.generate_points(b0, b1, b2, b3)
-
-            # Set arrow's position to the first point
-            self._x = bezier_points[0][0]
-            self._y = bezier_points[0][1]
-
-            # Convert bezier_points to relative coordinates
-            relative_points = [[x - self._x, y - self._y] for x, y in bezier_points]
-            self._points = relative_points
-
-
-        elif self.__connection == 'arc':
-            # Use ArcApproximation to generate arc points
-        # Calculate the center positions of the start and end elements
-            self.roundness('round')
-            start_center = start.get_center()
-            end_center = end.get_center()
-            arc_approx = ArcApproximation()
-            try:
-                arc_points = arc_approx.generate_points(
-                    start_center,
-                    end_center,
-                    self.__radius,
-                    start,
-                    end
-                )
-            except ValueError as e:
-                raise ValueError(f"Cannot create arc: {e}")
-
-            # Set arrow's position to the first point
-            self._x = arc_points[0][0]
-            self._y = arc_points[0][1]
-
-            # Convert arc_points to relative coordinates
-            relative_points = [[x - self._x, y - self._y] for x, y in arc_points]
-            self._points = relative_points
-
-        else:
-            # Default is straight line
-            self._points = [
-                [0, 0],  # Start point at (0, 0)
-                [end_x - start_x, end_y - start_y]  # End point relative to start
-            ]
-
-        # Set bindings
-        self._start_binding = {
-            "elementId": start._id,
-            "focus": 0,
-            "gap": self.__start_gap
-        }
-        self._end_binding = {
-            "elementId": end._id,
-            "focus": 0,
-            "gap": self.__end_gap
-        }
-
-        # Add bound elements
-        start._add_bound_element(self)
-        end._add_bound_element(self)
-
+        self.__start_element = start
+        self.__end_element = end
+        self.__do_binding()
         return self
-
-    def __calculate_edge_point(self, element: AbstractElement, target_x: float, target_y: float) -> Tuple[float, float]:
-        """Calculate the point on the edge of the element closest to the target point."""
-        width, height = element._width, element._height
-        center_x, center_y = element.get_center()
-
-        dx = target_x - center_x
-        dy = target_y - center_y
-
-        if width == 0 or height == 0 or (dx == 0 and dy == 0):
-            # If the element has no size or target is at the center, return the center
-            return center_x, center_y
-
-        # Compute scaling factors to reach the edge
-        if dx != 0:
-            t_x = (width / 2) / abs(dx)
-        else:
-            t_x = float('inf')
-
-        if dy != 0:
-            t_y = (height / 2) / abs(dy)
-        else:
-            t_y = float('inf')
-
-        t = min(t_x, t_y)
-
-        # Compute the edge point
-        ex = center_x + t * dx
-        ey = center_y + t * dy
-
-        return ex, ey
-
-    def __find_intersection_with_element(self, element: AbstractElement, element_center: Tuple[float, float], vector: Tuple[float, float]) -> Optional[Tuple[float, float]]:
-        """Find the precise intersection point between a half-line and the element's edge.
-
-        Args:
-            element (AbstractElement): The element to find the intersection with.
-            element_center (Tuple[float, float]): The center of the element.
-            vector (Tuple[float, float]): The direction vector of the half-line.
-
-        Returns:
-            Optional[Tuple[float, float]]: The intersection point on the edge of the element.
-        """
-        # Shift coordinates to element's local coordinate system
-        # In local coordinates, the element center is at (0, 0)
-        # The half-line starts at (0, 0)
-        # The vector is the direction vector
-
-        # If the element is rotated, we need to rotate the vector accordingly
-        angle = element._angle
-        if angle != 0:
-            cos_a = math.cos(-angle)
-            sin_a = math.sin(-angle)
-            vx, vy = vector
-            vx_rot = vx * cos_a - vy * sin_a
-            vy_rot = vx * sin_a + vy * cos_a
-        else:
-            vx_rot, vy_rot = vector
-
-        # Depending on element type, compute intersection
-        ew, eh = element._width, element._height
-
-        if element._type == 'ellipse':
-            a = ew / 2
-            b = eh / 2
-            intersection_point = HalfLineIntersection.with_ellipse(0, 0, vx_rot, vy_rot, a, b)
-        elif element._type == 'rectangle':
-            a = ew / 2
-            b = eh / 2
-            intersection_point = HalfLineIntersection.with_rectangle(0, 0, vx_rot, vy_rot, a, b)
-        elif element._type == 'diamond':
-            a = ew / 2
-            b = eh / 2
-            intersection_point = HalfLineIntersection.with_diamond(0, 0, vx_rot, vy_rot, a, b)
-        else:
-            return None  # Unsupported element type
-
-        if intersection_point is None:
-            return None
-
-        ix, iy = intersection_point
-
-        # Rotate back if necessary
-        if angle != 0:
-            cos_a = math.cos(angle)
-            sin_a = math.sin(angle)
-            ix_global = ix * cos_a - iy * sin_a
-            iy_global = ix * sin_a + iy * cos_a
-        else:
-            ix_global, iy_global = ix, iy
-
-        # Translate back to global coordinates
-        ix_global += element_center[0]
-        iy_global += element_center[1]
-
-        return (ix_global, iy_global)
 
     def __do_binding(self) -> Self:
         match self.__connection_type:
             case Arrow.ConnectionType.STRAIGHT:
-                self._points = StraightConnection(self.__start_element, self.__end_element).points()
+                self.__transform_points(StraightConnection(self.__start_element, self.__end_element).points())
 
             case Arrow.ConnectionType.ARC:
-                self._points = ArcConnection(self.__start_element, self.__end_element).points()
+                self.__transform_points(ArcConnection(self.__start_element, self.__end_element, self.__radius).points())
 
             case Arrow.ConnectionType.SPLINE:
-                self._points = BezierConnection(self.__start_element, self.__end_element, self.__start_vector, self.__end_vector).points()
-
-            case Arrow.ConnectionType.HSPLINE:
-                self._points = BezierConnection(self.__start_element, self.__end_element, self.__start_vector, self.__end_vector).points()
-
-            case Arrow.ConnectionType.VSPLINE:
-                self._points = BezierConnection(self.__start_element, self.__end_element, self.__start_vector, self.__end_vector).points()
+                self.__transform_points(BezierConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points())
 
             case Arrow.ConnectionType.ELBOW:
-                self._points = ElbowConnection(self.__start_element, self.__end_element).points()
+                self.__transform_points(ElbowConnection(self.__start_element, self.__end_element).points())
 
         return self.__set_binding_attributes()
 
@@ -370,3 +141,14 @@ class Arrow(AbstractStrokedElement):
         self.__end_element._add_bound_element(self)
 
         return self
+
+    def __transform_points(self, points: list[Point]) -> Self:
+        self._x = points[0][0]
+        self._y = points[0][1]
+
+        relative_points = [[x - self._x, y - self._y] for x, y in points]
+        self._points = relative_points
+
+        return self
+    
+    

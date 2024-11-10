@@ -1,3 +1,4 @@
+from .Vector2D import Vector2D
 import math
 
 Point = tuple[float, float]
@@ -6,7 +7,7 @@ class CircleIntersection:
     """Provides methods to compute precise intersections between a circle and various shapes."""
 
     @staticmethod
-    def with_ellipse(dx, dy, R, a, b, tolerance=1e-5) -> list[Point]:
+    def with_ellipse(dx, dy, R, a, b, angle, tolerance=1e-5) -> list[Point]:
         """Find precise intersections between a circle and an ellipse centered at origin.
 
         Solves the equation:
@@ -21,8 +22,10 @@ class CircleIntersection:
         Returns:
             list[Point]: Intersection points in local coordinates.
         """
+        dxr, dyr = Vector2D.rotate(dx, dy, -angle)
+
         def f(theta):
-            return (a * math.cos(theta) - dx)**2 + (b * math.sin(theta) - dy)**2 - R**2
+            return (a * math.cos(theta) - dxr)**2 + (b * math.sin(theta) - dyr)**2 - R**2
 
         # Initialize list of possible roots
         roots = []
@@ -56,7 +59,8 @@ class CircleIntersection:
             y = b * math.sin(theta)
             points.append((x, y))
 
-        return points
+        return [Vector2D.rotate(x, y, angle) for (x, y) in points]
+
 
     @staticmethod
     def bisect(f, a, b, tol):
@@ -84,12 +88,14 @@ class CircleIntersection:
         return (a + b) / 2  # Return the midpoint if no exact root found
 
     @staticmethod
-    def with_rectangle(dx, dy, R, a, b) -> list[Point]:
+    def with_rectangle(dx, dy, R, a, b, angle) -> list[Point]:
         """Find precise intersections between a circle and a rectangle centered at origin.
 
         Returns:
             list[Point]: Intersection points in local coordinates.
         """
+        dxr, dyr = Vector2D.rotate(dx, dy, -angle)
+
         # Edges of the rectangle
         lines = [
             ((-a, -b), (-a, b)),   # Left edge
@@ -99,17 +105,21 @@ class CircleIntersection:
         ]
         points = []
         for (x1, y1), (x2, y2) in lines:
-            intersections = CircleIntersection.circle_line_intersections(dx, dy, R, x1, y1, x2, y2)
+            intersections = CircleIntersection.circle_line_intersections(dxr, dyr, R, x1, y1, x2, y2)
             points.extend(intersections)
-        return points
+        
+        return [Vector2D.rotate(x, y, angle) for (x, y) in points]
 
     @staticmethod
-    def with_diamond(dx, dy, R, a, b) -> list[Point]:
+    def with_diamond(dx, dy, R, a, b, angle) -> list[Point]:
         """Find precise intersections between a circle and a diamond centered at origin.
 
         Returns:
             list[Point]: Intersection points in local coordinates.
         """
+
+        dxr, dyr = Vector2D.rotate(dx, dy, -angle)
+
         # Edges of the diamond (rotated square)
         # The diamond has vertices at (0, b), (a, 0), (0, -b), (-a, 0)
         # Edges are between these points
@@ -121,9 +131,10 @@ class CircleIntersection:
         ]
         points = []
         for (x1, y1), (x2, y2) in lines:
-            intersections = CircleIntersection.circle_line_intersections(dx, dy, R, x1, y1, x2, y2)
+            intersections = CircleIntersection.circle_line_intersections(dxr, dyr, R, x1, y1, x2, y2)
             points.extend(intersections)
-        return points
+
+        return [Vector2D.rotate(x, y, angle) for (x, y) in points]
 
     @staticmethod
     def with_line(cx, cy, R, x1, y1, x2, y2) -> list[Point]:

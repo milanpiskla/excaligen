@@ -114,13 +114,13 @@ def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> N
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_hspline(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
-    xg = Excaligen()
-    start_element = xg.rectangle().center(-150, -150).size(100, 100).label(xg.text().content("center 1"))
-    end_element = xg.rectangle().center(150, 150).size(100, 100).label(xg.text().content("center 2"))
-    xg.arrow().hspline().bind(start_element, end_element)
+# def test_arrow_hspline(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+#     xg = Excaligen()
+#     start_element = xg.rectangle().center(-150, -150).size(100, 100).label(xg.text().content("center 1"))
+#     end_element = xg.rectangle().center(150, 150).size(100, 100).label(xg.text().content("center 2"))
+#     xg.arrow().hspline().bind(start_element, end_element)
     
-    evaluate(reference_json, xg, request)
+#     evaluate(reference_json, xg, request)
 
 def test_group(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
