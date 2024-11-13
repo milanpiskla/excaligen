@@ -32,7 +32,7 @@ class AbstractElement:
         self._y = y
         return self
     
-    def center(self, x: float, y: float) -> None:
+    def center(self, x: float, y: float) -> Self:
         self.__is_centered = True
         self._x = x - 0.5 * self._width
         self._y = y - 0.5 * self._height

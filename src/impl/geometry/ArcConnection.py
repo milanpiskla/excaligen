@@ -112,7 +112,8 @@ class ArcConnection:
                 min_dist = dist
                 selected_point = point
 
-        return tuple(p + t for p, t in zip(selected_point, element.get_center()))
+#        return tuple(p + t for p, t in zip(selected_point, element.get_center()))
+        return selected_point
     
 
     def _compute_circle_centers(self, A: Point, B: Point, radius: float) -> list[Point]:
