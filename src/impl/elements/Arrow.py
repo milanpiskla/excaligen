@@ -56,11 +56,11 @@ class Arrow(AbstractStrokedElement):
                 raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
         return self
 
-    def spline(self, start_vector: Tuple[float, float], end_vector: Tuple[float, float]) -> Self:
+    def spline(self, start_angle: float, end_angle: float) -> Self:
         """Approximates a Bezier spline using the given start and end tangent vectors."""
         self.__connection_type = Arrow.ConnectionType.SPLINE
-        self.__start_vector = start_vector
-        self.__end_vector = end_vector
+        self.__start_angle = start_angle
+        self.__end_angle = end_angle
         self.roundness('round')
         return self
     

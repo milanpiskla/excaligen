@@ -13,33 +13,36 @@ class BezierApproximation:
     The implementation uses adaptive sampling, i.e. the spline parts with 
     larger curvature are approximated with higher amount of points.
     """
-    def __init__(self):
-        pass
 
-    def generate_points(self, b0: Point, b1: Point, b2: Point, b3: Point, initial_t_values = 7, error_threshold = 0.05) -> list[Point]:
-        return self.__generate_adaptive_bezier_points(b0, b1, b2, b3, initial_t_values, error_threshold)
+    @staticmethod
+    def generate_points(b0: Point, b1: Point, b2: Point, b3: Point, initial_t_values = 7, error_threshold = 0.05) -> list[Point]:
+        return BezierApproximation.__generate_adaptive_bezier_points(b0, b1, b2, b3, initial_t_values, error_threshold)
 
-    def __cubic_bezier(self, t, B0, B1, B2, B3):
+    @staticmethod
+    def __cubic_bezier(t, B0, B1, B2, B3):
         """Calculate the position on a cubic Bézier curve at parameter t."""
         x = (1 - t)**3 * B0[0] + 3 * (1 - t)**2 * t * B1[0] + 3 * (1 - t) * t**2 * B2[0] + t**3 * B3[0]
         y = (1 - t)**3 * B0[1] + 3 * (1 - t)**2 * t * B1[1] + 3 * (1 - t) * t**2 * B2[1] + t**3 * B3[1]
         return (x, y)
 
-    def __bezier_derivative(self, t, B0, B1, B2, B3):
+    @staticmethod
+    def __bezier_derivative(t, B0, B1, B2, B3):
         """Calculate the derivative of the cubic Bézier curve at parameter t."""
         dx = 3 * (1 - t)**2 * (B1[0] - B0[0]) + 6 * (1 - t) * t * (B2[0] - B1[0]) + 3 * t**2 * (B3[0] - B2[0])
         dy = 3 * (1 - t)**2 * (B1[1] - B0[1]) + 6 * (1 - t) * t * (B2[1] - B1[1]) + 3 * t**2 * (B3[1] - B2[1])
         return (dx, dy)
 
-    def __curvature(self, t, B0, B1, B2, B3):
+    @staticmethod
+    def __curvature(t, B0, B1, B2, B3):
         """Estimate curvature based on the derivative magnitude."""
-        dx, dy = self.__bezier_derivative(t, B0, B1, B2, B3)
+        dx, dy = BezierApproximation.__bezier_derivative(t, B0, B1, B2, B3)
         return (dx**2 + dy**2)**0.5
 
-    def __generate_adaptive_bezier_points(self, B0, B1, B2, B3, initial_t_values=7, error_threshold=0.05):
+    @staticmethod
+    def __generate_adaptive_bezier_points(B0, B1, B2, B3, initial_t_values=7, error_threshold=0.05):
         """Generate points on a cubic Bézier curve with adaptive sampling."""
         t_values = [i / initial_t_values for i in range(initial_t_values + 1)]
-        points = [self.__cubic_bezier(t, B0, B1, B2, B3) for t in t_values]
+        points = [BezierApproximation.__cubic_bezier(t, B0, B1, B2, B3) for t in t_values]
         
         # Iteratively refine t values based on curvature
         refined_points = [points[0]]  # Start with the first point
@@ -50,7 +53,7 @@ class BezierApproximation:
 
             # Estimate curvature at midpoint
             t_mid = (t_start + t_end) / 2
-            mid_point = self.__cubic_bezier(t_mid, B0, B1, B2, B3)
+            mid_point = BezierApproximation.__cubic_bezier(t_mid, B0, B1, B2, B3)
             start_point = points[i - 1]
             end_point = points[i]
 

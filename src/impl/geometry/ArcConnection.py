@@ -41,7 +41,7 @@ class ArcConnection:
 
         start_edge_point, end_edge_point = self.__find_intersection_points(circle_center, angle_start_element, angle_end_element)
 
-        return ArcApproximation().generate_points(circle_center, self._radius, start_edge_point, end_edge_point)
+        return ArcApproximation.generate_points(circle_center, self._radius, start_edge_point, end_edge_point)
 
     def __find_intersection_points(self, circle_center: Point, angle_start_element: float, angle_end_element: float) -> tuple[Point, Point]:
         start_point = self.__find_intersection_with_element(self._start_element, circle_center, angle_start_element, angle_end_element)
@@ -69,14 +69,15 @@ class ArcConnection:
 
         a, b = element._width / 2, element._height / 2
 
-        if element._type == 'ellipse':
-            intersection_points = CircleIntersection.with_ellipse(dx, dy, self._radius, a, b, angle)
-        elif element._type == 'rectangle' | 'image' | 'text':
-            intersection_points = CircleIntersection.with_rectangle(dx, dy, self._radius, a, b, angle)
-        elif element._type == 'diamond':
-            intersection_points = CircleIntersection.with_diamond(dx, dy, self._radius, a, b, angle)
-        else:
-            return None  # Unsupported element type
+        match element._type:
+            case 'ellipse':
+                intersection_points = CircleIntersection.with_ellipse(dx, dy, self._radius, a, b, angle)
+            case 'rectangle' | 'image' | 'text':
+                intersection_points = CircleIntersection.with_rectangle(dx, dy, self._radius, a, b, angle)
+            case 'diamond':
+                intersection_points = CircleIntersection.with_diamond(dx, dy, self._radius, a, b, angle)
+            case _:
+                return None  # Unsupported element type
 
         if not intersection_points:
             return None

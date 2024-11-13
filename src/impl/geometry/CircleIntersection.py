@@ -105,7 +105,7 @@ class CircleIntersection:
         ]
         points = []
         for (x1, y1), (x2, y2) in lines:
-            intersections = CircleIntersection.circle_line_intersections(dxr, dyr, R, x1, y1, x2, y2)
+            intersections = CircleIntersection.with_line(dxr, dyr, R, x1, y1, x2, y2)
             points.extend(intersections)
         
         return [Vector2D.rotate(x, y, angle) for (x, y) in points]
@@ -131,7 +131,7 @@ class CircleIntersection:
         ]
         points = []
         for (x1, y1), (x2, y2) in lines:
-            intersections = CircleIntersection.circle_line_intersections(dxr, dyr, R, x1, y1, x2, y2)
+            intersections = CircleIntersection.with_line(dxr, dyr, R, x1, y1, x2, y2)
             points.extend(intersections)
 
         return [Vector2D.rotate(x, y, angle) for (x, y) in points]

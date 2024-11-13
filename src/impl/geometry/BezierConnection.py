@@ -24,17 +24,17 @@ class BezierConnection:
         b0, b3 = self.__find_intersection_points(vsx, vsy, vex, vey)
         w = abs(b0[0] - b3[0])
         h = abs(b0[1] - b3[1])
-        b1 = b0[0] + vsx * w / 2 * self._start_weight, b0[1] + vsy * h / 2 * self._start_weight
-        b2 = b3[0] + vex * w / 2 * self._end_weight, b3[1] + vey * h / 2 * self._end_weight
+        b1 = b0[0] + vsx * w * self._start_weight, b0[1] + vsy * h * self._start_weight
+        b2 = b3[0] + vex * w * self._end_weight, b3[1] + vey * h * self._end_weight
 
         return BezierApproximation.generate_points(b0, b1, b2, b3)
     
     def __find_intersection_points(self, vsx: float, vsy: float, vex: float, vey: float) -> tuple[Point, Point]:
-        start_point = self.__find_intersection_with_element(self._start_element, 0.0, 0.0, vsx, vsy, self._start_element._angle)
+        start_point = self.__find_intersection_with_element(self._start_element, 0.0, 0.0, vsx, vsy)
         if start_point is None:
             raise Exception("Cannot find intersection as start point")
 
-        end_point = self.__find_intersection_with_element(self._end_element, 0.0, 0.0, vex, vey, self._start_element._angle)
+        end_point = self.__find_intersection_with_element(self._end_element, 0.0, 0.0, vex, vey)
         if end_point is None:
             raise Exception("Cannot find intersection as end point")
         
