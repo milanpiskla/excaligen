@@ -1,43 +1,11 @@
-import pytest
-import json
-import os
-from typing import Dict, Any
 from src.Excaligen import Excaligen
-from tests.functional.ExcalidrawComparator import ExcalidrawComparator
+from .evaluate import *
+
 from pytest import FixtureRequest
 
 import math
 
-@pytest.fixture
-def reference_json(request: FixtureRequest) -> Dict[str, Any]:
-    """
-    Load the reference JSON file for the test.
-    The name of the reference file is derived from the test name.
-    """
-    test_name = request.node.name
-    fixture_dir = os.path.join(os.path.dirname(__file__), 'fixtures')
-    reference_file = os.path.join(fixture_dir, f"{test_name}.excalidraw")
-    with open(reference_file, 'r', encoding='utf-8') as f:
-        return json.load(f)
-
-def evaluate(reference_json: Dict[str, Any], xg: Excaligen, request: FixtureRequest) -> None:
-    generated_json = json.loads(xg.json())
-    comparator = ExcalidrawComparator(
-        ignore_fields={'version', 'versionNonce', 'seed', 'groupIds'}
-    )
-
-    # Compare the generated JSON with the reference JSON
-    if not comparator.compare(reference_json, generated_json):
-        # Write the generated JSON to a file
-        test_name = request.node.name
-        generated_dir = os.path.join(os.path.dirname(__file__), 'generated')
-        os.makedirs(generated_dir, exist_ok=True)
-        generated_file = os.path.join(generated_dir, f"{test_name}_generated_bad.excalidraw")
-        with open(generated_file, 'w', encoding='utf-8') as f:
-            f.write(xg.json())
-        assert False, f"Generated JSON does not match the reference JSON. See '{generated_file}' for details."
-
-def test_arrow_star(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_arrow_star(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     start_element = xg.ellipse().center(0, 0).size(100, 100).label(xg.text().content("center"))
@@ -51,21 +19,21 @@ def test_arrow_star(reference_json: Dict[str, Any], request: FixtureRequest) -> 
 
     evaluate(reference_json, xg, request)
 
-def test_texts(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_texts(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
     xg.text().content("Hello, World!").fontsize("L").font("Hand-drawn").align("center").baseline("top").spacing(1.5).color("#FF0000")
     xg.text().position(100, 100).content("Hello, Excalifont!").fontsize(40).font("excalifont").align("center").baseline("top").spacing(1.5).color("#0000FF").autoresize(True)
 
     evaluate(reference_json, xg, request)
 
-def test_labels(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_labels(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
     label = xg.text().content("Hello, World!").fontsize("M").font("Hand-drawn").spacing(1.5).color("#FF0000")
     xg.rectangle().position(10, 20).size(300, 100).label(label)
 
     evaluate(reference_json, xg, request)
 
-def test_sandbox(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_sandbox(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     def cross(center: tuple[float, float], color: str) -> None:
@@ -83,7 +51,7 @@ def test_sandbox(reference_json: Dict[str, Any], request: FixtureRequest) -> Non
 
     evaluate(reference_json, xg, request)
 
-def test_lines(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_lines(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     xg.line().color('#00FF00').points([(0, 0), (100, 50)]).sloppiness(2).stroke('solid')
@@ -92,7 +60,7 @@ def test_lines(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_arrow_arc(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     RADIUS = 300
@@ -114,7 +82,7 @@ def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> N
 
     evaluate(reference_json, xg, request)
 
-# def test_arrow_hspline(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+# def test_arrow_hspline(reference_json: dict[str, any], request: FixtureRequest) -> None:
 #     xg = Excaligen()
 #     start_element = xg.rectangle().center(-150, -150).size(100, 100).label(xg.text().content("center 1"))
 #     end_element = xg.rectangle().center(150, 150).size(100, 100).label(xg.text().content("center 2"))
@@ -122,7 +90,7 @@ def test_arrow_arc(reference_json: Dict[str, Any], request: FixtureRequest) -> N
     
 #     evaluate(reference_json, xg, request)
 
-def test_group(reference_json: Dict[str, Any], request: FixtureRequest) -> None:
+def test_group(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("Group part"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("Group part"))

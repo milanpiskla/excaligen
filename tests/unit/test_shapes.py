@@ -1,4 +1,5 @@
 import pytest
+from pytest import approx
 from src.impl.elements.Rectangle import Rectangle
 from src.impl.elements.Diamond import Diamond
 from src.impl.elements.Ellipse import Ellipse
@@ -17,6 +18,28 @@ def test_rectangle_size():
     rect = Rectangle(DEFAULT_CONFIG).size(150, 80)
     assert rect._width == 150
     assert rect._height == 80
+
+def test_rectangle_center_first():
+    CX, CY = 100, 200
+    W, H = 150, 80
+    
+    rect = Rectangle(DEFAULT_CONFIG).center(CX, CY).size(W, H)
+    cx, cy = rect.get_center()
+    assert cx == approx(CX)
+    assert cy == approx(CY)
+    assert rect._x == approx(CX - W / 2)
+    assert rect._y == approx(CY - H / 2)
+
+def test_rectangle_center_second():
+    CX, CY = 100, 200
+    W, H = 150, 80
+    
+    rect = Rectangle(DEFAULT_CONFIG).size(W, H).center(CX, CY)
+    cx, cy = rect.get_center()
+    assert cx == approx(CX)
+    assert cy == approx(CY)
+    assert rect._x == approx(CX - W / 2)
+    assert rect._y == approx(CY - H / 2)
 
 def test_rectangle_color():
     rect = Rectangle(DEFAULT_CONFIG).color("#FF5733")
