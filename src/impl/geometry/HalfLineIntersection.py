@@ -2,9 +2,7 @@ import math
 from typing import Optional
 
 from .Vector2D import Vector2D
-
-
-Point = tuple[float, float]
+from .Point import Point
 
 class HalfLineIntersection:
     """Provides methods to compute precise intersections between a half-line and various shapes."""

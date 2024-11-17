@@ -31,12 +31,15 @@ class Arrow(AbstractStrokedElement):
         self._end_binding = None
         self._start_arrowhead = config.get("startArrowhead", None)
         self._end_arrowhead = config.get("endArrowhead", "arrow")
-        self._points = []
+        self._elbowed = False
+        self._points: list[Point] = []
         self.__start_gap = 1
         self.__end_gap = 1
         self.__start_angle = 0.0
         self.__end_angle = 0.0
-        self.__radius = None  # For arc connections
+        self.__start_direction: str = None
+        self.__end_direction: str = None
+        self.__radius: float = None  # For arc connections
         self.__start_element: AbstractElement = None
         self.__end_element: AbstractElement = None
         self.__connection_type = Arrow.ConnectionType.STRAIGHT
@@ -97,9 +100,12 @@ class Arrow(AbstractStrokedElement):
         self._end_arrowhead = None if end == 'none' else end
         return self
 
-    def elbow(self) -> Self:
+    def elbow(self, start_direction: str, end_direction: str) -> Self:
         """Set the arrow to have an elbow (right-angle turn)."""
+        self._elbowed = True
         self.__connection_type = Arrow.ConnectionType.ELBOW
+        self.__start_direction = start_direction
+        self.__end_direction = end_direction
         return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
@@ -107,6 +113,12 @@ class Arrow(AbstractStrokedElement):
         self.__start_element = start
         self.__end_element = end
         self.__do_binding()
+        return self
+
+    def __try_do_binding(self) -> Self:
+        if self._start_binding or self._end_binding:
+            self.__do_binding()
+
         return self
 
     def __do_binding(self) -> Self:
@@ -121,7 +133,7 @@ class Arrow(AbstractStrokedElement):
                 self.__transform_points(BezierConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points())
 
             case Arrow.ConnectionType.ELBOW:
-                self.__transform_points(ElbowConnection(self.__start_element, self.__end_element).points())
+                self.__transform_points(ElbowConnection(self.__start_element, self.__end_element, self.__start_direction, self.__end_direction).points())
 
         return self.__set_binding_attributes()
 
