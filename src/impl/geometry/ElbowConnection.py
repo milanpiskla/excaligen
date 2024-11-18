@@ -2,9 +2,10 @@ from ..base.AbstractElement import AbstractElement
 from .AaLineSegmentIntersection import AaLineSegmentIntersection
 
 from .Point import Point
-from typing import Optional
+from typing import Optional, Callable
 
 import math
+import copy
 
 MIN_SEGMENT_HINT: float = 10.0
 MAX_ELBOWS = 8
@@ -12,6 +13,45 @@ MAX_ELBOWS = 8
 Segment = tuple[Point, Point]
 
 class ElbowConnection:
+    class Trajectory:
+        def __init__(self):
+            self._points: list[Point] = []
+            self._distance: float = 0.0
+
+        def is_better_than(self, other: ElbowConnection.Trajectory) -> bool:
+            if len(other._points) == 0:
+                return True
+
+            if len(self._points) < len(other._points):
+                return True
+            
+            if len(self._points) == len(other._points):
+                if self._distance < other._distance:
+                    return True
+                
+            return False
+
+        def get_elbows_count(self) -> int:
+            return len(self._points)
+
+        def get_points(self) -> list[Point]:
+            return self._points
+        
+        def reset(self):
+            self._points.clear()
+            self._distance = 0
+        
+        def add_point(self, point: Point) -> None:
+            if len(self._points) > 0:
+                xlast, ylast = self._points[-1]
+                x, y = point
+                self._distance += math.max(abs(x - xlast), abs(y - ylast))
+            
+            self._points.append(point)
+
+        def pop_point(self):
+            self._points.pop()
+
     def __init__(self, start_element: AbstractElement, end_element: AbstractElement, start_dir: str, end_dir: str, min_segment_hint = MIN_SEGMENT_HINT):
         self._start_element = start_element
         self._end_element = end_element
@@ -31,13 +71,13 @@ class ElbowConnection:
         self._ymin = 0.0
         self._ymax = 0.0
 
+        self._best_trajectory = ElbowConnection.Trajectory()
+        self._current_trajectory = ElbowConnection.Trajectory()
+
     def points(self) -> list[Point]:
         self._compute_bounds()
         self._fill_horizontal_routes()
         self._fill_vertical_routes()
-
-
-        path = [start_point]
 
         return path
     
@@ -58,33 +98,19 @@ class ElbowConnection:
             case 'E':
                 return cx + a, cy
 
-    def _compute_horizontal_space(self) -> float:
-        """Compute the horizontal space between the rectangles."""
-        x1_min = self._start_element._x
-        x1_max = self._start_element._x + self._start_element._width
-        x2_min = self._end_element._x
-        x2_max = self._end_element._x + self._end_element._width
+    def _find_horizontal_gap_line(self) -> Optional(float):
+        """Find a line in the middle of the horizontal space between the rectangles."""
+        y1 = math.max(self._start_element._y, self._end_element._y)
+        y2 = math.min(self._start_element._y + self._start_element._height, self._end_element._y + self._end_element._height)
 
-        if x1_max < x2_min:
-            return x2_min - x1_max
-        elif x2_max < x1_min:
-            return x1_min - x2_max
-        else:
-            return 0  # Rectangles overlap horizontally
-
-    def _compute_vertical_space(self) -> float:
-        """Compute the vertical space between the rectangles."""
-        y1_min = self._start_element._y
-        y1_max = self._start_element._y + self._start_element._height
-        y2_min = self._end_element._y
-        y2_max = self._end_element._y + self._end_element._height
-
-        if y1_max < y2_min:
-            return y2_min - y1_max
-        elif y2_max < y1_min:
-            return y1_min - y2_max
-        else:
-            return 0  # Rectangles overlap vertically
+        return (y1 + y2) / 2 if y1 < y2 else None
+    
+    def _find_vertical_gap_line(self) -> Optional(float):
+        """Find a line in the middle of the vertical space between the rectangles."""
+        x1 = math.max(self._start_element._x, self._end_element._x)
+        x2 = math.min(self._start_element._x + self._start_element._width, self._end_element._x + self._end_element._width)
+        
+        return (x1 + x2) / 2 if x1 < x2 else None
 
     def _compute_bounds(self) -> None:
         self._xmin = min(self._start_element._x, self._end_element._x) - self._min_segment_hint
@@ -98,42 +124,51 @@ class ElbowConnection:
     def _fill_vertical_routes(self) -> None:
         pass
 
-    def _cross_vertical(self, horizontal: Segment, points: list[Point]) -> list[Point]:
-        p1, p2 = horizontal
+    # def _cross_horizontal(self, p1:Point, p2: Point) -> None:
+    #     if self._current_trajectory.get_elbows_count() < MAX_ELBOWS:
+    #         if not self._try_complete_trajectory(p1, p2):
+    #             for q1, q2 in self._horizontal_segments:
+    #                 intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
+    #                 if intersection:
+    #                     self._current_trajectory.add_point(intersection)
+    #                     self._cross_vertical(intersection[0], intersection[1])
+        
+    #     self._current_trajectory.pop_point()
+
+    # def _cross_vertical(self, p1:Point, p2: Point) -> None:
+    #     if self._current_trajectory.get_elbows_count() < MAX_ELBOWS:
+    #         if not self._try_complete_trajectory(p1, p2):
+    #             for q1, q2 in self._vertical_segments:
+    #                 intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
+    #                 if intersection:
+    #                     self._current_trajectory.add_point(intersection)
+    #                     self._cross_horizontal(intersection[0], intersection[1])
+        
+    #     self._current_trajectory.pop_point()
+
+
+    # Recursive magic follows :)
+
+    def _cross_horizontal(self, p1:Point, p2: Point) -> None:
+        self._cross_segment(p1, p2, self._cross_vertical, self._horizontal_segments)
+
+    def _cross_vertical(self, p1:Point, p2: Point) -> None:
+        self._cross_segment(p1, p2, self._cross_horizontal, self._vertical_segments)
+
+    def _cross_segment(self, p1:Point, p2: Point, cross_function: Callable, cross_segments: list[Segment]) -> None:
+        if self._current_trajectory.get_elbows_count() < MAX_ELBOWS:
+            if not self._try_complete_trajectory(p1, p2):
+                for q1, q2 in cross_segments:
+                    intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
+                    if intersection:
+                        self._current_trajectory.add_point(intersection)
+                        cross_function(intersection[0], intersection[1])
+        
+        self._current_trajectory.pop_point()
+
+    def _try_complete_trajectory(self, p1: Point, p2: Point) -> bool:
         if AaLineSegmentIntersection.is_point_on_segment(self._end_point, p1, p2):
-            points.append(self._end_point)
-            return points
-        
-        if len(points) > MAX_ELBOWS:
-            return []
-        
-        for vertical in self._vertical_segments:
-            q1, q2 = vertical
-            intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
-            if intersection is None:
-                return []
-            else:
-                points.append(intersection)
-                return self._cross_horizontal(vertical, points)
-
-        return points
-
-    def _cross_horizontal(self, vertical: Segment, points: list[Point]) -> list[Point]:
-        p1, p2 = vertical
-        if AaLineSegmentIntersection.is_point_on_segment(self._end_point, p1, p2):
-            points.append(self._end_point)
-            return points
-        
-        if len(points) > MAX_ELBOWS:
-            return []
-        
-        for horizontal in self._horizontal_segments:
-            q1, q2 = horizontal
-            intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
-            if intersection is None:
-                return []
-            else:
-                points.append(intersection)
-                return self._cross_vertical(horizontal, points)
-
-        return points
+            self._current_trajectory.add_point(self._end_point)
+            if self._current_trajectory.is_better_than(self._best_trajectory):
+                self._best_trajectory = copy.deepcopy(self._current_trajectory)
+                return True
