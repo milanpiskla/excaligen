@@ -11,8 +11,8 @@ for angle in range(0, 360, 30):
     x = RADIUS * math.cos(radians)
     y = RADIUS * math.sin(radians)
 
-    #rect = xd.rectangle().center(x, y).size(80, 60)
     rect = xd.ellipse().center(x, y).size(80, 60)
+    #rect = xd.ellipse().center(x, y).size(80, 60)
     elements.append(rect)
 
 start_element = elements[0]

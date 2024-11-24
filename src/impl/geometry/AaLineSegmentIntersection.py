@@ -8,12 +8,12 @@ class AaLineSegmentIntersection:
 
     @staticmethod
     def with_rectangle(p1: Point, p2: Point, center: Point, a: float, b: float) -> list[Point]:
-        if not AaLineSegmentIntersection._is_aa_segment(p1, p2):
+        if not AaLineSegmentIntersection.is_aa_segment(p1, p2):
             raise Exception("Only axis aligned segments are supported")
         
         cx, cy = center
         intersections = []
-        if AaLineSegmentIntersection._is_horizontal_segment(p1, p2):
+        if AaLineSegmentIntersection.is_horizontal_segment(p1, p2):
             x1, y1 = p1
             x2, _ = p2
             
@@ -37,45 +37,45 @@ class AaLineSegmentIntersection:
 
     @staticmethod
     def with_aa_line_segment(p1: Point, p2: Point, q1: Point, q2: Point) -> Optional[Point]:
-        if AaLineSegmentIntersection._is_vertical_segment(p1, p2):
-            if AaLineSegmentIntersection._is_horizontal_segment(q1, q2):
+        if AaLineSegmentIntersection.is_vertical_segment(p1, p2):
+            if AaLineSegmentIntersection.is_horizontal_segment(q1, q2):
                 x = p1[0]
                 y = q1[1]
                 return (x, y) if AaLineSegmentIntersection._is_inbetween(y, p1[1], p2[1]) else None
             else:
-                raise Exception('Only intersections bewteen vortical and horizontal segments are supported')
+                raise Exception('Only intersections between vertical and horizontal segments are supported')
 
-        elif AaLineSegmentIntersection._is_horizontal_segment(p1, p2):
-            if AaLineSegmentIntersection._is_vertical_segment(q1, q2):
+        elif AaLineSegmentIntersection.is_horizontal_segment(p1, p2):
+            if AaLineSegmentIntersection.is_vertical_segment(q1, q2):
                 x = q1[0]
                 y = p1[1]
                 return (x, y) if AaLineSegmentIntersection._is_inbetween(x, p1[0], p2[0]) else None
             else:
-                raise Exception('Only intersections bewteen vortical and horizontal segments are supported')
+                raise Exception('Only intersections between vertical and horizontal segments are supported')
             
         else:
-            raise Exception('Only intersections bewteen vortical and horizontal segments are supported')
+            raise Exception('Only intersections between vertical and horizontal segments are supported')
 
     @staticmethod 
     def is_point_on_segment(p: Point, p1: Point, p2: Point) -> bool:
-        if AaLineSegmentIntersection._is_horizontal_segment(p1, p2):
+        if AaLineSegmentIntersection.is_horizontal_segment(p1, p2):
             return math.isclose(p[1], p1[1]) and AaLineSegmentIntersection._is_inbetween(p[0], p1[0], p2[0])
-        elif AaLineSegmentIntersection._is_vertical_segment(p1, p2):
+        elif AaLineSegmentIntersection.is_vertical_segment(p1, p2):
             return math.isclose(p[0], p1[0]) and AaLineSegmentIntersection._is_inbetween(p[1], p1[1], p2[1])
         else:
             raise Exception("Only axis aligned segments are supported")
 
     @staticmethod 
-    def _is_aa_segment(p1: Point, p2: Point) -> bool:
-        return AaLineSegmentIntersection._is_vertical_segment(p1, p2) | AaLineSegmentIntersection._is_horizontal_segment(p1, p2)
+    def is_aa_segment(p1: Point, p2: Point) -> bool:
+        return AaLineSegmentIntersection.is_vertical_segment(p1, p2) | AaLineSegmentIntersection.is_horizontal_segment(p1, p2)
 
     @staticmethod 
-    def _is_vertical_segment(p1: Point, p2: Point) -> bool:
-        return math.is_close(p1[0], p2[0])
+    def is_vertical_segment(p1: Point, p2: Point) -> bool:
+        return math.isclose(p1[0], p2[0])
 
     @staticmethod 
-    def _is_horizontal_segment(p1: Point, p2: Point) -> bool:
-        return math.is_close(p1[1], p2[1])
+    def is_horizontal_segment(p1: Point, p2: Point) -> bool:
+        return math.isclose(p1[1], p2[1])
     
     @staticmethod 
     def _is_inbetween(v: float, s: float, t: float) -> bool:
