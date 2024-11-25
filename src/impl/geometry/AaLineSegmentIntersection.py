@@ -41,7 +41,10 @@ class AaLineSegmentIntersection:
             if AaLineSegmentIntersection.is_horizontal_segment(q1, q2):
                 x = p1[0]
                 y = q1[1]
-                return (x, y) if AaLineSegmentIntersection._is_inbetween(y, p1[1], p2[1]) else None
+
+                is_x_inbetween = AaLineSegmentIntersection._is_inbetween(x, q1[0], q2[0])
+                is_y_inbetween = AaLineSegmentIntersection._is_inbetween(y, p1[1], p2[1])
+                return (x, y) if (is_x_inbetween and is_y_inbetween) else None
             else:
                 raise Exception('Only intersections between vertical and horizontal segments are supported')
 
@@ -49,7 +52,10 @@ class AaLineSegmentIntersection:
             if AaLineSegmentIntersection.is_vertical_segment(q1, q2):
                 x = q1[0]
                 y = p1[1]
-                return (x, y) if AaLineSegmentIntersection._is_inbetween(x, p1[0], p2[0]) else None
+
+                is_x_inbetween = AaLineSegmentIntersection._is_inbetween(x, p1[0], p2[0])
+                is_y_inbetween = AaLineSegmentIntersection._is_inbetween(y, q1[1], q2[1])
+                return (x, y) if (is_x_inbetween and is_y_inbetween) else None
             else:
                 raise Exception('Only intersections between vertical and horizontal segments are supported')
             

@@ -110,14 +110,14 @@ class ElbowConnection:
         y1 = max(self._start_element._y, self._end_element._y)
         y2 = min(self._start_element._y + self._start_element._height, self._end_element._y + self._end_element._height)
 
-        return ((self._xmin, (y1 + y2) / 2), (self._xmax, (y1 + y2) / 2)) if y1 < y2 else None
+        return ((self._xmin, (y1 + y2) / 2), (self._xmax, (y1 + y2) / 2)) if y1 > y2 else None
     
     def _find_vertical_gap_segment(self) -> Optional[Segment]:
         """Find a line in the middle of the vertical space between the rectangles."""
         x1 = max(self._start_element._x, self._end_element._x)
         x2 = min(self._start_element._x + self._start_element._width, self._end_element._x + self._end_element._width)
         
-        return (((x1 + x2) / 2, self._ymin), ((x1 + x2) / 2, self._ymax)) if x1 < x2 else None
+        return (((x1 + x2) / 2, self._ymin), ((x1 + x2) / 2, self._ymax)) if x1 > x2 else None
 
     def _compute_bounds(self) -> None:
         self._xmin = min(self._start_element._x, self._end_element._x) - self._min_segment_hint
