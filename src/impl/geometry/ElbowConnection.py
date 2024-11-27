@@ -163,6 +163,8 @@ class ElbowConnection:
         return (min(max(x, self._xmin), self._xmax), min(max(y, self._ymin), self._ymax))
 
     # Recursive magic follows :)
+    # TODO optimize the algorithm to not cross segments that were already 
+    # intersected in previous iterations
 
     def _cross_horizontal(self, p1: Point, p2: Point) -> None:
         self._cross_segment(p1, p2, self._cross_vertical, self._horizontal_segments)

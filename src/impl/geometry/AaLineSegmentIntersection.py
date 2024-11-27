@@ -3,6 +3,8 @@ import math
 from .Point import Point
 from typing import Optional
 
+# TODO remove code duplications
+
 class AaLineSegmentIntersection:
     """Provides methods to compute intersections between axis aligned line segments and various shapes."""
 

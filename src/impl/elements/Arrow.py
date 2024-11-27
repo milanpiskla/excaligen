@@ -138,25 +138,22 @@ class Arrow(AbstractStrokedElement):
         return self.__set_binding_attributes()
 
     def __set_binding_attributes(self) -> Self:
-        self._start_binding = {
-            "elementId": self.__start_element._id,
-            "focus": 0,
-            "gap": self.__start_gap
-        }
-        self._end_binding = {
-            "elementId": self.__end_element._id,
-            "focus": 0,
-            "gap": self.__end_gap
-        }
-
-        if self.__connection_type == Arrow.ConnectionType.ELBOW:
-            self._start_binding["fixedPoint"] = self.__compute_fixed_point(self.__start_direction)
-            self._end_binding["fixedPoint"] = self.__compute_fixed_point(self.__end_direction)
+        self._start_binding = self.__compute_binding_attributes(self.__start_element._id, self.__start_gap, self.__start_direction)
+        self._end_binding = self.__compute_binding_attributes(self.__end_element._id, self.__end_gap, self.__end_direction)
 
         self.__start_element._add_bound_element(self)
         self.__end_element._add_bound_element(self)
 
         return self
+    
+    def __compute_binding_attributes(self, id: str, gap: float, direction: str) -> dict[str, any]:
+        result = {"focus": 0}
+        result["elementId"] = id
+        result["gap"] = gap
+        if self.__connection_type == Arrow.ConnectionType.ELBOW:
+            result["fixedPoint"] = self.__compute_fixed_point(direction)
+
+        return result
 
     def __transform_points(self, points: list[Point]) -> Self:
         self._x = points[0][0]
