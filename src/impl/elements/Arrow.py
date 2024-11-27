@@ -7,7 +7,7 @@ from ..geometry.HalfLineIntersection import HalfLineIntersection
 from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
 from ..geometry.BezierConnection import BezierConnection
-from ..geometry.ElbowConnection import ElbowConnection
+from ..geometry.ElbowConnection import ElbowConnection, DIRECTIONS
 from ..geometry.Point import Point
 
 from ...config.Config import Config, DEFAULT_CONFIG
@@ -149,6 +149,10 @@ class Arrow(AbstractStrokedElement):
             "gap": self.__end_gap
         }
 
+        if self.__connection_type == Arrow.ConnectionType.ELBOW:
+            self._start_binding["fixedPoint"] = self.__compute_fixed_point(self.__start_direction)
+            self._end_binding["fixedPoint"] = self.__compute_fixed_point(self.__end_direction)
+
         self.__start_element._add_bound_element(self)
         self.__end_element._add_bound_element(self)
 
@@ -163,4 +167,7 @@ class Arrow(AbstractStrokedElement):
 
         return self
     
+    def __compute_fixed_point(self, direction: str) -> Point:
+        dx, dy = DIRECTIONS[direction]
+        return ((dx + 1.0) / 2.0, (dy + 1.0) / 2.0)
     

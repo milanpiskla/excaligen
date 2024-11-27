@@ -12,10 +12,10 @@ MAX_ELBOWS = 8
 Segment = tuple[Point, Point]
 
 DIRECTIONS = {
-    'N': (0, -1),
-    'W': (-1, 0),
-    'S': (0, 1),
-    'E': (1, 0)
+    'N': (0.0, -1.0),
+    'W': (-1.0, 0.0),
+    'S': (0.0, 1.0),
+    'E': (1.0, 0.0)
 }
 
 class ElbowConnection:
@@ -172,18 +172,18 @@ class ElbowConnection:
 
     def _cross_segment(self, p1: Point, p2: Point, cross_function: Callable, cross_segments: list[Segment]) -> None:
         if self._current_trajectory.get_elbows_count() < MAX_ELBOWS:
-            if not self._try_complete_trajectory(p1, p2):
-                for q1, q2 in cross_segments:
-                    intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
-                    if intersection:
-                        self._current_trajectory.add_point(intersection)
-                        cross_function(q1, q2)
-        
-        self._current_trajectory.pop_point()
+            self._try_complete_trajectory(p1, p2)
+            for q1, q2 in cross_segments:
+                intersection = AaLineSegmentIntersection.with_aa_line_segment(p1, p2, q1, q2)
+                if intersection:
+                    self._current_trajectory.add_point(intersection)
+                    cross_function(q1, q2)
+                    self._current_trajectory.pop_point()
 
-    def _try_complete_trajectory(self, p1: Point, p2: Point) -> bool:
+    def _try_complete_trajectory(self, p1: Point, p2: Point) -> None:
         if AaLineSegmentIntersection.is_point_on_segment(self._end_point, p1, p2):
             self._current_trajectory.add_point(self._end_point)
             if self._current_trajectory.is_better_than(self._best_trajectory):
                 self._best_trajectory = copy.deepcopy(self._current_trajectory)
-                return True
+            
+            self._current_trajectory.pop_point()
