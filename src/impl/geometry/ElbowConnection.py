@@ -12,10 +12,10 @@ MAX_ELBOWS = 8
 Segment = tuple[Point, Point]
 
 DIRECTIONS = {
-    'N': (0.0, -1.0),
-    'W': (-1.0, 0.0),
-    'S': (0.0, 1.0),
-    'E': (1.0, 0.0)
+    'U': (0.0, -1.0),
+    'L': (-1.0, 0.0),
+    'D': (0.0, 1.0),
+    'R': (1.0, 0.0)
 }
 
 class ElbowConnection:
@@ -97,7 +97,7 @@ class ElbowConnection:
 
     def _find_edge_point(self, element: AbstractElement, direction: str) -> Point:
         if direction not in DIRECTIONS.keys():
-            raise ValueError(f'Wrong direction {direction}, shoould be one of the N, W, S, E')
+            raise ValueError(f'Wrong direction {direction}, shoould be one of the U, L, D, R')
         
         cx, cy = element.get_center()
         a, b = element._width / 2, element._height / 2

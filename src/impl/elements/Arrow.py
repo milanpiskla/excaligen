@@ -22,7 +22,7 @@ class Arrow(AbstractStrokedElement):
     class ConnectionType(Enum):
         STRAIGHT = 0
         ARC = 1
-        SPLINE = 2
+        CURVE = 2
         ELBOW = 3
 
     def __init__(self, config: Config = DEFAULT_CONFIG):
@@ -59,9 +59,9 @@ class Arrow(AbstractStrokedElement):
                 raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
         return self
 
-    def spline(self, start_angle: float, end_angle: float) -> Self:
-        """Approximates a Bezier spline using the given start and end tangent vectors."""
-        self.__connection_type = Arrow.ConnectionType.SPLINE
+    def curve(self, start_angle: float, end_angle: float) -> Self:
+        """Approximates a cubic Bezier using the given start and end tangent vectors."""
+        self.__connection_type = Arrow.ConnectionType.CURVE
         self.__start_angle = start_angle
         self.__end_angle = end_angle
         self.roundness('round')
@@ -129,7 +129,7 @@ class Arrow(AbstractStrokedElement):
             case Arrow.ConnectionType.ARC:
                 self.__transform_points(ArcConnection(self.__start_element, self.__end_element, self.__radius).points())
 
-            case Arrow.ConnectionType.SPLINE:
+            case Arrow.ConnectionType.CURVE:
                 self.__transform_points(BezierConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points())
 
             case Arrow.ConnectionType.ELBOW:
