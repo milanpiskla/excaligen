@@ -5,6 +5,9 @@ more practical for some visualisations.
 """
 
 from .Point import Point
+import math
+
+HINT_LENGTH_BETWEEN_POINTS = 80
 
 class BezierApproximation:
     """This class generates list of points for the given Bezier control points.
@@ -13,9 +16,11 @@ class BezierApproximation:
     The implementation uses adaptive sampling, i.e. the spline parts with 
     larger curvature are approximated with higher amount of points.
     """
-
     @staticmethod
-    def generate_points(b0: Point, b1: Point, b2: Point, b3: Point, initial_t_values = 7, error_threshold = 0.05) -> list[Point]:
+    def generate_points(b0: Point, b1: Point, b2: Point, b3: Point, initial_t_values = 0, error_threshold = 0.5) -> list[Point]:
+        if initial_t_values == 0:
+            initial_t_values =  math.floor(BezierApproximation.__bezier_length(b0, b1, b2, b3) / HINT_LENGTH_BETWEEN_POINTS)
+
         return BezierApproximation.__generate_adaptive_bezier_points(b0, b1, b2, b3, initial_t_values, error_threshold)
 
     @staticmethod
@@ -37,6 +42,38 @@ class BezierApproximation:
         """Estimate curvature based on the derivative magnitude."""
         dx, dy = BezierApproximation.__bezier_derivative(t, B0, B1, B2, B3)
         return (dx**2 + dy**2)**0.5
+
+    @staticmethod
+    def __bezier_length(B0, B1, B2, B3, N=1000):
+        """
+        Approximate the arc length of the cubic Bézier curve using Simpson's rule.
+        
+        Parameters:
+            B0, B1, B2, B3: Control points as (x, y).
+            N: Number of subdivisions (should be even, will be adjusted if not).
+        """
+        if N % 2 != 0:
+            N += 1  # Ensure N is even for Simpson's rule
+
+        dt = 1.0 / N
+        total = 0.0
+
+        for i in range(N + 1):
+            t = i * dt
+            s = BezierApproximation.__curvature(t, B0, B1, B2, B3)
+
+            # Simpson's rule coefficients
+            if i == 0 or i == N:
+                coeff = 1
+            elif i % 2 == 0:
+                coeff = 2
+            else:
+                coeff = 4
+
+            total += coeff * s
+
+        length = (dt / 3.0) * total
+        return length
 
     @staticmethod
     def __generate_adaptive_bezier_points(B0, B1, B2, B3, initial_t_values=7, error_threshold=0.05):
