@@ -23,7 +23,7 @@ def test_arrow_curve(reference_json: dict[str, any], request: FixtureRequest) ->
     xg = Excaligen()
 
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(200, -100).size(130, 50).label(xg.text().content('UR'))
+    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
 
     xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow')
     

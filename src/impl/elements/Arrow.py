@@ -6,7 +6,7 @@ from ..geometry.HalfLineIntersection import HalfLineIntersection
 
 from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
-from ..geometry.BezierConnection import BezierConnection
+from ..geometry.CurveConnection import CurveConnection
 from ..geometry.ElbowConnection import ElbowConnection, DIRECTIONS
 from ..geometry.Point import Point
 
@@ -130,7 +130,7 @@ class Arrow(AbstractStrokedElement):
                 self.__transform_points(ArcConnection(self.__start_element, self.__end_element, self.__radius).points())
 
             case Arrow.ConnectionType.CURVE:
-                self.__transform_points(BezierConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points())
+                self.__transform_points(CurveConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points())
 
             case Arrow.ConnectionType.ELBOW:
                 self.__transform_points(ElbowConnection(self.__start_element, self.__end_element, self.__start_direction, self.__end_direction).points())

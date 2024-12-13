@@ -1,12 +1,12 @@
 from ..base.AbstractElement import AbstractElement
 from .HalfLineIntersection import HalfLineIntersection
 from .Point import Point
-from .BezierApproximation import BezierApproximation
+from .CurveApproximation import CurveApproximation
 
 from typing import Optional
 import math
 
-class BezierConnection:
+class CurveConnection:
     def __init__(self, start_element: AbstractElement, end_element: AbstractElement, start_angle = 0.0, end_angle = 0.0):
         self._start_element = start_element
         self._end_element = end_element
@@ -27,7 +27,7 @@ class BezierConnection:
         b1 = b0[0] + vsx * w * self._start_weight, b0[1] + vsy * h * self._start_weight
         b2 = b3[0] + vex * w * self._end_weight, b3[1] + vey * h * self._end_weight
 
-        return BezierApproximation.generate_points(b0, b1, b2, b3)
+        return CurveApproximation.generate_points(b0, b1, b2, b3)
     
     def __find_intersection_points(self, vsx: float, vsy: float, vex: float, vey: float) -> tuple[Point, Point]:
         start_point = self.__find_intersection_with_element(self._start_element, 0.0, 0.0, vsx, vsy)
