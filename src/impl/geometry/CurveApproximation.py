@@ -29,7 +29,14 @@ def cross(a, b):
     # 2D cross product result (a x b) is scalar: ax*by - ay*bx
     return a[0]*b[1] - a[1]*b[0]
 
-TANGENT_FACTOR = 0.3
+def components(angle):
+    return (math.cos(angle), math.sin(angle))
+
+def normalize_angle(angle):
+    """(-Pi;Pi]"""
+    return angle - (math.ceil((angle + math.pi) / (2 * math.pi)) - 1) * 2 * math.pi
+
+TANGENT_FACTOR = 0.333
 
 class CurveApproximation:
     """This class generates list of points for the given Bezier control points.
@@ -37,7 +44,7 @@ class CurveApproximation:
     The generated points can be used as control points for Catmull-Rom splines.
     """
     @staticmethod
-    def generate_points(A0, A1, A2, A3, alpha=0.075) -> list[Point]:
+    def generate_points(A0, A3, start_angle = 0.0, end_angle = 0.0, alpha=0.3) -> list[Point]:
         """
         Generate the four points [P0, P1, P2, P3] as described:
         - P0 = A0
@@ -47,7 +54,8 @@ class CurveApproximation:
         The sign of the offset depends on relative position of A3 and A0 respectively.
         
         Parameters:
-            A0, A1, A2, A3: tuples (x, y) defining the geometry
+            A0, A3: tuples (x, y) defining the start and end points 
+            start_angle, end_angle defining tangents
             alpha: factor controlling the perpendicular offset magnitude (fraction of baseline length)
         
         Returns:
@@ -60,18 +68,18 @@ class CurveApproximation:
         if L == 0:
             # Degenerate case
             return [A0, A0, A0, A0]
+        
+        # Normalized tangents
+        T0u = components(start_angle)
+        T3u = components(end_angle)
 
-        # Start and end tangents
-        T0 = sub(A1, A0)
-        T3 = sub(A2, A3)
-
-        # Normalize tangents
-        T0u = normalize(T0)
-        T3u = normalize(T3)
+        w, h = abs(D[0]), abs(D[1])
+        T0p = (T0u[0] * w, T0u[1] * h)
+        T3p = (T3u[0] * w, T3u[1] * h)
 
         # Preliminary P1 and P2 (no offset yet)
-        P1_prime = add(A0, mul(T0u, TANGENT_FACTOR * L))
-        P2_prime = add(A3, mul(T3u, TANGENT_FACTOR * L))
+        P1_prime = add(A0, mul(T0p, TANGENT_FACTOR))
+        P2_prime = add(A3, mul(T3p, TANGENT_FACTOR))
 
         # Compute perpendiculars
         # If T0u = (tx, ty), a perpendicular is (-ty, tx)
@@ -93,11 +101,14 @@ class CurveApproximation:
         s2 = 1.0 if c2 < 0 else -1.0
 
         # Offset magnitude
-        h = alpha * L
+        #offset = alpha * L
+        dir_angle = math.atan2(D[1], D[0])
+        start_offset = abs(normalize_angle(start_angle - dir_angle)) / math.pi * alpha * L
+        end_offset = abs(normalize_angle(end_angle - dir_angle + math.pi)) / math.pi * alpha * L
 
         # Apply offsets
-        P1 = add(P1_prime, mul(N0, s1 * h))
-        P2 = add(P2_prime, mul(N3, s2 * h))
+        P1 = add(P1_prime, mul(N0, s1 * start_offset))
+        P2 = add(P2_prime, mul(N3, s2 * end_offset))
 
         P0 = A0
         P3 = A3

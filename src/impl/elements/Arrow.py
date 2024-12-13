@@ -1,7 +1,6 @@
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..geometry.ArcApproximation import ArcApproximation
-from ..geometry.BezierApproximation import BezierApproximation
 from ..geometry.HalfLineIntersection import HalfLineIntersection
 
 from ..geometry.StraightConnection import StraightConnection

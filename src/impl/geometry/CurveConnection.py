@@ -12,8 +12,6 @@ class CurveConnection:
         self._end_element = end_element
         self._start_angle = start_angle
         self._end_angle = end_angle
-        self._start_weight = 0.5
-        self._end_weight = 0.5
 
     def points(self) -> list[Point]:
         vsx = math.cos(self._start_angle)
@@ -22,12 +20,8 @@ class CurveConnection:
         vey = math.sin(self._end_angle)
 
         b0, b3 = self.__find_intersection_points(vsx, vsy, vex, vey)
-        w = abs(b0[0] - b3[0])
-        h = abs(b0[1] - b3[1])
-        b1 = b0[0] + vsx * w * self._start_weight, b0[1] + vsy * h * self._start_weight
-        b2 = b3[0] + vex * w * self._end_weight, b3[1] + vey * h * self._end_weight
-
-        return CurveApproximation.generate_points(b0, b1, b2, b3)
+ 
+        return CurveApproximation.generate_points(b0, b3, self._start_angle, self._end_angle)
     
     def __find_intersection_points(self, vsx: float, vsy: float, vex: float, vey: float) -> tuple[Point, Point]:
         start_point = self.__find_intersection_with_element(self._start_element, 0.0, 0.0, vsx, vsy)
