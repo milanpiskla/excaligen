@@ -36,7 +36,7 @@ class CurveApproximation:
     """Generates control points for Catmull-Rom splines."""
 
     @staticmethod
-    def generate_points(A0, A3, start_angle=0.0, end_angle=0.0, alpha=0.3) -> list[tuple[float, float]]:
+    def generate_points(A0, A3, start_angle=0.0, end_angle=0.0, alpha=0.28) -> list[tuple[float, float]]:
         """
         Generate four points [P0, P1, P2, P3]:
         - P0 = A0
@@ -87,8 +87,8 @@ class CurveApproximation:
         end_offset = alpha * abs(normalize_angle(end_angle - dir_angle + math.pi)) / math.pi * L
 
         # Dynamically adjust offsets for narrow bounding boxes
-        start_offset *= (1 + 0.5 / (aspect_ratio + 1))
-        end_offset *= (1 + 0.5 / (aspect_ratio + 1))
+        start_offset *= (1 + 0.20 / (aspect_ratio + 1))
+        end_offset *= (1 + 0.20 / (aspect_ratio + 1))
 
         # Apply offsets
         P1 = add(P1_prime, mul(N0, s1 * start_offset))

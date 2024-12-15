@@ -4,80 +4,16 @@
   "source": "https://excalidraw.com",
   "elements": [
     {
-      "type": "rectangle",
-      "id": "f4c47292-c62b-48ba-a873-2506787c927e",
-      "seed": 814304929,
-      "version": 1,
-      "versionNonce": 701277408,
-      "isDeleted": false,
-      "x": -80.0,
-      "y": -35.0,
-      "width": 160,
-      "height": 70,
-      "opacity": 100,
-      "angle": 0,
-      "index": null,
-      "groupIds": [],
-      "frameId": null,
-      "link": null,
-      "boundElements": [
-        {
-          "id": "d2f02191-48c8-4aee-8ab2-b7f782584698",
-          "type": "text"
-        },
-        {
-          "id": "2751dc53-f9fc-472d-81ed-066d4b448eff",
-          "type": "arrow"
-        }
-      ],
-      "backgroundColor": "transparent",
-      "fillStyle": "hachure",
-      "strokeColor": "#000000",
-      "strokeWidth": 1,
-      "strokeStyle": "solid",
-      "roughness": 1,
-      "roundness": {
-        "type": 3
-      }
-    },
-    {
-      "type": "text",
-      "id": "d2f02191-48c8-4aee-8ab2-b7f782584698",
-      "seed": 842821279,
-      "version": 1,
-      "versionNonce": 349304544,
-      "isDeleted": false,
-      "x": -28.799999999999997,
-      "y": -10.625,
-      "width": 57.599999999999994,
-      "height": 20.0,
-      "opacity": 100,
-      "angle": 0,
-      "index": null,
-      "groupIds": [],
-      "frameId": null,
-      "link": null,
-      "boundElements": null,
-      "text": "center",
-      "fontSize": 16,
-      "fontFamily": 1,
-      "textAlign": "center",
-      "verticalAlign": "middle",
-      "lineHeight": 1.25,
-      "autoResize": true,
-      "strokeColor": "#000000"
-    },
-    {
       "type": "ellipse",
-      "id": "c8022d95-7a9b-46dd-91a7-2e07f9545e70",
-      "seed": 776632993,
+      "id": "574adb13-b37a-429a-bd61-77c4f235182c",
+      "seed": 515232019,
       "version": 1,
-      "versionNonce": 80797978,
+      "versionNonce": 759235031,
       "isDeleted": false,
-      "x": 335.0,
-      "y": -225.0,
-      "width": 130,
-      "height": 50,
+      "x": -210.0,
+      "y": -190.0,
+      "width": 120,
+      "height": 80,
       "opacity": 100,
       "angle": 0,
       "index": null,
@@ -86,11 +22,11 @@
       "link": null,
       "boundElements": [
         {
-          "id": "2a49fc48-311b-441f-9ff1-4313b3f50d19",
+          "id": "021957aa-4690-4ee3-92d9-1d6913922e30",
           "type": "text"
         },
         {
-          "id": "2751dc53-f9fc-472d-81ed-066d4b448eff",
+          "id": "0081f71c-50d9-47e6-8c64-d2c4dba46c18",
           "type": "arrow"
         }
       ],
@@ -103,14 +39,14 @@
     },
     {
       "type": "text",
-      "id": "2a49fc48-311b-441f-9ff1-4313b3f50d19",
-      "seed": 295901833,
+      "id": "021957aa-4690-4ee3-92d9-1d6913922e30",
+      "seed": 786816119,
       "version": 1,
-      "versionNonce": 350120595,
+      "versionNonce": 836411096,
       "isDeleted": false,
-      "x": 390.4,
-      "y": -210.625,
-      "width": 19.2,
+      "x": -188.4,
+      "y": -160.625,
+      "width": 76.8,
       "height": 20.0,
       "opacity": 100,
       "angle": 0,
@@ -119,7 +55,68 @@
       "frameId": null,
       "link": null,
       "boundElements": null,
-      "text": "UR",
+      "text": "center 1",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "lineHeight": 1.25,
+      "autoResize": true,
+      "strokeColor": "#000000"
+    },
+    {
+      "type": "ellipse",
+      "id": "23b79cad-3bd8-4247-bd44-cb540bf01adb",
+      "seed": 810621428,
+      "version": 1,
+      "versionNonce": 490295589,
+      "isDeleted": false,
+      "x": 90.0,
+      "y": 110.0,
+      "width": 120,
+      "height": 80,
+      "opacity": 100,
+      "angle": 0,
+      "index": null,
+      "groupIds": [],
+      "frameId": null,
+      "link": null,
+      "boundElements": [
+        {
+          "id": "b2af0e7e-4a69-44fb-9ea4-0855257ceda3",
+          "type": "text"
+        },
+        {
+          "id": "0081f71c-50d9-47e6-8c64-d2c4dba46c18",
+          "type": "arrow"
+        }
+      ],
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeColor": "#000000",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1
+    },
+    {
+      "type": "text",
+      "id": "b2af0e7e-4a69-44fb-9ea4-0855257ceda3",
+      "seed": 805355420,
+      "version": 1,
+      "versionNonce": 233492900,
+      "isDeleted": false,
+      "x": 111.6,
+      "y": 139.375,
+      "width": 76.8,
+      "height": 20.0,
+      "opacity": 100,
+      "angle": 0,
+      "index": null,
+      "groupIds": [],
+      "frameId": null,
+      "link": null,
+      "boundElements": null,
+      "text": "center 2",
       "fontSize": 16,
       "fontFamily": 1,
       "textAlign": "center",
@@ -130,13 +127,13 @@
     },
     {
       "type": "arrow",
-      "id": "2751dc53-f9fc-472d-81ed-066d4b448eff",
-      "seed": 283430534,
+      "id": "0081f71c-50d9-47e6-8c64-d2c4dba46c18",
+      "seed": 450675396,
       "version": 1,
-      "versionNonce": 427001944,
+      "versionNonce": 800292785,
       "isDeleted": false,
-      "x": 80.0,
-      "y": 0.0,
+      "x": -90.0,
+      "y": -150.0,
       "width": 0,
       "height": 0,
       "opacity": 100,
@@ -152,12 +149,12 @@
       "roughness": 1,
       "startBinding": {
         "focus": 0,
-        "elementId": "f4c47292-c62b-48ba-a873-2506787c927e",
+        "elementId": "574adb13-b37a-429a-bd61-77c4f235182c",
         "gap": 1
       },
       "endBinding": {
         "focus": 0,
-        "elementId": "c8022d95-7a9b-46dd-91a7-2e07f9545e70",
+        "elementId": "23b79cad-3bd8-4247-bd44-cb540bf01adb",
         "gap": 1
       },
       "startArrowhead": null,
@@ -169,16 +166,16 @@
           0.0
         ],
         [
-          84.91518557184662,
-          -20.887039030239595
+          68.85541852041416,
+          38.22009421549129
         ],
         [
-          170.11866551170917,
-          -178.9534849873869
+          110.127114124513,
+          363.9812560416369
         ],
         [
-          255.0005572728126,
-          -199.89647831667682
+          206.7730285898323,
+          333.3064449612844
         ]
       ],
       "roundness": {

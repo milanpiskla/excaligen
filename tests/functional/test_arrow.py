@@ -21,10 +21,37 @@ def test_arrow_star(reference_json: dict[str, any], request: FixtureRequest) -> 
 
 def test_arrow_curve(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
-
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-
     xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow')
     
+    evaluate(reference_json, xg, request)
+
+
+def test_arrow_curve_narrow(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    start_element = xg.ellipse().center(-150, -150).size(120, 80).label(xg.text().content("center 1"))
+    end_element = xg.ellipse().center(150, 150).size(120, 80).label(xg.text().content("center 2"))
+    xg.arrow().curve(0.0, 3.14 * 0.75).bind(start_element, end_element)
+
+    evaluate(reference_json, xg, request)
+
+def test_arrow_curve_complex(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    RADIUS = 700
+    XOFFSET = -200
+    center_element = xg.rectangle().center(0, 0).size(120, 80).roudness('round').label(xg.text().content("Center"))
+
+    for i in range(-3, 4):
+        angle = i * math.pi / 14
+        xr = RADIUS * math.cos(angle) + XOFFSET
+        yr = RADIUS * math.sin(angle)
+        relement = xg.rectangle().center(xr, yr).size(120, 80).roudness('round').label(xg.text().content(f"Right {i}"))
+        xg.arrow().curve(0, math.pi).bind(center_element, relement).arrowheads('none', 'arrow')
+        
+        xl = RADIUS * math.cos(angle + math.pi) - XOFFSET
+        yl = RADIUS * math.sin(angle + math.pi)
+        lelement = xg.rectangle().center(xl, yl).size(120, 80).roudness('round').label(xg.text().content(f"Left {i}"))
+        xg.arrow().curve(math.pi, 0).bind(center_element, lelement).arrowheads('none', 'arrow')
+
     evaluate(reference_json, xg, request)
