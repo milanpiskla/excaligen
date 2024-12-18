@@ -18,7 +18,6 @@ def test_arrow_star(reference_json: dict[str, any], request: FixtureRequest) -> 
 
     evaluate(reference_json, xg, request)
 
-
 def test_arrow_curve(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
@@ -55,3 +54,27 @@ def test_arrow_curve_complex(reference_json: dict[str, any], request: FixtureReq
         xg.arrow().curve(math.pi, 0).bind(center_element, lelement).arrowheads('none', 'arrow')
 
     evaluate(reference_json, xg, request)
+
+def test_arrow_curve_str_directions(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
+    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    xg.arrow().curve('R', 'L').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().curve('U', 'U').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().curve('D', 'D').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().curve('L', 'R').bind(center_element, element_1).arrowheads('none', 'arrow')
+    
+    evaluate(reference_json, xg, request)
+
+def test_arrow_elbows(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
+    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    xg.arrow().elbow('R', 'L').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().elbow('U', 'U').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().elbow('D', 'D').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().elbow('L', 'R').bind(center_element, element_1).arrowheads('none', 'arrow')
+    
+    evaluate(reference_json, xg, request)
+
+

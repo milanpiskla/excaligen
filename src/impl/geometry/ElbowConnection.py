@@ -1,5 +1,6 @@
 from ..base.AbstractElement import AbstractElement
 from .AaLineSegmentIntersection import AaLineSegmentIntersection
+from .Directions import Directions
 
 from .Point import Point
 from typing import Optional, Callable
@@ -10,13 +11,6 @@ MIN_SEGMENT_HINT: float = 30.0
 MAX_ELBOWS = 8
 
 Segment = tuple[Point, Point]
-
-DIRECTIONS = {
-    'U': (0.0, -1.0),
-    'L': (-1.0, 0.0),
-    'D': (0.0, 1.0),
-    'R': (1.0, 0.0)
-}
 
 class ElbowConnection:
     class Trajectory:
@@ -96,12 +90,12 @@ class ElbowConnection:
         return self._best_trajectory.get_points()
 
     def _find_edge_point(self, element: AbstractElement, direction: str) -> Point:
-        if direction not in DIRECTIONS.keys():
+        if direction not in Directions.keys():
             raise ValueError(f'Wrong direction {direction}, shoould be one of the U, L, D, R')
         
         cx, cy = element.get_center()
         a, b = element._width / 2, element._height / 2
-        dx, dy = DIRECTIONS[direction]
+        dx, dy = Directions.dxdy(direction)
         
         return cx + a * dx, cy + b * dy
 
@@ -152,7 +146,7 @@ class ElbowConnection:
 
         x, y = start
         w, h = self._xmax - self._xmin, self._ymax - self._ymin
-        dx, dy = DIRECTIONS[direction]
+        dx, dy = Directions.dxdy(direction)
         end = self._clamp_point((x + w * dx, y + h * dy))
 
         intersections = AaLineSegmentIntersection.with_rectangle(start, end, obstacle.get_center(), obstacle._width / 2, obstacle._height / 2)

@@ -2,16 +2,17 @@ from ..base.AbstractElement import AbstractElement
 from .HalfLineIntersection import HalfLineIntersection
 from .Point import Point
 from .CurveApproximation import CurveApproximation
+from .Directions import Directions
 
 from typing import Optional
 import math
 
 class CurveConnection:
-    def __init__(self, start_element: AbstractElement, end_element: AbstractElement, start_angle = 0.0, end_angle = 0.0):
+    def __init__(self, start_element: AbstractElement, end_element: AbstractElement, start_angle: float | str, end_angle: float | str):
         self._start_element = start_element
         self._end_element = end_element
-        self._start_angle = start_angle
-        self._end_angle = end_angle
+        self._start_angle = self.__convert_angle_arg(start_angle)
+        self._end_angle = self.__convert_angle_arg(end_angle)
 
     def points(self) -> list[Point]:
         vsx = math.cos(self._start_angle)
@@ -54,4 +55,13 @@ class CurveConnection:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")
             
         return tuple(p + t for p, t in zip(intersection, element.get_center()))
+    
+    def __convert_angle_arg(self, angle: float | str) -> float:
+        match angle:
+            case float():
+                return angle
+            case str():
+                return Directions.angle(angle)
+            case int():
+                return float(angle)
             

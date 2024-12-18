@@ -6,7 +6,8 @@ from ..geometry.HalfLineIntersection import HalfLineIntersection
 from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
 from ..geometry.CurveConnection import CurveConnection
-from ..geometry.ElbowConnection import ElbowConnection, DIRECTIONS
+from ..geometry.ElbowConnection import ElbowConnection
+from ..geometry.Directions import Directions
 from ..geometry.Point import Point
 
 from ...config.Config import Config, DEFAULT_CONFIG
@@ -34,8 +35,8 @@ class Arrow(AbstractStrokedElement):
         self._points: list[Point] = []
         self.__start_gap = 1
         self.__end_gap = 1
-        self.__start_angle = 0.0
-        self.__end_angle = 0.0
+        self.__start_angle: float | str = 0.0
+        self.__end_angle: float | str = 0.0
         self.__start_direction: str = None
         self.__end_direction: str = None
         self.__radius: float = None  # For arc connections
@@ -58,7 +59,7 @@ class Arrow(AbstractStrokedElement):
                 raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
         return self
 
-    def curve(self, start_angle: float, end_angle: float) -> Self:
+    def curve(self, start_angle: float | str, end_angle: float | str) -> Self:
         """Approximates a cubic Bezier using the given start and end tangent vectors."""
         self.__connection_type = Arrow.ConnectionType.CURVE
         self.__start_angle = start_angle
@@ -164,6 +165,6 @@ class Arrow(AbstractStrokedElement):
         return self
     
     def __compute_fixed_point(self, direction: str) -> Point:
-        dx, dy = DIRECTIONS[direction]
+        dx, dy = Directions.dxdy(direction)
         return ((dx + 1.0) / 2.0, (dy + 1.0) / 2.0)
     
