@@ -1,7 +1,6 @@
 from ..base.AbstractElement import AbstractElement
 from .CircleIntersection import CircleIntersection
 from .ArcApproximation import ArcApproximation
-from .Vector2D import Vector2D
 from .Point import Point
 
 from typing import Optional

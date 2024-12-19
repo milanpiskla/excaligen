@@ -94,3 +94,24 @@ def test_arrow_elbows_diff_calling_order(reference_json: dict[str, any], request
     xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('L', 'R')
     
     evaluate(reference_json, xg, request)
+
+def test_arrow_arc(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+
+    RADIUS = 300
+    elements = []
+
+    for angle in range(0, 360, 30):
+        radians = angle * math.pi / 180
+        x = RADIUS * math.cos(radians)
+        y = RADIUS * math.sin(radians)
+
+        rect = xg.ellipse().center(x, y).size(80, 60).label(xg.text().content(f"{angle}°"))
+        elements.append(rect)
+
+    start_element = elements[0]
+    for i in range(1, len(elements)):
+        xg.arrow().arc(radius=RADIUS).bind(start_element, elements[i])
+        start_element = elements[i]
+
+    evaluate(reference_json, xg, request)

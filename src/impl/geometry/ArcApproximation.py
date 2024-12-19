@@ -11,7 +11,7 @@ class ArcApproximation:
     """
 
     @staticmethod
-    def generate_points(circle_center: Point, radius: float, start_point: Point, end_point: Point, points_per_circle: int = 36) -> list[Point]:
+    def generate_points(circle_center: Point, radius: float, start_point: Point, end_point: Point, points_per_segment: int = 37) -> list[Point]:
         """Generate points along the arc between start_point and end_point."""
         cx, cy = circle_center
         angle_start = math.atan2(start_point[1] - cy, start_point[0] - cx)
@@ -26,7 +26,8 @@ class ArcApproximation:
         if angle_span > math.pi:
             angle_span -= 2 * math.pi
 
-        num_points = max(int(points_per_circle * abs(angle_span) / (2 * math.pi)), 2)
+        len = abs(angle_span) * radius
+        num_points = max(int(len / points_per_segment) + 1, 2)
 
         arc_points = []
         for i in range(num_points + 1):
