@@ -43,6 +43,7 @@ class Arrow(AbstractStrokedElement):
         self.__start_element: AbstractElement = None
         self.__end_element: AbstractElement = None
         self.__connection_type = Arrow.ConnectionType.STRAIGHT
+        self.__is_already_bound = False
 
     def points(self, points: List[Tuple[float, float]]) -> Self:
         self._points = points
@@ -65,6 +66,7 @@ class Arrow(AbstractStrokedElement):
         self.__start_angle = start_angle
         self.__end_angle = end_angle
         self.roundness('round')
+        self.__try_connect_elements()
         return self
     
     def arc(self, radius: float) -> Self:
@@ -72,6 +74,7 @@ class Arrow(AbstractStrokedElement):
         self.__connection_type = Arrow.ConnectionType.ARC
         self.__radius = radius
         self.roundness('round')
+        self.__try_connect_elements()
         return self
 
     def gap(self, gap: float, end_gap: float = None) -> Self:
@@ -106,22 +109,28 @@ class Arrow(AbstractStrokedElement):
         self.__connection_type = Arrow.ConnectionType.ELBOW
         self.__start_direction = start_direction
         self.__end_direction = end_direction
+        self.__try_connect_elements()
         return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
         """Bind the arrow between two elements, supporting different connection styles."""
         self.__start_element = start
         self.__end_element = end
-        self.__do_binding()
+        self.__try_connect_elements()
         return self
 
-    def __try_do_binding(self) -> Self:
-        if self._start_binding or self._end_binding:
-            self.__do_binding()
+    def __try_connect_elements(self) -> Self:
+        if self.__start_element is not None and self.__end_element is not None:
+            if not self.__is_already_bound:
+                self.__set_binding_attributes()
+                self.__is_already_bound = True
+        
+            self.__calculate_points()
+            self.__try_update_binding_attributes_with_fixed_points()
 
         return self
 
-    def __do_binding(self) -> Self:
+    def __calculate_points(self) -> Self:
         match self.__connection_type:
             case Arrow.ConnectionType.STRAIGHT:
                 self.__transform_points(StraightConnection(self.__start_element, self.__end_element).points())
@@ -135,25 +144,27 @@ class Arrow(AbstractStrokedElement):
             case Arrow.ConnectionType.ELBOW:
                 self.__transform_points(ElbowConnection(self.__start_element, self.__end_element, self.__start_direction, self.__end_direction).points())
 
-        return self.__set_binding_attributes()
+        return self
 
     def __set_binding_attributes(self) -> Self:
-        self._start_binding = self.__compute_binding_attributes(self.__start_element._id, self.__start_gap, self.__start_direction)
-        self._end_binding = self.__compute_binding_attributes(self.__end_element._id, self.__end_gap, self.__end_direction)
+        self._start_binding = self.__compute_binding_attributes(self.__start_element._id, self.__start_gap)
+        self._end_binding = self.__compute_binding_attributes(self.__end_element._id, self.__end_gap)
 
         self.__start_element._add_bound_element(self)
         self.__end_element._add_bound_element(self)
 
         return self
     
-    def __compute_binding_attributes(self, id: str, gap: float, direction: str) -> dict[str, any]:
+    def __compute_binding_attributes(self, id: str, gap: float) -> dict[str, any]:
         result = {"focus": 0}
         result["elementId"] = id
         result["gap"] = gap
-        if self.__connection_type == Arrow.ConnectionType.ELBOW:
-            result["fixedPoint"] = self.__compute_fixed_point(direction)
-
         return result
+
+    def __try_update_binding_attributes_with_fixed_points(self) -> Self:
+        if self.__connection_type == Arrow.ConnectionType.ELBOW:
+            self._start_binding["fixedPoint"] = self.__compute_fixed_point(self.__start_direction)
+            self._end_binding["fixedPoint"] = self.__compute_fixed_point(self.__end_direction)
 
     def __transform_points(self, points: list[Point]) -> Self:
         self._x = points[0][0]

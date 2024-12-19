@@ -63,5 +63,5 @@ class AbstractElement:
     def _add_bound_element(self, element: "AbstractElement") -> None:
         self._bound_elements = self._bound_elements or []
 
-        if not id in self._bound_elements: # TODO check if this works to prevent binding twice
+        if not element._id in self._bound_elements: # TODO check if this works to prevent binding twice
             self._bound_elements.append({"id": element._id, "type": element._type})

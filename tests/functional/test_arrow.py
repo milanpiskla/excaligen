@@ -26,7 +26,6 @@ def test_arrow_curve(reference_json: dict[str, any], request: FixtureRequest) ->
     
     evaluate(reference_json, xg, request)
 
-
 def test_arrow_curve_narrow(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
     start_element = xg.ellipse().center(-150, -150).size(120, 80).label(xg.text().content("center 1"))
@@ -66,6 +65,14 @@ def test_arrow_curve_str_directions(reference_json: dict[str, any], request: Fix
     
     evaluate(reference_json, xg, request)
 
+def test_arrow_curve_diff_calling_order(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
+    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').curve(0, 3.14)
+    
+    evaluate(reference_json, xg, request)
+
 def test_arrow_elbows(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
@@ -77,4 +84,13 @@ def test_arrow_elbows(reference_json: dict[str, any], request: FixtureRequest) -
     
     evaluate(reference_json, xg, request)
 
-
+def test_arrow_elbows_diff_calling_order(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
+    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('R', 'L')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('U', 'U')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('D', 'D')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('L', 'R')
+    
+    evaluate(reference_json, xg, request)
