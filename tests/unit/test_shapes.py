@@ -177,6 +177,12 @@ def test_arrow_points():
     arrow.points([(0, 0), (100, 100)])
     assert arrow._points == [(0, 0), (100, 100)]
 
+def test_arrow_points_size():
+    arrow = Arrow(DEFAULT_CONFIG)
+    arrow.points([(0, 0), (50, 100), (-25, -125)])
+    assert arrow._width == 75
+    assert arrow._height == 225
+    
 def test_arrow_bind():
     rect1 = Rectangle(DEFAULT_CONFIG).position(0, 0).size(100, 100)
     rect2 = Rectangle(DEFAULT_CONFIG).position(200, 200).size(100, 100)
@@ -265,6 +271,12 @@ def test_line_points():
     line = Line(DEFAULT_CONFIG)
     line.points([(0, 0), (50, 50), (100, 0)])
     assert line._points == [(0, 0), (50, 50), (100, 0)]
+
+def test_line_points_size():
+    line = Line(DEFAULT_CONFIG)
+    line.points([(0, 0), (-10, 50), (100, -20)])
+    assert line._width == 110
+    assert line._height == 70
 
 def test_line_color():
     line = Line(DEFAULT_CONFIG).color("#ABCDEF")

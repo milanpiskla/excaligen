@@ -1,7 +1,5 @@
 from ..base.AbstractElement import AbstractElement
-from ..base.AbstractStrokedElement import AbstractStrokedElement
-from ..geometry.ArcApproximation import ArcApproximation
-from ..geometry.HalfLineIntersection import HalfLineIntersection
+from ..base.AbstractLine import AbstractLine
 
 from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
@@ -13,10 +11,9 @@ from ..geometry.Point import Point
 from ...config.Config import Config, DEFAULT_CONFIG
 
 from enum import Enum
-from typing import Self, Tuple, List, Optional
-import math
+from typing import Self
 
-class Arrow(AbstractStrokedElement):
+class Arrow(AbstractLine):
     """Represents an arrow element in Excalidraw, capable of different styles like straight lines, splines, arcs, etc."""
 
     class ConnectionType(Enum):
@@ -32,7 +29,6 @@ class Arrow(AbstractStrokedElement):
         self._start_arrowhead = config.get("startArrowhead", None)
         self._end_arrowhead = config.get("endArrowhead", "arrow")
         self._elbowed = False
-        self._points: list[Point] = []
         self.__start_gap = 1
         self.__end_gap = 1
         self.__start_angle: float | str = 0.0
@@ -44,21 +40,6 @@ class Arrow(AbstractStrokedElement):
         self.__end_element: AbstractElement = None
         self.__connection_type = Arrow.ConnectionType.STRAIGHT
         self.__is_already_bound = False
-
-    def points(self, points: List[Tuple[float, float]]) -> Self:
-        self._points = points
-        return self
-
-    def roundness(self, roundness: str) -> Self:
-        """Set the roundness style (sharp, round)."""
-        match roundness:
-            case "sharp":
-                self._roundness = None
-            case "round":
-                self._roundness = { "type": 3 }
-            case _:
-                raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
-        return self
 
     def curve(self, start_angle: float | str, end_angle: float | str) -> Self:
         """Approximates a cubic Bezier using the given start and end tangent vectors."""
@@ -171,7 +152,7 @@ class Arrow(AbstractStrokedElement):
         self._y = points[0][1]
 
         relative_points = [[x - self._x, y - self._y] for x, y in points]
-        self._points = relative_points
+        self.points(relative_points)
 
         return self
     
