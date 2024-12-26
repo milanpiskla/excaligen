@@ -54,3 +54,21 @@ def test_group(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg.group().elements(rect, ellipse)
     
     evaluate(reference_json, xg, request)
+
+def test_frame_default_inset(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("In frame"))
+    ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("In frame"))
+    diamond = xg.diamond().center(-150, -150).size(100, 100).label(xg.text().content("Not in frame"))
+    xg.frame().title('Test frame').elements(rect, ellipse)
+    
+    evaluate(reference_json, xg, request)
+
+def test_frame(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("In frame"))
+    ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("In frame"))
+    diamond = xg.diamond().center(-150, -150).size(100, 100).label(xg.text().content("Not in frame"))
+    xg.frame().center(10, 100).size(400, 500).title('Test frame').elements(rect, ellipse)
+    
+    evaluate(reference_json, xg, request)

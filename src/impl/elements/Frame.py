@@ -1,8 +1,50 @@
 from ..base.AbstractElement import AbstractElement
+from ..base.AbstractShape import AbstractShape
+
+from ..elements.Rectangle import Rectangle
+from ..elements.Diamond import Diamond
+from ..elements.Ellipse import Ellipse
+from ..elements.Arrow import Arrow
+from ..elements.Line import Line
+from ..elements.Text import Text
+from ..elements.Image import Image
 from ...config.Config import Config, DEFAULT_CONFIG
 
-class Frame(AbstractElement):
+from typing import Self
+
+Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image
+
+DEFAULT_FRAME_INSET: float = 30.0
+
+class Frame(AbstractShape):
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("frame", config)
-        self._title = config.get("title", "")
+        self._width = 0.0
+        self._height = 0.0
         self._background_color = config.get("backgroundColor", "transparent")
+        self._title = None
+
+    def title(self, title: str) -> Self:
+        self._title = title
+        return self
+    
+    def elements(self, *elements: AbstractElement) -> Self:
+        min_x, min_y = 0.0, 0.0
+        max_x, max_y = 0.0, 0.0
+        
+        for element in elements:
+            element._frame_id = self._id
+
+            min_x = min(min_x, element._x)
+            min_y = min(min_y, element._y)
+            max_x = max(max_x, element._x + element._width)
+            max_y = max(max_y, element._y + element._height)
+
+        if self._width == 0.0 and self._height == 0.0:
+            width = max_x - min_x + 2 * DEFAULT_FRAME_INSET
+            height = max_y - min_y + 2 * DEFAULT_FRAME_INSET
+            self.size(width, height)
+            self.position(min_x - DEFAULT_FRAME_INSET, min_y - DEFAULT_FRAME_INSET)
+
+        return self
+    
