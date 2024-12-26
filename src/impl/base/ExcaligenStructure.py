@@ -8,7 +8,7 @@ from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
 from ..elements.Frame import Frame
-from ..elements.Group import Element
+from ..elements.Group import Group
 from ..images.ImageLoader import ImageLoader
 
 from .AbstractImageListener import AbstractImageListener
@@ -84,8 +84,8 @@ class ExcaligenStructure(AbstractImageListener):
     def frame(self) -> Frame:
         return self.__append_element(self.__factory.frame())
 
-    def group(self, *elements: Element) -> None:
-        self.__factory.group(*elements)
+    def group(self) -> Group:
+        return self.__factory.group()
 
     def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)

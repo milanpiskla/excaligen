@@ -51,6 +51,6 @@ def test_group(reference_json: dict[str, any], request: FixtureRequest) -> None:
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("Group part"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("Group part"))
     diamond = xg.diamond().center(-150, -150).size(100, 100).label(xg.text().content("Not Group"))
-    xg.group(rect, ellipse)
+    xg.group().elements(rect, ellipse)
     
     evaluate(reference_json, xg, request)

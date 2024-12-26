@@ -12,13 +12,20 @@ from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
 from ..elements.Frame import Frame
+from ...config.Config import Config, DEFAULT_CONFIG
+
+from typing import Self
 
 import uuid
 
 Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image | Frame
 
 class Group():
-    def __init__(self, *elements: Element):
-        id = str(uuid.uuid4())
+    def __init__(self, config: Config = DEFAULT_CONFIG):
+        self.__id = str(uuid.uuid4())
+
+    def elements(self, *elements: Element) -> Self:
         for element in elements:
-            element._add_group_id(id)
+            element._add_group_id(self.__id)
+
+        return self

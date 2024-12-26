@@ -14,8 +14,6 @@ from .Group import Group
 
 from typing import Self
 
-Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image | Frame
-
 class ElementFactory():
     def __init__(self):
         self.config = DEFAULT_CONFIG
@@ -48,5 +46,5 @@ class ElementFactory():
     def frame(self) -> Frame:
         return Frame(self.config)
 
-    def group(self, *elements: Element) -> Group:
-        return Group(*elements)
+    def group(self) -> Group:
+        return Group(self.config)
