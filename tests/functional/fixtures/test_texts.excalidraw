@@ -5,13 +5,15 @@
   "elements": [
     {
       "type": "text",
-      "id": "4459fb87-cc27-4844-ae1e-4bf501e882e9",
-      "seed": 97302188,
+      "id": "672116e2-1508-4d85-8d53-93ef4dd532ba",
+      "seed": 345709391,
       "version": 1,
-      "versionNonce": 494808897,
+      "versionNonce": 62928577,
       "isDeleted": false,
       "x": 0,
       "y": 0,
+      "width": 187.2,
+      "height": 30.0,
       "opacity": 100,
       "angle": 0,
       "index": null,
@@ -27,18 +29,19 @@
       "lineHeight": 1.5,
       "autoResize": true,
       "strokeColor": "#FF0000",
-      "width": 187.2,
-      "height": 30.0
+      "containerId": null
     },
     {
       "type": "text",
-      "id": "cdc82981-8bd6-488e-bf22-a27f7df0882b",
-      "seed": 221357783,
+      "id": "3d9dadad-4a3c-456d-b0e0-82032631cdcd",
+      "seed": 168862571,
       "version": 1,
-      "versionNonce": 101726708,
+      "versionNonce": 633289283,
       "isDeleted": false,
       "x": 100,
       "y": 100,
+      "width": 432.0,
+      "height": 50.0,
       "opacity": 100,
       "angle": 0,
       "index": null,
@@ -54,8 +57,7 @@
       "lineHeight": 1.5,
       "autoResize": true,
       "strokeColor": "#0000FF",
-      "width": 432.0,
-      "height": 50.0
+      "containerId": null
     }
   ],
   "appState": {

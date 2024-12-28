@@ -10,7 +10,7 @@ class AbstractStrokedElement(AbstractElement):
         self._stroke_width = config.get("strokeWidth", 1)
         self._stroke_style = config.get("strokeStyle", "solid")
         self._roughness = config.get("roughness", 1)
-        self.__label: Text = None
+        self.__label: Text | None = None
 
     def color(self, color: str) -> Self:
         """Set the stroke (outline) color."""
@@ -62,6 +62,7 @@ class AbstractStrokedElement(AbstractElement):
         text._y = self._y + (self._height - text._height - text._line_height) / 2  # Center vertically
 
         self._add_bound_element(text)
+        text._container_id = self._id
         return self
 
     def _add_group_id(self, id: str) -> None:

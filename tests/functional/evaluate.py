@@ -21,7 +21,7 @@ def reference_json(request: FixtureRequest) -> dict[str, any]:
 def evaluate(reference_json: dict[str, any], xg: Excaligen, request: FixtureRequest) -> None:
     generated_json = json.loads(xg.json())
     comparator = ExcalidrawComparator(
-        ignore_fields={'version', 'versionNonce', 'seed', 'groupIds', 'frameId'}
+        ignore_fields={'version', 'versionNonce', 'seed', 'groupIds', 'frameId', 'containerId'}
     )
 
     # Compare the generated JSON with the reference JSON

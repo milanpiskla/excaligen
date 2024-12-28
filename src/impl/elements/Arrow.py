@@ -99,7 +99,7 @@ class Arrow(AbstractLine):
         self.__end_element = end
         self.__try_connect_elements()
         return self
-
+    
     def __try_connect_elements(self) -> Self:
         if self.__start_element is not None and self.__end_element is not None:
             if not self.__is_already_bound:

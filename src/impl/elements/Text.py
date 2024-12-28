@@ -35,6 +35,7 @@ class Text(AbstractElement):
         self._stroke_color = config.get("strokeColor", "#000000")  # Default to black
         self._width = config.get("width", 100)
         self._height = config.get("height", 100)
+        self._container_id: str | None = None
 
     def content(self, text: str) -> Self:
         """Set the text content and automatically calculate width and height."""
