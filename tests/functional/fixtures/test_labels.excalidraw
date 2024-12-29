@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "text",
-      "id": "2f8b257a-04ee-4934-8d99-13c14c1d5304",
-      "seed": 229174444,
+      "id": "4ae1f8a2-28e8-4b9d-94fd-53ddea913cc5",
+      "seed": 670174109,
       "version": 1,
-      "versionNonce": 572010566,
+      "versionNonce": 490191956,
       "isDeleted": false,
       "x": 82.0,
       "y": 56.75,
@@ -29,14 +29,14 @@
       "lineHeight": 1.5,
       "autoResize": true,
       "strokeColor": "#FF0000",
-      "containerId": "bb79cba2-cdb1-41c1-91a0-d732b5c87122"
+      "containerId": "dc5d222d-3166-481e-88cc-c8307067246b"
     },
     {
       "type": "rectangle",
-      "id": "bb79cba2-cdb1-41c1-91a0-d732b5c87122",
-      "seed": 379414123,
+      "id": "dc5d222d-3166-481e-88cc-c8307067246b",
+      "seed": 386683668,
       "version": 1,
-      "versionNonce": 473028659,
+      "versionNonce": 652166503,
       "isDeleted": false,
       "x": 10,
       "y": 20,
@@ -50,7 +50,7 @@
       "link": null,
       "boundElements": [
         {
-          "id": "2f8b257a-04ee-4934-8d99-13c14c1d5304",
+          "id": "4ae1f8a2-28e8-4b9d-94fd-53ddea913cc5",
           "type": "text"
         }
       ],
@@ -64,7 +64,9 @@
     }
   ],
   "appState": {
-    "gridSize": null,
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
     "viewBackgroundColor": "#ffffff"
   },
   "files": {}

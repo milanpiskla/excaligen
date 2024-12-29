@@ -3,7 +3,20 @@ from .evaluate import *
 
 from pytest import FixtureRequest
 
-import math
+def test_grid(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    xg.grid(50, 10, True)
+    xg.rectangle().center(0, 0).size(100, 100)
+    
+    evaluate(reference_json, xg, request)
+
+def test_view_background(reference_json: dict[str, any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    xg.grid(50, 10, True)
+    xg.background('#0000FF')
+    xg.rectangle().center(0, 0).size(100, 100)
+    
+    evaluate(reference_json, xg, request)
 
 def test_texts(reference_json: dict[str, any], request: FixtureRequest) -> None:
     xg = Excaligen()

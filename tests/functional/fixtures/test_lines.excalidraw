@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "line",
-      "id": "5f683068-4dd6-4642-ad98-9c184e3fec08",
-      "seed": 963194212,
+      "id": "e0643b9a-5fb6-49c4-89a4-5cd0419647b1",
+      "seed": 914996155,
       "version": 1,
-      "versionNonce": 392352846,
+      "versionNonce": 45735965,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -39,10 +39,10 @@
     },
     {
       "type": "line",
-      "id": "d8850354-8e04-4348-b3ce-ff6ae43118a5",
-      "seed": 735759645,
+      "id": "ad6ea911-b92c-4e9d-920f-e802a1c9378f",
+      "seed": 881204657,
       "version": 1,
-      "versionNonce": 464837980,
+      "versionNonce": 607878817,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -73,10 +73,10 @@
     },
     {
       "type": "line",
-      "id": "799754cb-2a6b-4bbe-afd2-8f48979bc5c8",
-      "seed": 599000948,
+      "id": "3f11be80-c159-4e3e-a599-f9942cacebc6",
+      "seed": 239510095,
       "version": 1,
-      "versionNonce": 401272316,
+      "versionNonce": 48254686,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -113,7 +113,9 @@
     }
   ],
   "appState": {
-    "gridSize": null,
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
     "viewBackgroundColor": "#ffffff"
   },
   "files": {}

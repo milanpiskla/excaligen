@@ -50,7 +50,9 @@ class ExcaligenStructure(AbstractImageListener):
         self._source = "https://excalidraw.com"
         self._elements: list[AbstractElement] = []
         self._app_state = {
-            "gridSize": None,
+            "gridSize": 20,
+            "gridStep": 5,
+            "gridModeEnabled": False, 
             "viewBackgroundColor": "#ffffff"
         }
         self._files = {}
@@ -61,6 +63,16 @@ class ExcaligenStructure(AbstractImageListener):
 
     def config(self, config: Config) -> Self:
         self.__factory.config(config)
+        return self
+
+    def grid(self, size: int, step: int, enabled: bool) -> Self:
+        self._app_state["gridSize"] = size
+        self._app_state["gridStep"] = step
+        self._app_state["gridModeEnabled"] = enabled
+        return self
+    
+    def background(self, color: str) -> Self:
+        self._app_state["viewBackgroundColor"] = color
         return self
 
     def rectangle(self) -> Rectangle:

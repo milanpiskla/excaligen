@@ -29,6 +29,12 @@ class Excaligen(ExcaligenStructure):
 
     def config(self, config: Config) -> Self:
         return super().config(config)
+    
+    def grid(self, size: int, step: int, enabled: bool) -> Self:
+        return super().grid(size, step, enabled)
+    
+    def background(self, color: str) -> Self:
+        return super().background(color)
 
     def rectangle(self) -> Rectangle:
         return super().rectangle()
@@ -62,3 +68,4 @@ class Excaligen(ExcaligenStructure):
 
     def save(self, file: str) -> Self:
         return super().save(file)
+    
