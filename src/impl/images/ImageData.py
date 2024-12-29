@@ -5,7 +5,7 @@ class ImageData:
         height: float,
         mime_type: str,
         data_url: str,
-        content: str | bytes = None
+        content: str | bytes | None = None
     ):
         self.width = width
         self.height = height

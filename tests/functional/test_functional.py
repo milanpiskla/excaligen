@@ -1,16 +1,17 @@
 from src.Excaligen import Excaligen
 from .evaluate import *
+from typing import Any
 
 from pytest import FixtureRequest
 
-def test_grid(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_grid(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     xg.grid(50, 10, True)
     xg.rectangle().center(0, 0).size(100, 100)
     
     evaluate(reference_json, xg, request)
 
-def test_view_background(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_view_background(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     xg.grid(50, 10, True)
     xg.background('#0000FF')
@@ -18,21 +19,21 @@ def test_view_background(reference_json: dict[str, any], request: FixtureRequest
     
     evaluate(reference_json, xg, request)
 
-def test_texts(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_texts(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     xg.text().content("Hello, World!").fontsize("L").font("Hand-drawn").align("center").baseline("top").spacing(1.5).color("#FF0000")
     xg.text().position(100, 100).content("Hello, Excalifont!").fontsize(40).font("excalifont").align("center").baseline("top").spacing(1.5).color("#0000FF").autoresize(True)
 
     evaluate(reference_json, xg, request)
 
-def test_labels(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_labels(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     label = xg.text().content("Hello, World!").fontsize("M").font("Hand-drawn").spacing(1.5).color("#FF0000")
     xg.rectangle().position(10, 20).size(300, 100).label(label)
 
     evaluate(reference_json, xg, request)
 
-def test_sandbox(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_sandbox(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     def cross(center: tuple[float, float], color: str) -> None:
@@ -40,8 +41,8 @@ def test_sandbox(reference_json: dict[str, any], request: FixtureRequest) -> Non
         xg.line().points([[x - 20, y], [x + 20, y]]).color(color)
         xg.line().points([[x, y - 20], [x, y + 20]]).color(color)
 
-    cross([0, 0], '#ff0000')
-    cross([100, 50], '#00ff00')
+    cross((0, 0), '#ff0000')
+    cross((100, 50), '#00ff00')
 
     xg.ellipse().position(0, 0).size(50, 50)
     xg.ellipse().position(0, 0).size(100, 100).opacity(50)
@@ -50,7 +51,7 @@ def test_sandbox(reference_json: dict[str, any], request: FixtureRequest) -> Non
 
     evaluate(reference_json, xg, request)
 
-def test_lines(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_lines(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     xg.line().color('#00FF00').points([(0, 0), (100, 50)]).sloppiness(2).stroke('solid')
@@ -59,7 +60,7 @@ def test_lines(reference_json: dict[str, any], request: FixtureRequest) -> None:
 
     evaluate(reference_json, xg, request)
 
-def test_group(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_group(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("Group part"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("Group part"))
@@ -68,7 +69,7 @@ def test_group(reference_json: dict[str, any], request: FixtureRequest) -> None:
     
     evaluate(reference_json, xg, request)
 
-def test_frame_default_inset(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_frame_default_inset(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("In frame"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("In frame"))
@@ -77,7 +78,7 @@ def test_frame_default_inset(reference_json: dict[str, any], request: FixtureReq
     
     evaluate(reference_json, xg, request)
 
-def test_frame(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_frame(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("In frame"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("In frame"))

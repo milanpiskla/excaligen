@@ -11,7 +11,7 @@ from ..geometry.Point import Point
 from ...config.Config import Config, DEFAULT_CONFIG
 
 from enum import Enum
-from typing import Self
+from typing import Self, Any
 
 class Arrow(AbstractLine):
     """Represents an arrow element in Excalidraw, capable of different styles like straight lines, splines, arcs, etc."""
@@ -33,11 +33,11 @@ class Arrow(AbstractLine):
         self.__end_gap = 1
         self.__start_angle: float | str = 0.0
         self.__end_angle: float | str = 0.0
-        self.__start_direction: str = None
-        self.__end_direction: str = None
-        self.__radius: float = None  # For arc connections
-        self.__start_element: AbstractElement = None
-        self.__end_element: AbstractElement = None
+        self.__start_direction: str | None = None
+        self.__end_direction: str | None = None
+        self.__radius: float | None = None  # For arc connections
+        self.__start_element: AbstractElement | None = None
+        self.__end_element: AbstractElement | None = None
         self.__connection_type = Arrow.ConnectionType.STRAIGHT
         self.__is_already_bound = False
 
@@ -58,7 +58,7 @@ class Arrow(AbstractLine):
         self.__try_connect_elements()
         return self
 
-    def gap(self, gap: float, end_gap: float = None) -> Self:
+    def gap(self, gap: float, end_gap: float | None = None) -> Self:
         """Set the gap at the start and end of the arrow."""
         if end_gap is None:
             end_gap = gap
@@ -114,45 +114,47 @@ class Arrow(AbstractLine):
     def __calculate_points(self) -> Self:
         match self.__connection_type:
             case Arrow.ConnectionType.STRAIGHT:
-                self.__transform_points(StraightConnection(self.__start_element, self.__end_element).points())
+                self.__transform_points(StraightConnection(self.__start_element, self.__end_element).points()) # type: ignore
 
             case Arrow.ConnectionType.ARC:
-                self.__transform_points(ArcConnection(self.__start_element, self.__end_element, self.__radius).points())
+                self.__transform_points(ArcConnection(self.__start_element, self.__end_element, self.__radius).points()) # type: ignore
 
             case Arrow.ConnectionType.CURVE:
-                self.__transform_points(CurveConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points())
+                self.__transform_points(CurveConnection(self.__start_element, self.__end_element, self.__start_angle, self.__end_angle).points()) # type: ignore
 
             case Arrow.ConnectionType.ELBOW:
-                self.__transform_points(ElbowConnection(self.__start_element, self.__end_element, self.__start_direction, self.__end_direction).points())
+                self.__transform_points(ElbowConnection(self.__start_element, self.__end_element, self.__start_direction, self.__end_direction).points()) # type: ignore
 
         return self
 
     def __set_binding_attributes(self) -> Self:
-        self._start_binding = self.__compute_binding_attributes(self.__start_element._id, self.__start_gap)
-        self._end_binding = self.__compute_binding_attributes(self.__end_element._id, self.__end_gap)
+        self._start_binding = self.__compute_binding_attributes(self.__start_element._id, self.__start_gap) # type: ignore
+        self._end_binding = self.__compute_binding_attributes(self.__end_element._id, self.__end_gap) # type: ignore
 
-        self.__start_element._add_bound_element(self)
-        self.__end_element._add_bound_element(self)
+        self.__start_element._add_bound_element(self) # type: ignore already checked
+        self.__end_element._add_bound_element(self) # type: ignore already checked
 
         return self
     
-    def __compute_binding_attributes(self, id: str, gap: float) -> dict[str, any]:
-        result = {"focus": 0}
+    def __compute_binding_attributes(self, id: str, gap: float) -> dict[str, Any]:
+        result: dict[str, Any] = {"focus": 0}
         result["elementId"] = id
         result["gap"] = gap
         return result
 
     def __try_update_binding_attributes_with_fixed_points(self) -> Self:
         if self.__connection_type == Arrow.ConnectionType.ELBOW:
-            self._start_binding["fixedPoint"] = self.__compute_fixed_point(self.__start_direction)
-            self._end_binding["fixedPoint"] = self.__compute_fixed_point(self.__end_direction)
+            self._start_binding["fixedPoint"] = self.__compute_fixed_point(self.__start_direction) # type: ignore
+            self._end_binding["fixedPoint"] = self.__compute_fixed_point(self.__end_direction) # type: ignore
+        
+        return self
 
     def __transform_points(self, points: list[Point]) -> Self:
         self._x = points[0][0]
         self._y = points[0][1]
 
-        relative_points = [[x - self._x, y - self._y] for x, y in points]
-        self.points(relative_points)
+        relative_points = [(x - self._x, y - self._y) for x, y in points]
+        self.points(relative_points) # type: ignore
 
         return self
     

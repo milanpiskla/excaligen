@@ -35,13 +35,13 @@ class StraightConnection:
 
         match element._type:
             case "rectangle" | "image" | "text":
-                intersection = HalfLineIntersection.with_rectangle(dx, dy, vx, vy, a, b, element._angle)
+                intersection = HalfLineIntersection.with_rectangle(dx, dy, vx, vy, a, b, element._angle) # type: ignore
             
             case "diamond":
-                intersection = HalfLineIntersection.with_diamond(dx, dy, vx, vy, a, b, element._angle)
+                intersection = HalfLineIntersection.with_diamond(dx, dy, vx, vy, a, b, element._angle) # type: ignore
             
             case "ellipse":
-                intersection = HalfLineIntersection.with_ellipse(dx, dy, vx, vy, a, b, element._angle)
+                intersection = HalfLineIntersection.with_ellipse(dx, dy, vx, vy, a, b, element._angle) # type: ignore
 
             case _:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")

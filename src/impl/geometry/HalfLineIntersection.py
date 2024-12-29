@@ -88,7 +88,7 @@ class HalfLineIntersection:
 
         # Choose the intersection closest to (dx, dy)
         min_dist = float('inf')
-        closest_point = None
+        closest_point = (0.0, 0.0)
         for x, y in intersections:
             dist = math.hypot(x - dx, y - dy)
             if dist < min_dist:
@@ -126,7 +126,7 @@ class HalfLineIntersection:
 
         # Choose the intersection closest to (dx, dy)
         min_dist = float('inf')
-        closest_point = None
+        closest_point = (0.0, 0.0)
         for x, y in intersections:
             dist = math.hypot(x - dx, y - dy)
             if dist < min_dist:

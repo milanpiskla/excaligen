@@ -1,10 +1,11 @@
 from src.Excaligen import Excaligen
 from .evaluate import *
+from typing import Any
 
 from pytest import FixtureRequest
 import math
 
-def test_arrow_star(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_star(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     start_element = xg.ellipse().center(0, 0).size(100, 100).label(xg.text().content("center"))
@@ -18,7 +19,7 @@ def test_arrow_star(reference_json: dict[str, any], request: FixtureRequest) -> 
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_curve(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_curve(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
@@ -26,7 +27,7 @@ def test_arrow_curve(reference_json: dict[str, any], request: FixtureRequest) ->
     
     evaluate(reference_json, xg, request)
 
-def test_arrow_curve_narrow(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_curve_narrow(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     start_element = xg.ellipse().center(-150, -150).size(120, 80).label(xg.text().content("center 1"))
     end_element = xg.ellipse().center(150, 150).size(120, 80).label(xg.text().content("center 2"))
@@ -34,7 +35,7 @@ def test_arrow_curve_narrow(reference_json: dict[str, any], request: FixtureRequ
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_curve_complex(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_curve_complex(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     RADIUS = 700
     XOFFSET = -200
@@ -54,7 +55,7 @@ def test_arrow_curve_complex(reference_json: dict[str, any], request: FixtureReq
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_curve_str_directions(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_curve_str_directions(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
@@ -65,7 +66,7 @@ def test_arrow_curve_str_directions(reference_json: dict[str, any], request: Fix
     
     evaluate(reference_json, xg, request)
 
-def test_arrow_curve_diff_calling_order(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_curve_diff_calling_order(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
@@ -73,7 +74,7 @@ def test_arrow_curve_diff_calling_order(reference_json: dict[str, any], request:
     
     evaluate(reference_json, xg, request)
 
-def test_arrow_elbows(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_elbows(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
@@ -84,7 +85,7 @@ def test_arrow_elbows(reference_json: dict[str, any], request: FixtureRequest) -
     
     evaluate(reference_json, xg, request)
 
-def test_arrow_elbows_diff_calling_order(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_elbows_diff_calling_order(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
@@ -95,7 +96,7 @@ def test_arrow_elbows_diff_calling_order(reference_json: dict[str, any], request
     
     evaluate(reference_json, xg, request)
 
-def test_arrow_arc(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_arc(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
 
     RADIUS = 300
@@ -116,7 +117,7 @@ def test_arrow_arc(reference_json: dict[str, any], request: FixtureRequest) -> N
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_label(reference_json: dict[str, any], request: FixtureRequest) -> None:
+def test_arrow_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))

@@ -15,7 +15,7 @@ from ..indexer.IndexGenerator import IndexGenerator
 from .AbstractImageListener import AbstractImageListener
 
 from ...config.Config import Config
-from typing import Self
+from typing import Self, cast
 
 import json
 
@@ -76,28 +76,28 @@ class ExcaligenStructure(AbstractImageListener):
         return self
 
     def rectangle(self) -> Rectangle:
-        return self.__append_element(self.__factory.rectangle())
+        return cast(Rectangle, self.__append_element(self.__factory.rectangle()))
 
     def diamond(self) -> Diamond:
-        return self.__append_element(self.__factory.diamond())
+        return cast(Diamond, self.__append_element(self.__factory.diamond()))
 
     def ellipse(self) -> Ellipse:
-        return self.__append_element(self.__factory.ellipse())
+        return cast(Ellipse, self.__append_element(self.__factory.ellipse()))
 
     def arrow(self) -> Arrow:
-        return self.__append_element(self.__factory.arrow())
+        return cast(Arrow, self.__append_element(self.__factory.arrow()))
 
     def line(self) -> Line:
-        return self.__append_element(self.__factory.line())
+        return cast(Line, self.__append_element(self.__factory.line()))
 
     def text(self) -> Text:
-        return self.__append_element(self.__factory.text())
+        return cast(Text, self.__append_element(self.__factory.text()))
 
     def image(self) -> Image:
-        return self.__append_element(self.__factory.image(self, self.__image_loader))
+        return cast(Image, self.__append_element(self.__factory.image(self, self.__image_loader)))
 
     def frame(self) -> Frame:
-        return self.__append_element(self.__factory.frame())
+        return cast(Frame, self.__append_element(self.__factory.frame()))
 
     def group(self) -> Group:
         return self.__factory.group()

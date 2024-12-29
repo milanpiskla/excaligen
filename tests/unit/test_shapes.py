@@ -106,14 +106,14 @@ def test_rectangle_label():
     assert text._x == rect._x + (rect._width - text._width) / 2
     assert text._y == rect._y + (rect._height - text._height - text._line_height) / 2
 
-def test_rectangle_edges_valid():
+def test_rectangle_roundness_valid():
     rect = Rectangle(DEFAULT_CONFIG)
     rect.roudness("round")
     assert rect._roundness == {"type": 3}
 
-def test_rectangle_edges_invalid():
+def test_rectangle_roundness_invalid():
     rect = Rectangle(DEFAULT_CONFIG)
-    with pytest.raises(ValueError, match="Invalid edges 'curved'. Use 'sharp', 'round'"):
+    with pytest.raises(ValueError, match="Invalid roundness 'curved'. Use 'sharp', 'round'"):
         rect.roudness("curved")
 
 def test_text_content():
@@ -188,7 +188,9 @@ def test_arrow_bind():
     rect2 = Rectangle(DEFAULT_CONFIG).position(200, 200).size(100, 100)
     arrow = Arrow(DEFAULT_CONFIG)
     arrow.bind(rect1, rect2)
+    assert arrow._start_binding is not None
     assert arrow._start_binding['elementId'] == rect1._id
+    assert arrow._end_binding is not None
     assert arrow._end_binding['elementId'] == rect2._id
     assert rect1._bound_elements is not None
     assert rect2._bound_elements is not None
@@ -242,15 +244,17 @@ def test_arrow_bind_correct_points():
     # Verify arrow points
     expected_end_x = end_x - start_x
     expected_end_y = end_y - start_y
-    assert arrow._points[0] == [0, 0]
-    assert arrow._points[1] == [expected_end_x, expected_end_y]
+    assert arrow._points[0] == (0, 0)
+    assert arrow._points[1] == (expected_end_x, expected_end_y)
 
 def test_arrow_invalid_bind():
     rect = Rectangle(DEFAULT_CONFIG).position(0, 0).size(100, 100)
     text = Text(DEFAULT_CONFIG).position(200, 200)
     arrow = Arrow(DEFAULT_CONFIG)
     arrow.bind(rect, text)
+    assert arrow._start_binding is not None
     assert arrow._start_binding['elementId'] == rect._id
+    assert arrow._end_binding is not None
     assert arrow._end_binding['elementId'] == text._id
     assert rect._bound_elements is not None
     assert text._bound_elements is not None

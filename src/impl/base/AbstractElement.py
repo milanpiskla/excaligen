@@ -16,8 +16,8 @@ class AbstractElement:
         self._is_deleted = False
         self._x: float = config.get("x", 0)
         self._y: float = config.get("y", 0)
-        self._width = 0
-        self._height = 0
+        self._width = 0.0
+        self._height = 0.0
         self._opacity = config.get("opacity", 100)
         self._angle = config.get("angle", 0)
         self._index: str | None = None

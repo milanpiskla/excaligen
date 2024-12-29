@@ -26,6 +26,6 @@ class Group():
 
     def elements(self, *elements: Element) -> Self:
         for element in elements:
-            element._add_group_id(self.__id)
+            element._add_group_id(self.__id) # type: ignore
 
         return self

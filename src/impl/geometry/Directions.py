@@ -10,7 +10,7 @@ _DIRECTIONS = {
 class Directions:
     @staticmethod
     def keys() -> list[str]:
-        return _DIRECTIONS.keys()
+        return _DIRECTIONS.keys() # type: ignore
 
     @staticmethod
     def dxdy(direction: str) -> tuple[float, float]:

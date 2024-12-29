@@ -1,12 +1,12 @@
 from .AbstractStrokedElement import AbstractStrokedElement
 from .AbstractShape import AbstractShape
 from ...config.Config import Config
-from typing import Self
+from typing import Self, Any
 
 class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
     def __init__(self, type: str, config: Config):
         super().__init__(type, config)
-        self._roundness = config.get("roundness", None)
+        self._roundness: str | dict[str, Any] | None = config.get("roundness", None)
 
     def roudness(self, roundness: str) -> Self:
         """Set the roundness style (sharp, round)."""
@@ -16,5 +16,5 @@ class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
             case "round":
                 self._roundness = { "type": 3 }
             case _:
-                raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
+                raise ValueError(f"Invalid roundness '{roundness}'. Use 'sharp', 'round'")
         return self

@@ -16,35 +16,35 @@ from typing import Self
 
 class ElementFactory():
     def __init__(self):
-        self.config = DEFAULT_CONFIG
+        self._config: Config = DEFAULT_CONFIG
 
     def config(self, config: Config) -> Self:
-        self.config = config
+        self._config = config
         return self
 
     def rectangle(self) -> Rectangle:
-        return Rectangle(self.config)
+        return Rectangle(self._config)
 
     def diamond(self) -> Diamond:
-        return Diamond(self.config)
+        return Diamond(self._config)
 
     def ellipse(self) -> Ellipse:
-        return Ellipse(self.config)
+        return Ellipse(self._config)
 
     def arrow(self) -> Arrow:
-        return Arrow(self.config)
+        return Arrow(self._config)
 
     def line(self) -> Line:
-        return Line(self.config)
+        return Line(self._config)
 
     def text(self) -> Text:
-        return Text(self.config)
+        return Text(self._config)
 
     def image(self, listener: AbstractImageListener, loader: AbstractImageLoader) -> Image:
-        return Image(listener, loader, self.config)
+        return Image(listener, loader, self._config)
 
     def frame(self) -> Frame:
-        return Frame(self.config)
+        return Frame(self._config)
 
     def group(self) -> Group:
-        return Group(self.config)
+        return Group(self._config)
