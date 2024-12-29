@@ -2,7 +2,7 @@ import uuid
 from typing import Self
 from ...config.Config import Config
 
-# TODO fix it according to excalidraw/packages/excalidraw/element/types.ts
+# TODO make it consistent with excalidraw/packages/excalidraw/element/types.ts
 
 class AbstractElement:
     """Base class for all Excalidraw elements."""
@@ -20,9 +20,9 @@ class AbstractElement:
         self._height = 0
         self._opacity = config.get("opacity", 100)
         self._angle = config.get("angle", 0)
-        self._index = None
-        self._group_ids = []
-        self._frame_id = None
+        self._index: str | None = None
+        self._group_ids: list[str] = []
+        self._frame_id: str | None = None
         self._link = None
         self._bound_elements = None
         self.__is_centered = False
@@ -46,6 +46,9 @@ class AbstractElement:
         self._opacity = opacity
         return self
 
+    def get_center(self) -> tuple[float, float]:
+        return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
+
     def _size(self, width: float, height: float) -> Self:
         """Set the shape size."""
         if self.__is_centered:
@@ -56,9 +59,6 @@ class AbstractElement:
         self._height = height
         
         return self
-
-    def get_center(self) -> tuple[float, float]:
-        return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
 
     def _add_bound_element(self, element: "AbstractElement") -> None:
         self._bound_elements = self._bound_elements or []

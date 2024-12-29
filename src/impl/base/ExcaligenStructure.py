@@ -10,6 +10,7 @@ from ..elements.Image import Image
 from ..elements.Frame import Frame
 from ..elements.Group import Group
 from ..images.ImageLoader import ImageLoader
+from ..indexer.IndexGenerator import IndexGenerator
 
 from .AbstractImageListener import AbstractImageListener
 
@@ -41,6 +42,8 @@ class ExcaligenStructure(AbstractImageListener):
             components = snake_str.split('_')
             return components[0] + ''.join(x.title() for x in components[1:])
 
+    _START_INDEX = 'a0'
+    
     def __init__(self):
         self._type = "excalidraw"
         self._version = 2
@@ -53,6 +56,8 @@ class ExcaligenStructure(AbstractImageListener):
         self._files = {}
         self.__factory = ElementFactory()
         self.__image_loader = ImageLoader()
+        self.__indexer = IndexGenerator(self._START_INDEX)
+        self.__index = self._START_INDEX
 
     def config(self, config: Config) -> Self:
         self.__factory.config(config)
@@ -106,6 +111,9 @@ class ExcaligenStructure(AbstractImageListener):
         }
 
     def __append_element(self, element: AbstractElement) -> AbstractElement:
+        element._index = self.__index
         self._elements.append(element)
+        self.__index = self.__indexer.next()
+        
         return element
         
