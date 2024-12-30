@@ -1,4 +1,5 @@
 from ..base.AbstractElement import AbstractElement
+from ..colors.Color import Color
 from ...config.Config import Config, DEFAULT_CONFIG
 from typing import Self
 
@@ -107,7 +108,7 @@ class Text(AbstractElement):
         self._auto_resize = enabled
         return self
 
-    def color(self, color: str) -> Self:
-        """Set the text color."""
-        self._stroke_color = color
+    def color(self, color: str | Color) -> Self:
+        """Set the text color as #RRGGBB, color name or Color object."""
+        self._stroke_color = Color.from_input(color)
         return self

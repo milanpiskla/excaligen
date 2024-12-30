@@ -9,6 +9,7 @@ from ..elements.Text import Text
 from ..elements.Image import Image
 from ..elements.Frame import Frame
 from ..elements.Group import Group
+from ..colors.Color import Color
 from ..images.ImageLoader import ImageLoader
 from ..indexer.IndexGenerator import IndexGenerator
 
@@ -101,6 +102,9 @@ class ExcaligenStructure(AbstractImageListener):
 
     def group(self) -> Group:
         return self.__factory.group()
+
+    def color(self) -> Color:
+        return self.__factory.color()
 
     def json(self) -> str:
         return json.dumps(self, cls = self.ElementEncoder, indent = 2)

@@ -15,6 +15,7 @@ from .impl.elements.Text import Text
 from .impl.elements.Image import Image
 from .impl.elements.Frame import Frame
 from .impl.elements.Group import Group
+from .impl.colors.Color import Color
 
 from typing import Self
 
@@ -62,6 +63,9 @@ class Excaligen(ExcaligenStructure):
 
     def group(self) -> Group:
         return super().group()
+
+    def color(self) -> Color:
+        return super().color()
 
     def json(self) -> str:
         return super().json()

@@ -1,5 +1,6 @@
 from .AbstractElement import AbstractElement
 from ..elements.Text import Text
+from ..colors.Color import Color
 from ...config.Config import Config
 from typing import Self
 
@@ -12,9 +13,9 @@ class AbstractStrokedElement(AbstractElement):
         self._roughness = config.get("roughness", 1)
         self.__label: Text | None = None
 
-    def color(self, color: str) -> Self:
-        """Set the stroke (outline) color."""
-        self._stroke_color = color
+    def color(self, color: str | Color) -> Self:
+        """Set the stroke (outline) color as #RRGGBB, color name or Color object."""
+        self._stroke_color = Color.from_input(color)
         return self
 
     def thickness(self, thickness: int | str) -> Self:

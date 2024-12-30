@@ -22,7 +22,7 @@ class CurveConnection:
 
         b0, b3 = self.__find_intersection_points(vsx, vsy, vex, vey)
  
-        return CurveApproximation.generate_points(b0, b3, self._start_angle, self._end_angle)
+        return CurveApproximation.generate_points(b0, b3, self._start_angle, self._end_angle) # type: ignore
     
     def __find_intersection_points(self, vsx: float, vsy: float, vex: float, vey: float) -> tuple[Point, Point]:
         start_point = self.__find_intersection_with_element(self._start_element, 0.0, 0.0, vsx, vsy)
@@ -43,13 +43,13 @@ class CurveConnection:
 
         match element._type:
             case "rectangle" | "image" | "text":
-                intersection = HalfLineIntersection.with_rectangle(dx, dy, vx, vy, a, b, element._angle)
+                intersection = HalfLineIntersection.with_rectangle(dx, dy, vx, vy, a, b, element._angle) # type: ignore
             
             case "diamond":
-                intersection = HalfLineIntersection.with_diamond(dx, dy, vx, vy, a, b, element._angle)
+                intersection = HalfLineIntersection.with_diamond(dx, dy, vx, vy, a, b, element._angle) # type: ignore
             
             case "ellipse":
-                intersection = HalfLineIntersection.with_ellipse(dx, dy, vx, vy, a, b, element._angle)
+                intersection = HalfLineIntersection.with_ellipse(dx, dy, vx, vy, a, b, element._angle) # type: ignore
 
             case _:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")

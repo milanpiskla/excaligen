@@ -1,6 +1,7 @@
 from ...config.Config import Config, DEFAULT_CONFIG
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
+from ..colors.Color import Color
 
 from .Rectangle import Rectangle
 from .Diamond import Diamond
@@ -48,3 +49,8 @@ class ElementFactory():
 
     def group(self) -> Group:
         return Group(self._config)
+    
+    def color(self) -> Color:
+        return Color()
+    
+

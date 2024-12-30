@@ -18,7 +18,7 @@ class AbstractElement:
         self._y: float = config.get("y", 0)
         self._width = 0.0
         self._height = 0.0
-        self._opacity = config.get("opacity", 100)
+        self._opacity: int = config.get("opacity", 100)
         self._angle = config.get("angle", 0)
         self._index: str | None = None
         self._group_ids: list[str] = []
@@ -42,7 +42,9 @@ class AbstractElement:
         self._angle = angle
         return self
 
-    def opacity(self, opacity: float) -> Self:
+    def opacity(self, opacity: int) -> Self:
+        if not (0 <= opacity <= 100):
+            raise ValueError("Opacity values must be in the range: 0-100.")
         self._opacity = opacity
         return self
 

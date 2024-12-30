@@ -1,4 +1,5 @@
 from .AbstractElement import AbstractElement
+from ..colors.Color import Color
 from ...config.Config import Config
 from typing import Self
 
@@ -14,9 +15,9 @@ class AbstractShape(AbstractElement):
         """Set the shape size."""
         return self._size(width, height)
 
-    def background(self, color: str) -> Self:
-        """Set the background (fill) color."""
-        self._background_color = color
+    def background(self, color: str | Color) -> Self:
+        """Set the background (fill) color as #RRGGBB, color name or Color object.."""
+        self._background_color = Color.from_input(color)
         return self
 
     def fill(self, style: str) -> Self:
