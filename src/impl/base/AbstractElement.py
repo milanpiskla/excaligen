@@ -30,7 +30,7 @@ class AbstractElement:
         self._index: str | None = None
         self._group_ids: list[str] = []
         self._frame_id: str | None = None
-        self._link = None
+        self._link: None | str = None
         self._bound_elements = None
         self.__is_centered = False
 
@@ -53,6 +53,16 @@ class AbstractElement:
         if not (0 <= opacity <= 100):
             raise ValueError("Opacity values must be in the range: 0-100.")
         self._opacity = opacity
+        return self
+
+    def link(self, target: "str | AbstractElement") -> Self:
+        match target:
+            case AbstractElement():
+                self._link = f"https://excalidraw.com/?element={target._id}"
+            case str():
+                self._link = target
+            case _:
+                raise ValueError("Link target must be a string or an AbstractElement.")
         return self
 
     def get_center(self) -> tuple[float, float]:

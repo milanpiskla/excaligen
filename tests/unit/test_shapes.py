@@ -305,3 +305,17 @@ def test_center():
     rect = Rectangle(DEFAULT_CONFIG).center(10, 20).size(210, 108)
     assert rect._x == 10 - 0.5 * 210
     assert rect._y == 20 - 0.5 * 108
+
+def test_link_string():
+    rect = Rectangle(DEFAULT_CONFIG).link("https://example.com")
+    assert rect._link == "https://example.com"
+
+def test_link_element():
+    rect1 = Rectangle(DEFAULT_CONFIG)
+    rect2 = Rectangle(DEFAULT_CONFIG).link(rect1)
+    assert rect2._link == f"https://excalidraw.com/?element={rect1._id}"
+
+def test_link_element_invalid():
+    rect = Rectangle(DEFAULT_CONFIG)
+    with pytest.raises(ValueError, match="Link target must be a string or an AbstractElement."):
+        rect.link(42)
