@@ -51,6 +51,19 @@ class Image(AbstractElement):
         self._apply_image_data(image_data)
         return self
 
+    def url(self, url: str) -> Self:
+        """Load image data from a URL and set it.
+
+        Args:
+            url (str): The URL to the image.
+
+        Returns:
+            Self: The current instance of the Image class.
+        """
+        image_data = self.__loader.load_from_url(url)
+        self._apply_image_data(image_data)
+        return self
+
     def _apply_image_data(self, image_data: ImageData) -> None:
         """Apply image data to the Image element.
 

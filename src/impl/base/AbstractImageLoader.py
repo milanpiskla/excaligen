@@ -16,3 +16,7 @@ class AbstractImageLoader(ABC):
     @abstractmethod
     def load_from_data(self, data: bytes | str) -> ImageData:
         pass
+
+    @abstractmethod
+    def load_from_url(self, url: str) -> ImageData:
+        pass

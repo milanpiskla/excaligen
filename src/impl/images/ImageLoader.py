@@ -11,6 +11,7 @@ import os
 import base64
 import struct
 from xml.etree import ElementTree as ET
+import urllib.request
 
 class ImageLoader(AbstractImageLoader):
     def load_from_file(self, file_path: str) -> ImageData:
@@ -36,6 +37,21 @@ class ImageLoader(AbstractImageLoader):
             return self._process_binary_image(data)
         else:
             raise TypeError("Unsupported data type. Use 'bytes' for images and 'str' for SVG.")
+
+    def load_from_url(self, url: str) -> ImageData:
+        with urllib.request.urlopen(url) as response:
+            content_type = response.headers.get('Content-Type')
+            data = response.read()
+        
+            content_type = response.headers.get('Content-Type')
+            if content_type == 'image/svg+xml':
+                return self._process_svg(data.decode('utf-8'))
+            elif content_type in ['image/png', 'image/jpeg', 'image/gif']:
+                return self._process_binary_image(data)
+            else:
+                raise ValueError("Unsupported image format. Only SVG, PNG, JPEG, and GIF are supported.")
+
+        response.raise_for_status()
 
     def _process_svg(self, svg_content: str) -> ImageData:
         width, height = self._get_svg_size(svg_content)
