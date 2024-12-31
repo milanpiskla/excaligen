@@ -39,24 +39,31 @@ class Text(AbstractElement):
         self._container_id: str | None = None
 
     def content(self, text: str) -> Self:
-        """Set the text content and automatically calculate width and height."""
+        """Set the text content and automatically calculate width and height.
+
+        Args:
+            text (str): The text content to set.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         self._text = text
         self.__calculate_dimensions()
         return self
 
-    def __calculate_dimensions(self):
-        """Calculate the width and height based on the text content."""
-        lines = self._text.split("\n")
-        width = max(len(line) for line in lines) * self._font_size * self.CHAR_WIDTH_FACTOR
-        height = len(lines) * self._font_size * self.LINE_HEIGHT_FACTOR
-
-        self._size(width, height)
-
-        self._width = width
-        self._height = height
-
     def fontsize(self, size: int | str) -> Self:
-        """Set the font size by int or by string ('S', 'M', 'L', 'XL')."""
+        """Set the font size by int or by string ('S', 'M', 'L', 'XL').
+
+        Args:
+            size (int | str): The font size to set.
+
+        Raises:
+            ValueError: If an invalid size string is provided.
+            TypeError: If the size is not an int or a valid string.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         if isinstance(size, int):
             self._font_size = size
         elif isinstance(size, str):
@@ -72,7 +79,17 @@ class Text(AbstractElement):
         return self
 
     def font(self, family: str) -> Self:
-        """Set the font family ('Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code')."""
+        """Set the font family ('Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code').
+
+        Args:
+            family (str): The font family to set.
+
+        Raises:
+            ValueError: If an invalid font family is provided.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         family = family.lower().replace(" ", "-")
         if family in self.FONT_MAPPING:
             self._font_family = self.FONT_MAPPING[family]
@@ -81,7 +98,17 @@ class Text(AbstractElement):
         return self
 
     def align(self, align: str) -> Self:
-        """Set the horizontal text alignment (left, center, right)."""
+        """Set the horizontal text alignment (left, center, right).
+
+        Args:
+            align (str): The horizontal alignment to set.
+
+        Raises:
+            ValueError: If an invalid alignment is provided.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         match align:
             case "left" | "center" | "right":
                 self._text_align = align
@@ -90,7 +117,17 @@ class Text(AbstractElement):
         return self
 
     def baseline(self, align: str) -> Self:
-        """Set the vertical text alignment (top, middle, bottom)."""
+        """Set the vertical text alignment (top, middle, bottom).
+
+        Args:
+            align (str): The vertical alignment to set.
+
+        Raises:
+            ValueError: If an invalid vertical alignment is provided.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         match align:
             case "top" | "middle" | "bottom":
                 self._vertical_align = align
@@ -99,16 +136,49 @@ class Text(AbstractElement):
         return self
 
     def spacing(self, height: float) -> Self:
-        """Set the line height manually."""
+        """Set the line height manually.
+
+        Args:
+            height (float): The line height to set.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         self._line_height = height
         return self
 
     def autoresize(self, enabled: bool) -> Self:
-        """Enable or disable automatic text box resizing."""
+        """Enable or disable automatic text box resizing.
+
+        Args:
+            enabled (bool): Whether to enable automatic resizing.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         self._auto_resize = enabled
         return self
 
     def color(self, color: str | Color) -> Self:
-        """Set the text color as #RRGGBB, color name or Color object."""
+        """Set the text color as #RRGGBB, color name or Color object.
+
+        Args:
+            color (str | Color): The color to set.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
         self._stroke_color = Color.from_input(color)
         return self
+
+    def __calculate_dimensions(self):
+        """Calculate the width and height based on the text content."""
+        lines = self._text.split("\n")
+        width = max(len(line) for line in lines) * self._font_size * self.CHAR_WIDTH_FACTOR
+        height = len(lines) * self._font_size * self.LINE_HEIGHT_FACTOR
+
+        self._size(width, height)
+
+        self._width = width
+        self._height = height
+
