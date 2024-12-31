@@ -25,6 +25,14 @@ class Group():
         self.__id = str(uuid.uuid4())
 
     def elements(self, *elements: Element) -> Self:
+        """Add elements to the group.
+
+        Args:
+            elements (Element): The elements to add to the group.
+
+        Returns:
+            Self: The current instance of the Group class.
+        """
         for element in elements:
             element._add_group_id(self.__id) # type: ignore
 

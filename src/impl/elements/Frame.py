@@ -25,10 +25,26 @@ class Frame(AbstractShape):
         self._title = None
 
     def title(self, title: str) -> Self:
+        """Set the title of the frame.
+
+        Args:
+            title (str): The title of the frame.
+
+        Returns:
+            Self: The current instance of the Frame class.
+        """
         self._title = title
         return self
     
     def elements(self, *elements: AbstractElement) -> Self:
+        """Add elements to the frame and adjust the frame size accordingly.
+
+        Args:
+            elements (AbstractElement): The elements to add to the frame.
+
+        Returns:
+            Self: The current instance of the Frame class.
+        """
         min_x, min_y = 0.0, 0.0
         max_x, max_y = 0.0, 0.0
         
@@ -47,4 +63,4 @@ class Frame(AbstractShape):
             self.position(min_x - DEFAULT_FRAME_INSET, min_y - DEFAULT_FRAME_INSET)
 
         return self
-    
+

@@ -42,7 +42,15 @@ class Arrow(AbstractLine):
         self.__is_already_bound = False
 
     def curve(self, start_angle: float | str, end_angle: float | str) -> Self:
-        """Approximates a cubic Bezier using the given start and end tangent vectors."""
+        """Generate a curve between the bound elements using the given start and end tangent angles.
+
+        Args:
+            start_angle (float | str): The start tangent angle.
+            end_angle (float | str): The end tangent angle.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         self.__connection_type = Arrow.ConnectionType.CURVE
         self.__start_angle = start_angle
         self.__end_angle = end_angle
@@ -51,7 +59,14 @@ class Arrow(AbstractLine):
         return self
     
     def arc(self, radius: float) -> Self:
-        """Approximates an arc between the bound elements with the given radius."""
+        """Approximate an arc between the bound elements with the given radius.
+
+        Args:
+            radius (float): The radius of the arc.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         self.__connection_type = Arrow.ConnectionType.ARC
         self.__radius = radius
         self.roundness('round')
@@ -59,7 +74,15 @@ class Arrow(AbstractLine):
         return self
 
     def gap(self, gap: float, end_gap: float | None = None) -> Self:
-        """Set the gap at the start and end of the arrow."""
+        """Set the gap at the start and end of the arrow.
+
+        Args:
+            gap (float): The gap at the start of the arrow.
+            end_gap (float, optional): The gap at the end of the arrow. Defaults to the value of `gap`.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         if end_gap is None:
             end_gap = gap
         self.__start_gap = gap
@@ -72,7 +95,18 @@ class Arrow(AbstractLine):
         return self
 
     def arrowheads(self, start: str = 'none', end: str = 'arrow') -> Self:
-        """Set the arrowhead styles for the start and end of the arrow."""
+        """Set the arrowhead styles for the start and end of the arrow.
+
+        Args:
+            start (str, optional): The style of the start arrowhead. Defaults to 'none'.
+            end (str, optional): The style of the end arrowhead. Defaults to 'arrow'.
+
+        Raises:
+            ValueError: If an invalid arrowhead style is provided.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         valid_arrowheads = {'none', 'arrow', 'bar', 'dot', 'triangle'}
         start = start.lower()
         end = end.lower()
@@ -85,7 +119,15 @@ class Arrow(AbstractLine):
         return self
 
     def elbow(self, start_direction: str, end_direction: str) -> Self:
-        """Set the arrow to have an elbow (right-angle turn)."""
+        """Set the arrow to have an elbow (right-angle turn).
+
+        Args:
+            start_direction (str): The direction of the start elbow.
+            end_direction (str): The direction of the end elbow.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         self._elbowed = True
         self.__connection_type = Arrow.ConnectionType.ELBOW
         self.__start_direction = start_direction
@@ -94,13 +136,26 @@ class Arrow(AbstractLine):
         return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
-        """Bind the arrow between two elements, supporting different connection styles."""
+        """Bind the arrow between two elements, supporting different connection styles.
+
+        Args:
+            start (AbstractElement): The start element.
+            end (AbstractElement): The end element.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         self.__start_element = start
         self.__end_element = end
         self.__try_connect_elements()
         return self
     
     def __try_connect_elements(self) -> Self:
+        """Attempt to connect the bound elements based on the connection type.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         if self.__start_element is not None and self.__end_element is not None:
             if not self.__is_already_bound:
                 self.__set_binding_attributes()
@@ -112,6 +167,11 @@ class Arrow(AbstractLine):
         return self
 
     def __calculate_points(self) -> Self:
+        """Calculate the points for the arrow based on the connection type.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         match self.__connection_type:
             case Arrow.ConnectionType.STRAIGHT:
                 self.__transform_points(StraightConnection(self.__start_element, self.__end_element).points()) # type: ignore
@@ -128,6 +188,11 @@ class Arrow(AbstractLine):
         return self
 
     def __set_binding_attributes(self) -> Self:
+        """Set the binding attributes for the arrow.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         self._start_binding = self.__compute_binding_attributes(self.__start_element._id, self.__start_gap) # type: ignore
         self._end_binding = self.__compute_binding_attributes(self.__end_element._id, self.__end_gap) # type: ignore
 
@@ -137,12 +202,26 @@ class Arrow(AbstractLine):
         return self
     
     def __compute_binding_attributes(self, id: str, gap: float) -> dict[str, Any]:
+        """Compute the binding attributes for an element.
+
+        Args:
+            id (str): The ID of the element.
+            gap (float): The gap for the binding.
+
+        Returns:
+            dict[str, Any]: The binding attributes.
+        """
         result: dict[str, Any] = {"focus": 0}
         result["elementId"] = id
         result["gap"] = gap
         return result
 
     def __try_update_binding_attributes_with_fixed_points(self) -> Self:
+        """Update the binding attributes with fixed points if the connection type is elbow.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         if self.__connection_type == Arrow.ConnectionType.ELBOW:
             self._start_binding["fixedPoint"] = self.__compute_fixed_point(self.__start_direction) # type: ignore
             self._end_binding["fixedPoint"] = self.__compute_fixed_point(self.__end_direction) # type: ignore
@@ -150,6 +229,14 @@ class Arrow(AbstractLine):
         return self
 
     def __transform_points(self, points: list[Point]) -> Self:
+        """Transform the points for the arrow.
+
+        Args:
+            points (list[Point]): The points to transform.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
         self._x = points[0][0]
         self._y = points[0][1]
 
@@ -159,6 +246,13 @@ class Arrow(AbstractLine):
         return self
     
     def __compute_fixed_point(self, direction: str) -> Point:
+        """Compute the fixed point for a given direction.
+
+        Args:
+            direction (str): The direction for the fixed point.
+
+        Returns:
+            Point: The computed fixed point.
+        """
         dx, dy = Directions.dxdy(direction)
         return ((dx + 1.0) / 2.0, (dy + 1.0) / 2.0)
-    
