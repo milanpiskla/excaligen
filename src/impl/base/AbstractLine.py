@@ -17,6 +17,13 @@ class AbstractLine(AbstractStrokedElement):
         self._roundness = config.get("roundness", None)
 
     def points(self, points: list[Point]) -> Self:
+        """
+        Sets the points for the line and calculates the width and height.
+        Args:
+            points (list[Point]): A list of Point objects representing the coordinates of the line.
+        Returns:
+            Self: The instance of the class with updated points, width, and height.
+        """
         self._points = points
 
         x_coords, y_coords = zip(*points)
@@ -26,7 +33,20 @@ class AbstractLine(AbstractStrokedElement):
         return self
 
     def roundness(self, roundness: str) -> Self:
-        """Set the roundness style (sharp, round)."""
+        """
+        Set the roundness style of the shape.
+
+        Parameters:
+        roundness (str): The roundness style to set. Acceptable values are:
+                 - "sharp": Sets the shape to have sharp corners.
+                 - "round": Sets the shape to have rounded corners.
+
+        Returns:
+        Self: The instance of the shape with the updated roundness style.
+
+        Raises:
+        ValueError: If the provided roundness style is not "sharp" or "round".
+        """
         match roundness:
             case "sharp":
                 self._roundness = None

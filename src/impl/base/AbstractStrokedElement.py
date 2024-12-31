@@ -21,12 +21,29 @@ class AbstractStrokedElement(AbstractElement):
         self.__label: Text | None = None
 
     def color(self, color: str | Color) -> Self:
-        """Set the stroke (outline) color as #RRGGBB, color name or Color object."""
+        """Set the stroke (outline) color as #RRGGBB, color name or Color object.
+
+        Args:
+            color (str | Color): The color to set, specified as a hex string $RRGGBB, color name, or Color object.
+
+        Returns:
+            Self: The current instance of the AbstractStrokedElement class.
+        """
         self._stroke_color = Color.from_input(color)
         return self
 
     def thickness(self, thickness: int | str) -> Self:
-        """Set the stroke thickness by int (1, 2, 3) or by string ('thin', 'bold', 'extra-bold')."""
+        """Set the stroke thickness by int (1, 2, 3) or by string ('thin', 'bold', 'extra-bold').
+
+        Args:
+            thickness (int | str): The thickness to set, specified as an integer (1, 2, 3) or a string ('thin', 'bold', 'extra-bold').
+
+        Raises:
+            ValueError: If an invalid thickness value is provided.
+
+        Returns:
+            Self: The current instance of the AbstractStrokedElement class.
+        """
         match thickness:
             case 1 | 2 | 3:
                 self._stroke_width = thickness
@@ -40,8 +57,18 @@ class AbstractStrokedElement(AbstractElement):
                 raise ValueError(f"Invalid thickness '{thickness}'. Use 1, 2, 3 or 'thin', 'bold', 'extra-bold'.")
         return self
 
-    def sloppiness(self, value: int | str):
-        """Set the stroke sloppiness by int (0, 1, 2) or by string ('architect', 'artist', 'cartoonist')."""
+    def sloppiness(self, value: int | str) -> Self:
+        """Set the stroke sloppiness by int (0, 1, 2) or by string ('architect', 'artist', 'cartoonist').
+
+        Args:
+            value (int | str): The sloppiness value to set, specified as an integer (0, 1, 2) or a string ('architect', 'artist', 'cartoonist').
+
+        Raises:
+            ValueError: If an invalid sloppiness value is provided.
+
+        Returns:
+            Self: The current instance of the AbstractStrokedElement class.
+        """
         match value:
             case 0 | 1 | 2:
                 self._roughness = value
@@ -56,7 +83,17 @@ class AbstractStrokedElement(AbstractElement):
         return self
 
     def stroke(self, style: str) -> Self:
-        """Set the stroke style (solid, dotted, dashed)."""
+        """Set the stroke style (solid, dotted, dashed).
+
+        Args:
+            style (str): The stroke style to set, specified as 'solid', 'dotted', or 'dashed'.
+
+        Raises:
+            ValueError: If an invalid stroke style is provided.
+
+        Returns:
+            Self: The current instance of the AbstractStrokedElement class.
+        """
         match style:
             case "solid" | "dotted" | "dashed":
                 self._stroke_style = style
@@ -65,6 +102,14 @@ class AbstractStrokedElement(AbstractElement):
         return self
 
     def label(self, text: Text) -> Self:
+        """Set the label text for the element.
+
+        Args:
+            text (Text): The text element to set as the label.
+
+        Returns:
+            Self: The current instance of the AbstractStrokedElement class.
+        """
         self.__label = text
         text._x = self._x + (self._width - text._width) / 2  # Center horizontally
         text._y = self._y + (self._height - text._height - text._line_height) / 2  # Center vertically
@@ -74,6 +119,11 @@ class AbstractStrokedElement(AbstractElement):
         return self
 
     def _add_group_id(self, id: str) -> None:
+        """Add a group ID to the element.
+
+        Args:
+            id (str): The group ID to add.
+        """
         self._group_ids.append(id)
         if self.__label:
             self.__label._group_ids.append(id)

@@ -16,7 +16,20 @@ class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
         self._roundness: str | dict[str, Any] | None = config.get("roundness", None)
 
     def roudness(self, roundness: str) -> Self:
-        """Set the roundness style (sharp, round)."""
+        """
+        Set the roundness style of the shape.
+
+        Parameters:
+        roundness (str): The roundness style to set. Acceptable values are:
+                 - "sharp": Sets the shape to have sharp corners.
+                 - "round": Sets the shape to have rounded corners.
+
+        Returns:
+        Self: The instance of the shape with the updated roundness style.
+
+        Raises:
+        ValueError: If the provided roundness style is not "sharp" or "round".
+        """
         match roundness:
             case "sharp":
                 self._roundness = None

@@ -19,11 +19,27 @@ class AbstractShape(AbstractElement):
         self._fill_style = config.get("fillStyle", "hachure")
 
     def size(self, width: float, height: float) -> Self:
-        """Set the shape size."""
+        """
+        Set the size of the shape.
+
+        Parameters:
+        width (float): The width of the shape.
+        height (float): The height of the shape.
+
+        Returns:
+        Self: The instance of the shape with the updated size.
+        """
         return self._size(width, height)
 
     def background(self, color: str | Color) -> Self:
-        """Set the background (fill) color as #RRGGBB, color name or Color object.."""
+        """
+        Set the background (fill) color.
+        Args:
+            color (str | Color): The background color, specified as a hex string (#RRGGBB), 
+                     a color name, or a Color object.
+        Returns:
+            Self: The instance of the class for method chaining.
+        """
         self._background_color = Color.from_input(color)
         return self
 

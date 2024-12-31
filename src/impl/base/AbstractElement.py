@@ -35,27 +35,84 @@ class AbstractElement:
         self.__is_centered = False
 
     def position(self, x: float, y: float) -> Self:
+        """
+        Sets the position of the element.
+
+        Args:
+            x (float): The x-coordinate of the element.
+            y (float): The y-coordinate of the element.
+
+        Returns:
+            Self: The instance of the element with updated position.
+        """
         self._x = x
         self._y = y
         return self
     
     def center(self, x: float, y: float) -> Self:
+        """
+        Centers the element at the given (x, y) coordinates.
+
+        This method sets the element's position such that its center is located
+        at the specified (x, y) coordinates. It also marks the element as centered.
+
+        Args:
+            x (float): The x-coordinate to center the element.
+            y (float): The y-coordinate to center the element.
+
+        Returns:
+            Self: The instance of the element, allowing for method chaining.
+        """
         self.__is_centered = True
         self._x = x - 0.5 * self._width
         self._y = y - 0.5 * self._height
         return self
 
     def rotate(self, angle: float) -> Self:
+        """
+        Rotate the element by a specified angle.
+
+        Args:
+            angle (float): The angle to rotate the element by, in radians.
+
+        Returns:
+            Self: The instance of the element after rotation.
+        """
         self._angle = angle
         return self
 
     def opacity(self, opacity: int) -> Self:
+        """
+        Set the opacity of the element.
+
+        Args:
+            opacity (int): The opacity value to set, must be in the range 0-100. 100 is fully opaque, 0 is fully transparent.
+
+        Returns:
+            Self: The instance of the element with updated opacity.
+
+        Raises:
+            ValueError: If the opacity value is not within the range 0-100.
+        """
         if not (0 <= opacity <= 100):
             raise ValueError("Opacity values must be in the range: 0-100.")
         self._opacity = opacity
         return self
 
     def link(self, target: "str | AbstractElement") -> Self:
+        """
+        Establishes a link to the given target, which can be either a string URL or an AbstractElement instance.
+
+        Args:
+            target (str | AbstractElement): The target to link to. If it's an AbstractElement, a URL will be generated using its ID. 
+                             If it's a string, it will be used directly as the link.
+
+        Returns:
+            Self: The instance of the current object with the updated link.
+
+        Raises:
+            ValueError: If the target is neither a string nor an AbstractElement.
+        """
         match target:
             case AbstractElement():
                 self._link = f"https://excalidraw.com/?element={target._id}"
