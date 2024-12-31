@@ -1,3 +1,10 @@
+"""
+Description: Base class for Excaligen to hide implementation details from the user.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from .AbstractElement import AbstractElement
 from ..elements.ElementFactory import ElementFactory
 from ..elements.Rectangle import Rectangle

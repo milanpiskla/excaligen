@@ -1,3 +1,10 @@
+"""
+Description: Interface to image listeners.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from abc import ABC, abstractmethod
 
 class AbstractImageListener(ABC):

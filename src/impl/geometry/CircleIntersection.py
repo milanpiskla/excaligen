@@ -1,7 +1,13 @@
-from .Vector2D import Vector2D
-import math
+"""
+Description: Provides methods to compute precise intersections between a circle and various shapes.
 
-Point = tuple[float, float]
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
+from .Vector2D import Vector2D
+from .Point import Point
+import math
 
 class CircleIntersection:
     """Provides methods to compute precise intersections between a circle and various shapes."""

@@ -1,4 +1,9 @@
-# tests/helpers.py
+"""
+Description: A simplified comparator class to compare two Excalidraw JSON objects, normalizing IDs and ignoring specified fields.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
 
 from typing import Any, Set, Optional, List, Dict
 

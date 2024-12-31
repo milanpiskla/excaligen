@@ -1,3 +1,10 @@
+"""
+Description: 2D vector operations.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 import math
 
 class Vector2D:

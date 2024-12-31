@@ -1,3 +1,10 @@
+"""
+Description: Generates indexes for Excalidraw elements.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 """Excalidraw generates fractional indexes according to 
 https://observablehq.com/@dgreensp/implementing-fractional-indexing
 

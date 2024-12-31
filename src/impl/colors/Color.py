@@ -1,3 +1,10 @@
+"""
+Description: Color class for handling RGB and HSL colors. Contains also a static method for parsing color strings.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from typing import Self
 
 class Color:

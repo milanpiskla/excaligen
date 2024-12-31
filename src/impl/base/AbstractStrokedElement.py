@@ -1,3 +1,10 @@
+"""
+Description: Base class for stroked elements.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from .AbstractElement import AbstractElement
 from ..elements.Text import Text
 from ..colors.Color import Color

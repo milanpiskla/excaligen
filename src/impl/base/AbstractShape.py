@@ -1,3 +1,10 @@
+"""
+Description: Base class for shapes.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from .AbstractElement import AbstractElement
 from ..colors.Color import Color
 from ...config.Config import Config

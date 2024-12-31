@@ -1,3 +1,10 @@
+"""
+Description: Base class for lines and arrows.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ...config.Config import Config, DEFAULT_CONFIG
 from ..geometry.Point import Point

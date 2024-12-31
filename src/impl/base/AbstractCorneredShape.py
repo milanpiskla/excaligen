@@ -1,3 +1,10 @@
+"""
+Description: Base class for shapes with corners.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from .AbstractStrokedElement import AbstractStrokedElement
 from .AbstractShape import AbstractShape
 from ...config.Config import Config

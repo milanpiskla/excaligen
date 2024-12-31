@@ -1,3 +1,10 @@
+"""
+Description: Functional tests for arrows.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from src.Excaligen import Excaligen
 from .evaluate import *
 from typing import Any

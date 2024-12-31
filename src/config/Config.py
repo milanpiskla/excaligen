@@ -1,8 +1,14 @@
+"""
+Description: Default configuration for elements.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from typing import Any
 type Config = dict[str, Any]
 
 DEFAULT_CONFIG: Config = {
-    "isDeleted": False,
     "x" : 0,
     "y" : 0,
     "width": 100,

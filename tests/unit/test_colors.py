@@ -1,3 +1,10 @@
+"""
+Description: Unit tests for colors.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 import pytest
 
 from src.impl.colors.Color import Color

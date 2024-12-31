@@ -1,3 +1,10 @@
+"""
+Description: Base class for all Excalidraw elements.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 import uuid
 from typing import Self
 from ...config.Config import Config

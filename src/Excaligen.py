@@ -1,7 +1,10 @@
-"""Excalidraw file generator.
-
+"""
+Description: Excalidraw file generator. 
 This module defines the Excalidraw class, which serves as the main interface with fluent API for creating
 Excalidraw diagram. 
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
 """
 
 from .impl.base.ExcaligenStructure import ExcaligenStructure
@@ -128,10 +131,10 @@ class Excaligen(ExcaligenStructure):
         return super().frame()
 
     def group(self) -> Group:
-        """Add a group element to the diagram.
+        """Generate a group (virtual container).
 
         Returns:
-            Group: The group element.
+            Group: The group container.
         """
         return super().group()
 

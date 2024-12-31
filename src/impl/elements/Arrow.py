@@ -1,3 +1,10 @@
+"""
+Description: Represents an arrow element in Excalidraw, capable of different styles like straight lines, curves, arcs, etc.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractLine import AbstractLine
 

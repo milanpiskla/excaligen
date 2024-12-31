@@ -1,3 +1,10 @@
+"""
+Description: Image element.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 import uuid
 from typing import Self
 from ..base.AbstractElement import AbstractElement

@@ -1,3 +1,10 @@
+"""
+Description: Image loader implementation.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from ..base.AbstractImageLoader import AbstractImageLoader
 from .ImageData import ImageData
 import os

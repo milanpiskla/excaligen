@@ -1,3 +1,10 @@
+"""
+Description: Unit tests for shapes.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 import pytest
 from pytest import approx
 from src.impl.elements.Rectangle import Rectangle

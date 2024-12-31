@@ -1,3 +1,10 @@
+"""
+Description: Unit tests for image handling.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 import pytest
 from src.impl.elements.Image import Image
 from src.impl.base.AbstractImageListener import AbstractImageListener

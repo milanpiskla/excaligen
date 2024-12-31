@@ -1,3 +1,10 @@
+"""
+Description: Straight connection between two elements.
+
+Copyright (c) 2024 Milan Piskla
+Licensed under the MIT License - see LICENSE file for details
+"""
+
 from ..base.AbstractElement import AbstractElement
 from .HalfLineIntersection import HalfLineIntersection
 from .Point import Point
