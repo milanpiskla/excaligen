@@ -40,6 +40,12 @@ def test_labels(reference_json: dict[str, Any], request: FixtureRequest) -> None
 
     evaluate(reference_json, xg, request)
 
+def test_plain_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    xg.rectangle().label("Hello")
+
+    evaluate(reference_json, xg, request)
+
 def test_sandbox(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = Excaligen()
 

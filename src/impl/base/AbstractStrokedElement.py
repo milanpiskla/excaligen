@@ -8,16 +8,18 @@ Licensed under the MIT License - see LICENSE file for details
 from .AbstractElement import AbstractElement
 from ..elements.Text import Text
 from ..colors.Color import Color
+from .AbstractPlainLabelListener import AbstractPlainLabelListener
 from ...config.Config import Config
 from typing import Self
 
 class AbstractStrokedElement(AbstractElement):
-    def __init__(self, type: str, config: Config):
+    def __init__(self, type: str, listener: AbstractPlainLabelListener, config: Config):
         super().__init__(type, config)
         self._stroke_color = config.get("strokeColor", "#000000")
         self._stroke_width = config.get("strokeWidth", 1)
         self._stroke_style = config.get("strokeStyle", "solid")
         self._roughness = config.get("roughness", 1)
+        self.__listener = listener
         self.__label: Text | None = None
 
     def color(self, color: str | Color) -> Self:
@@ -101,21 +103,28 @@ class AbstractStrokedElement(AbstractElement):
                 raise ValueError(f"Invalid style '{style}' for stroke. Use 'solid', 'dotted', 'dashed'.")
         return self
 
-    def label(self, text: Text) -> Self:
+    def label(self, text: Text | str) -> Self:
         """Set the label text for the element.
 
         Args:
-            text (Text): The text element to set as the label.
+            text (Text | str): The text element to set as the label or plain text.
 
         Returns:
             Self: The current instance of the AbstractStrokedElement class.
         """
-        self.__label = text
-        text._x = self._x + (self._width - text._width) / 2  # Center horizontally
-        text._y = self._y + (self._height - text._height - text._line_height) / 2  # Center vertically
+        match text:
+            case Text():
+                self.__label = text
+            case str():
+                self.__label = self.__listener.on_text(text)
+            case _:
+                raise ValueError("Invalid type for label. Use Text or str.")
 
-        self._add_bound_element(text)
-        text._container_id = self._id
+        self.__label._x = self._x + (self._width - self.__label._width) / 2  # Center horizontally
+        self.__label._y = self._y + (self._height - self.__label._height - self.__label._line_height) / 2  # Center vertically
+
+        self._add_bound_element(self.__label)
+        self.__label._container_id = self._id
         return self
 
     def _add_group_id(self, id: str) -> None:

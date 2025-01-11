@@ -7,6 +7,7 @@ Licensed under the MIT License - see LICENSE file for details
 
 from ...config.Config import Config, DEFAULT_CONFIG
 from ..base.AbstractImageListener import AbstractImageListener
+from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractImageLoader import AbstractImageLoader
 from ..colors.Color import Color
 
@@ -38,37 +39,37 @@ class ElementFactory():
         self._config = config
         return self
 
-    def rectangle(self) -> Rectangle:
+    def rectangle(self, listener: AbstractPlainLabelListener) -> Rectangle:
         """Create a rectangle element with the current configuration.
 
         Returns:
             Rectangle: The rectangle element.
         """
-        return Rectangle(self._config)
+        return Rectangle(listener, self._config)
 
-    def diamond(self) -> Diamond:
+    def diamond(self, listener: AbstractPlainLabelListener) -> Diamond:
         """Create a diamond element with the current configuration.
 
         Returns:
             Diamond: The diamond element.
         """
-        return Diamond(self._config)
+        return Diamond(listener, self._config)
 
-    def ellipse(self) -> Ellipse:
+    def ellipse(self, listener: AbstractPlainLabelListener) -> Ellipse:
         """Create an ellipse element with the current configuration.
 
         Returns:
             Ellipse: The ellipse element.
         """
-        return Ellipse(self._config)
+        return Ellipse(listener, self._config)
 
-    def arrow(self) -> Arrow:
+    def arrow(self, listener: AbstractPlainLabelListener) -> Arrow:
         """Create an arrow element with the current configuration.
 
         Returns:
             Arrow: The arrow element.
         """
-        return Arrow(self._config)
+        return Arrow(listener, self._config)
 
     def line(self) -> Line:
         """Create a line element with the current configuration.

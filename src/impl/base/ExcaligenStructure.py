@@ -21,13 +21,14 @@ from ..images.ImageLoader import ImageLoader
 from ..indexer.IndexGenerator import IndexGenerator
 
 from .AbstractImageListener import AbstractImageListener
+from .AbstractPlainLabelListener import AbstractPlainLabelListener
 
 from ...config.Config import Config
 from typing import Self, cast
 
 import json
 
-class ExcaligenStructure(AbstractImageListener):
+class ExcaligenStructure(AbstractImageListener, AbstractPlainLabelListener):
     class ElementEncoder(json.JSONEncoder):
         """JSON encoder for Excalidraw elements.
 
@@ -84,16 +85,16 @@ class ExcaligenStructure(AbstractImageListener):
         return self
 
     def rectangle(self) -> Rectangle:
-        return cast(Rectangle, self.__append_element(self.__factory.rectangle()))
+        return cast(Rectangle, self.__append_element(self.__factory.rectangle(self)))
 
     def diamond(self) -> Diamond:
-        return cast(Diamond, self.__append_element(self.__factory.diamond()))
+        return cast(Diamond, self.__append_element(self.__factory.diamond(self)))
 
     def ellipse(self) -> Ellipse:
-        return cast(Ellipse, self.__append_element(self.__factory.ellipse()))
+        return cast(Ellipse, self.__append_element(self.__factory.ellipse(self)))
 
     def arrow(self) -> Arrow:
-        return cast(Arrow, self.__append_element(self.__factory.arrow()))
+        return cast(Arrow, self.__append_element(self.__factory.arrow(self)))
 
     def line(self) -> Line:
         return cast(Line, self.__append_element(self.__factory.line()))
@@ -132,6 +133,9 @@ class ExcaligenStructure(AbstractImageListener):
             "id": id,
             "dataURL": data_url
         }
+
+    def on_text(self, text: str) -> Text:
+        return self.__append_element(self.__factory.text().content(text))
 
     def __append_element(self, element: AbstractElement) -> AbstractElement:
         element._index = self.__index

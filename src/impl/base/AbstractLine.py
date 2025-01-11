@@ -6,13 +6,14 @@ Licensed under the MIT License - see LICENSE file for details
 """
 
 from ..base.AbstractStrokedElement import AbstractStrokedElement
+from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ...config.Config import Config, DEFAULT_CONFIG
 from ..geometry.Point import Point
 from typing import Self
 
 class AbstractLine(AbstractStrokedElement):
-    def __init__(self, type: str, config: Config = DEFAULT_CONFIG):
-        super().__init__(type, config)
+    def __init__(self, type: str, listener: AbstractPlainLabelListener | None = None, config: Config = DEFAULT_CONFIG):
+        super().__init__(type, listener, config)
         self._points: list[Point] = []
         self._roundness = config.get("roundness", None)
 

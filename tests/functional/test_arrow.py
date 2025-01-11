@@ -132,3 +132,11 @@ def test_arrow_label(reference_json: dict[str, Any], request: FixtureRequest) ->
     xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow').label(label)
     
     evaluate(reference_json, xg, request)
+
+def test_arrow_plain_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    xg = Excaligen()
+    center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label('center')
+    element_1 = xg.ellipse().center(400, -200).size(130, 50).label('UR')
+    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow').label('Label')
+    
+    evaluate(reference_json, xg, request)

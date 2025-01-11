@@ -7,6 +7,7 @@ Licensed under the MIT License - see LICENSE file for details
 
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractLine import AbstractLine
+from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 
 from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
@@ -29,8 +30,8 @@ class Arrow(AbstractLine):
         CURVE = 2
         ELBOW = 3
 
-    def __init__(self, config: Config = DEFAULT_CONFIG):
-        super().__init__("arrow", config)
+    def __init__(self, listener: AbstractPlainLabelListener, config: Config = DEFAULT_CONFIG):
+        super().__init__("arrow", listener, config)
         self._start_binding = None
         self._end_binding = None
         self._start_arrowhead = config.get("startArrowhead", None)
