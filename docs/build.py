@@ -121,6 +121,9 @@ class DocstringParser:
         else:
             arg_name = arg_name_part
             type_hint = ""
+        # Handle type hints with '|'
+        if "|" in type_hint:
+            type_hint = type_hint.replace("|", " or ")
         return type_hint, arg_name
 
     @staticmethod
