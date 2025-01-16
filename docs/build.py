@@ -3,31 +3,45 @@ import sys
 import inspect
 import importlib.util
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
+from enum import Enum
+import re
 
-@dataclass
 class ArgumentInfo:
-    """Information about a function/method argument."""
-    name: str
-    type_hint: str
-    description: str
-    optional: bool = False
-    default_value: str = ""
+    def __init__(self, name: str, type_hint: Optional[str], description: str, optional: bool, default_value: Optional[str]):
+        self.name = name
+        self.type_hint = type_hint
+        self.description = description
+        self.optional = optional
+        self.default_value = default_value
 
-@dataclass
+class RaiseInfo:
+    def __init__(self, type: Optional[str], description: str):
+        self.type = type
+        self.description = description
+
 class DocstringInfo:
-    """Parsed information from a docstring."""
-    description: str = ""
-    args: List[ArgumentInfo] = None
-    returns: Optional[str] = None
-    return_type: Optional[str] = None
+    def __init__(self):
+        self.description = ""
+        self.args: List[ArgumentInfo] = []
+        self.return_type: Optional[str] = None
+        self.returns: Optional[str] = None
+        self.raises: List[RaiseInfo] = []
 
-    def __post_init__(self):
-        if self.args is None:
-            self.args = []
+def __post_init__(self):
+    if self.args is None:
+        self.args = []
+
+class DocSection(Enum):
+    DESCRIPTION = "description"
+    ARGS = "args"
+    RETURNS = "returns"
+    RAISES = "raises"
 
 class DocstringParser:
     """Parser for function and method docstrings."""
+
+    TYPE_HINT_PATTERN = re.compile(r'(\w+)\s*\((.*?)\)')
 
     @staticmethod
     def parse(docstring: str) -> DocstringInfo:
@@ -41,103 +55,174 @@ class DocstringParser:
         """
         if not docstring:
             return DocstringInfo()
-
-        lines = [line.strip() for line in docstring.split('\n')]
-        doc_info = DocstringInfo()
         
-        # Parse description
-        description_lines, current_section, i = [], "description", 0
+        doc_info = DocstringInfo()
+        lines = [line.rstrip() for line in docstring.splitlines()]
+        current_section = DocSection.DESCRIPTION
+        description_lines = []
+        i = 0
         
         while i < len(lines):
             line = lines[i].strip()
-            if line.lower().startswith("args:"):
-                current_section = "args"
-            elif line.lower().startswith("returns:"):
-                current_section = "returns"
-            elif not line:
-                pass
-            elif current_section == "description":
-                description_lines.append(line)
-            elif current_section == "args":
+            
+            # Section detection
+            if line.lower().startswith(("parameters:", "args:")):
+                current_section = DocSection.ARGS
+                i += 1
                 i = DocstringParser._parse_args(lines, i, doc_info)
-            elif current_section == "returns":
+            elif line.lower().startswith("returns:"):
+                current_section = DocSection.RETURNS
                 i = DocstringParser._parse_returns(lines, i, doc_info)
+            elif line.lower().startswith("raises:"):
+                current_section = DocSection.RAISES
+                i = DocstringParser._parse_raises(lines, i, doc_info)
+            elif current_section == DocSection.DESCRIPTION and line:
+                description_lines.append(line)
+            
             i += 1
-        
-        doc_info.description = " ".join(description_lines)
+            
+        doc_info.description = " ".join(description_lines).strip()
         return doc_info
 
     @staticmethod
     def _parse_args(lines: List[str], i: int, doc_info: DocstringInfo) -> int:
-        """Parse the arguments section of the docstring."""
-        line = lines[i].strip()
-        if ":" in line:
-            arg_name_part, arg_desc = line.split(":", 1)
-            arg_name_part = arg_name_part.strip()
-            arg_desc_lines = [arg_desc.strip()]
-            next_i = i + 1
-            while next_i < len(lines):
-                next_line = lines[next_i].strip()
-                if not next_line or next_line.find(":") == -1 or \
-                   next_line.lower().startswith("args:") or \
-                   next_line.lower().startswith("returns:"):
-                    if next_line:
-                        arg_desc_lines.append(next_line)
-                    next_i += 1
+        """Parse the arguments section."""
+        # Skip section header
+        if lines[i].lower().strip().startswith(("args:", "parameters:")):
+            i += 1
+            
+        while i < len(lines):
+            line = lines[i].strip()
+            
+            # Section boundary check
+            if not line or line.lower().startswith(("returns:", "raises:")):
+                break
+                
+            # Parse argument line
+            if ":" in line:
+                # Split name/type from description
+                param_def, description = line.split(":", 1)
+                param_def = param_def.strip()
+                description = description.strip()
+                
+                # Find type hint matches
+                match = DocstringParser.TYPE_HINT_PATTERN.match(param_def)
+                if match:
+                    param_name = match.group(1).strip()
+                    type_hint = match.group(2).strip().replace("|", " or ")
                 else:
-                    break
-            type_hint, arg_name = DocstringParser._extract_type_hint(arg_name_part)
-            full_desc, optional, default_value = DocstringParser._extract_default_value(" ".join(arg_desc_lines))
-            doc_info.args.append(ArgumentInfo(
-                name=arg_name,
-                type_hint=type_hint,
-                description=full_desc,
-                optional=optional,
-                default_value=default_value
-            ))
-            return next_i - 1
+                    param_name = param_def
+                    type_hint = None
+                    
+                # Collect description lines
+                desc_lines = [description]
+                next_i = i + 1
+                while next_i < len(lines):
+                    next_line = lines[next_i].strip()
+                    if (not next_line or 
+                        next_line.startswith(("returns:", "raises:")) or
+                        DocstringParser.TYPE_HINT_PATTERN.match(next_line)):
+                        break
+                    desc_lines.append(next_line)
+                    next_i += 1
+                    
+                # Process description
+                full_desc = " ".join(desc_lines)
+                desc, optional, default = DocstringParser._extract_default_value(full_desc)
+                
+                # Add argument
+                doc_info.args.append(ArgumentInfo(
+                    name=param_name,
+                    type_hint=type_hint,
+                    description=desc,
+                    optional=optional,
+                    default_value=default
+                ))
+                
+                i = next_i - 1
+            i += 1
+            
         return i
 
     @staticmethod
     def _parse_returns(lines: List[str], i: int, doc_info: DocstringInfo) -> int:
-        """Parse the returns section of the docstring."""
-        line = lines[i].strip()
-        if not doc_info.returns:
+        """Parse the returns section."""
+        line = lines[i].strip().lower()
+        if line.startswith("returns:"):
+            # Get description from first line if present
             if ":" in line:
-                return_parts = line.split(":", 1)
-                doc_info.return_type = return_parts[0].strip()
-                doc_info.returns = return_parts[1].strip()
-            else:
-                doc_info.returns = line
+                desc = line.split(":", 1)[1].strip()
+                if desc:
+                    doc_info.returns = desc
+                    return i
+            
+            # Process subsequent lines
+            i += 1
+            while i < len(lines):
+                line = lines[i].strip()
+                if not line or line.lower().startswith("raises:"):
+                    break
+                    
+                if ":" in line:
+                    type_part, desc = line.split(":", 1)
+                    doc_info.return_type = type_part.strip().replace("|", " or ")
+                    doc_info.returns = desc.strip()
+                else:
+                    if doc_info.returns:
+                        doc_info.returns += " " + line
+                    else:
+                        doc_info.returns = line
+                i += 1
         return i
 
     @staticmethod
-    def _extract_type_hint(arg_name_part: str) -> tuple[str, str]:
-        """Extract type hint from argument name part."""
-        if "(" in arg_name_part:
-            arg_name, type_hint = arg_name_part.split("(", 1)
-            type_hint = type_hint.rstrip(")")
-            arg_name = arg_name.strip()
-        else:
-            arg_name = arg_name_part
-            type_hint = ""
-        # Handle type hints with '|'
-        if "|" in type_hint:
-            type_hint = type_hint.replace("|", " or ")
-        return type_hint, arg_name
+    def _parse_raises(lines: List[str], i: int, doc_info: DocstringInfo) -> int:
+        """Parse the raises section."""
+        # Skip Raises header
+        line = lines[i].strip()
+        if line.lower().startswith("raises:"):
+            if ":" in line:
+                _, desc = line.split(":", 1)
+                if desc.strip():
+                    doc_info.raises.append(RaiseInfo(None, desc.strip()))
+                    return i
+            
+            # Multi-line raises
+            next_i = i + 1
+            while next_i < len(lines):
+                line = lines[next_i].strip()
+                if not line:
+                    break
+                if ":" in line:
+                    type_part, desc = line.split(":", 1)
+                    doc_info.raises.append(RaiseInfo(
+                        type=type_part.strip(),
+                        description=desc.strip()
+                    ))
+                next_i += 1
+            i = next_i - 1
+        
+        return i
 
     @staticmethod
-    def _extract_default_value(full_desc: str) -> tuple[str, bool, str]:
-        """Extract default value and optional flag from description."""
-        optional = "optional" in full_desc.lower()
-        default_value = ""
-        if "defaults to" in full_desc.lower():
-            desc_parts = full_desc.split("defaults to", 1)
-            if len(desc_parts) > 1:
-                default_value = desc_parts[1].strip().strip('.').strip()
-            full_desc = desc_parts[0].strip()
-        return full_desc, optional, default_value
-    
+    def _extract_type_hint(arg_name_part: str) -> Tuple[Optional[str], str]:
+        """Extract type hint and argument name."""
+        arg_name_part = arg_name_part.strip()
+        if "(" in arg_name_part and ")" in arg_name_part:
+            name = arg_name_part[:arg_name_part.find("(")].strip()
+            type_hint = arg_name_part[arg_name_part.find("(")+1:arg_name_part.find(")")].strip()
+            return type_hint, name
+        return None, arg_name_part
+
+    @staticmethod
+    def _extract_default_value(arg_desc: str) -> tuple[str, bool, Optional[str]]:
+        """Extract the default value from the argument description."""
+        optional = "optional" in arg_desc.lower()
+        default_value = None
+        if "default" in arg_desc.lower():
+            default_value = arg_desc[arg_desc.lower().find("default") + 8:].strip()
+        return arg_desc, optional, default_value
+
 class MarkdownWriter:
     """Handles generation of Markdown documentation."""
 
