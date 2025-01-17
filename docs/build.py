@@ -8,12 +8,11 @@ from enum import Enum
 import re
 
 class ArgumentInfo:
-    def __init__(self, name: str, type_hint: Optional[str], description: str, optional: bool, default_value: Optional[str]):
+    def __init__(self, name: str, type_hint: Optional[str], description: str, optional: bool):
         self.name = name
         self.type_hint = type_hint
         self.description = description
         self.optional = optional
-        self.default_value = default_value
 
 class RaiseInfo:
     def __init__(self, type: Optional[str], description: str):
@@ -87,25 +86,20 @@ class DocstringParser:
     @staticmethod
     def _parse_args(lines: List[str], i: int, doc_info: DocstringInfo) -> int:
         """Parse the arguments section."""
-        # Skip section header
         if lines[i].lower().strip().startswith(("args:", "parameters:")):
             i += 1
             
         while i < len(lines):
             line = lines[i].strip()
             
-            # Section boundary check
             if not line or line.lower().startswith(("returns:", "raises:")):
                 break
                 
-            # Parse argument line
             if ":" in line:
-                # Split name/type from description
                 param_def, description = line.split(":", 1)
                 param_def = param_def.strip()
                 description = description.strip()
                 
-                # Find type hint matches
                 match = DocstringParser.TYPE_HINT_PATTERN.match(param_def)
                 if match:
                     param_name = match.group(1).strip()
@@ -114,7 +108,6 @@ class DocstringParser:
                     param_name = param_def
                     type_hint = None
                     
-                # Collect description lines
                 desc_lines = [description]
                 next_i = i + 1
                 while next_i < len(lines):
@@ -126,17 +119,14 @@ class DocstringParser:
                     desc_lines.append(next_line)
                     next_i += 1
                     
-                # Process description
                 full_desc = " ".join(desc_lines)
-                desc, optional, default = DocstringParser._extract_default_value(full_desc)
+                optional = "optional" in full_desc.lower()
                 
-                # Add argument
                 doc_info.args.append(ArgumentInfo(
                     name=param_name,
                     type_hint=type_hint,
-                    description=desc,
-                    optional=optional,
-                    default_value=default
+                    description=full_desc,
+                    optional=optional
                 ))
                 
                 i = next_i - 1
@@ -214,15 +204,6 @@ class DocstringParser:
             return type_hint, name
         return None, arg_name_part
 
-    @staticmethod
-    def _extract_default_value(arg_desc: str) -> tuple[str, bool, Optional[str]]:
-        """Extract the default value from the argument description."""
-        optional = "optional" in arg_desc.lower()
-        default_value = None
-        if "default" in arg_desc.lower():
-            default_value = arg_desc[arg_desc.lower().find("default") + 8:].strip()
-        return arg_desc, optional, default_value
-
 class MarkdownWriter:
     """Handles generation of Markdown documentation."""
 
@@ -293,21 +274,17 @@ class MarkdownWriter:
             
             if doc_info.args:
                 content.append("#### Arguments\n\n")
-                content.append("| Name | Type | Description | Default |\n")
-                content.append("|------|------|-------------|----------|\n")
+                content.append("| Name | Type | Description |\n")
+                content.append("|------|------|-------------|\n")
                 
                 for arg in doc_info.args:
-                    default = f"`{arg.default_value}`" if arg.default_value else "Required"
-                    if arg.optional and not arg.default_value:
-                        default = "Optional"
-                    
                     # Clean up the description
                     desc = arg.description
                     if desc.lower().startswith(f"{arg.name.lower()}:"):
                         desc = desc[len(arg.name) + 1:].strip()
                     
                     content.append(
-                        f"| `{arg.name}` | `{arg.type_hint}` | {desc} | {default} |\n"
+                        f"| `{arg.name}` | `{arg.type_hint}` | {desc} |\n"
                     )
                 content.append("\n")
             
@@ -476,12 +453,6 @@ class Generator:
         self.writer.write_toc(classes)
 
 if __name__ == "__main__":
-    # Example usage:
-    # python build.py file1.py file2.py file3.py
-    # if len(sys.argv) < 2:
-    #     print("Usage: python build.py <python_file1> [python_file2 ...]")
-    #     sys.exit(1)
-
     files = [
         "./src/impl/elements/Arrow.py",
         "./src/impl/elements/Rectangle.py",
