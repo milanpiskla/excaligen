@@ -283,42 +283,51 @@ class MarkdownWriter:
                     else:
                         content.append(f"{raise_info.description}\n\n")
 
-    def write_toc(self, classes: List[tuple]):
-        """Generate table of contents file.
-
-        Args:
-            classes: List of (class_name, class_obj, module_name) tuples
-        """
-        content = ["# API Documentation\n\n"]
+    def write_toc(self, classes: List[Tuple[str, object, str]]) -> None:
+        """Write table of contents."""
         
-        # Group classes by module
-        modules: Dict[str, List[tuple]] = {}
+        DOC_HEADER = """# 🎨 Excaligen API Documentation\n\n
+This is the API documentation for the Excaligen library\n\n
+✨ The following classes are available:\n\n"""
+        
+        content = [DOC_HEADER]
+        
+        # Group by modules
+        modules: Dict[str, List[Tuple[str, object, str]]] = {}
         for class_name, class_obj, module_name in classes:
             if module_name not in modules:
                 modules[module_name] = []
             modules[module_name].append((class_name, class_obj))
         
+        # Sort modules by hierarchy depth and name
+        sorted_modules = sorted(
+            modules.items(),
+            key=lambda x: (len(x[0].split('.')), x[0].lower())
+        )
+        
         # Generate TOC
-        for module_name, module_classes in sorted(modules.items()):
-            content.append(f"## Module {module_name}\n\n")
+        for full_module_name, module_classes in sorted_modules:
+            # Extract simple module name (last part)
+            simple_module = full_module_name.split('.')[-1]
+            content.append(f"## {simple_module}\n\n")
             
             for class_name, class_obj in sorted(module_classes):
                 link = f"{class_name.lower()}.md"
                 content.append(f"* [{class_name}]({link})")
+                content.append("\n")
                 
                 if class_obj.__doc__:
                     doc_info = DocstringParser.parse(class_obj.__doc__)
                     if doc_info.description:
-                        # Use only the first line of description
-                        brief_desc = doc_info.description.split('.')[0]
-                        content.append(f": {brief_desc}")
+                        # Add description on new line with indent
+                        brief_desc = doc_info.description.split('.')[0].strip()
+                        content.append(f"\n    {brief_desc}")
                 
-                content.append("\n")
-            content.append("\n")
+                content.append("\n\n")
         
         # Write to file
-        filepath = os.path.join(self.output_dir, "index.md")
-        with open(filepath, 'w') as f:
+        filepath = os.path.join(self.output_dir, "api.md")
+        with open(filepath, 'w', encoding='utf-8') as f:
             f.write("".join(content))
 
 class Generator:
