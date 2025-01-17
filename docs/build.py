@@ -442,6 +442,7 @@ if __name__ == "__main__":
     files = [
         "./src/impl/elements/Arrow.py",
         "./src/impl/elements/Rectangle.py",
+        "./src/Excaligen.py",
     ]
 
     generator = Generator("docs")

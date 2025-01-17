@@ -71,7 +71,7 @@ class Image(AbstractElement):
             image_data (ImageData): The image data to apply.
         """
         self._size(image_data.width, image_data.height)
-        self.__listener.on_image(self._file_id, image_data.mime_type, image_data.data_url)
+        self.__listener._on_image(self._file_id, image_data.mime_type, image_data.data_url)
 
     def fit(self, max_width: float, max_height: float) -> Self:
         """Scale the image to fit within a bounding box while maintaining aspect ratio.

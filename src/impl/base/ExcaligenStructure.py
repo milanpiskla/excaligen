@@ -127,14 +127,14 @@ class ExcaligenStructure(AbstractImageListener, AbstractPlainLabelListener):
             print(f"Error Writing '{file_path}': {e}")      
             return self  
 
-    def on_image(self, id: str, mime_type: str, data_url: str) -> None:
+    def _on_image(self, id: str, mime_type: str, data_url: str) -> None:
         self._files[id] = {
             "mimeType": mime_type,
             "id": id,
             "dataURL": data_url
         }
 
-    def on_text(self, text: str) -> Text:
+    def _on_text(self, text: str) -> Text:
         return self.__append_element(self.__factory.text().content(text))
 
     def __append_element(self, element: AbstractElement) -> AbstractElement:

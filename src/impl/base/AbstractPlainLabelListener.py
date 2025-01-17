@@ -6,5 +6,5 @@ class AbstractPlainLabelListener(ABC):
         pass
 
     @abstractmethod
-    def on_text(self, text: str) -> Text:
+    def _on_text(self, text: str) -> Text:
         pass

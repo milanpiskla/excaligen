@@ -17,7 +17,7 @@ class DummyImageListener(AbstractImageListener):
     def __init__(self):
         self.images = {}
 
-    def on_image(self, id: str, mime_type: str, data_url: str):
+    def _on_image(self, id: str, mime_type: str, data_url: str):
         self.images[id] = (mime_type, data_url)
 
 @pytest.fixture

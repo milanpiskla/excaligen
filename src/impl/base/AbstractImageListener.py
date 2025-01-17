@@ -12,6 +12,6 @@ class AbstractImageListener(ABC):
         pass
 
     @abstractmethod
-    def on_image(self, id: str, mime_type: str, data_url: str) -> None:
+    def _on_image(self, id: str, mime_type: str, data_url: str) -> None:
         pass
 

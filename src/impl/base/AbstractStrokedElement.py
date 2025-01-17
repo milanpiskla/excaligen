@@ -116,7 +116,7 @@ class AbstractStrokedElement(AbstractElement):
             case Text():
                 self.__label = text
             case str():
-                self.__label = self.__listener.on_text(text)
+                self.__label = self.__listener._on_text(text)
             case _:
                 raise ValueError("Invalid type for label. Use Text or str.")
 
