@@ -37,6 +37,7 @@ class AbstractShape(AbstractElement):
         Args:
             color (str | Color): The background color, specified as a hex string (#RRGGBB), 
                      a color name, or a Color object.
+        
         Returns:
             Self: The instance of the class for method chaining.
         """
@@ -44,7 +45,18 @@ class AbstractShape(AbstractElement):
         return self
 
     def fill(self, style: str) -> Self:
-        """Set the fill style (hatchure, cross-hatch, solid)."""
+        """
+        Set the fill style for the shape.
+
+        Parameters:
+        style (str): The fill style to be applied. Must be one of 'hatchure', 'cross-hatch', or 'solid'.
+
+        Returns:
+        Self: The instance of the shape with the updated fill style.
+
+        Raises:
+        ValueError: If the provided style is not one of 'hatchure', 'cross-hatch', or 'solid'.
+        """
         match style:
             case "hatchure" | "cross-hatch" | "solid":
                 self._fill_style = style
