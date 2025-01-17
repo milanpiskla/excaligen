@@ -123,6 +123,12 @@ class AbstractElement:
         return self
 
     def get_center(self) -> tuple[float, float]:
+        """
+        Calculate and return the center coordinates of the element.
+
+        Returns:
+            tuple[float, float]: A tuple containing the x and y coordinates of the center of the element.
+        """
         return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
 
     def _size(self, width: float, height: float) -> Self:

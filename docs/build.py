@@ -216,87 +216,73 @@ class MarkdownWriter:
         self.output_dir = output_dir
 
     def write_class_doc(self, class_name: str, class_obj: object, module_name: str):
-        """Generate markdown documentation for a class.
-
-        Args:
-            class_name: Name of the class
-            class_obj: Class object
-            module_name: Name of the module containing the class
-        """
+        """Write documentation for a class."""
         content = []
-        parser = DocstringParser()
-
-        # Class header and description
+        
+        # Add class header
         content.append(f"# Class {class_name}\n")
+        
+        # Add class description if present
         if class_obj.__doc__:
-            doc_info = parser.parse(class_obj.__doc__)
+            doc_info = DocstringParser.parse(class_obj.__doc__)
             if doc_info.description:
-                content.append(f"{doc_info.description}\n\n")
-
-        # Get methods
-        methods = inspect.getmembers(class_obj, predicate=inspect.isfunction)
+                content.append(f"{doc_info.description}\n")
         
-        if methods:
-            content.append("## Methods\n")
-            
-            for method_name, method in methods:
-                if not method_name.startswith('_') or method_name == '__init__':
-                    content.append(f"### {method_name}\n")
-                    self._write_method_doc(content, method_name, method, parser)
-
+        # Add methods section
+        content.append("## Methods\n")
+        
+        # Document methods
+        for method_name, method in inspect.getmembers(class_obj, predicate=inspect.isfunction):
+            if not method_name.startswith('_') or method_name == '__init__':
+                doc_info = DocstringParser.parse(method.__doc__) if method.__doc__ else None
+                self._write_method_doc(method_name, method, doc_info, content)
+        
         # Write to file
-        filename = f"{class_name.lower()}.md"
-        filepath = os.path.join(self.output_dir, filename)
-        
-        os.makedirs(self.output_dir, exist_ok=True)
-        with open(filepath, 'w') as f:
-            f.write("".join(content))
+        output_file = os.path.join(self.output_dir, f"{class_name.lower()}.md")
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(''.join(content))
 
-    def _write_method_doc(self, content: List[str], method_name: str, method: object, parser: DocstringParser):
-        """Write documentation for a method.
-
-        Args:
-            content: List to append the documentation to
-            method_name: Name of the method
-            method: Method object
-            parser: DocstringParser instance
-        """
+    def _write_method_doc(self, method_name: str, method: object, doc_info: DocstringInfo, content: List[str]) -> None:
+        """Write documentation for a method."""
         # Add method signature
-        signature = str(inspect.signature(method))
-        content.append(f"```python\ndef {method_name}{signature}\n```\n")
+        content.append(f"### {method_name}\n")
+        content.append("```python\n")
+        content.append(f"{inspect.getsource(method).splitlines()[0]}\n")
+        content.append("```\n")
         
-        # Parse and add method documentation
-        if method.__doc__:
-            doc_info = parser.parse(method.__doc__)
-            
+        if doc_info:
+            # Add description
             if doc_info.description:
                 content.append(f"{doc_info.description}\n\n")
             
+            # Add arguments
             if doc_info.args:
                 content.append("#### Arguments\n\n")
                 content.append("| Name | Type | Description |\n")
                 content.append("|------|------|-------------|\n")
-                
                 for arg in doc_info.args:
-                    # Clean up the description
                     desc = arg.description
                     if desc.lower().startswith(f"{arg.name.lower()}:"):
                         desc = desc[len(arg.name) + 1:].strip()
-                    
-                    content.append(
-                        f"| `{arg.name}` | `{arg.type_hint}` | {desc} |\n"
-                    )
+                    content.append(f"| `{arg.name}` | `{arg.type_hint}` | {desc} |\n")
                 content.append("\n")
             
+            # Add returns
             if doc_info.returns:
                 content.append("#### Returns\n\n")
                 if doc_info.return_type:
                     content.append(f"**Type**: `{doc_info.return_type}`\n\n")
                 content.append(f"{doc_info.returns}\n\n")
-        else:
-            # Handle missing docstring
-            content.append("*No documentation available.*\n\n")
-                        
+            
+            # Add raises
+            if doc_info.raises:
+                content.append("#### Raises\n\n")
+                for raise_info in doc_info.raises:
+                    if raise_info.type:
+                        content.append(f"**{raise_info.type}**: {raise_info.description}\n\n")
+                    else:
+                        content.append(f"{raise_info.description}\n\n")
+
     def write_toc(self, classes: List[tuple]):
         """Generate table of contents file.
 
