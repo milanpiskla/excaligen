@@ -1,9 +1,8 @@
 """
 Description: Generates a list of points approximating an arc between two elements.
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 import math
 from .CircleIntersection import CircleIntersection

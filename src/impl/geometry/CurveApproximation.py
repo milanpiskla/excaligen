@@ -3,10 +3,9 @@ Description: Approximator to roughly mimic Bezier splines.
 The Excalidraw uses Catmull-Rom splines; however using cubic Bezier splines might be
 more practical for some visualisations, e.g. the cases we need to connect 2 elements
 while defining the start and end angles of the connected arrow.
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 from .Point import Point
 import math

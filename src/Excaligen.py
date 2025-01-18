@@ -2,10 +2,9 @@
 Description: Excalidraw file generator. 
 This module defines the Excalidraw class, which serves as the main interface with fluent API for creating
 Excalidraw diagram. 
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 from .impl.base.ExcaligenStructure import ExcaligenStructure
 from .config.Config import Config

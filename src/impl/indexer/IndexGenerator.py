@@ -1,16 +1,14 @@
 """
 Description: Generates indexes for Excalidraw elements.
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
-"""
-
-"""Excalidraw generates fractional indexes according to 
+Excalidraw generates fractional indexes according to 
 https://observablehq.com/@dgreensp/implementing-fractional-indexing
 
 We just need to generate a sequece of fractional indexes for the fixed amount 
 of elements in the diagram.
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
+
 class IndexGenerator:
     _BASE62_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 

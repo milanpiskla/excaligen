@@ -1,9 +1,8 @@
 """
 Description: Provides methods to compute intersections between axis aligned line segments and various shapes.
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 import math
 

@@ -1,9 +1,9 @@
 """
-Description: Image loader implementation.
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
+Image loader implementation that handles loading images from files, URLs, and raw data.
+Supports SVG, PNG, JPEG, and GIF formats with automatic format detection and size extraction.
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 from ..base.AbstractImageLoader import AbstractImageLoader
 from .ImageData import ImageData

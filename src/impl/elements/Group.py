@@ -2,10 +2,9 @@
 Description: Group is virtual only element that groups real elements together.
 It is not written in Excalidraw file, the element belonging to a group refers
 to the group by groupIds attribute instead.
-
-Copyright (c) 2024 Milan Piskla
-Licensed under the MIT License - see LICENSE file for details
 """
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 from ..elements.Rectangle import Rectangle
 from ..elements.Diamond import Diamond
