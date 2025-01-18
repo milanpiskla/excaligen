@@ -5,8 +5,8 @@ Description: Unit tests for few elements.
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
-from src.Excaligen import Excaligen
-from src.config.Config import DEFAULT_CONFIG
+from excaligen.Excaligen import Excaligen
+from excaligen.config.Config import DEFAULT_CONFIG
 
 def test_excalidraw_init():
     xd = Excaligen()

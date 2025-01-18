@@ -8,7 +8,7 @@ import pytest
 import json
 import os
 
-from src.Excaligen import Excaligen
+from excaligen.Excaligen import Excaligen
 from .ExcalidrawComparator import ExcalidrawComparator
 from pytest import FixtureRequest
 

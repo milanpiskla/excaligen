@@ -6,13 +6,13 @@ Description: Unit tests for shapes.
 
 import pytest
 from pytest import approx
-from src.impl.elements.Rectangle import Rectangle
-from src.impl.elements.Diamond import Diamond
-from src.impl.elements.Ellipse import Ellipse
-from src.impl.elements.Text import Text
-from src.impl.elements.Line import Line
-from src.impl.elements.Arrow import Arrow
-from src.config.Config import DEFAULT_CONFIG
+from excaligen.impl.elements.Rectangle import Rectangle
+from excaligen.impl.elements.Diamond import Diamond
+from excaligen.impl.elements.Ellipse import Ellipse
+from excaligen.impl.elements.Text import Text
+from excaligen.impl.elements.Line import Line
+from excaligen.impl.elements.Arrow import Arrow
+from excaligen.config.Config import DEFAULT_CONFIG
 
 def test_rectangle_init():
     rect = Rectangle(DEFAULT_CONFIG)

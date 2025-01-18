@@ -5,7 +5,7 @@ Description: Unit tests for IndexGenerator.
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
-from src.impl.indexer.IndexGenerator import IndexGenerator
+from excaligen.impl.indexer.IndexGenerator import IndexGenerator
 
 def test_default():
     idxr = IndexGenerator()
