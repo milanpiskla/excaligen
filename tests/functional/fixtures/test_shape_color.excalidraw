@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "rectangle",
-      "id": "a569e8f5-ec0c-447d-93e9-3ae6fbf93ee1",
-      "seed": 179199093,
+      "id": "f0630452-75ef-4687-bec5-ecf1b1e24990",
+      "seed": 409964808,
       "version": 1,
-      "versionNonce": 245733125,
+      "versionNonce": 23534349,
       "isDeleted": false,
       "x": -50.0,
       "y": -50.0,
@@ -27,14 +27,16 @@
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 1,
-      "roundness": null
+      "roundness": {
+        "type": 3
+      }
     },
     {
       "type": "rectangle",
-      "id": "28ece896-24d2-4bd3-809f-01afca1c5101",
-      "seed": 89142353,
+      "id": "2488a531-679b-4f4e-8ea9-4152586831f0",
+      "seed": 125428046,
       "version": 1,
-      "versionNonce": 415493524,
+      "versionNonce": 342902438,
       "isDeleted": false,
       "x": 50.0,
       "y": 50.0,
@@ -53,7 +55,9 @@
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 1,
-      "roundness": null
+      "roundness": {
+        "type": 3
+      }
     }
   ],
   "appState": {

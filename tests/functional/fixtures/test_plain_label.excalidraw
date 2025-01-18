@@ -5,15 +5,15 @@
   "elements": [
     {
       "type": "rectangle",
-      "id": "46c6b9da-c548-41f0-97f7-88ec84cf18ee",
-      "seed": 520445775,
+      "id": "876eef80-78a8-4711-9b84-6126534ea7d6",
+      "seed": 968792382,
       "version": 1,
-      "versionNonce": 526153219,
+      "versionNonce": 885449037,
       "isDeleted": false,
       "x": 0,
       "y": 0,
-      "width": 100,
-      "height": 100,
+      "width": 130,
+      "height": 80,
       "opacity": 100,
       "angle": 0,
       "index": "a0",
@@ -22,7 +22,7 @@
       "link": null,
       "boundElements": [
         {
-          "id": "c079aa51-8181-4545-a789-efe5ada41494",
+          "id": "0f17f88e-7566-401d-8c06-31d53ec06f74",
           "type": "text"
         }
       ],
@@ -32,17 +32,19 @@
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 1,
-      "roundness": null
+      "roundness": {
+        "type": 3
+      }
     },
     {
       "type": "text",
-      "id": "c079aa51-8181-4545-a789-efe5ada41494",
-      "seed": 843363643,
+      "id": "0f17f88e-7566-401d-8c06-31d53ec06f74",
+      "seed": 208600358,
       "version": 1,
-      "versionNonce": 70480226,
+      "versionNonce": 982165826,
       "isDeleted": false,
-      "x": 26.0,
-      "y": 39.375,
+      "x": 41.0,
+      "y": 29.375,
       "width": 48.0,
       "height": 20.0,
       "opacity": 100,
@@ -60,7 +62,7 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "46c6b9da-c548-41f0-97f7-88ec84cf18ee"
+      "containerId": "876eef80-78a8-4711-9b84-6126534ea7d6"
     }
   ],
   "appState": {

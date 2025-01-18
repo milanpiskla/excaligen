@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "text",
-      "id": "4ae1f8a2-28e8-4b9d-94fd-53ddea913cc5",
-      "seed": 670174109,
+      "id": "d64f6006-679d-4fd3-b13c-a0014630bac1",
+      "seed": 725052511,
       "version": 1,
-      "versionNonce": 490191956,
+      "versionNonce": 767736601,
       "isDeleted": false,
       "x": 82.0,
       "y": 56.75,
@@ -29,14 +29,14 @@
       "lineHeight": 1.5,
       "autoResize": true,
       "strokeColor": "#FF0000",
-      "containerId": "dc5d222d-3166-481e-88cc-c8307067246b"
+      "containerId": "e1039d7d-96e5-4d86-9349-b669e6ec2afd"
     },
     {
       "type": "rectangle",
-      "id": "dc5d222d-3166-481e-88cc-c8307067246b",
-      "seed": 386683668,
+      "id": "e1039d7d-96e5-4d86-9349-b669e6ec2afd",
+      "seed": 863960248,
       "version": 1,
-      "versionNonce": 652166503,
+      "versionNonce": 826405049,
       "isDeleted": false,
       "x": 10,
       "y": 20,
@@ -50,7 +50,7 @@
       "link": null,
       "boundElements": [
         {
-          "id": "4ae1f8a2-28e8-4b9d-94fd-53ddea913cc5",
+          "id": "d64f6006-679d-4fd3-b13c-a0014630bac1",
           "type": "text"
         }
       ],
@@ -60,7 +60,9 @@
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 1,
-      "roundness": null
+      "roundness": {
+        "type": 3
+      }
     }
   ],
   "appState": {

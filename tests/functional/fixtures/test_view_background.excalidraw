@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "rectangle",
-      "id": "db5eda72-4ec7-4845-ac04-97f1b30bbf04",
-      "seed": 199057696,
+      "id": "4d43527d-7fc5-44a9-8314-0f59e6892584",
+      "seed": 889732330,
       "version": 1,
-      "versionNonce": 261751735,
+      "versionNonce": 810072699,
       "isDeleted": false,
       "x": -50.0,
       "y": -50.0,
@@ -27,7 +27,9 @@
       "strokeWidth": 1,
       "strokeStyle": "solid",
       "roughness": 1,
-      "roundness": null
+      "roundness": {
+        "type": 3
+      }
     }
   ],
   "appState": {

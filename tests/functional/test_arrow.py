@@ -85,10 +85,10 @@ def test_arrow_elbows(reference_json: dict[str, Any], request: FixtureRequest) -
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().elbow('R', 'L').bind(center_element, element_1).arrowheads('none', 'arrow')
-    xg.arrow().elbow('U', 'U').bind(center_element, element_1).arrowheads('none', 'arrow')
-    xg.arrow().elbow('D', 'D').bind(center_element, element_1).arrowheads('none', 'arrow')
-    xg.arrow().elbow('L', 'R').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().elbow('R', 'L').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
+    xg.arrow().elbow('U', 'U').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
+    xg.arrow().elbow('D', 'D').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
+    xg.arrow().elbow('L', 'R').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
     
     evaluate(reference_json, xg, request)
 
@@ -96,10 +96,10 @@ def test_arrow_elbows_diff_calling_order(reference_json: dict[str, Any], request
     xg = Excaligen()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roudness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('R', 'L')
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('U', 'U')
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('D', 'D')
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('L', 'R')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('R', 'L').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('U', 'U').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('D', 'D').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('L', 'R').roundness('sharp')
     
     evaluate(reference_json, xg, request)
 
