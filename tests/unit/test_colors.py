@@ -6,7 +6,7 @@ Description: Unit tests for colors.
 
 import pytest
 
-from excaligen.impl.colors.Color import Color
+from src.excaligen.impl.colors.Color import Color
 
 def test_color_hex():
     color = Color().rgb(255, 128, 0)

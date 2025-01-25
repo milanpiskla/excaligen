@@ -4,7 +4,7 @@ Description: Functional tests for various elements.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from excaligen.Excaligen import Excaligen
+from src.excaligen.Excaligen import Excaligen
 from .evaluate import *
 from typing import Any
 
