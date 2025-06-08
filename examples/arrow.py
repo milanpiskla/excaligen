@@ -1,7 +1,7 @@
-from src.Excaligen import Excaligen
+from excaligen.DiagramBuilder import DiagramBuilder
 import math
 
-xd = Excaligen()
+xd = DiagramBuilder()
 start_element = xd.ellipse().position(-50, -50).size(100, 100).label(xd.text().content("center"))
 
 for angle in range(0, 360, 30):

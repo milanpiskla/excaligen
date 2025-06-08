@@ -1,6 +1,6 @@
-from src.Excaligen import Excaligen
+from excaligen.DiagramBuilder import DiagramBuilder
 
-xd = Excaligen()
+xd = DiagramBuilder()
 
 def cross(center: tuple[float, float], color: str) -> None:
     x, y = center

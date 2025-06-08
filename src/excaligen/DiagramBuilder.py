@@ -1,6 +1,6 @@
 """
 Description: Excalidraw file generator. 
-This module defines the Excalidraw class, which serves as the main interface with fluent API for creating
+This module defines the DiagramBuilder class, which serves as the main interface with fluent API for creating
 Excalidraw diagram. 
 """
 # Copyright (c) 2024 - 2025 Milan Piskla
@@ -21,7 +21,7 @@ from .impl.colors.Color import Color
 
 from typing import Self
 
-class Excaligen(ExcaligenStructure):
+class DiagramBuilder(ExcaligenStructure):
     """The Excalidraw class provides methods to add various diagram elements.
 
     The elemnts include rectangles, diamonds, ellipses, arrows, lines, text, images, groups, and frames.

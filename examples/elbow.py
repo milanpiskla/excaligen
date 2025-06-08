@@ -1,6 +1,6 @@
-from src.Excaligen import Excaligen
+from excaligen.DiagramBuilder import DiagramBuilder
 
-xd = Excaligen()
+xd = DiagramBuilder()
 rect1 = xd.rectangle().position(-300, -20).size(300, 100)
 rect2 = xd.rectangle().position(300, 20).size(300, 100)
 

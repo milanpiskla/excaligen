@@ -8,7 +8,7 @@ import pytest
 import json
 import os
 
-from src.excaligen.Excaligen import Excaligen
+from excaligen.DiagramBuilder import DiagramBuilder
 from .ExcalidrawComparator import ExcalidrawComparator
 from pytest import FixtureRequest
 
@@ -24,7 +24,7 @@ def reference_json(request: FixtureRequest) -> dict[str, any]:
     with open(reference_file, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-def evaluate(reference_json: dict[str, any], xg: Excaligen, request: FixtureRequest) -> None:
+def evaluate(reference_json: dict[str, any], xg: DiagramBuilder, request: FixtureRequest) -> None:
     generated_json = json.loads(xg.json())
     comparator = ExcalidrawComparator(
         ignore_fields={'version', 'versionNonce', 'seed', 'groupIds', 'frameId', 'containerId'}

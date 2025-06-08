@@ -1,4 +1,4 @@
-from src.Excaligen import Excaligen
+from excaligen.DiagramBuilder import DiagramBuilder
 import math
 
 def cubic_bezier(t, B0, B1, B2, B3):
@@ -49,7 +49,7 @@ def generate_adaptive_bezier_points(B0, B1, B2, B3, initial_t_values=7, error_th
     
     return refined_points
 
-xd = Excaligen()
+xd = DiagramBuilder()
 
 B0 = (0, 0)
 B1 = (200, 0)

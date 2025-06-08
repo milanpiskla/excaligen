@@ -1,7 +1,7 @@
-from src.Excaligen import Excaligen
+from excaligen.DiagramBuilder import DiagramBuilder
 
 # Initialize Excalidraw instance
-xd = Excaligen()
+xd = DiagramBuilder()
 
 # Add a rectangle
 xd.rectangle().position(50, 50).size(200, 100).color("#FF5733").background("#C70039")

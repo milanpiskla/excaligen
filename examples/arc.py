@@ -1,7 +1,7 @@
-from src.Excaligen import Excaligen
+from excaligen import DiagramBuilder
 import math
 
-xd = Excaligen()
+xd = DiagramBuilder()
 
 RADIUS = 300
 elements = []
