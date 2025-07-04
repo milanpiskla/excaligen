@@ -421,6 +421,30 @@ class Generator:
             traceback.print_exc()  # This will help debug import issues
         return None
 
+    def generate2(self, classes: List[Tuple[str, str]]):
+        for module_name, abs_path in classes:
+            try:
+                print(f"*** Attempting to import: {module_name} from {abs_path}")
+                # Import the module dynamically
+                spec = importlib.util.spec_from_file_location(module_name, abs_path)
+                if spec and spec.loader:
+                    module = importlib.util.module_from_spec(spec)
+                    
+                    # Set the package context for relative imports
+                    package_name = module_name.rsplit('.', 1)[0]  # Extract package name
+                    module.__package__ = package_name
+                    print(f"*** Set package context: {module.__package__}")
+                    
+                    sys.modules[module_name] = module
+                    spec.loader.exec_module(module)
+                    print(f"*** Successfully imported: {module_name}")
+
+                    return module
+            except Exception as e:
+                print(f"Failed to import {abs_path}: {e}")
+                import traceback
+                traceback.print_exc()
+
     def generate(self, file_paths: List[str]):
         """Generate documentation for specified Python files.
 
@@ -448,11 +472,24 @@ class Generator:
         self.writer.write_toc(classes)
 
 if __name__ == "__main__":
+    # Add the 'src' directory to sys.path
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    src_path = os.path.join(project_root, 'src')
+    sys.path.insert(0, src_path)
+    
+    #sys.path.insert(0, "C:\\Users\\piskla\\Projects\\excaligen\\src\\excaligen\\")
     files = [
-        "./src/impl/elements/Arrow.py",
-        "./src/impl/elements/Rectangle.py",
-        "./src/Excaligen.py",
+        "./src/excaligen/impl/elements/Arrow.py",
+        "./src/excaligen/impl/elements/Rectangle.py",
+        "./src/excaligen/DiagramBuilder.py",
+    ]
+
+    CLASSES = [
+        ("excaligen.impl.elements.Arrow", "./src/excaligen/impl/elements/Arrow.py"),
+        ("excaligen.impl.elements.Rectangle", "./src/excaligen/impl/elements/Rectangle.py"),
+        ("excaligen.DiagramBuilder", "./src/excaligen/DiagramBuilder.py"),
     ]
 
     generator = Generator("docs")
-    generator.generate(files)
+    #generator.generate(files)
+    generator.generate2(CLASSES)
