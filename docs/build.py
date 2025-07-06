@@ -421,17 +421,28 @@ class Generator:
             traceback.print_exc()  # This will help debug import issues
         return None
 
-    def generate2(self, classes: List[Tuple[str, str]]):
-        for module_name, abs_path in classes:
+    def generate2(self, doc_targets: List[Tuple[str, str]]):
+        classes = []
+        
+        for module_name, abs_path in doc_targets:
             try:
                 print(f"*** Attempting to import: {module_name} from {abs_path}")
+                
+                # Import parent package first
+                package_name = module_name.rsplit('.', 1)[0]
+                try:
+                    __import__(package_name)
+                except ImportError:
+                    print(f"Could not import package: {package_name}")
+                    continue
+                
                 # Import the module dynamically
                 spec = importlib.util.spec_from_file_location(module_name, abs_path)
                 if spec and spec.loader:
                     module = importlib.util.module_from_spec(spec)
                     
                     # Set the package context for relative imports
-                    package_name = module_name.rsplit('.', 1)[0]  # Extract package name
+                    
                     module.__package__ = package_name
                     print(f"*** Set package context: {module.__package__}")
                     
@@ -439,11 +450,24 @@ class Generator:
                     spec.loader.exec_module(module)
                     print(f"*** Successfully imported: {module_name}")
 
-                    return module
+                    # Get all classes from the module
+                    module_classes = inspect.getmembers(
+                        module, 
+                        lambda obj: inspect.isclass(obj) and obj.__module__ == module.__name__
+                    )
+                    
+                    for class_name, class_obj in module_classes:
+                        classes.append((class_name, class_obj, module.__name__))
+                        self.writer.write_class_doc(class_name, class_obj, module.__name__)
+
             except Exception as e:
                 print(f"Failed to import {abs_path}: {e}")
                 import traceback
                 traceback.print_exc()
+
+        # Generate table of contents
+        self.writer.write_toc(classes)
+
 
     def generate(self, file_paths: List[str]):
         """Generate documentation for specified Python files.
@@ -484,7 +508,7 @@ if __name__ == "__main__":
         "./src/excaligen/DiagramBuilder.py",
     ]
 
-    CLASSES = [
+    DOC_TARGETS = [
         ("excaligen.impl.elements.Arrow", "./src/excaligen/impl/elements/Arrow.py"),
         ("excaligen.impl.elements.Rectangle", "./src/excaligen/impl/elements/Rectangle.py"),
         ("excaligen.DiagramBuilder", "./src/excaligen/DiagramBuilder.py"),
@@ -492,4 +516,4 @@ if __name__ == "__main__":
 
     generator = Generator("docs")
     #generator.generate(files)
-    generator.generate2(CLASSES)
+    generator.generate2(DOC_TARGETS)
