@@ -243,7 +243,21 @@ class MarkdownWriter:
             f.write(''.join(content))
 
     def _write_method_doc(self, method_name: str, method: object, doc_info: DocstringInfo, content: List[str]) -> None:
-        """Write documentation for a method."""
+        """Write documentation for a method into the content list in Markdown format.
+        This method processes the method's documentation and formats it as Markdown, including:
+        - Method signature
+        - Description
+        - Arguments table
+        - Return value information
+        - Exceptions that may be raised
+        Args:
+            method_name (str): Name of the method being documented
+            method (object): The method object to document
+            doc_info (DocstringInfo): Parsed docstring information containing description, args, returns, and raises
+            content (List[str]): List to append the formatted documentation to
+        Returns:
+            None: Documentation is appended directly to the content list
+        """
         # Add method signature
         content.append(f"### {method_name}\n")
         content.append("```python\n")
@@ -284,51 +298,68 @@ class MarkdownWriter:
                         content.append(f"{raise_info.description}\n\n")
 
     def write_toc(self, classes: List[Tuple[str, object, str]]) -> None:
-        """Write table of contents."""
+        """Write table of contents for all documented classes to a markdown file.
+        This method generates a structured table of contents for API documentation,
+        organizing classes by their modules. The output is written to 'api.md' in
+        the specified output directory.
+        Args:
+            classes (List[Tuple[str, object, str]]): List of tuples containing:
+                - class name (str)
+                - class object (object)
+                - module path (str)
+        Returns:
+            None
+        The generated TOC has the following structure:
+        - Documentation header
+        - Module sections with class entries grouped under each module
+        - Classes listed with links to their documentation
+        The output file is written in markdown format with UTF-8 encoding.
+        """
+        content = [self._get_doc_header()]
+        modules = self._group_classes_by_module(classes)
         
-        DOC_HEADER = """# 🎨 Excaligen API Documentation\n\n
+        for full_module_name, module_classes in self._get_sorted_modules(modules):
+            simple_module = full_module_name.split('.')[-1]
+            content.append(f"## {simple_module}\n\n")
+            content.extend(self._format_class_entries(module_classes))
+        
+        filepath = os.path.join(self.output_dir, "api.md")
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write("".join(content))
+
+    def _get_doc_header(self) -> str:
+        """Return the documentation header text."""
+        return """# 🎨 Excaligen API Documentation\n\n
 This is the API documentation for the Excaligen library\n\n
 ✨ The following classes are available:\n\n"""
-        
-        content = [DOC_HEADER]
-        
-        # Group by modules
-        modules: Dict[str, List[Tuple[str, object, str]]] = {}
+
+    def _group_classes_by_module(self, classes: List[Tuple[str, object, str]]) -> Dict[str, List[Tuple[str, object]]]:
+        """Group classes by their module names."""
+        modules: Dict[str, List[Tuple[str, object]]] = {}
         for class_name, class_obj, module_name in classes:
             if module_name not in modules:
                 modules[module_name] = []
             modules[module_name].append((class_name, class_obj))
-        
-        # Sort modules by hierarchy depth and name
-        sorted_modules = sorted(
-            modules.items(),
-            key=lambda x: (len(x[0].split('.')), x[0].lower())
-        )
-        
-        # Generate TOC
-        for full_module_name, module_classes in sorted_modules:
-            # Extract simple module name (last part)
-            simple_module = full_module_name.split('.')[-1]
-            content.append(f"## {simple_module}\n\n")
+        return modules
+
+    def _get_sorted_modules(self, modules: Dict[str, List[Tuple[str, object]]]) -> List[Tuple[str, List[Tuple[str, object]]]]:
+        """Return modules sorted by hierarchy depth and name."""
+        return sorted(modules.items(), key=lambda x: (len(x[0].split('.')), x[0].lower()))
+
+    def _format_class_entries(self, module_classes: List[Tuple[str, object]]) -> List[str]:
+        """Format class entries with their descriptions."""
+        entries = []
+        for class_name, class_obj in sorted(module_classes):
+            link = f"{class_name.lower()}.md"
+            entries.append(f"* [{class_name}]({link})\n")
             
-            for class_name, class_obj in sorted(module_classes):
-                link = f"{class_name.lower()}.md"
-                content.append(f"* [{class_name}]({link})")
-                content.append("\n")
-                
-                if class_obj.__doc__:
-                    doc_info = DocstringParser.parse(class_obj.__doc__)
-                    if doc_info.description:
-                        # Add description on new line with indent
-                        brief_desc = doc_info.description.split('.')[0].strip()
-                        content.append(f"\n    {brief_desc}")
-                
-                content.append("\n\n")
-        
-        # Write to file
-        filepath = os.path.join(self.output_dir, "api.md")
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write("".join(content))
+            if class_obj.__doc__:
+                doc_info = DocstringParser.parse(class_obj.__doc__)
+                if doc_info.description:
+                    brief_desc = doc_info.description.split('.')[0].strip()
+                    entries.append(f"    {brief_desc}\n")
+            entries.append("\n")
+        return entries
 
 class Generator:
     """Main documentation generator class."""
@@ -342,156 +373,74 @@ class Generator:
         self.output_dir = output_dir
         self.writer = MarkdownWriter(output_dir)
 
-    def _get_module_name(self, file_path: str) -> str:
-        """Convert file path to full module name.
-
+    def _import_module(self, module_name: str, abs_path: str) -> Optional[object]:
+        """Import a module dynamically.
+        
         Args:
-            file_path: Path to Python file
-
-        Returns:
-            Full module name including package path
-        """
-        # Get the absolute path
-        abs_path = os.path.abspath(file_path)
-        
-        # Find the root package directory (where the first __init__.py is found)
-        current_dir = os.path.dirname(abs_path)
-        package_parts = []
-        
-        while current_dir:
-            if os.path.isfile(os.path.join(current_dir, '__init__.py')):
-                package_parts.append(os.path.basename(current_dir))
-                current_dir = os.path.dirname(current_dir)
-            else:
-                break
-        
-        # Reverse the package parts to get correct order
-        package_parts.reverse()
-        
-        # Add the module name itself
-        module_name = os.path.splitext(os.path.basename(file_path))[0]
-        package_parts.append(module_name)
-        
-        # Join all parts with dots
-        return '.'.join(package_parts)
-
-    def import_module_from_file(self, file_path: str) -> Optional[object]:
-        """Import a Python module from file path.
-
-        Args:
-            file_path: Path to Python file
-
+            module_name: Full name of the module to import
+            abs_path: Absolute path to the module file
+            
         Returns:
             Imported module object or None if import fails
         """
+        # Import parent package first
+        package_name = module_name.rsplit('.', 1)[0]
         try:
-            # Get absolute path
-            abs_path = os.path.abspath(file_path)
+            __import__(package_name)
+        except ImportError:
+            print(f"Could not import package: {package_name}")
+            return None
+        
+        # Import the module dynamically
+        spec = importlib.util.spec_from_file_location(module_name, abs_path)
+        if not (spec and spec.loader):
+            return None
             
-            # Find the package root directory
-            current_dir = os.path.dirname(abs_path)
-            package_root = None
-            
-            while current_dir:
-                if os.path.isfile(os.path.join(current_dir, '__init__.py')):
-                    package_root = os.path.dirname(current_dir)
-                    current_dir = os.path.dirname(current_dir)
-                else:
-                    break
-            
-            if package_root:
-                # Add package root to Python path
-                if package_root not in sys.path:
-                    sys.path.insert(0, package_root)
-            
-            # Get the full module name
-            module_name = self._get_module_name(file_path)
-            
-            # Import the module
-            spec = importlib.util.spec_from_file_location(module_name, abs_path)
-            if spec and spec.loader:
-                module = importlib.util.module_from_spec(spec)
-                sys.modules[module_name] = module
-                spec.loader.exec_module(module)
-                return module
-                
-        except Exception as e:
-            print(f"Failed to import {file_path}: {e}")
-            import traceback
-            traceback.print_exc()  # This will help debug import issues
-        return None
+        module = importlib.util.module_from_spec(spec)
+        module.__package__ = package_name
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+        return module
 
-    def generate2(self, doc_targets: List[Tuple[str, str]]):
+    def _process_module_classes(self, module: object) -> List[Tuple[str, object, str]]:
+        """Extract and process classes from a module.
+        
+        Args:
+            module: Module object to process
+            
+        Returns:
+            List of tuples containing (class_name, class_object, module_name)
+        """
+        classes = []
+        module_classes = inspect.getmembers(
+            module,
+            lambda obj: inspect.isclass(obj) and obj.__module__ == module.__name__
+        )
+        
+        for class_name, class_obj in module_classes:
+            classes.append((class_name, class_obj, module.__name__))
+            self.writer.write_class_doc(class_name, class_obj, module.__name__)
+        
+        return classes
+
+    def generate(self, doc_targets: List[Tuple[str, str]]):
+        """Generate documentation for the specified targets.
+        
+        Args:
+            doc_targets: List of tuples containing (module_name, absolute_path)
+        """
         classes = []
         
         for module_name, abs_path in doc_targets:
             try:
-                print(f"*** Attempting to import: {module_name} from {abs_path}")
-                
-                # Import parent package first
-                package_name = module_name.rsplit('.', 1)[0]
-                try:
-                    __import__(package_name)
-                except ImportError:
-                    print(f"Could not import package: {package_name}")
-                    continue
-                
-                # Import the module dynamically
-                spec = importlib.util.spec_from_file_location(module_name, abs_path)
-                if spec and spec.loader:
-                    module = importlib.util.module_from_spec(spec)
-                    
-                    # Set the package context for relative imports
-                    
-                    module.__package__ = package_name
-                    print(f"*** Set package context: {module.__package__}")
-                    
-                    sys.modules[module_name] = module
-                    spec.loader.exec_module(module)
-                    print(f"*** Successfully imported: {module_name}")
-
-                    # Get all classes from the module
-                    module_classes = inspect.getmembers(
-                        module, 
-                        lambda obj: inspect.isclass(obj) and obj.__module__ == module.__name__
-                    )
-                    
-                    for class_name, class_obj in module_classes:
-                        classes.append((class_name, class_obj, module.__name__))
-                        self.writer.write_class_doc(class_name, class_obj, module.__name__)
-
+                module = self._import_module(module_name, abs_path)
+                if module:
+                    classes.extend(self._process_module_classes(module))
             except Exception as e:
                 print(f"Failed to import {abs_path}: {e}")
                 import traceback
                 traceback.print_exc()
 
-        # Generate table of contents
-        self.writer.write_toc(classes)
-
-
-    def generate(self, file_paths: List[str]):
-        """Generate documentation for specified Python files.
-
-        Args:
-            file_paths: List of paths to Python files to document
-        """
-        classes = []
-        
-        for file_path in file_paths:
-            module = self.import_module_from_file(file_path)
-            if not module:
-                continue
-            
-            # Get all classes from the module
-            module_classes = inspect.getmembers(
-                module, 
-                lambda obj: inspect.isclass(obj) and obj.__module__ == module.__name__
-            )
-            
-            for class_name, class_obj in module_classes:
-                classes.append((class_name, class_obj, module.__name__))
-                self.writer.write_class_doc(class_name, class_obj, module.__name__)
-        
         # Generate table of contents
         self.writer.write_toc(classes)
 
@@ -501,19 +450,18 @@ if __name__ == "__main__":
     src_path = os.path.join(project_root, 'src')
     sys.path.insert(0, src_path)
     
-    #sys.path.insert(0, "C:\\Users\\piskla\\Projects\\excaligen\\src\\excaligen\\")
-    files = [
-        "./src/excaligen/impl/elements/Arrow.py",
-        "./src/excaligen/impl/elements/Rectangle.py",
-        "./src/excaligen/DiagramBuilder.py",
-    ]
-
     DOC_TARGETS = [
-        ("excaligen.impl.elements.Arrow", "./src/excaligen/impl/elements/Arrow.py"),
-        ("excaligen.impl.elements.Rectangle", "./src/excaligen/impl/elements/Rectangle.py"),
         ("excaligen.DiagramBuilder", "./src/excaligen/DiagramBuilder.py"),
+        ("excaligen.impl.elements.Arrow", "./src/excaligen/impl/elements/Arrow.py"),
+        ("excaligen.impl.elements.Diamond", "./src/excaligen/impl/elements/Diamond.py"),
+        ("excaligen.impl.elements.Ellipse", "./src/excaligen/impl/elements/Ellipse.py"),
+        ("excaligen.impl.elements.Frame", "./src/excaligen/impl/elements/Frame.py"),
+        ("excaligen.impl.elements.Group", "./src/excaligen/impl/elements/Group.py"),
+        ("excaligen.impl.elements.Image", "./src/excaligen/impl/elements/Image.py"),
+        ("excaligen.impl.elements.Line", "./src/excaligen/impl/elements/Line.py"),
+        ("excaligen.impl.elements.Rectangle", "./src/excaligen/impl/elements/Rectangle.py"),
+        ("excaligen.impl.elements.Text", "./src/excaligen/impl/elements/Text.py"),
     ]
 
     generator = Generator("docs")
-    #generator.generate(files)
-    generator.generate2(DOC_TARGETS)
+    generator.generate(DOC_TARGETS)
