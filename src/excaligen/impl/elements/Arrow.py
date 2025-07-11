@@ -22,7 +22,7 @@ from typing import Self, Any
 
 class Arrow(AbstractLine):
     """A class representing an arrow element in Excalidraw with various connection styles.
-    This class extends AbstractLine to create arrow elements that can connect different elements
+    It creates arrow elements that can connect different elements
     in various ways including straight lines, curves, arcs and elbowed connections. It supports
     customizable arrowheads, gaps between connected elements, and different binding behaviors.
     The arrow can be styled with:
