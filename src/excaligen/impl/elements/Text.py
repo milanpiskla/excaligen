@@ -10,6 +10,12 @@ from ...config.Config import Config, DEFAULT_CONFIG
 from typing import Self
 
 class Text(AbstractElement):
+    """A class representing text elements in excaligen.
+    The Text class is designed to handle and manipulate text elements within the excaligen 
+    framework. It provides various text customization options including font styles, sizes, 
+    alignments, and colors. The class supports auto-resizing capabilities and multiple font 
+    families.
+    """
     FONT_MAPPING = {
         "hand-drawn": 1,
         "normal": 2,

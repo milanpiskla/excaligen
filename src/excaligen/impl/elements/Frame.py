@@ -23,6 +23,13 @@ Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image
 DEFAULT_FRAME_INSET: float = 30.0
 
 class Frame(AbstractShape):
+    """A visual container that can hold other elements and automatically adjusts its size.
+    
+    Frame is a fundamental layout component that serves as a container for other elements.
+    It can automatically calculate its dimensions based on its contents or be explicitly
+    sized. Frames can also have titles and background colors, making them useful for
+    grouping related elements and creating visual hierarchies in the layout.
+    """
     def __init__(self, config: Config = DEFAULT_CONFIG):
         super().__init__("frame", config)
         self._width = 0.0

@@ -23,6 +23,11 @@ import uuid
 Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image | Frame
 
 class Group():
+    """A container class that represents a group of elements.
+    This class allows for organizing and managing multiple elements as a single unit. Elements
+    within a group can be manipulated together while maintaining their individual properties.
+    Each group is identified by a unique UUID.
+    """
     def __init__(self, config: Config = DEFAULT_CONFIG):
         self.__id = str(uuid.uuid4())
 

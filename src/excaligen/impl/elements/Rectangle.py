@@ -9,5 +9,11 @@ from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ...config.Config import Config, DEFAULT_CONFIG
 
 class Rectangle(AbstractCorneredShape):
+    """
+    A class representing a rectangular shape in a 2D space.
+
+    The rectangle is defined by its position and dimensions,
+    and can be configured with various visual properties through the config parameter.
+    """
     def __init__(self, listener: AbstractPlainLabelListener, config: Config = DEFAULT_CONFIG):
         super().__init__("rectangle", listener, config)

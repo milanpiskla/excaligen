@@ -13,6 +13,11 @@ from ..images.ImageData import ImageData
 from ...config.Config import Config, DEFAULT_CONFIG
 
 class Image(AbstractElement):
+    """A class representing an image element that can be loaded from various sources.
+    This class provides functionality to load and manipulate images from files, URLs, 
+    or raw data (bytes/SVG). It supports basic image operations like scaling and 
+    fitting within bounds while maintaining aspect ratio.
+    """
     def __init__(self, listener: AbstractImageListener, loader: AbstractImageLoader, config: Config = DEFAULT_CONFIG):
         super().__init__("image", config)
         self._file_id = str(uuid.uuid4())

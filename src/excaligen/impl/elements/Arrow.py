@@ -1,5 +1,5 @@
 """
-Description: Represents an arrow element in Excalidraw, capable of different styles like straight lines, curves, arcs, etc.
+Description: Arrow element.
 """
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
@@ -21,8 +21,20 @@ from enum import Enum
 from typing import Self, Any
 
 class Arrow(AbstractLine):
-    """Represents an arrow element in Excalidraw, capable of different styles like straight lines, splines, arcs, etc."""
-
+    """A class representing an arrow element in Excalidraw with various connection styles.
+    This class extends AbstractLine to create arrow elements that can connect different elements
+    in various ways including straight lines, curves, arcs and elbowed connections. It supports
+    customizable arrowheads, gaps between connected elements, and different binding behaviors.
+    The arrow can be styled with:
+    - Different connection types (straight, arc, curve, elbow)
+    - Customizable start and end arrowheads
+    - Adjustable gaps between connected elements
+    - Binding capabilities to connect elements
+    - Various arrow directions and angles
+    Args:
+        listener (AbstractPlainLabelListener): Listener object for handling plain label events.
+        config (Config, optional): Configuration object for the arrow element. Defaults to DEFAULT_CONFIG.
+    """
     class ConnectionType(Enum):
         STRAIGHT = 0
         ARC = 1
