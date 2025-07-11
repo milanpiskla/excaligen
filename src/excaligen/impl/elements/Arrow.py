@@ -22,6 +22,7 @@ from typing import Self, Any
 
 class Arrow(AbstractLine):
     """A class representing an arrow element in Excalidraw with various connection styles.
+
     It creates arrow elements that can connect different elements
     in various ways including straight lines, curves, arcs and elbowed connections. It supports
     customizable arrowheads, gaps between connected elements, and different binding behaviors.
@@ -31,9 +32,6 @@ class Arrow(AbstractLine):
     - Adjustable gaps between connected elements
     - Binding capabilities to connect elements
     - Various arrow directions and angles
-    Args:
-        listener (AbstractPlainLabelListener): Listener object for handling plain label events.
-        config (Config, optional): Configuration object for the arrow element. Defaults to DEFAULT_CONFIG.
     """
     class ConnectionType(Enum):
         STRAIGHT = 0
@@ -64,8 +62,8 @@ class Arrow(AbstractLine):
         """Generate a curve between the bound elements using the given start and end tangent angles.
 
         Args:
-            start_angle (float | str): The start tangent angle.
-            end_angle (float | str): The end tangent angle.
+            start_angle (float | str): The start tangent angle. It's either float value in radians or one of the strings 'L', 'R', 'U', 'D', representing left, right, up, or down respectively.
+            end_angle (float | str): The end tangent angle. It's either float value in radians or one of the strings 'L', 'R', 'U', 'D', representing left, right, up, or down respectively.
 
         Returns:
             Self: The current instance of the Arrow class.
@@ -79,6 +77,10 @@ class Arrow(AbstractLine):
     
     def arc(self, radius: float) -> Self:
         """Approximate an arc between the bound elements with the given radius.
+
+        The center of the arc is determined by the radius and the positions of the bound elements
+        by assuming the center of the start element and the center of the end element are the endpoints 
+        are oriented clockwise.
 
         Args:
             radius (float): The radius of the arc.
@@ -116,6 +118,8 @@ class Arrow(AbstractLine):
     def arrowheads(self, start: str = 'none', end: str = 'arrow') -> Self:
         """Set the arrowhead styles for the start and end of the arrow.
 
+        Valid arrowheads values are 'none', 'arrow', 'bar', 'dot' and 'triangle'.
+
         Args:
             start (str, optional): The style of the start arrowhead. Defaults to 'none'.
             end (str, optional): The style of the end arrowhead. Defaults to 'arrow'.
@@ -141,8 +145,8 @@ class Arrow(AbstractLine):
         """Set the arrow to have an elbow (right-angle turn).
 
         Args:
-            start_direction (str): The direction of the start elbow.
-            end_direction (str): The direction of the end elbow.
+            start_direction (str): The direction of the start elbow. It's one of the strings 'L', 'R', 'U', 'D', representing left, right, up, or down respectively.
+            end_direction (str): The direction of the end elbow. It's one of the strings 'L', 'R', 'U', 'D', representing left, right, up, or down respectively.
 
         Returns:
             Self: The current instance of the Arrow class.
