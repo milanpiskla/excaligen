@@ -79,8 +79,7 @@ class Arrow(AbstractLine):
         """Approximate an arc between the bound elements with the given radius.
 
         The center of the arc is determined by the radius and the positions of the bound elements
-        by assuming the center of the start element and the center of the end element are the endpoints 
-        are oriented clockwise.
+        by assuming the center of the start element and the center of the end element are oriented clockwise.
 
         Args:
             radius (float): The radius of the arc.
