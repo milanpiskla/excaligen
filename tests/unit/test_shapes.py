@@ -114,13 +114,13 @@ def test_rectangle_label():
 
 def test_rectangle_roundness_valid():
     rect = Rectangle(DEFAULT_CONFIG)
-    rect.roudness("round")
+    rect.roundness("round")
     assert rect._roundness == {"type": 3}
 
 def test_rectangle_roundness_invalid():
     rect = Rectangle(DEFAULT_CONFIG)
     with pytest.raises(ValueError, match="Invalid roundness 'curved'. Use 'sharp', 'round'"):
-        rect.roudness("curved")
+        rect.roundness("curved")
 
 def test_text_content():
     text = Text(DEFAULT_CONFIG).content("Sample Text")

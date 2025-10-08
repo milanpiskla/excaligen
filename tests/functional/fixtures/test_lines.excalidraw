@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "line",
-      "id": "6ccaeadb-2153-42e7-99b2-ef627bfdf875",
-      "seed": 706204303,
+      "id": "83485251-790b-4314-bccd-d5383c82c531",
+      "seed": 675413761,
       "version": 1,
-      "versionNonce": 523050590,
+      "versionNonce": 335552709,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -37,14 +37,15 @@
       ],
       "roundness": {
         "type": 3
-      }
+      },
+      "backgroundColor": "transparent"
     },
     {
       "type": "line",
-      "id": "4fd87201-187c-4028-a259-e412b2bb979c",
-      "seed": 516475124,
+      "id": "54fe8de3-599a-4267-aaf2-c2f90f1f6b66",
+      "seed": 101291993,
       "version": 1,
-      "versionNonce": 106378760,
+      "versionNonce": 299693365,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -73,14 +74,15 @@
       ],
       "roundness": {
         "type": 3
-      }
+      },
+      "backgroundColor": "transparent"
     },
     {
       "type": "line",
-      "id": "523ead99-249b-41df-ab54-e5786a37c052",
-      "seed": 973582341,
+      "id": "4369d1d4-e487-4bf2-be31-288797f56b56",
+      "seed": 858569114,
       "version": 1,
-      "versionNonce": 203438415,
+      "versionNonce": 684970932,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -113,7 +115,8 @@
       ],
       "roundness": {
         "type": 3
-      }
+      },
+      "backgroundColor": "transparent"
     }
   ],
   "appState": {
