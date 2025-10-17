@@ -49,11 +49,11 @@ class AbstractStrokedElement(AbstractElement):
             case 1 | 2 | 3:
                 self._stroke_width = thickness
             case "thin":
-                self._roughness = 0
+                self._stroke_width = 1
             case "bold":
-                self._roughness = 1
+                self._stroke_width = 2
             case "extra-bold":
-                self._roughness = 2
+                self._stroke_width = 4
             case _:
                 raise ValueError(f"Invalid thickness '{thickness}'. Use 1, 2, 3 or 'thin', 'bold', 'extra-bold'.")
         return self

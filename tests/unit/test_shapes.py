@@ -56,8 +56,14 @@ def test_rectangle_thickness_valid():
     rect.thickness(2)
     assert rect._stroke_width == 2
 
+    rect.thickness("thin")
+    assert rect._stroke_width == 1
+
     rect.thickness("bold")
-    assert rect._roughness == 1
+    assert rect._stroke_width == 2
+
+    rect.thickness("extra-bold")
+    assert rect._stroke_width == 4
 
 def test_rectangle_thickness_invalid():
     rect = Rectangle(DEFAULT_CONFIG)
@@ -66,8 +72,15 @@ def test_rectangle_thickness_invalid():
 
 def test_rectangle_sloppiness_valid():
     rect = Rectangle(DEFAULT_CONFIG)
+
+    rect.sloppiness("architect")
+    assert rect._roughness == 0
+
     rect.sloppiness("artist")
     assert rect._roughness == 1
+
+    rect.sloppiness("cartoonist")
+    assert rect._roughness == 2
 
     rect.sloppiness(2)
     assert rect._roughness == 2
