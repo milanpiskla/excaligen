@@ -8,7 +8,7 @@ import pytest
 from src.excaligen.impl.elements.Image import Image
 from src.excaligen.impl.base.AbstractImageListener import AbstractImageListener
 from src.excaligen.impl.images.ImageLoader import ImageLoader
-from src.excaligen.config.Config import DEFAULT_CONFIG
+from excaligen.defaults.Defaults import DEFAULT_CONFIG
 import os
 import io
 

@@ -7,7 +7,7 @@ Description: Ellipse shape.
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractShape import AbstractShape
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 class Ellipse(AbstractStrokedElement, AbstractShape):
     """

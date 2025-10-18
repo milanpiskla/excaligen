@@ -32,23 +32,23 @@ def test_color_hsl():
     assert str(color) == "#808000"
 
 def test_color_string():
-    color = Color.from_input("#FF8000")
+    color = Color.from_("#FF8000")
     assert color == "#FF8000"
 
-    color = Color.from_input("#003264")
+    color = Color.from_("#003264")
     assert color == "#003264"
 
-    color = Color.from_input("orange")
+    color = Color.from_("orange")
     assert color == "Orange"
 
-    color = Color.from_input("BLUE")
+    color = Color.from_("BLUE")
     assert color == "Blue"
 
     with pytest.raises(ValueError):
-        Color.from_input("invalid")
+        Color.from_("invalid")
 
     with pytest.raises(ValueError):
-        Color.from_input("#12345")
+        Color.from_("#12345")
 
     with pytest.raises(ValueError):
-        Color.from_input("#1234567")
+        Color.from_("#1234567")

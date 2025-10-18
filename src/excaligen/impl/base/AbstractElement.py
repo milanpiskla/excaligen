@@ -6,26 +6,28 @@ Description: Base class for all Excalidraw elements.
 
 import uuid
 from typing import Self
-from ...config.Config import Config
+from ...defaults.Defaults import Defaults
+
+from ..inputs.Opacity import Opacity
 
 # TODO make it consistent with excalidraw/packages/excalidraw/element/types.ts
 
 class AbstractElement:
     """Base class for all Excalidraw elements."""
 
-    def __init__(self, element_type: str, config: Config):
+    def __init__(self, element_type: str, defaults: Defaults):
         self._type = element_type
         self._id = str(uuid.uuid4())
         self._seed = int(uuid.uuid4().int % 1000000000)
         self._version = 1
         self._version_nonce = int(uuid.uuid4().int % 1000000000)
         self._is_deleted = False
-        self._x: float = config.get("x", 0)
-        self._y: float = config.get("y", 0)
-        self._width = 0.0
-        self._height = 0.0
-        self._opacity: int = config.get("opacity", 100)
-        self._angle = config.get("angle", 0)
+        self._x: float = getattr("_x", defaults)
+        self._y: float = getattr("_y", defaults)
+        self._width: float = getattr("_width", defaults)
+        self._height: float = getattr("_height", defaults)
+        self._opacity: int = getattr("_opacity", defaults)
+        self._angle: float = getattr("_angle", defaults)
         self._index: str | None = None
         self._group_ids: list[str] = []
         self._frame_id: str | None = None
@@ -93,9 +95,7 @@ class AbstractElement:
         Raises:
             ValueError: If the opacity value is not within the range 0-100.
         """
-        if not (0 <= opacity <= 100):
-            raise ValueError("Opacity values must be in the range: 0-100.")
-        self._opacity = opacity
+        self._opacity = Opacity.from_(opacity)
         return self
 
     def link(self, target: "str | AbstractElement") -> Self:

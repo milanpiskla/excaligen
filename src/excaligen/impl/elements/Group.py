@@ -14,7 +14,7 @@ from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
 from ..elements.Frame import Frame
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 from typing import Self
 

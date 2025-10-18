@@ -22,7 +22,7 @@ from ..indexer.IndexGenerator import IndexGenerator
 from .AbstractImageListener import AbstractImageListener
 from .AbstractPlainLabelListener import AbstractPlainLabelListener
 
-from ...config.Config import Config
+from ...defaults.Defaults import Config
 from typing import Self, cast
 
 import json

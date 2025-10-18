@@ -6,7 +6,7 @@ Description: Text element.
 
 from ..base.AbstractElement import AbstractElement
 from ..colors.Color import Color
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 from typing import Self
 
 class Text(AbstractElement):
@@ -180,7 +180,7 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        self._stroke_color = Color.from_input(color)
+        self._stroke_color = Color.from_(color)
         return self
 
     def __calculate_dimensions(self):

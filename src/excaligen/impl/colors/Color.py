@@ -74,7 +74,7 @@ class Color:
         raise ValueError(f"Invalid color name: {color}")
 
     @staticmethod
-    def from_input(input_color: "str | Color") -> str:
+    def from_(input_color: "str | Color") -> str:
         match input_color:
             case Color() as color:
                 return str(color)

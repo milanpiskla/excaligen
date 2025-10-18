@@ -7,7 +7,7 @@ Excalidraw diagram.
 # Licensed under the MIT License - see LICENSE file for details
 
 from .impl.base.ExcaligenStructure import ExcaligenStructure
-from .config.Config import Config
+from .defaults.Defaults import Config
 from .impl.elements.Rectangle import Rectangle
 from .impl.elements.Diamond import Diamond
 from .impl.elements.Ellipse import Ellipse

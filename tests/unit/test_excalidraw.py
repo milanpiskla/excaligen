@@ -6,7 +6,7 @@ Description: Unit tests for few elements.
 
 import pytest
 from excaligen.DiagramBuilder import DiagramBuilder
-from src.excaligen.config.Config import DEFAULT_CONFIG
+from excaligen.defaults.Defaults import DEFAULT_CONFIG
 
 def test_excalidraw_init():
     xd = DiagramBuilder()

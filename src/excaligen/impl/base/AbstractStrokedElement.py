@@ -8,7 +8,12 @@ from .AbstractElement import AbstractElement
 from ..elements.Text import Text
 from ..colors.Color import Color
 from .AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...config.Config import Config
+from ...defaults.Defaults import Config
+
+from ..inputs.Sloppiness import Sloppiness
+from ..inputs.Stroke import Stroke
+from ..inputs.Thickness import Thickness
+
 from typing import Self
 
 class AbstractStrokedElement(AbstractElement):
@@ -30,7 +35,7 @@ class AbstractStrokedElement(AbstractElement):
         Returns:
             Self: The current instance of the AbstractStrokedElement class.
         """
-        self._stroke_color = Color.from_input(color)
+        self._stroke_color = Color.from_(color)
         return self
 
     def thickness(self, thickness: int | str) -> Self:
@@ -45,17 +50,7 @@ class AbstractStrokedElement(AbstractElement):
         Returns:
             Self: The current instance of the AbstractStrokedElement class.
         """
-        match thickness:
-            case 1 | 2 | 3:
-                self._stroke_width = thickness
-            case "thin":
-                self._stroke_width = 1
-            case "bold":
-                self._stroke_width = 2
-            case "extra-bold":
-                self._stroke_width = 4
-            case _:
-                raise ValueError(f"Invalid thickness '{thickness}'. Use 1, 2, 3 or 'thin', 'bold', 'extra-bold'.")
+        self._stroke_width = Thickness.from_(thickness)
         return self
 
     def sloppiness(self, value: int | str) -> Self:
@@ -70,17 +65,7 @@ class AbstractStrokedElement(AbstractElement):
         Returns:
             Self: The current instance of the AbstractStrokedElement class.
         """
-        match value:
-            case 0 | 1 | 2:
-                self._roughness = value
-            case "architect":
-                self._roughness = 0
-            case "artist":
-                self._roughness = 1
-            case "cartoonist":
-                self._roughness = 2
-            case _:
-                raise ValueError(f"Invalid value '{value}' for sloppiness. Use 0, 1, 2 or 'architect', 'artist', 'cartoonist'.")
+        self._roughness = Sloppiness.from_(value)
         return self
 
     def stroke(self, style: str) -> Self:
@@ -95,11 +80,7 @@ class AbstractStrokedElement(AbstractElement):
         Returns:
             Self: The current instance of the AbstractStrokedElement class.
         """
-        match style:
-            case "solid" | "dotted" | "dashed":
-                self._stroke_style = style
-            case _:
-                raise ValueError(f"Invalid style '{style}' for stroke. Use 'solid', 'dotted', 'dashed'.")
+        self._stroke_style = Stroke.from_(style)
         return self
 
     def label(self, text: Text | str) -> Self:

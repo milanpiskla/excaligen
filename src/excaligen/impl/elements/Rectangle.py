@@ -6,7 +6,7 @@ Description: Rectangle shape.
 
 from ..base.AbstractCorneredShape import AbstractCorneredShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 class Rectangle(AbstractCorneredShape):
     """

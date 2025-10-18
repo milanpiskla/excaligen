@@ -4,7 +4,7 @@ Description: Factory for creating elements.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractImageLoader import AbstractImageLoader

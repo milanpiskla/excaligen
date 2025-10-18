@@ -10,7 +10,7 @@ from ..base.AbstractElement import AbstractElement
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
 from ..images.ImageData import ImageData
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 class Image(AbstractElement):
     """A class representing an image element that can be loaded from various sources.

@@ -14,7 +14,7 @@ from ..elements.Arrow import Arrow
 from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 from typing import Self
 

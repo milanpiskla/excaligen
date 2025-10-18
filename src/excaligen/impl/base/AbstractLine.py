@@ -6,7 +6,7 @@ Description: Base class for lines and arrows.
 
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 from ..geometry.Point import Point
 from typing import Self
 

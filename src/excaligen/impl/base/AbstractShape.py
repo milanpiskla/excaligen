@@ -6,16 +6,16 @@ Description: Base class for shapes.
 
 from .AbstractElement import AbstractElement
 from ..colors.Color import Color
-from ...config.Config import Config
+from ...defaults.Defaults import Defaults
 from typing import Self
 
 class AbstractShape(AbstractElement):
-    def __init__(self, type: str, config: Config):
-        super().__init__(type, config)
-        self._width = config.get("width", 100)
-        self._height = config.get("height", 100)
-        self._background_color = config.get("backgroundColor", "transparent")
-        self._fill_style = config.get("fillStyle", "hachure")
+    def __init__(self, type: str, defaults: Defaults):
+        super().__init__(type, defaults)
+        self._width = getattr("_width", defaults)
+        self._height = getattr("_height", defaults)
+        self._background_color = getattr("_backgroundColor", defaults)
+        self._fill_style = getattr("_fillStyle", defaults)
 
     def size(self, width: float, height: float) -> Self:
         """
@@ -40,7 +40,7 @@ class AbstractShape(AbstractElement):
         Returns:
             Self: The instance of the class for method chaining.
         """
-        self._background_color = Color.from_input(color)
+        self._background_color = Color.from_(color)
         return self
 
     def fill(self, style: str) -> Self:

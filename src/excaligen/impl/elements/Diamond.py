@@ -6,7 +6,7 @@ Description: Diamond shape.
 
 from ..base.AbstractCorneredShape import AbstractCorneredShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 class Diamond(AbstractCorneredShape):
     """A class representing a diamond shape in the diagram.

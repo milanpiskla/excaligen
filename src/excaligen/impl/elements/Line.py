@@ -6,7 +6,7 @@ Description: Line element.
 
 from ..base.AbstractLine import AbstractLine
 from ..colors.Color import Color
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 from typing import Self
 
 class Line(AbstractLine):
@@ -30,7 +30,7 @@ class Line(AbstractLine):
         Returns:
             Self: The instance of the class for method chaining.
         """
-        self._background_color = Color.from_input(color)
+        self._background_color = Color.from_(color)
         return self
 
     def close(self):

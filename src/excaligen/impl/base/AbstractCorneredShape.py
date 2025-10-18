@@ -7,7 +7,7 @@ Description: Base class for shapes with corners.
 from .AbstractStrokedElement import AbstractStrokedElement
 from .AbstractShape import AbstractShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...config.Config import Config
+from ...defaults.Defaults import Config
 from typing import Self, Any
 
 class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):

@@ -15,7 +15,7 @@ from ..geometry.ElbowConnection import ElbowConnection
 from ..geometry.Directions import Directions
 from ..geometry.Point import Point
 
-from ...config.Config import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Config, DEFAULT_CONFIG
 
 from enum import Enum
 from typing import Self, Any

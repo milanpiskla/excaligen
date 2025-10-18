@@ -12,7 +12,7 @@ from src.excaligen.impl.elements.Ellipse import Ellipse
 from src.excaligen.impl.elements.Text import Text
 from src.excaligen.impl.elements.Line import Line
 from src.excaligen.impl.elements.Arrow import Arrow
-from src.excaligen.config.Config import DEFAULT_CONFIG
+from excaligen.defaults.Defaults import DEFAULT_CONFIG
 
 def test_rectangle_init():
     rect = Rectangle(DEFAULT_CONFIG)
