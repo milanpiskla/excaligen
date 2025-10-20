@@ -7,13 +7,14 @@ Description: Base class for shapes with corners.
 from .AbstractStrokedElement import AbstractStrokedElement
 from .AbstractShape import AbstractShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...defaults.Defaults import Config
+from ...defaults.Defaults import Defaults
+from ..inputs.Roundness import Roundness
 from typing import Self, Any
 
 class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
-    def __init__(self, type: str, listener: AbstractPlainLabelListener, config: Config):
-        super().__init__(type, listener, config)
-        self._roundness: str | dict[str, Any] | None = config.get("roundness", None)
+    def __init__(self, type: str, listener: AbstractPlainLabelListener, defaults: Defaults):
+        super().__init__(type, listener, defaults)
+        self._roundness: str | dict[str, Any] | None = getattr("roundness", defaults)
 
     def roundness(self, roundness: str) -> Self:
         """
@@ -30,11 +31,5 @@ class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
         Raises:
         ValueError: If the provided roundness style is not "sharp" or "round".
         """
-        match roundness:
-            case "sharp":
-                self._roundness = None
-            case "round":
-                self._roundness = { "type": 3 }
-            case _:
-                raise ValueError(f"Invalid roundness '{roundness}'. Use 'sharp', 'round'")
+        self._roundness = Roundness.from_(roundness)
         return self

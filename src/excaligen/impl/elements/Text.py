@@ -7,6 +7,10 @@ Description: Text element.
 from ..base.AbstractElement import AbstractElement
 from ..colors.Color import Color
 from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ..inputs.Font import Font
+from ..inputs.Fontsize import Fontsize
+from ..inputs.Align import Align
+from ..inputs.Baseline import Baseline
 from typing import Self
 
 class Text(AbstractElement):
@@ -16,23 +20,6 @@ class Text(AbstractElement):
     alignments, and colors. The class supports auto-resizing capabilities and multiple font 
     families.
     """
-    FONT_MAPPING = {
-        "hand-drawn": 1,
-        "normal": 2,
-        "code": 3,
-        "excalifont": 5,
-        "comic-shaans": 8,
-        "lilita-one": 7,
-        "nunito": 6
-    }
-
-    SIZE_MAPPING = {
-        "s": 16,
-        "m": 20,
-        "l": 24,
-        "xl": 32
-    }
-
     CHAR_WIDTH_FACTOR = 0.6  # Approximate width of a character relative to the font size
     LINE_HEIGHT_FACTOR = 1.25  # Approximate line height factor
 
@@ -76,17 +63,7 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        if isinstance(size, int):
-            self._font_size = size
-        elif isinstance(size, str):
-            original_size = size
-            size = size.lower()
-            if size in self.SIZE_MAPPING:
-                self._font_size = self.SIZE_MAPPING[size]
-            else:
-                raise ValueError(f"Invalid size '{original_size}'. Use 'S', 'M', 'L', 'XL'.")
-        else:
-            raise TypeError("Font size must be an int or one of 'S', 'M', 'L', 'XL'.")
+        self._font_size = Fontsize.from_(size)
         self.__calculate_dimensions()  # Recalculate dimensions when font size changes
         return self
 
@@ -102,11 +79,7 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        family = family.lower().replace(" ", "-")
-        if family in self.FONT_MAPPING:
-            self._font_family = self.FONT_MAPPING[family]
-        else:
-            raise ValueError(f"Invalid font '{family}'. Use 'Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code'.")
+        self._font_family = Font.from_(family)
         return self
 
     def align(self, align: str) -> Self:
@@ -121,11 +94,7 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        match align:
-            case "left" | "center" | "right":
-                self._text_align = align
-            case _:
-                raise ValueError(f"Invalid alignment '{align}'. Use 'left', 'center', 'right'.")
+        self._text_align = Align.from_(align)
         return self
 
     def baseline(self, align: str) -> Self:
@@ -140,11 +109,7 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        match align:
-            case "top" | "middle" | "bottom":
-                self._vertical_align = align
-            case _:
-                raise ValueError(f"Invalid vertical alignment '{align}'. Use 'top', 'middle', 'bottom'.")
+        self._vertical_align = Baseline.from_(align)
         return self
 
     def spacing(self, height: float) -> Self:

@@ -7,6 +7,7 @@ Description: Base class for shapes.
 from .AbstractElement import AbstractElement
 from ..colors.Color import Color
 from ...defaults.Defaults import Defaults
+from ..inputs.Fill import Fill
 from typing import Self
 
 class AbstractShape(AbstractElement):
@@ -56,10 +57,6 @@ class AbstractShape(AbstractElement):
         Raises:
         ValueError: If the provided style is not one of 'hatchure', 'cross-hatch', or 'solid'.
         """
-        match style:
-            case "hatchure" | "cross-hatch" | "solid":
-                self._fill_style = style
-            case _:
-                raise ValueError(f"Invalid style '{style}' for fill. Use 'hatchure', 'cross-hatch', 'solid'.")
+        self._fill_style = Fill.from_(style)
         return self
 
