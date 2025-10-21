@@ -14,7 +14,7 @@ from ..elements.Arrow import Arrow
 from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 
 from typing import Self
 
@@ -30,11 +30,11 @@ class Frame(AbstractShape):
     sized. Frames can also have titles and background colors, making them useful for
     grouping related elements and creating visual hierarchies in the layout.
     """
-    def __init__(self, config: Config = DEFAULT_CONFIG):
-        super().__init__("frame", config)
+    def __init__(self, defaults: Defaults):
+        super().__init__("frame", defaults)
         self._width = 0.0
         self._height = 0.0
-        self._background_color = config.get("backgroundColor", "transparent")
+        self._background_color = getattr("_backgroundColor", defaults)
         self._title = None
 
     def title(self, title: str) -> Self:

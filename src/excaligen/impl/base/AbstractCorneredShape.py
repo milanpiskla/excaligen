@@ -14,7 +14,7 @@ from typing import Self, Any
 class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
     def __init__(self, type: str, listener: AbstractPlainLabelListener, defaults: Defaults):
         super().__init__(type, listener, defaults)
-        self._roundness: str | dict[str, Any] | None = getattr("roundness", defaults)
+        self._roundness: str | dict[str, Any] | None = getattr("_roundness", defaults)
 
     def roundness(self, roundness: str) -> Self:
         """

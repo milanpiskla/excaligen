@@ -10,7 +10,7 @@ from ..base.AbstractElement import AbstractElement
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractImageLoader import AbstractImageLoader
 from ..images.ImageData import ImageData
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 
 class Image(AbstractElement):
     """A class representing an image element that can be loaded from various sources.
@@ -18,8 +18,8 @@ class Image(AbstractElement):
     or raw data (bytes/SVG). It supports basic image operations like scaling and 
     fitting within bounds while maintaining aspect ratio.
     """
-    def __init__(self, listener: AbstractImageListener, loader: AbstractImageLoader, config: Config = DEFAULT_CONFIG):
-        super().__init__("image", config)
+    def __init__(self, defaults: Defaults, listener: AbstractImageListener, loader: AbstractImageLoader):
+        super().__init__("image", defaults)
         self._file_id = str(uuid.uuid4())
         self._scale = [1, 1]
         self._status = "pending"

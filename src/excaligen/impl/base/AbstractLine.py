@@ -6,15 +6,16 @@ Description: Base class for lines and arrows.
 
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 from ..geometry.Point import Point
+from ..inputs.Roundness import Roundness
 from typing import Self
 
 class AbstractLine(AbstractStrokedElement):
-    def __init__(self, type: str, listener: AbstractPlainLabelListener | None = None, config: Config = DEFAULT_CONFIG):
-        super().__init__(type, listener, config)
+    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener | None = None):
+        super().__init__(type, listener, defaults)
         self._points: list[Point] = []
-        self._roundness = config.get("roundness", None)
+        self._roundness = getattr("_roundness", defaults)
 
     def points(self, points: list[Point]) -> Self:
         """
@@ -47,11 +48,5 @@ class AbstractLine(AbstractStrokedElement):
         Raises:
         ValueError: If the provided roundness style is not "sharp" or "round".
         """
-        match roundness:
-            case "sharp":
-                self._roundness = None
-            case "round":
-                self._roundness = { "type": 3 }
-            case _:
-                raise ValueError(f"Invalid edges '{roundness}'. Use 'sharp', 'round'")
+        self._roundness = Roundness.from_(roundness)
         return self

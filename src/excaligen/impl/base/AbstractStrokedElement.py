@@ -8,7 +8,7 @@ from .AbstractElement import AbstractElement
 from ..elements.Text import Text
 from ..colors.Color import Color
 from .AbstractPlainLabelListener import AbstractPlainLabelListener
-from ...defaults.Defaults import Config
+from ...defaults.Defaults import Defaults
 
 from ..inputs.Sloppiness import Sloppiness
 from ..inputs.Stroke import Stroke
@@ -17,12 +17,12 @@ from ..inputs.Thickness import Thickness
 from typing import Self
 
 class AbstractStrokedElement(AbstractElement):
-    def __init__(self, type: str, listener: AbstractPlainLabelListener, config: Config):
-        super().__init__(type, config)
-        self._stroke_color = config.get("strokeColor", "#000000")
-        self._stroke_width = config.get("strokeWidth", 1)
-        self._stroke_style = config.get("strokeStyle", "solid")
-        self._roughness = config.get("roughness", 1)
+    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener):
+        super().__init__(type, defaults)
+        self._stroke_color = getattr("_strokeColor", defaults)
+        self._stroke_width = getattr("_strokeWidth", defaults)
+        self._stroke_style = getattr("_strokeStyle", defaults)
+        self._roughness = getattr("_roughness", defaults)
         self.__listener = listener
         self.__label: Text | None = None
 

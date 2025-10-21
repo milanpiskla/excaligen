@@ -14,7 +14,7 @@ from ..elements.Line import Line
 from ..elements.Text import Text
 from ..elements.Image import Image
 from ..elements.Frame import Frame
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 
 from typing import Self
 
@@ -28,7 +28,7 @@ class Group():
     within a group can be manipulated together while maintaining their individual properties.
     Each group is identified by a unique UUID.
     """
-    def __init__(self, config: Config = DEFAULT_CONFIG):
+    def __init__(self, defaults: Defaults):
         self.__id = str(uuid.uuid4())
 
     def elements(self, *elements: Element) -> Self:

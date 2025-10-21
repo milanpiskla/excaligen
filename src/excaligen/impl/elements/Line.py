@@ -6,7 +6,7 @@ Description: Line element.
 
 from ..base.AbstractLine import AbstractLine
 from ..colors.Color import Color
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 from typing import Self
 
 class Line(AbstractLine):
@@ -16,9 +16,9 @@ class Line(AbstractLine):
     It provides functionality for creating and manipulating straight pr curved lines with specified 
     configurations for styling and positioning.
     """
-    def __init__(self, config: Config = DEFAULT_CONFIG):
-        super().__init__("line", config)
-        self._background_color = config.get("backgroundColor", "transparent")
+    def __init__(self, defaults: Defaults):
+        super().__init__("line", defaults)
+        self._background_color = getattr("_backgroundColor", defaults)
 
     def background(self, color: str | Color) -> Self:
         """

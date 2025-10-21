@@ -6,7 +6,7 @@ Description: Text element.
 
 from ..base.AbstractElement import AbstractElement
 from ..colors.Color import Color
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 from ..inputs.Font import Font
 from ..inputs.Fontsize import Fontsize
 from ..inputs.Align import Align
@@ -23,18 +23,18 @@ class Text(AbstractElement):
     CHAR_WIDTH_FACTOR = 0.6  # Approximate width of a character relative to the font size
     LINE_HEIGHT_FACTOR = 1.25  # Approximate line height factor
 
-    def __init__(self, config: Config = DEFAULT_CONFIG):
-        super().__init__("text", config)
-        self._text = config.get("text", "")
-        self._font_size = config.get("fontSize", 16)
-        self._font_family = config.get("fontFamily", 1)
-        self._text_align = config.get("textAlign", "center")
-        self._vertical_align = config.get("verticalAlign", "middle")
-        self._line_height = config.get("lineHeight", 1.25)
-        self._auto_resize = config.get("autoResize", True)
-        self._stroke_color = config.get("strokeColor", "#000000")  # Default to black
-        self._width = config.get("width", 100)
-        self._height = config.get("height", 100)
+    def __init__(self, defaults: Defaults):
+        super().__init__("text", defaults)
+        self._text: str = ""
+        self._font_size = getattr("_fontSize", defaults)
+        self._font_family = getattr("_fontFamily", defaults)
+        self._text_align = getattr("_textAlign", defaults)
+        self._vertical_align = getattr("_verticalAlign", defaults)
+        self._line_height = getattr("_lineHeight", defaults)
+        self._auto_resize = getattr("_autoResize", defaults)
+        self._stroke_color = getattr("_strokeColor", defaults)
+        self._width = getattr("_width", defaults)
+        self._height = getattr("_height", defaults)
         self._container_id: str | None = None
 
     def content(self, text: str) -> Self:

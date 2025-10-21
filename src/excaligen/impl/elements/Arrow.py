@@ -15,7 +15,9 @@ from ..geometry.ElbowConnection import ElbowConnection
 from ..geometry.Directions import Directions
 from ..geometry.Point import Point
 
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ..inputs.Arrowheads import Arrowheads
+
+from ...defaults.Defaults import Defaults
 
 from enum import Enum
 from typing import Self, Any
@@ -39,12 +41,12 @@ class Arrow(AbstractLine):
         CURVE = 2
         ELBOW = 3
 
-    def __init__(self, listener: AbstractPlainLabelListener, config: Config = DEFAULT_CONFIG):
-        super().__init__("arrow", listener, config)
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
+        super().__init__("arrow", listener, defaults)
         self._start_binding = None
         self._end_binding = None
-        self._start_arrowhead = config.get("startArrowhead", None)
-        self._end_arrowhead = config.get("endArrowhead", "arrow")
+        self._start_arrowhead = getattr("_startArrowhead", defaults)
+        self._end_arrowhead = getattr("_endArrowhead", defaults)
         self._elbowed = False
         self.__start_gap = 1
         self.__end_gap = 1
@@ -129,15 +131,7 @@ class Arrow(AbstractLine):
         Returns:
             Self: The current instance of the Arrow class.
         """
-        valid_arrowheads = {'none', 'arrow', 'bar', 'dot', 'triangle'}
-        start = start.lower()
-        end = end.lower()
-        if start not in valid_arrowheads:
-            raise ValueError(f"Invalid start arrowhead '{start}'. Valid options are {valid_arrowheads}.")
-        if end not in valid_arrowheads:
-            raise ValueError(f"Invalid end arrowhead '{end}'. Valid options are {valid_arrowheads}.")
-        self._start_arrowhead = None if start == 'none' else start
-        self._end_arrowhead = None if end == 'none' else end
+        self._start_arrowhead, self._end_arrowhead = Arrowheads.from_(start, end)
         return self
 
     def elbow(self, start_direction: str, end_direction: str) -> Self:

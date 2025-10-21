@@ -19,11 +19,11 @@ class AbstractElement:
         self._type = element_type
         self._id = str(uuid.uuid4())
         self._seed = int(uuid.uuid4().int % 1000000000)
-        self._version = 1
+        self._version: int = 1
         self._version_nonce = int(uuid.uuid4().int % 1000000000)
         self._is_deleted = False
-        self._x: float = getattr("_x", defaults)
-        self._y: float = getattr("_y", defaults)
+        self._x: float = 0.0
+        self._y: float = 0.0
         self._width: float = getattr("_width", defaults)
         self._height: float = getattr("_height", defaults)
         self._opacity: int = getattr("_opacity", defaults)

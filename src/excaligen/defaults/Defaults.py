@@ -13,6 +13,7 @@ from ..impl.inputs.Fontsize import Fontsize
 from ..impl.inputs.Font import Font
 from ..impl.inputs.Align import Align
 from ..impl.inputs.Baseline import Baseline
+from ..impl.inputs.Arrowheads import Arrowheads
 from ..impl.colors.Color import Color
 
 from typing import Self, Any
@@ -36,6 +37,8 @@ class Defaults:
         self._verticalAlign: str = "middle",
         self._autoResize = True,
         self._lineHeight: float = 1.25,
+        self._startArrowhead: str = "none",
+        self._endArrowhead: str = "arrow",
 
     def size(self, width: float, height: float) -> Self:
         """
@@ -252,3 +255,20 @@ class Defaults:
         self._lineHeight = height
         return self
 
+    def arrowheads(self, start: str, end: str) -> Self:
+        """Set the arrowhead styles for the start and end of the arrow.
+
+        Valid arrowheads values are 'none', 'arrow', 'bar', 'dot' and 'triangle'.
+
+        Args:
+            start (str, optional): The style of the start arrowhead. Defaults to 'none'.
+            end (str, optional): The style of the end arrowhead. Defaults to 'arrow'.
+
+        Raises:
+            ValueError: If an invalid arrowhead style is provided.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
+        self._start_arrowhead, self._end_arrowhead = Arrowheads.from_(start, end)
+        return self
