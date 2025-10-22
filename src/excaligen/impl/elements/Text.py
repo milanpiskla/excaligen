@@ -26,15 +26,15 @@ class Text(AbstractElement):
     def __init__(self, defaults: Defaults):
         super().__init__("text", defaults)
         self._text: str = ""
-        self._font_size = getattr("_fontSize", defaults)
-        self._font_family = getattr("_fontFamily", defaults)
-        self._text_align = getattr("_textAlign", defaults)
-        self._vertical_align = getattr("_verticalAlign", defaults)
-        self._line_height = getattr("_lineHeight", defaults)
-        self._auto_resize = getattr("_autoResize", defaults)
-        self._stroke_color = getattr("_strokeColor", defaults)
-        self._width = getattr("_width", defaults)
-        self._height = getattr("_height", defaults)
+        self._font_size = getattr(defaults, "_fontSize")
+        self._font_family = getattr(defaults, "_fontFamily")
+        self._text_align = getattr(defaults, "_textAlign")
+        self._vertical_align = getattr(defaults, "_verticalAlign")
+        self._line_height = getattr(defaults, "_lineHeight")
+        self._auto_resize = getattr(defaults, "_autoResize")
+        self._stroke_color = getattr(defaults, "_strokeColor")
+        self._width = getattr(defaults, "_width")
+        self._height = getattr(defaults, "_height")
         self._container_id: str | None = None
 
     def content(self, text: str) -> Self:

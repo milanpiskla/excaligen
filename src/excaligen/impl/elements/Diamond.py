@@ -13,5 +13,5 @@ class Diamond(AbstractCorneredShape):
 
     Diamond shape is a four-sided polygon with equal sides and opposite angles equal.
     """
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener | None = None):
         super().__init__("diamond", defaults, listener)

@@ -6,7 +6,7 @@ Description: Unit tests for few elements.
 
 import pytest
 from excaligen.DiagramBuilder import DiagramBuilder
-from excaligen.defaults.Defaults import DEFAULT_CONFIG
+from excaligen.defaults.Defaults import Defaults
 
 def test_excalidraw_init():
     xd = DiagramBuilder()
@@ -27,7 +27,7 @@ def test_add_text():
     xd = DiagramBuilder()
     text = xd.text().content("Hello, Excalidraw!")
     assert text._text == "Hello, Excalidraw!"
-    assert text._font_size == DEFAULT_CONFIG['fontSize']
+    assert text._font_size == getattr(xd.defaults(), '_fontSize')
     assert len(xd._elements) == 1
     assert xd._elements[0]._type == "text"
 

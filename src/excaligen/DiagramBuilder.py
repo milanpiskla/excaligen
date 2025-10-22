@@ -7,7 +7,7 @@ Excalidraw diagram.
 # Licensed under the MIT License - see LICENSE file for details
 
 from .impl.base.ExcaligenStructure import ExcaligenStructure
-from .defaults.Defaults import Config
+from .defaults.Defaults import Defaults
 from .impl.elements.Rectangle import Rectangle
 from .impl.elements.Diamond import Diamond
 from .impl.elements.Ellipse import Ellipse
@@ -30,16 +30,13 @@ class DiagramBuilder(ExcaligenStructure):
     def __init__(self):
         super().__init__()
 
-    def config(self, config: Config) -> Self:
-        """Configure the diagram with the given settings.
-
-        Args:
-            config (Config): The configuration settings.
+    def defaults(self) -> Defaults:
+        """Retrieve the default parameters for elements.
 
         Returns:
-            Self: The current instance of the Excaligen class.
+            Defaults: The default parameteres for elements.
         """
-        return super().config(config)
+        return super().defaults()
     
     def grid(self, size: int, step: int, enabled: bool) -> Self:
         """Set the grid properties for the diagram.

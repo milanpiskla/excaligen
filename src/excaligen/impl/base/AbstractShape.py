@@ -13,10 +13,10 @@ from typing import Self
 class AbstractShape(AbstractElement):
     def __init__(self, type: str, defaults: Defaults):
         super().__init__(type, defaults)
-        self._width = getattr("_width", defaults)
-        self._height = getattr("_height", defaults)
-        self._background_color = getattr("_backgroundColor", defaults)
-        self._fill_style = getattr("_fillStyle", defaults)
+        self._width = getattr(defaults, "_width")
+        self._height = getattr(defaults, "_height")
+        self._background_color = getattr(defaults, "_backgroundColor")
+        self._fill_style = getattr(defaults, "_fillStyle")
 
     def size(self, width: float, height: float) -> Self:
         """

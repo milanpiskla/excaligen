@@ -15,7 +15,7 @@ class AbstractLine(AbstractStrokedElement):
     def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener | None = None):
         super().__init__(type, listener, defaults)
         self._points: list[Point] = []
-        self._roundness = getattr("_roundness", defaults)
+        self._roundness = getattr(defaults, "_roundness")
 
     def points(self, points: list[Point]) -> Self:
         """

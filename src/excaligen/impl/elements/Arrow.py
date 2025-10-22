@@ -41,12 +41,12 @@ class Arrow(AbstractLine):
         CURVE = 2
         ELBOW = 3
 
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener | None = None) -> None:
         super().__init__("arrow", listener, defaults)
         self._start_binding = None
         self._end_binding = None
-        self._start_arrowhead = getattr("_startArrowhead", defaults)
-        self._end_arrowhead = getattr("_endArrowhead", defaults)
+        self._start_arrowhead = getattr(defaults, "_startArrowhead")
+        self._end_arrowhead = getattr(defaults, "_endArrowhead")
         self._elbowed = False
         self.__start_gap = 1
         self.__end_gap = 1

@@ -22,7 +22,7 @@ from ..indexer.IndexGenerator import IndexGenerator
 from .AbstractImageListener import AbstractImageListener
 from .AbstractPlainLabelListener import AbstractPlainLabelListener
 
-from ...defaults.Defaults import Config
+from ...defaults.Defaults import Defaults
 from typing import Self, cast
 
 import json
@@ -69,9 +69,8 @@ class ExcaligenStructure(AbstractImageListener, AbstractPlainLabelListener):
         self.__indexer = IndexGenerator(self._START_INDEX)
         self.__index = self._START_INDEX
 
-    def config(self, config: Config) -> Self:
-        self.__factory.config(config)
-        return self
+    def defaults(self) -> Defaults:
+        return self.__factory.defaults()
 
     def grid(self, size: int, step: int, enabled: bool) -> Self:
         self._app_state["gridSize"] = size

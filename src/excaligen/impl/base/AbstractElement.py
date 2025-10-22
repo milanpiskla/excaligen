@@ -24,10 +24,10 @@ class AbstractElement:
         self._is_deleted = False
         self._x: float = 0.0
         self._y: float = 0.0
-        self._width: float = getattr("_width", defaults)
-        self._height: float = getattr("_height", defaults)
-        self._opacity: int = getattr("_opacity", defaults)
-        self._angle: float = getattr("_angle", defaults)
+        self._width: float = getattr(defaults, "_width")
+        self._height: float = getattr(defaults, "_height")
+        self._opacity: int = getattr(defaults, "_opacity")
+        self._angle: float = getattr(defaults, "_angle")
         self._index: str | None = None
         self._group_ids: list[str] = []
         self._frame_id: str | None = None

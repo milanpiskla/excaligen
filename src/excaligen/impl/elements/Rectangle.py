@@ -15,5 +15,5 @@ class Rectangle(AbstractCorneredShape):
     The rectangle is defined by its position and dimensions,
     and can be configured with various visual properties through the config parameter.
     """
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener | None = None):
         super().__init__("rectangle", defaults, listener)

@@ -18,7 +18,7 @@ class Line(AbstractLine):
     """
     def __init__(self, defaults: Defaults):
         super().__init__("line", defaults)
-        self._background_color = getattr("_backgroundColor", defaults)
+        self._background_color = getattr(defaults, "_backgroundColor")
 
     def background(self, color: str | Color) -> Self:
         """

@@ -4,7 +4,7 @@ Description: Factory for creating elements.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from ...defaults.Defaults import Config, DEFAULT_CONFIG
+from ...defaults.Defaults import Defaults
 from ..base.AbstractImageListener import AbstractImageListener
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractImageLoader import AbstractImageLoader
@@ -24,19 +24,15 @@ from typing import Self
 
 class ElementFactory():
     def __init__(self):
-        self._config: Config = DEFAULT_CONFIG
+        self._defaults: Defaults = Defaults()
 
-    def config(self, config: Config) -> Self:
-        """Set the configuration for the element factory.
-
-        Args:
-            config (Config): The configuration settings.
+    def defaults(self) -> Defaults:
+        """Get the default parameters for elements.
 
         Returns:
-            Self: The current instance of the ElementFactory class.
+            Defaults: The default parameters for elements.
         """
-        self._config = config
-        return self
+        return self._defaults
 
     def rectangle(self, listener: AbstractPlainLabelListener) -> Rectangle:
         """Create a rectangle element with the current configuration.
@@ -44,7 +40,7 @@ class ElementFactory():
         Returns:
             Rectangle: The rectangle element.
         """
-        return Rectangle(listener, self._config)
+        return Rectangle(self._defaults, listener)
 
     def diamond(self, listener: AbstractPlainLabelListener) -> Diamond:
         """Create a diamond element with the current configuration.
@@ -52,7 +48,7 @@ class ElementFactory():
         Returns:
             Diamond: The diamond element.
         """
-        return Diamond(listener, self._config)
+        return Diamond(self._defaults, listener)
 
     def ellipse(self, listener: AbstractPlainLabelListener) -> Ellipse:
         """Create an ellipse element with the current configuration.
@@ -60,7 +56,7 @@ class ElementFactory():
         Returns:
             Ellipse: The ellipse element.
         """
-        return Ellipse(listener, self._config)
+        return Ellipse(self._defaults, listener)
 
     def arrow(self, listener: AbstractPlainLabelListener) -> Arrow:
         """Create an arrow element with the current configuration.
@@ -68,7 +64,7 @@ class ElementFactory():
         Returns:
             Arrow: The arrow element.
         """
-        return Arrow(listener, self._config)
+        return Arrow(self._defaults, listener)
 
     def line(self) -> Line:
         """Create a line element with the current configuration.
@@ -76,7 +72,7 @@ class ElementFactory():
         Returns:
             Line: The line element.
         """
-        return Line(self._config)
+        return Line(self._defaults)
 
     def text(self) -> Text:
         """Create a text element with the current configuration.
@@ -84,7 +80,7 @@ class ElementFactory():
         Returns:
             Text: The text element.
         """
-        return Text(self._config)
+        return Text(self._defaults)
 
     def image(self, listener: AbstractImageListener, loader: AbstractImageLoader) -> Image:
         """Create an image element with the current configuration.
@@ -96,7 +92,7 @@ class ElementFactory():
         Returns:
             Image: The image element.
         """
-        return Image(listener, loader, self._config)
+        return Image(self._defaults, listener, loader)
 
     def frame(self) -> Frame:
         """Create a frame element with the current configuration.
@@ -104,7 +100,7 @@ class ElementFactory():
         Returns:
             Frame: The frame element.
         """
-        return Frame(self._config)
+        return Frame(self._defaults)
 
     def group(self) -> Group:
         """Create a group element with the current configuration.
@@ -112,7 +108,7 @@ class ElementFactory():
         Returns:
             Group: The group element.
         """
-        return Group(self._config)
+        return Group(self._defaults)
     
     def color(self) -> Color:
         """Create a color object.
