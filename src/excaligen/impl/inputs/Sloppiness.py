@@ -6,7 +6,7 @@ Description: Helper for roughness input processing.
 
 class Sloppiness:
     @staticmethod
-    def from_(sloppiness: int | str) -> str | float | None:
+    def from_(sloppiness: int | str) -> int:
         """
         Set the sloppiness by int (0, 1, 2) or by string ('architect', 'artist', 'cartoonist').
 

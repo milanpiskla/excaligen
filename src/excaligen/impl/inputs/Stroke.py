@@ -21,4 +21,4 @@ class Stroke:
             case "solid" | "dashed" | "dotted":
                 return stroke
             case _:
-                raise ValueError(f"Invalid value '{stroke}' for stroke style. Use 'solid', 'dashed', or 'dotted'.")
+                raise ValueError(f"Invalid style '{stroke}' for stroke. Use 'solid', 'dotted', or 'dashed'.")

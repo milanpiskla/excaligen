@@ -21,4 +21,4 @@ class Fill:
             case "hatchure" | "cross-hatch" | "solid":
                 return style
             case _:
-                raise ValueError(f"Invalid value '{style}' for fill style. Use 'hatchure', 'cross-hatch', or 'solid'.")
+                raise ValueError(f"Invalid fill style '{style}'. Use 'hatchure', 'cross-hatch', or 'solid'.")

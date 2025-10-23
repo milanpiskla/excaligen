@@ -12,8 +12,8 @@ from ..inputs.Roundness import Roundness
 from typing import Self
 
 class AbstractLine(AbstractStrokedElement):
-    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener | None = None):
-        super().__init__(type, listener, defaults)
+    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener):
+        super().__init__(type, defaults, listener)
         self._points: list[Point] = []
         self._roundness = getattr(defaults, "_roundness")
 

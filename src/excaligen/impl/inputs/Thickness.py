@@ -28,4 +28,4 @@ class Thickness:
             case "extra-bold":
                 return 4
             case _:
-                raise ValueError(f"Invalid thickness value: {thickness}")
+                raise ValueError(f"Invalid thickness '{thickness}'. Use 1, 2, 3 or 'thin', 'bold', or 'extra-bold'.")

@@ -22,13 +22,13 @@ class Font:
 
         Args:
             family (str): The font family to set. Acceptable values are:
-                 - "hand-drawn"
-                 - "normal"
-                 - "code"
-                 - "excalifont"
-                 - "comic-shaans"
-                 - "lilita-one"
-                 - "nunito"
+                 - "Hand-drawn"
+                 - "Normal"
+                 - "Code"
+                 - "Excalifont"
+                 - "Comic-shaans"
+                 - "Lilita-one"
+                 - "Nunito"
 
         Raises:
             ValueError: If an invalid font value is provided.
@@ -37,5 +37,5 @@ class Font:
         if family in Font.FONT_MAPPING:
             return Font.FONT_MAPPING[family]
         else:
-            raise ValueError(f"Invalid value '{family}' for font. Use one of {list(Font.FONT_MAPPING.keys())}.")
+            raise ValueError(f"Invalid font '{family}'. Use one of {list(Font.FONT_MAPPING.keys())}.")
                 

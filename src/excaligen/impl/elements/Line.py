@@ -5,6 +5,8 @@ Description: Line element.
 # Licensed under the MIT License - see LICENSE file for details
 
 from ..base.AbstractLine import AbstractLine
+from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from ..elements.Text import Text
 from ..colors.Color import Color
 from ...defaults.Defaults import Defaults
 from typing import Self
@@ -17,7 +19,11 @@ class Line(AbstractLine):
     configurations for styling and positioning.
     """
     def __init__(self, defaults: Defaults):
-        super().__init__("line", defaults)
+        class DummyListener(AbstractPlainLabelListener):
+            def _on_text(self, text: str) -> Text:
+                return Text(defaults)
+
+        super().__init__("line", defaults, DummyListener())
         self._background_color = getattr(defaults, "_backgroundColor")
 
     def background(self, color: str | Color) -> Self:

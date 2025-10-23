@@ -34,6 +34,6 @@ class Fontsize:
                 if size in Fontsize.SIZE_MAPPING:
                     return Fontsize.SIZE_MAPPING[size]
                 else:
-                    raise ValueError(f"Invalid size '{original_size}'. Use 'S', 'M', 'L', 'XL'.")
+                    raise ValueError(f"Invalid size '{original_size}'. Use 'S', 'M', 'L', or 'XL'.")
             case _:
                 raise TypeError("Font size must be an int or one of 'S', 'M', 'L', 'XL'.")

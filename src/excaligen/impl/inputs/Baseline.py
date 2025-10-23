@@ -21,4 +21,4 @@ class Baseline:
             case "top" | "middle" | "bottom":
                 return align
             case _:
-                raise ValueError(f"Invalid value '{align}' for vertical text alignment. Use 'top', 'middle', or 'bottom'.")
+                raise ValueError(f"Invalid vertical text alignment '{align}'. Use 'top', 'middle', or 'bottom'.")

@@ -26,4 +26,4 @@ class Roundness:
             case dict():
                 return roundness
             case _:
-                raise ValueError(f"Invalid value '{roundness}' for roundness. Use 'sharp', 'round' or a dict.")
+                raise ValueError(f"Invalid roundness '{roundness}'. Use 'sharp', or 'round'.")

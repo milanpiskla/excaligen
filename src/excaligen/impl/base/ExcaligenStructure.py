@@ -133,7 +133,7 @@ class ExcaligenStructure(AbstractImageListener, AbstractPlainLabelListener):
         }
 
     def _on_text(self, text: str) -> Text:
-        return self.__append_element(self.__factory.text().content(text))
+        return cast(Text, self.__append_element(self.__factory.text().content(text)))
 
     def __append_element(self, element: AbstractElement) -> AbstractElement:
         element._index = self.__index

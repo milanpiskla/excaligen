@@ -21,4 +21,4 @@ class Align:
             case "left" | "center" | "right":
                 return align
             case _:
-                raise ValueError(f"Invalid value '{align}' for text alignment. Use 'left', 'center', or 'right'.")
+                raise ValueError(f"Invalid horizontal text alignment '{align}'. Use 'left', 'center', or 'right'.")
