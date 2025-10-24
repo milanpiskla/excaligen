@@ -12,14 +12,14 @@ from pytest import FixtureRequest
 
 def test_arrowheads(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = DiagramBuilder()
-    xg.defaults().color('gray')
+    xg.defaults().color('gray').size(100, 50).roundness('round')
     y = 0
 
     for start_head in [None, 'arrow', 'bar', 'dot', 'triangle']:
         x = -400
         for end_head in [None, 'arrow', 'bar', 'dot', 'triangle']:
-            start_element = xg.rectangle().center(x, y).size(100, 50).roundness('round').label(xg.text().content(f"SH: {start_head}"))
-            end_element = xg.rectangle().center(x + 200, y).size(100, 50).roundness('round').label(xg.text().content(f"EH: {end_head}"))
+            start_element = xg.rectangle().center(x, y).label(f"SH: {start_head}")
+            end_element = xg.rectangle().center(x + 200, y).label(f"EH: {end_head}")
 
             xg.arrow().bind(start_element, end_element).arrowheads(start_head, end_head).color('blue')
             x += 320

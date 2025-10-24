@@ -51,8 +51,8 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated size.
         """
-        self.width = width
-        self.height = height
+        self._width = width
+        self._height = height
         return self
     
     def opacity(self, opacity: int) -> Self:
@@ -216,6 +216,7 @@ class Defaults:
             Self: The current instance of the Text class.
         """
         self._textAlign = Align.from_(align)
+        return self
 
     def baseline(self, align: str) -> Self:
         """Set the vertical text alignment (top, middle, bottom).
@@ -230,6 +231,7 @@ class Defaults:
             Self: The current instance of the Text class.
         """
         self._verticalAlign = Baseline.from_(align)
+        return self
 
     def autoresize(self, enabled: bool) -> Self:
         """Enable or disable automatic text box resizing.
