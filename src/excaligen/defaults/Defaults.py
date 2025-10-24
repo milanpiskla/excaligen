@@ -20,15 +20,15 @@ from typing import Self, Any
 
 class Defaults:
     def __init__(self):
-        self._width: float = 130.0
-        self._height: float = 80.0
+        self._width: float = 130
+        self._height: float = 80
         self._opacity: int = 100
         self._angle: float = 0
         self._roughness: int = Sloppiness.from_('artist')
         self._roundness: str | dict[str, Any] | None = Roundness.from_('round')
         self._strokeStyle: str = "solid"
         self._strokeWidth: float = 1
-        self._strokeColor: str = Color.from_("black")
+        self._strokeColor: str = "#000000"
         self._backgroundColor: str = "transparent"
         self._fillStyle: str = "hachure"
         self._fontSize: int = 16
@@ -37,8 +37,8 @@ class Defaults:
         self._verticalAlign: str = "middle"
         self._autoResize = True
         self._lineHeight: float = 1.25
-        self._startArrowhead: str = "none"
-        self._endArrowhead: str = "arrow"
+        self._startArrowhead: str | None = None
+        self._endArrowhead: str | None = "arrow"
 
     def size(self, width: float, height: float) -> Self:
         """

@@ -116,13 +116,13 @@ class Arrow(AbstractLine):
             self._end_binding['gap'] = self.__end_gap
         return self
 
-    def arrowheads(self, start: str = 'none', end: str = 'arrow') -> Self:
+    def arrowheads(self, start: str | None = None, end: str | None = 'arrow') -> Self:
         """Set the arrowhead styles for the start and end of the arrow.
 
-        Valid arrowheads values are 'none', 'arrow', 'bar', 'dot' and 'triangle'.
+        Valid arrowheads values are None, 'arrow', 'bar', 'dot' and 'triangle'.
 
         Args:
-            start (str, optional): The style of the start arrowhead. Defaults to 'none'.
+            start (str, optional): The style of the start arrowhead. Defaults to None.
             end (str, optional): The style of the end arrowhead. Defaults to 'arrow'.
 
         Raises:

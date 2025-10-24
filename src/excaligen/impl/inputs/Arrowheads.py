@@ -6,13 +6,13 @@ Description: Helper for the arrowheads input processing.
 
 class Arrowheads:
     @staticmethod
-    def from_(start: str = 'none', end: str = 'arrow') -> tuple[str, str]:
+    def from_(start: str | None = None, end: str | None = 'arrow') -> tuple[str | None, str | None]:
         """Set the arrowhead styles for the start and end of the arrow.
 
-        Valid arrowheads values are 'none', 'arrow', 'bar', 'dot' and 'triangle'.
+        Valid arrowheads values are None, 'arrow', 'bar', 'dot' and 'triangle'.
 
         Args:
-            start (str, optional): The style of the start arrowhead. Defaults to 'none'.
+            start (str, optional): The style of the start arrowhead. Defaults to None.
             end (str, optional): The style of the end arrowhead. Defaults to 'arrow'.
 
         Raises:
@@ -24,9 +24,9 @@ class Arrowheads:
         return (Arrowheads._convert(start), Arrowheads._convert(end))
 
     @staticmethod
-    def _convert(head: str) -> str:
-        valid_arrowheads = {'none', 'arrow', 'bar', 'dot', 'triangle'}
-        head = head.lower()
+    def _convert(head: str | None) -> str | None:
+        valid_arrowheads = {None, 'arrow', 'bar', 'dot', 'triangle'}
+        head = head.lower() if head is not None else None
         if head not in valid_arrowheads:
             raise ValueError(f"Invalid arrowhead '{head}'. Valid options are {valid_arrowheads}.")
         return head

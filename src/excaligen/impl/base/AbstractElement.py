@@ -22,8 +22,8 @@ class AbstractElement:
         self._version: int = 1
         self._version_nonce = int(uuid.uuid4().int % 1000000000)
         self._is_deleted = False
-        self._x: float = 0.0
-        self._y: float = 0.0
+        self._x: float = 0
+        self._y: float = 0
         self._width: float = getattr(defaults, "_width")
         self._height: float = getattr(defaults, "_height")
         self._opacity: int = getattr(defaults, "_opacity")

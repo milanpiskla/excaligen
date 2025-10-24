@@ -29,7 +29,7 @@ def test_arrow_curve(reference_json: dict[str, Any], request: FixtureRequest) ->
     xg = DiagramBuilder()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow')
     
     evaluate(reference_json, xg, request)
 
@@ -52,12 +52,12 @@ def test_arrow_curve_complex(reference_json: dict[str, Any], request: FixtureReq
         xr = RADIUS * math.cos(angle) + XOFFSET
         yr = RADIUS * math.sin(angle)
         relement = xg.rectangle().center(xr, yr).size(120, 80).roundness('round').label(xg.text().content(f"Right {i}"))
-        xg.arrow().curve(0, math.pi).bind(center_element, relement).arrowheads('none', 'arrow')
+        xg.arrow().curve(0, math.pi).bind(center_element, relement).arrowheads(None, 'arrow')
         
         xl = RADIUS * math.cos(angle + math.pi) - XOFFSET
         yl = RADIUS * math.sin(angle + math.pi)
         lelement = xg.rectangle().center(xl, yl).size(120, 80).roundness('round').label(xg.text().content(f"Left {i}"))
-        xg.arrow().curve(math.pi, 0).bind(center_element, lelement).arrowheads('none', 'arrow')
+        xg.arrow().curve(math.pi, 0).bind(center_element, lelement).arrowheads(None, 'arrow')
 
     evaluate(reference_json, xg, request)
 
@@ -65,10 +65,10 @@ def test_arrow_curve_str_directions(reference_json: dict[str, Any], request: Fix
     xg = DiagramBuilder()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().curve('R', 'L').bind(center_element, element_1).arrowheads('none', 'arrow')
-    xg.arrow().curve('U', 'U').bind(center_element, element_1).arrowheads('none', 'arrow')
-    xg.arrow().curve('D', 'D').bind(center_element, element_1).arrowheads('none', 'arrow')
-    xg.arrow().curve('L', 'R').bind(center_element, element_1).arrowheads('none', 'arrow')
+    xg.arrow().curve('R', 'L').bind(center_element, element_1).arrowheads(None, 'arrow')
+    xg.arrow().curve('U', 'U').bind(center_element, element_1).arrowheads(None, 'arrow')
+    xg.arrow().curve('D', 'D').bind(center_element, element_1).arrowheads(None, 'arrow')
+    xg.arrow().curve('L', 'R').bind(center_element, element_1).arrowheads(None, 'arrow')
     
     evaluate(reference_json, xg, request)
 
@@ -76,7 +76,7 @@ def test_arrow_curve_diff_calling_order(reference_json: dict[str, Any], request:
     xg = DiagramBuilder()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').curve(0, 3.14)
+    xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').curve(0, 3.14)
     
     evaluate(reference_json, xg, request)
 
@@ -84,10 +84,10 @@ def test_arrow_elbows(reference_json: dict[str, Any], request: FixtureRequest) -
     xg = DiagramBuilder()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().elbow('R', 'L').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
-    xg.arrow().elbow('U', 'U').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
-    xg.arrow().elbow('D', 'D').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
-    xg.arrow().elbow('L', 'R').bind(center_element, element_1).arrowheads('none', 'arrow').roundness('sharp')
+    xg.arrow().elbow('R', 'L').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
+    xg.arrow().elbow('U', 'U').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
+    xg.arrow().elbow('D', 'D').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
+    xg.arrow().elbow('L', 'R').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
     
     evaluate(reference_json, xg, request)
 
@@ -95,10 +95,10 @@ def test_arrow_elbows_diff_calling_order(reference_json: dict[str, Any], request
     xg = DiagramBuilder()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('R', 'L').roundness('sharp')
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('U', 'U').roundness('sharp')
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('D', 'D').roundness('sharp')
-    xg.arrow().bind(center_element, element_1).arrowheads('none', 'arrow').elbow('L', 'R').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('R', 'L').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('U', 'U').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('D', 'D').roundness('sharp')
+    xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('L', 'R').roundness('sharp')
     
     evaluate(reference_json, xg, request)
 
@@ -128,7 +128,7 @@ def test_arrow_label(reference_json: dict[str, Any], request: FixtureRequest) ->
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
     label = xg.text().content('Label')
-    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow').label(label)
+    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow').label(label)
     
     evaluate(reference_json, xg, request)
 
@@ -136,6 +136,6 @@ def test_arrow_plain_label(reference_json: dict[str, Any], request: FixtureReque
     xg = DiagramBuilder()
     center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label('center')
     element_1 = xg.ellipse().center(400, -200).size(130, 50).label('UR')
-    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads('none', 'arrow').label('Label')
+    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow').label('Label')
     
     evaluate(reference_json, xg, request)
