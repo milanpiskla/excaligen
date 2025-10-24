@@ -33,9 +33,13 @@ class Font:
         Raises:
             ValueError: If an invalid font value is provided.
         """
-        family = family.lower().replace(" ", "-")
-        if family in Font.FONT_MAPPING:
-            return Font.FONT_MAPPING[family]
-        else:
-            raise ValueError(f"Invalid font '{family}'. Use one of {list(Font.FONT_MAPPING.keys())}.")
+        match family:
+            case str():
+                family = family.lower().replace(" ", "-")
+                if family in Font.FONT_MAPPING:
+                    return Font.FONT_MAPPING[family]
+                else:
+                    raise ValueError(f"Invalid font '{family}'. Use one of {list(Font.FONT_MAPPING.keys())}.")
+            case _:
+                raise ValueError(f"Invalid font type. It must be a string, got {type(family).__name__}.")
                 

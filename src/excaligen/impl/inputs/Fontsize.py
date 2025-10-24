@@ -27,6 +27,8 @@ class Fontsize:
             Self: The current instance of the Text class.
         """
         match size:
+            case bool():
+                raise TypeError("Font size must be an int or one of 'S', 'M', 'L', 'XL'.")
             case int():
                 return size
             case str() as original_size:

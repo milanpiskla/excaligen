@@ -25,9 +25,14 @@ class Arrowheads:
 
     @staticmethod
     def _convert(head: str | None) -> str | None:
-        valid_arrowheads = {None, 'arrow', 'bar', 'dot', 'triangle'}
-        head = head.lower() if head is not None else None
-        if head not in valid_arrowheads:
-            raise ValueError(f"Invalid arrowhead '{head}'. Valid options are {valid_arrowheads}.")
+        match head:
+            case str():
+                valid_arrowheads = {'arrow', 'bar', 'dot', 'triangle'}
+                head = head.lower()
+                if head not in valid_arrowheads:
+                    raise ValueError(f"Invalid arrowhead '{head}'. Valid options are {valid_arrowheads} or None.")
+            case None:
+                return None
+            case _:
+                raise ValueError(f"Invalid arrowhead. It must be a string or None, got {type(head).__name__}.")
         return head
-

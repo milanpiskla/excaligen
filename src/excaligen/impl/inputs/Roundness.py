@@ -6,7 +6,7 @@ Description: Helper for roundness input processing.
 
 class Roundness:
     @staticmethod
-    def from_(roundness: str | dict) -> str | dict | None:
+    def from_(roundness: str) -> str | dict | None:
         """
         Set the roundness by string ('sharp', 'round') or by dict.
 
@@ -23,7 +23,5 @@ class Roundness:
                 return None
             case "round":
                 return { "type": 3 }
-            case dict():
-                return roundness
             case _:
                 raise ValueError(f"Invalid roundness '{roundness}'. Use 'sharp', or 'round'.")
