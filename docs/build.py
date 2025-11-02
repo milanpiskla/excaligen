@@ -461,6 +461,7 @@ if __name__ == "__main__":
         ("excaligen.impl.elements.Line", "./src/excaligen/impl/elements/Line.py"),
         ("excaligen.impl.elements.Rectangle", "./src/excaligen/impl/elements/Rectangle.py"),
         ("excaligen.impl.elements.Text", "./src/excaligen/impl/elements/Text.py"),
+        ("excaligen.defaults.Defaults", "./src/excaligen/defaults/Defaults.py"),
     ]
 
     generator = Generator("docs")

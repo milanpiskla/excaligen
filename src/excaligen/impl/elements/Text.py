@@ -13,6 +13,24 @@ from ..inputs.Align import Align
 from ..inputs.Baseline import Baseline
 from typing import Self
 
+_ANCHOR_OFFSETS_COEFF = {
+    "left" : {
+        "top" : (0.0, 0.0),
+        "middle" : (0.0, 0.5),
+        "bottom" : (0.0, 1.0) 
+    },
+    "center" : {
+        "top" : (0.5, 0.0),
+        "middle" : (0.5, 0.5),
+        "bottom" : (0.5, 1.0) 
+    },
+    "right" : {
+        "top" : (1.0, 0.0),
+        "middle" : (1.0, 0.5),
+        "bottom" : (1.0, 1.0) 
+    }
+}
+
 class Text(AbstractElement):
     """A class representing text elements in excaligen.
     The Text class is designed to handle and manipulate text elements within the excaligen 
@@ -36,6 +54,7 @@ class Text(AbstractElement):
         self._width = getattr(defaults, "_width")
         self._height = getattr(defaults, "_height")
         self._container_id: str | None = None
+        self.__is_anchored: bool = False
 
     def content(self, text: str) -> Self:
         """Set the text content and automatically calculate width and height.
@@ -46,8 +65,14 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        self._text = text
-        self.__calculate_dimensions()
+        if self.__is_anchored:
+            x, y = self.__get_anchor()
+            self._text = text
+            self.__calculate_dimensions()
+            self.__do_anchor(x, y)
+        else:
+            self._text = text
+            self.__calculate_dimensions()
         return self
 
     def fontsize(self, size: int | str) -> Self:
@@ -63,8 +88,14 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        self._font_size = Fontsize.from_(size)
-        self.__calculate_dimensions()  # Recalculate dimensions when font size changes
+        if self.__is_anchored:
+            x, y = self.__get_anchor()
+            self._font_size = Fontsize.from_(size)
+            self.__calculate_dimensions()
+            self.__do_anchor(x, y)
+        else:
+            self._font_size = Fontsize.from_(size)
+            self.__calculate_dimensions()
         return self
 
     def font(self, family: str) -> Self:
@@ -94,14 +125,21 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        self._text_align = Align.from_(align)
+        if self.__is_anchored:
+            x, y = self.__get_anchor()
+            self._text_align = Align.from_(align)
+            self.__calculate_dimensions()
+            self.__do_anchor(x, y)
+        else:
+            self._text_align = Align.from_(align)
+            self.__calculate_dimensions()
         return self
 
-    def baseline(self, align: str) -> Self:
+    def baseline(self, baseline: str) -> Self:
         """Set the vertical text alignment (top, middle, bottom).
 
         Args:
-            align (str): The vertical alignment to set.
+            baseline (str): The vertical alignment to set.
 
         Raises:
             ValueError: If an invalid vertical alignment is provided.
@@ -109,7 +147,14 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        self._vertical_align = Baseline.from_(align)
+        if self.__is_anchored:
+            x, y = self.__get_anchor()
+            self._vertical_align = Baseline.from_(baseline)
+            self.__calculate_dimensions()
+            self.__do_anchor(x, y)
+        else:
+            self._vertical_align = Baseline.from_(baseline)
+            self.__calculate_dimensions()
         return self
 
     def spacing(self, height: float) -> Self:
@@ -147,6 +192,42 @@ class Text(AbstractElement):
         """
         self._stroke_color = Color.from_(color)
         return self
+    
+    def anchor(self, x: float, y: float, align: str | None = None, baseline: str | None = None) -> Self:
+        """Anchor the text element to a specific point (x, y).
+        It takes horizontal and vertical alignment into account.
+
+        Args:
+            x (float): The x-coordinate to anchor to.
+            y (float): The y-coordinate to anchor to.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
+        self.__is_anchored = True
+
+        if align:
+            self.align(align)
+
+        if baseline:
+            self.baseline(baseline)
+        
+        self.__do_anchor(x, y)
+        return self
+    
+    def center(self, x: float, y: float) -> Self:
+        """
+        Centers the text element at the given (x, y) coordinates.
+        It is equivalent to calling anchor(x, y, "center", "middle")
+
+        Args:
+            x (float): The x-coordinate to center the element.
+            y (float): The y-coordinate to center the element.
+
+        Returns:
+            Self: The instance of the element, allowing for method chaining.
+        """
+        return self.anchor(x, y, "center", "middle")
 
     def __calculate_dimensions(self):
         """Calculate the width and height based on the text content."""
@@ -156,6 +237,17 @@ class Text(AbstractElement):
 
         self._size(width, height)
 
-        self._width = width
-        self._height = height
+    def __do_anchor(self, x: float, y: float) -> None:
+        """Calculate the position based on anchoring and alignment."""
+        cx, cy = _ANCHOR_OFFSETS_COEFF[self._text_align][self._vertical_align]
+        self._x = x - cx * self._width
+        self._y = y - cy * self._height
 
+    def __get_anchor(self) -> tuple[float, float]:
+        """Get the anchor point based on current position and alignment.
+
+        Returns:
+            tuple[float, float]: The (x, y) coordinates of the anchor point.
+        """
+        cx, cy = _ANCHOR_OFFSETS_COEFF[self._text_align][self._vertical_align]
+        return (self._x + cx * self._width, self._y + cy * self._height)

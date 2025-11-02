@@ -14,7 +14,7 @@ class Ellipse(AbstractStrokedElement, AbstractShape):
     A class representing an elliptical shape element.
 
     This class extends both AbstractStrokedElement and AbstractShape to create an
-    SVG ellipse element that can be rendered with stroke properties. The ellipse
+     ellipse element that can be rendered with stroke properties. The ellipse
     is defined by its center point and two radii (rx and ry).
     """
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
