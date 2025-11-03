@@ -65,14 +65,11 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        if self.__is_anchored:
-            x, y = self.__get_anchor()
+        def action():
             self._text = text
             self.__calculate_dimensions()
-            self.__do_anchor(x, y)
-        else:
-            self._text = text
-            self.__calculate_dimensions()
+
+        self.__check_anchor_and_do_action(action)
         return self
 
     def fontsize(self, size: int | str) -> Self:
@@ -88,14 +85,11 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        if self.__is_anchored:
-            x, y = self.__get_anchor()
+        def action():
             self._font_size = Fontsize.from_(size)
             self.__calculate_dimensions()
-            self.__do_anchor(x, y)
-        else:
-            self._font_size = Fontsize.from_(size)
-            self.__calculate_dimensions()
+
+        self.__check_anchor_and_do_action(action)
         return self
 
     def font(self, family: str) -> Self:
@@ -125,14 +119,11 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        if self.__is_anchored:
-            x, y = self.__get_anchor()
+        def action():
             self._text_align = Align.from_(align)
             self.__calculate_dimensions()
-            self.__do_anchor(x, y)
-        else:
-            self._text_align = Align.from_(align)
-            self.__calculate_dimensions()
+
+        self.__check_anchor_and_do_action(action)
         return self
 
     def baseline(self, baseline: str) -> Self:
@@ -147,14 +138,11 @@ class Text(AbstractElement):
         Returns:
             Self: The current instance of the Text class.
         """
-        if self.__is_anchored:
-            x, y = self.__get_anchor()
+        def action():
             self._vertical_align = Baseline.from_(baseline)
             self.__calculate_dimensions()
-            self.__do_anchor(x, y)
-        else:
-            self._vertical_align = Baseline.from_(baseline)
-            self.__calculate_dimensions()
+
+        self.__check_anchor_and_do_action(action)
         return self
 
     def spacing(self, height: float) -> Self:
@@ -253,3 +241,12 @@ class Text(AbstractElement):
         """
         cx, cy = _ANCHOR_OFFSETS_COEFFS[self._text_align][self._vertical_align]
         return (self._x + cx * self._width, self._y + cy * self._height)
+    
+    def __check_anchor_and_do_action(self, action) -> None:
+        """Check if anchored, get anchor point, do action, re-anchor."""
+        if self.__is_anchored:
+            x, y = self.__get_anchor()
+            action()
+            self.__do_anchor(x, y)
+        else:
+            action()
