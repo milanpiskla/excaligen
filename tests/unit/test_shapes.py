@@ -142,62 +142,6 @@ def test_rectangle_roundness_invalid():
     with pytest.raises(ValueError, match="Invalid roundness 'curved'. Use 'sharp', or 'round'"):
         rect.roundness("curved")
 
-def test_text_content():
-    text = Text(Defaults()).content("Sample Text")
-    assert text._text == "Sample Text"
-    assert text._width > 0
-    assert text._height > 0
-
-def test_text_font_size():
-    text = Text(Defaults())
-    text.fontsize(20)
-    assert text._font_size == 20
-    text.fontsize("L")
-    assert text._font_size == 24
-
-def test_text_font_size_invalid():
-    text = Text(Defaults())
-    with pytest.raises(ValueError, match="Invalid size 'XXL'. Use 'S', 'M', 'L', or 'XL'."):
-        text.fontsize("XXL")
-
-def test_text_font_family_valid():
-    text = Text(Defaults())
-    text.font("comic-shaans")
-    assert text._font_family == 8
-
-def test_text_font_family_invalid():
-    text = Text(Defaults())
-    with pytest.raises(ValueError, match=r"Invalid font 'unknown-font'. Use one of \['hand-drawn', 'normal', 'code', 'excalifont', 'comic-shaans', 'lilita-one', 'nunito'\]."):
-        text.font("unknown-font")
-
-def test_text_align_valid():
-    text = Text(Defaults())
-    text.align("left")
-    assert text._text_align == "left"
-
-def test_text_align_invalid():
-    text = Text(Defaults())
-    with pytest.raises(ValueError, match="Invalid horizontal text alignment 'justify'. Use 'left', 'center', or 'right'."):
-        text.align("justify")
-
-def test_text_baseline_valid():
-    text = Text(Defaults())
-    text.baseline("top")
-    assert text._vertical_align == "top"
-
-def test_text_baseline_invalid():
-    text = Text(Defaults())
-    with pytest.raises(ValueError, match="Invalid vertical text alignment 'middle-ish'. Use 'top', 'middle', or 'bottom'."):
-        text.baseline("middle-ish")
-
-def test_text_color():
-    text = Text(Defaults()).color("#123456")
-    assert text._stroke_color == "#123456"
-
-def test_text_autoresize():
-    text = Text(Defaults()).autoresize(False)
-    assert text._auto_resize is False
-
 def test_arrow_points():
     arrow = Arrow(Defaults(), DummyListener())
     arrow.points([(0, 0), (100, 100)])

@@ -13,7 +13,7 @@ from ..inputs.Align import Align
 from ..inputs.Baseline import Baseline
 from typing import Self
 
-_ANCHOR_OFFSETS_COEFF = {
+_ANCHOR_OFFSETS_COEFFS = {
     "left" : {
         "top" : (0.0, 0.0),
         "middle" : (0.0, 0.5),
@@ -200,6 +200,8 @@ class Text(AbstractElement):
         Args:
             x (float): The x-coordinate to anchor to.
             y (float): The y-coordinate to anchor to.
+            align (str | None, optional): The horizontal alignment ('left', 'center', 'right').
+            baseline (str | None, optional): The vertical alignment ('top', 'middle', 'bottom').
 
         Returns:
             Self: The current instance of the Text class.
@@ -239,7 +241,7 @@ class Text(AbstractElement):
 
     def __do_anchor(self, x: float, y: float) -> None:
         """Calculate the position based on anchoring and alignment."""
-        cx, cy = _ANCHOR_OFFSETS_COEFF[self._text_align][self._vertical_align]
+        cx, cy = _ANCHOR_OFFSETS_COEFFS[self._text_align][self._vertical_align]
         self._x = x - cx * self._width
         self._y = y - cy * self._height
 
@@ -249,5 +251,5 @@ class Text(AbstractElement):
         Returns:
             tuple[float, float]: The (x, y) coordinates of the anchor point.
         """
-        cx, cy = _ANCHOR_OFFSETS_COEFF[self._text_align][self._vertical_align]
+        cx, cy = _ANCHOR_OFFSETS_COEFFS[self._text_align][self._vertical_align]
         return (self._x + cx * self._width, self._y + cy * self._height)

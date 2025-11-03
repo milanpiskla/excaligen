@@ -17,8 +17,11 @@ from ..impl.inputs.Arrowheads import Arrowheads
 from ..impl.colors.Color import Color
 
 from typing import Self, Any
-
+#FIXME change the camel case attributes to snake case
 class Defaults:
+    """A class to hold default values for various element properties.
+    This class provides a centralized way to manage default settings for elements,
+    The default values are: TODO"""
     def __init__(self):
         self._width: float = 130
         self._height: float = 80
