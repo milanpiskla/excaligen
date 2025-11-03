@@ -44,13 +44,13 @@ class Text(AbstractElement):
     def __init__(self, defaults: Defaults):
         super().__init__("text", defaults)
         self._text: str = ""
-        self._font_size = getattr(defaults, "_fontSize")
-        self._font_family = getattr(defaults, "_fontFamily")
-        self._text_align = getattr(defaults, "_textAlign")
-        self._vertical_align = getattr(defaults, "_verticalAlign")
-        self._line_height = getattr(defaults, "_lineHeight")
-        self._auto_resize = getattr(defaults, "_autoResize")
-        self._stroke_color = getattr(defaults, "_strokeColor")
+        self._font_size = getattr(defaults, "_font_size")
+        self._font_family = getattr(defaults, "_font_family")
+        self._text_align = getattr(defaults, "_text_align")
+        self._vertical_align = getattr(defaults, "_vertical_align")
+        self._line_height = getattr(defaults, "_line_height")
+        self._auto_resize = getattr(defaults, "_auto_resize")
+        self._stroke_color = getattr(defaults, "_stroke_color")
         self._width = getattr(defaults, "_width")
         self._height = getattr(defaults, "_height")
         self._container_id: str | None = None
@@ -186,9 +186,9 @@ class Text(AbstractElement):
         It takes horizontal and vertical alignment into account.
 
         Args:
-            x (float): The x-coordinate to anchor to.
-            y (float): The y-coordinate to anchor to.
-            align (str | None, optional): The horizontal alignment ('left', 'center', 'right').
+            x (float): The x-coordinate to anchor to.  
+            y (float): The y-coordinate to anchor to.  
+            align (str | None, optional): The horizontal alignment ('left', 'center', 'right').  
             baseline (str | None, optional): The vertical alignment ('top', 'middle', 'bottom').
 
         Returns:

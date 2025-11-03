@@ -45,8 +45,8 @@ class Arrow(AbstractLine):
         super().__init__("arrow", defaults, listener)
         self._start_binding = None
         self._end_binding = None
-        self._start_arrowhead = getattr(defaults, "_startArrowhead")
-        self._end_arrowhead = getattr(defaults, "_endArrowhead")
+        self._start_arrowhead = getattr(defaults, "_start_arrowhead")
+        self._end_arrowhead = getattr(defaults, "_end_arrowhead")
         self._elbowed = False
         self.__start_gap = 1
         self.__end_gap = 1

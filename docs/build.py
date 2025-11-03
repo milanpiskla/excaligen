@@ -80,7 +80,7 @@ class DocstringParser:
             
             i += 1
             
-        doc_info.description = " ".join(description_lines).strip()
+        doc_info.description = "\n".join(description_lines).strip()
         return doc_info
 
     @staticmethod

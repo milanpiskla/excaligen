@@ -17,11 +17,33 @@ from ..impl.inputs.Arrowheads import Arrowheads
 from ..impl.colors.Color import Color
 
 from typing import Self, Any
-#FIXME change the camel case attributes to snake case
+
 class Defaults:
     """A class to hold default values for various element properties.
     This class provides a centralized way to manage default settings for elements,
-    The default values are: TODO"""
+    The initial values are:
+    ```
+    width = 130
+    height = 80
+    opacity = 100
+    angle = 0
+    roughness = 'artist'
+    roundness = 'round'
+    stroke_style = 'solid'
+    stroke_width = 1
+    stroke_color = '#000000'
+    background_color = 'transparent'
+    fill_style = 'hachure'
+    font_size = 16
+    font_family = 'Hand drawn'
+    text_align = 'center'
+    vertical_align = 'middle'
+    auto_resize = True
+    line_height = 1.25
+    start_arrowhead = None
+    end_arrowhead = 'arrow'
+    ```
+    """
     def __init__(self):
         self._width: float = 130
         self._height: float = 80
@@ -29,19 +51,19 @@ class Defaults:
         self._angle: float = 0
         self._roughness: int = Sloppiness.from_('artist')
         self._roundness: str | dict[str, Any] | None = Roundness.from_('round')
-        self._strokeStyle: str = "solid"
-        self._strokeWidth: float = 1
-        self._strokeColor: str = "#000000"
-        self._backgroundColor: str = "transparent"
-        self._fillStyle: str = "hachure"
-        self._fontSize: int = 16
-        self._fontFamily:int = Font.from_("Hand drawn")
-        self._textAlign: str = "center"
-        self._verticalAlign: str = "middle"
-        self._autoResize = True
-        self._lineHeight: float = 1.25
-        self._startArrowhead: str | None = None
-        self._endArrowhead: str | None = "arrow"
+        self._stroke_style: str = "solid"
+        self._stroke_width: float = 1
+        self._stroke_color: str = "#000000"
+        self._background_color: str = "transparent"
+        self._fill_style: str = "hachure"
+        self._font_size: int = 16
+        self._font_family:int = Font.from_("Hand drawn")
+        self._text_align: str = "center"
+        self._vertical_align: str = "middle"
+        self._auto_resize = True
+        self._line_height: float = 1.25
+        self._start_arrowhead: str | None = None
+        self._end_arrowhead: str | None = "arrow"
 
     def size(self, width: float, height: float) -> Self:
         """
@@ -126,7 +148,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated stroke style.
         """
-        self._strokeStyle = Stroke.from_(style)
+        self._stroke_style = Stroke.from_(style)
         return self
     
     def thickness(self, thickness: int | str) -> Self:
@@ -139,7 +161,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated stroke thickness.
         """
-        self._strokeWidth = Thickness.from_(thickness)
+        self._stroke_width = Thickness.from_(thickness)
         return self
     
     def color(self, color: str | Color) -> Self:
@@ -151,7 +173,7 @@ class Defaults:
         Returns:
             Self: The current instance of the AbstractStrokedElement class.
         """
-        self._strokeColor = Color.from_(color)
+        self._stroke_color = Color.from_(color)
         return self
     
     def background(self, color: str | Color) -> Self:
@@ -164,7 +186,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated background color.
         """
-        self._backgroundColor = Color.from_(color)
+        self._background_color = Color.from_(color)
         return self
 
     def fill(self, style: str) -> Self:
@@ -177,7 +199,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated fill style.
         """
-        self._fillStyle = Fill.from_(style)
+        self._fill_style = Fill.from_(style)
         return self
     
     def fontsize(self, size: int | str) -> Self:
@@ -190,7 +212,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated font size.
         """
-        self._fontSize = Fontsize.from_(size)
+        self._font_size = Fontsize.from_(size)
         return self
     
     def font(self, family: str) -> Self:
@@ -203,7 +225,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated font family.
         """
-        self._fontFamily = Font.from_(family)
+        self._font_family = Font.from_(family)
         return self
 
     def align(self, align: str) -> Self:

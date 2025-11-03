@@ -27,7 +27,7 @@ def test_add_text():
     xd = DiagramBuilder()
     text = xd.text().content("Hello, Excalidraw!")
     assert text._text == "Hello, Excalidraw!"
-    assert text._font_size == getattr(xd.defaults(), '_fontSize')
+    assert text._font_size == getattr(xd.defaults(), '_font_size')
     assert len(xd._elements) == 1
     assert xd._elements[0]._type == "text"
 

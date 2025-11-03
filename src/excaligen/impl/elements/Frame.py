@@ -34,7 +34,7 @@ class Frame(AbstractShape):
         super().__init__("frame", defaults)
         self._width = 0.0
         self._height = 0.0
-        self._background_color = getattr(defaults, "_backgroundColor")
+        self._background_color = getattr(defaults, "_background_color")
         self._title = None
 
     def title(self, title: str) -> Self:

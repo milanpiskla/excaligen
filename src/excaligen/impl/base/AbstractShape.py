@@ -15,8 +15,8 @@ class AbstractShape(AbstractElement):
         super().__init__(type, defaults)
         self._width = getattr(defaults, "_width")
         self._height = getattr(defaults, "_height")
-        self._background_color = getattr(defaults, "_backgroundColor")
-        self._fill_style = getattr(defaults, "_fillStyle")
+        self._background_color = getattr(defaults, "_background_color")
+        self._fill_style = getattr(defaults, "_fill_style")
 
     def size(self, width: float, height: float) -> Self:
         """

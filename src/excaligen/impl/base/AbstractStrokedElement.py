@@ -19,9 +19,9 @@ from typing import Self
 class AbstractStrokedElement(AbstractElement):
     def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener):
         super().__init__(type, defaults)
-        self._stroke_color = getattr(defaults, "_strokeColor")
-        self._stroke_width = getattr(defaults, "_strokeWidth")
-        self._stroke_style = getattr(defaults, "_strokeStyle")
+        self._stroke_color = getattr(defaults, "_stroke_color")
+        self._stroke_width = getattr(defaults, "_stroke_width")
+        self._stroke_style = getattr(defaults, "_stroke_style")
         self._roughness = getattr(defaults, "_roughness")
         self.__listener = listener
         self.__label: Text | None = None
