@@ -23,25 +23,23 @@ class Defaults:
     This class provides a centralized way to manage default settings for elements,
     The initial values are:
     ```
-    width = 130
-    height = 80
-    opacity = 100
-    angle = 0
-    roughness = 'artist'
-    roundness = 'round'
-    stroke_style = 'solid'
-    stroke_width = 1
-    stroke_color = '#000000'
-    background_color = 'transparent'
-    fill_style = 'hachure'
-    font_size = 16
-    font_family = 'Hand drawn'
-    text_align = 'center'
-    vertical_align = 'middle'
-    auto_resize = True
-    line_height = 1.25
-    start_arrowhead = None
-    end_arrowhead = 'arrow'
+    size(130, 80)
+    opacity(100)
+    rotate(0)
+    sloppiness('artist')
+    roundness('round')
+    stroke('solid')
+    thickness(1)
+    color('#000000')
+    background('transparent')
+    fill('hachure')
+    fontsize(16)
+    font('Hand drawn')
+    align('center')
+    baseline('middle')
+    autoresize(True)
+    spacing(1.25)
+    arrowheads(None, 'arrow')
     ```
     """
     def __init__(self):
@@ -90,7 +88,7 @@ class Defaults:
         Returns:
             Self: The instance defaults with updated opacity.
 
-                    Raises:
+        Raises:
             ValueError: If the opacity value is not within the range 0-100.
         """
         if not (0 <= opacity <= 100):
@@ -282,14 +280,14 @@ class Defaults:
         self._lineHeight = height
         return self
 
-    def arrowheads(self, start: str, end: str) -> Self:
+    def arrowheads(self, start: str | None, end: str | None) -> Self:
         """Set the arrowhead styles for the start and end of the arrow.
 
-        Valid arrowheads values are 'none', 'arrow', 'bar', 'dot' and 'triangle'.
+        Valid arrowheads values are None, 'arrow', 'bar', 'dot' and 'triangle'.
 
         Args:
-            start (str, optional): The style of the start arrowhead. Defaults to 'none'.
-            end (str, optional): The style of the end arrowhead. Defaults to 'arrow'.
+            start (str, optional): The style of the start arrowhead.
+            end (str, optional): The style of the end arrowhead.
 
         Raises:
             ValueError: If an invalid arrowhead style is provided.

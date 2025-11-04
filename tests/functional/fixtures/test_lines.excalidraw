@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "line",
-      "id": "83485251-790b-4314-bccd-d5383c82c531",
-      "seed": 675413761,
+      "id": "9cc2465c-7180-4acc-a740-d0c6481024b9",
+      "seed": 299972333,
       "version": 1,
-      "versionNonce": 335552709,
+      "versionNonce": 773880138,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -38,14 +38,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "54fe8de3-599a-4267-aaf2-c2f90f1f6b66",
-      "seed": 101291993,
+      "id": "62e119bd-a03f-476c-97fa-6420bf77555a",
+      "seed": 555189510,
       "version": 1,
-      "versionNonce": 299693365,
+      "versionNonce": 843853908,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -75,14 +76,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "4369d1d4-e487-4bf2-be31-288797f56b56",
-      "seed": 858569114,
+      "id": "e337c0d8-f4e3-48ea-bb94-a38dbaa46f91",
+      "seed": 454487879,
       "version": 1,
-      "versionNonce": 684970932,
+      "versionNonce": 143617705,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -116,7 +118,8 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     }
   ],
   "appState": {

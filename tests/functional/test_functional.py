@@ -90,6 +90,20 @@ def test_lines(reference_json: dict[str, Any], request: FixtureRequest) -> None:
 
     evaluate(reference_json, xg, request)
 
+def test_closed_lines_background(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    xg = DiagramBuilder()
+
+    xg.line().color('black').points([(0, 0), (100, 50), (50, 100)]).close().background('green').fill('solid')
+
+    evaluate(reference_json, xg, request)
+
+def test_closed_lines_fill(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    xg = DiagramBuilder()
+
+    xg.line().color('black').points([(0, 0), (100, 50), (50, 100)]).close().background('red').fill('cross-hatch')
+    
+    evaluate(reference_json, xg, request)
+
 def test_group(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = DiagramBuilder()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("Group part"))

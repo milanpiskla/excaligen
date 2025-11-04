@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "line",
-      "id": "8d07aecf-4c24-48b7-9e94-9d82149264fa",
-      "seed": 689736842,
+      "id": "a58fa4b3-9942-4117-827a-7bb8bd0d8a62",
+      "seed": 949519107,
       "version": 1,
-      "versionNonce": 807386315,
+      "versionNonce": 982127737,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -38,14 +38,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "2bfbfbb7-97be-49a0-9ffc-e0d5e17a2925",
-      "seed": 325261771,
+      "id": "39d98a27-61ef-4b8b-ad17-f8922b8ab45b",
+      "seed": 411151404,
       "version": 1,
-      "versionNonce": 278505631,
+      "versionNonce": 243024020,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -75,14 +76,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "3eabfa37-ba22-495a-86d6-a3e30d12e575",
-      "seed": 488167877,
+      "id": "236faef1-da50-484b-b23c-b497f0d744aa",
+      "seed": 589812684,
       "version": 1,
-      "versionNonce": 669829052,
+      "versionNonce": 100575372,
       "isDeleted": false,
       "x": 42.0,
       "y": 0.0,
@@ -107,10 +109,10 @@
     },
     {
       "type": "line",
-      "id": "265fd00b-a108-4db8-a562-fbe56dfa4e01",
-      "seed": 856638168,
+      "id": "c38f9fdd-c1e4-485c-b69d-7bc8b85b2024",
+      "seed": 901168715,
       "version": 1,
-      "versionNonce": 316880002,
+      "versionNonce": 864157898,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -140,14 +142,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "cc93a974-1f0a-42b3-aa3e-1cd8bfa5f947",
-      "seed": 708696211,
+      "id": "03c27ed3-36dd-4b6a-aebb-41c98108e968",
+      "seed": 272196158,
       "version": 1,
-      "versionNonce": 154003657,
+      "versionNonce": 939819472,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -177,14 +180,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "6a86f49f-01c1-4e9b-a09f-e4fb7588aac4",
-      "seed": 975013238,
+      "id": "97c41c35-23ee-4dec-a2af-a61d14e68af0",
+      "seed": 834486926,
       "version": 1,
-      "versionNonce": 663291883,
+      "versionNonce": 910741244,
       "isDeleted": false,
       "x": 42.0,
       "y": 47.5,
@@ -209,10 +213,10 @@
     },
     {
       "type": "line",
-      "id": "0c87c722-94f0-4d41-900f-32d680f87240",
-      "seed": 188530826,
+      "id": "dafcbd29-d86c-4bde-a496-3843a6b2a709",
+      "seed": 32653943,
       "version": 1,
-      "versionNonce": 3277552,
+      "versionNonce": 764438152,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -242,14 +246,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "31362ccc-4f1e-4619-881b-e142ccade374",
-      "seed": 162404486,
+      "id": "f87070cf-3a30-4848-9d55-75e849ce1f5e",
+      "seed": 526223679,
       "version": 1,
-      "versionNonce": 529369351,
+      "versionNonce": 859848459,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -279,14 +284,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "9318d44b-2a1f-4e53-9831-a4ccd5029b8a",
-      "seed": 901756077,
+      "id": "2880be0b-b519-4a89-b287-7c144e0ea713",
+      "seed": 255891754,
       "version": 1,
-      "versionNonce": 493767707,
+      "versionNonce": 697585646,
       "isDeleted": false,
       "x": 42.0,
       "y": 95.0,
@@ -311,10 +317,10 @@
     },
     {
       "type": "line",
-      "id": "b625a0c8-3149-496f-8f6b-837555304a8e",
-      "seed": 938140391,
+      "id": "9f93d94f-cccf-4741-af3c-df307710b222",
+      "seed": 635102164,
       "version": 1,
-      "versionNonce": 306142527,
+      "versionNonce": 109031616,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -344,14 +350,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "2a7cb2fc-bfbf-40a1-94d5-b7b46792a255",
-      "seed": 220529453,
+      "id": "4afcdb09-9046-4e30-9244-aa954e622177",
+      "seed": 674166548,
       "version": 1,
-      "versionNonce": 572023441,
+      "versionNonce": 56992270,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -381,14 +388,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "0141fc3b-8e2b-4fd2-837d-c505e2c5bd77",
-      "seed": 775006666,
+      "id": "2d76b03d-83ae-4885-bb9f-5ba8cf4dfec7",
+      "seed": 886601878,
       "version": 1,
-      "versionNonce": 465554980,
+      "versionNonce": 543309047,
       "isDeleted": false,
       "x": -18.0,
       "y": 180.0,
@@ -413,10 +421,10 @@
     },
     {
       "type": "line",
-      "id": "9ef076e8-de32-4c7a-9154-2afb5836916a",
-      "seed": 578686283,
+      "id": "fdb841b8-a1e7-4679-b611-1a47f385dca0",
+      "seed": 132485479,
       "version": 1,
-      "versionNonce": 809036684,
+      "versionNonce": 939979218,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -446,14 +454,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "112d829b-da3f-4ff2-bd97-122552a32c55",
-      "seed": 148946030,
+      "id": "24d36b71-0be5-49fd-8a61-970f5027b07c",
+      "seed": 490168225,
       "version": 1,
-      "versionNonce": 561966452,
+      "versionNonce": 461675360,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -483,14 +492,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "3bfec93c-baba-441a-b61d-5771380f5cc8",
-      "seed": 599875796,
+      "id": "0a794b59-e63d-4056-ae5d-201d0802e255",
+      "seed": 456704083,
       "version": 1,
-      "versionNonce": 652848553,
+      "versionNonce": 574261040,
       "isDeleted": false,
       "x": -36.0,
       "y": 227.5,
@@ -515,10 +525,10 @@
     },
     {
       "type": "line",
-      "id": "fc4e5d0c-af4b-43f6-a0be-df7c4c7b94a8",
-      "seed": 950928377,
+      "id": "d93f7b1e-1e88-489a-80a0-cda2fcf7b7c3",
+      "seed": 52693448,
       "version": 1,
-      "versionNonce": 144380257,
+      "versionNonce": 63052917,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -548,14 +558,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "f0d68ac1-007f-4c2d-b13a-bc02b405b453",
-      "seed": 117717027,
+      "id": "a3e474a2-53fd-4f3c-a196-8fdd2473af8c",
+      "seed": 407277667,
       "version": 1,
-      "versionNonce": 62660330,
+      "versionNonce": 127129330,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -585,14 +596,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "ac9fb413-6729-4452-9e9b-72dad3452314",
-      "seed": 175179658,
+      "id": "1fc0b824-b5fa-4a18-a950-9182a765c51b",
+      "seed": 899839994,
       "version": 1,
-      "versionNonce": 699947292,
+      "versionNonce": 952888927,
       "isDeleted": false,
       "x": -36.0,
       "y": 275.0,
@@ -617,10 +629,10 @@
     },
     {
       "type": "line",
-      "id": "3f3e501e-1e32-4662-a432-9378c35345cd",
-      "seed": 642244802,
+      "id": "7c4ba1dd-5158-40d4-b816-11d6d5ae6b71",
+      "seed": 605323324,
       "version": 1,
-      "versionNonce": 866909466,
+      "versionNonce": 939261025,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -650,14 +662,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "cc562bbd-7d10-47ce-9c32-232ad18c6999",
-      "seed": 419758297,
+      "id": "a8d28701-8f54-47d1-808d-031f4e7c54dc",
+      "seed": 437727226,
       "version": 1,
-      "versionNonce": 287189382,
+      "versionNonce": 843179714,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -687,14 +700,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "84a2366d-9c33-4b17-821b-c9a240795746",
-      "seed": 978615912,
+      "id": "5616ea83-809f-47cf-809d-9ae67c7db8e9",
+      "seed": 973120790,
       "version": 1,
-      "versionNonce": 214584922,
+      "versionNonce": 951184334,
       "isDeleted": false,
       "x": -66.0,
       "y": 360.0,
@@ -719,10 +733,10 @@
     },
     {
       "type": "line",
-      "id": "028b236b-9164-45b0-bf35-77237dfae174",
-      "seed": 250812577,
+      "id": "5bbfd303-27f8-4bb9-9ec3-8b3563f71241",
+      "seed": 676404069,
       "version": 1,
-      "versionNonce": 622912628,
+      "versionNonce": 818228371,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -752,14 +766,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "f436873d-5070-44b7-95c4-79362a72f9e5",
-      "seed": 793609390,
+      "id": "29c029ea-f713-4dac-9b8e-75d66d5282d7",
+      "seed": 554173325,
       "version": 1,
-      "versionNonce": 103684258,
+      "versionNonce": 143493675,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -789,14 +804,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "7dfad334-a4cb-4fd9-b05f-f01aaae4fa19",
-      "seed": 465097841,
+      "id": "11a4fb80-b3b3-4a97-b5cd-3ab04c5fef53",
+      "seed": 813926810,
       "version": 1,
-      "versionNonce": 266867933,
+      "versionNonce": 597257535,
       "isDeleted": false,
       "x": -102.0,
       "y": 407.5,
@@ -821,10 +837,10 @@
     },
     {
       "type": "line",
-      "id": "dcdfaf9a-562e-455b-8645-16d5f188be4c",
-      "seed": 568399321,
+      "id": "e32d2f94-7bd5-4911-9896-de76e77abcfd",
+      "seed": 493051271,
       "version": 1,
-      "versionNonce": 206911923,
+      "versionNonce": 567664064,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -854,14 +870,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "line",
-      "id": "4a6ff5b5-13d2-4af4-af5f-f84d5f1dd58e",
-      "seed": 242807262,
+      "id": "692ce930-d57e-4e19-8322-e22c4a39d758",
+      "seed": 737431176,
       "version": 1,
-      "versionNonce": 583958994,
+      "versionNonce": 392413643,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -891,14 +908,15 @@
       "roundness": {
         "type": 3
       },
-      "backgroundColor": "transparent"
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure"
     },
     {
       "type": "text",
-      "id": "f5654976-75aa-4ee4-ac3d-0f1c408d6f85",
-      "seed": 499512857,
+      "id": "ad4f9ac9-f36c-4397-b103-455852372590",
+      "seed": 92613914,
       "version": 1,
-      "versionNonce": 28135226,
+      "versionNonce": 981974045,
       "isDeleted": false,
       "x": -102.0,
       "y": 455.0,
