@@ -7,6 +7,7 @@ Description: Ellipse shape.
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractShape import AbstractShape
+from ..elements.Text import Text
 from ...defaults.Defaults import Defaults
 
 class Ellipse(AbstractStrokedElement, AbstractShape):
@@ -17,5 +18,5 @@ class Ellipse(AbstractStrokedElement, AbstractShape):
      ellipse element that can be rendered with stroke properties. The ellipse
     is defined by its center point and two radii (rx and ry).
     """
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
-        super().__init__("ellipse", defaults, listener)
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
+        super().__init__("ellipse", defaults, listener, label)

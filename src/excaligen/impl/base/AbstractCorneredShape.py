@@ -7,13 +7,14 @@ Description: Base class for shapes with corners.
 from .AbstractStrokedElement import AbstractStrokedElement
 from .AbstractShape import AbstractShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from ..elements.Text import Text
 from ...defaults.Defaults import Defaults
 from ..inputs.Roundness import Roundness
 from typing import Self, Any
 
 class AbstractCorneredShape(AbstractStrokedElement, AbstractShape):
-    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener):
-        super().__init__(type, defaults, listener)
+    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
+        super().__init__(type, defaults, listener, label)
         self._roundness: str | dict[str, Any] | None = getattr(defaults, "_roundness")
 
     def roundness(self, roundness: str) -> Self:

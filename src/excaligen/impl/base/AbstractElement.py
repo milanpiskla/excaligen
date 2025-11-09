@@ -71,10 +71,10 @@ class AbstractElement:
 
     def rotate(self, angle: float) -> Self:
         """
-        Rotate the element by a specified angle.
+        Rotate the element clockwise by a specified angle.
 
         Args:
-            angle (float): The angle to rotate the element by, in radians.
+            angle (float): The angle to rotate the element clockwise by, in radians.
 
         Returns:
             Self: The instance of the element after rotation.

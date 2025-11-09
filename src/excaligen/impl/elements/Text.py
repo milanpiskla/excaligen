@@ -41,9 +41,9 @@ class Text(AbstractElement):
     CHAR_WIDTH_FACTOR = 0.6  # Approximate width of a character relative to the font size
     LINE_HEIGHT_FACTOR = 1.25  # Approximate line height factor
 
-    def __init__(self, defaults: Defaults):
+    def __init__(self, defaults: Defaults, text: str | None = None):
         super().__init__("text", defaults)
-        self._text: str = ""
+        self._text: str = text if text is not None else ""
         self._font_size = getattr(defaults, "_font_size")
         self._font_family = getattr(defaults, "_font_family")
         self._text_align = getattr(defaults, "_text_align")
@@ -55,6 +55,7 @@ class Text(AbstractElement):
         self._height = getattr(defaults, "_height")
         self._container_id: str | None = None
         self.__is_anchored: bool = False
+        self.__calculate_dimensions()
 
     def content(self, text: str) -> Self:
         """Set the text content and automatically calculate width and height.

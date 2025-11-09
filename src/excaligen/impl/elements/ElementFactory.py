@@ -34,37 +34,37 @@ class ElementFactory():
         """
         return self._defaults
 
-    def rectangle(self, listener: AbstractPlainLabelListener) -> Rectangle:
+    def rectangle(self, listener: AbstractPlainLabelListener, label: str | Text | None) -> Rectangle:
         """Create a rectangle element with the current configuration.
 
         Returns:
             Rectangle: The rectangle element.
         """
-        return Rectangle(self._defaults, listener)
+        return Rectangle(self._defaults, listener, label)
 
-    def diamond(self, listener: AbstractPlainLabelListener) -> Diamond:
+    def diamond(self, listener: AbstractPlainLabelListener, label: str | Text | None) -> Diamond:
         """Create a diamond element with the current configuration.
 
         Returns:
             Diamond: The diamond element.
         """
-        return Diamond(self._defaults, listener)
+        return Diamond(self._defaults, listener, label)
 
-    def ellipse(self, listener: AbstractPlainLabelListener) -> Ellipse:
+    def ellipse(self, listener: AbstractPlainLabelListener, label: str | Text | None) -> Ellipse:
         """Create an ellipse element with the current configuration.
 
         Returns:
             Ellipse: The ellipse element.
         """
-        return Ellipse(self._defaults, listener)
+        return Ellipse(self._defaults, listener, label)
 
-    def arrow(self, listener: AbstractPlainLabelListener) -> Arrow:
+    def arrow(self, listener: AbstractPlainLabelListener, label: str | Text | None) -> Arrow:
         """Create an arrow element with the current configuration.
 
         Returns:
             Arrow: The arrow element.
         """
-        return Arrow(self._defaults, listener)
+        return Arrow(self._defaults, listener, label)
 
     def line(self) -> Line:
         """Create a line element with the current configuration.
@@ -74,13 +74,13 @@ class ElementFactory():
         """
         return Line(self._defaults)
 
-    def text(self) -> Text:
+    def text(self, text: str | Text | None) -> Text:
         """Create a text element with the current configuration.
 
         Returns:
             Text: The text element.
         """
-        return Text(self._defaults)
+        return Text(self._defaults, text)
 
     def image(self, listener: AbstractImageListener, loader: AbstractImageLoader) -> Image:
         """Create an image element with the current configuration.
@@ -94,13 +94,13 @@ class ElementFactory():
         """
         return Image(self._defaults, listener, loader)
 
-    def frame(self) -> Frame:
+    def frame(self, title: str | None) -> Frame:
         """Create a frame element with the current configuration.
 
         Returns:
             Frame: The frame element.
         """
-        return Frame(self._defaults)
+        return Frame(self._defaults, title)
 
     def group(self) -> Group:
         """Create a group element with the current configuration.

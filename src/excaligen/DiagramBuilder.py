@@ -62,7 +62,7 @@ class DiagramBuilder(ExcaligenStructure):
         """
         return super().background(color)
 
-    def rectangle(self) -> Rectangle:
+    def rectangle(self, label: str | Text | None = None) -> Rectangle:
         """Add a rectangle element to the diagram.
 
         Returns:
@@ -70,7 +70,7 @@ class DiagramBuilder(ExcaligenStructure):
         """
         return super().rectangle()
 
-    def diamond(self) -> Diamond:
+    def diamond(self, label: str | Text | None = None) -> Diamond:
         """Add a diamond element to the diagram.
 
         Returns:
@@ -78,7 +78,7 @@ class DiagramBuilder(ExcaligenStructure):
         """
         return super().diamond()
 
-    def ellipse(self) -> Ellipse:
+    def ellipse(self, label: str | Text | None = None) -> Ellipse:
         """Add an ellipse element to the diagram.
 
         Returns:
@@ -86,7 +86,7 @@ class DiagramBuilder(ExcaligenStructure):
         """
         return super().ellipse()
 
-    def arrow(self) -> Arrow:
+    def arrow(self, label: str | Text | None = None) -> Arrow:
         """Add an arrow element to the diagram.
 
         Returns:
@@ -102,7 +102,7 @@ class DiagramBuilder(ExcaligenStructure):
         """
         return super().line()
 
-    def text(self) -> Text:
+    def text(self, text: str | None = None) -> Text:
         """Add a text element to the diagram.
 
         Returns:
@@ -118,7 +118,7 @@ class DiagramBuilder(ExcaligenStructure):
         """
         return super().image()
 
-    def frame(self) -> Frame:
+    def frame(self, title: str | None = None) -> Frame:
         """Add a frame element to the diagram.
 
         Returns:

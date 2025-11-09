@@ -6,6 +6,7 @@ Description: Diamond shape.
 
 from ..base.AbstractCorneredShape import AbstractCorneredShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from ..elements.Text import Text
 from ...defaults.Defaults import Defaults
 
 class Diamond(AbstractCorneredShape):
@@ -13,5 +14,5 @@ class Diamond(AbstractCorneredShape):
 
     Diamond shape is a four-sided polygon with equal sides and opposite angles equal.
     """
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
-        super().__init__("diamond", defaults, listener)
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
+        super().__init__("diamond", defaults, listener, label)

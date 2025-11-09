@@ -7,6 +7,7 @@ Description: Arrow element.
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractLine import AbstractLine
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from ..elements.Text import Text
 
 from ..geometry.StraightConnection import StraightConnection
 from ..geometry.ArcConnection import ArcConnection
@@ -41,8 +42,8 @@ class Arrow(AbstractLine):
         CURVE = 2
         ELBOW = 3
 
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener) -> None:
-        super().__init__("arrow", defaults, listener)
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None) -> None:
+        super().__init__("arrow", defaults, listener, label)
         self._start_binding = None
         self._end_binding = None
         self._start_arrowhead = getattr(defaults, "_start_arrowhead")

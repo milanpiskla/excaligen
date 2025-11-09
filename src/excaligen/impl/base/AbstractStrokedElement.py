@@ -17,7 +17,7 @@ from ..inputs.Thickness import Thickness
 from typing import Self
 
 class AbstractStrokedElement(AbstractElement):
-    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener):
+    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None):
         super().__init__(type, defaults)
         self._stroke_color = getattr(defaults, "_stroke_color")
         self._stroke_width = getattr(defaults, "_stroke_width")
@@ -25,6 +25,8 @@ class AbstractStrokedElement(AbstractElement):
         self._roughness = getattr(defaults, "_roughness")
         self.__listener = listener
         self.__label: Text | None = None
+        if label is not None:
+            self.label(label)
 
     def color(self, color: str | Color) -> Self:
         """Set the stroke (outline) color as #RRGGBB, color name or Color object.

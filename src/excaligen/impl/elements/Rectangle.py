@@ -6,6 +6,7 @@ Description: Rectangle shape.
 
 from ..base.AbstractCorneredShape import AbstractCorneredShape
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from ..elements.Text import Text
 from ...defaults.Defaults import Defaults
 
 class Rectangle(AbstractCorneredShape):
@@ -15,5 +16,5 @@ class Rectangle(AbstractCorneredShape):
     The rectangle is defined by its position and dimensions,
     and can be configured with various visual properties through the config parameter.
     """
-    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener):
-        super().__init__("rectangle", defaults, listener)
+    def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
+        super().__init__("rectangle", defaults, listener, label)

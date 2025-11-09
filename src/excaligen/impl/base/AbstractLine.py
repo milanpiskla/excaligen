@@ -6,14 +6,15 @@ Description: Base class for lines and arrows.
 
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from ..elements.Text import Text
 from ...defaults.Defaults import Defaults
 from ..geometry.Point import Point
 from ..inputs.Roundness import Roundness
 from typing import Self
 
 class AbstractLine(AbstractStrokedElement):
-    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener):
-        super().__init__(type, defaults, listener)
+    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
+        super().__init__(type, defaults, listener, label)
         self._points: list[Point] = []
         self._roundness = getattr(defaults, "_roundness")
 

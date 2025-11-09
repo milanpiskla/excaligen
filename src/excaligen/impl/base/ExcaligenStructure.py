@@ -82,29 +82,29 @@ class ExcaligenStructure(AbstractImageListener, AbstractPlainLabelListener):
         self._app_state["viewBackgroundColor"] = color
         return self
 
-    def rectangle(self) -> Rectangle:
-        return cast(Rectangle, self.__append_element(self.__factory.rectangle(self)))
+    def rectangle(self, label: str | Text | None = None) -> Rectangle:
+        return cast(Rectangle, self.__append_element(self.__factory.rectangle(self, label)))
 
-    def diamond(self) -> Diamond:
-        return cast(Diamond, self.__append_element(self.__factory.diamond(self)))
+    def diamond(self, label: str | Text | None = None) -> Diamond:
+        return cast(Diamond, self.__append_element(self.__factory.diamond(self, label)))
 
-    def ellipse(self) -> Ellipse:
-        return cast(Ellipse, self.__append_element(self.__factory.ellipse(self)))
+    def ellipse(self, label: str | Text | None = None) -> Ellipse:
+        return cast(Ellipse, self.__append_element(self.__factory.ellipse(self, label)))
 
-    def arrow(self) -> Arrow:
-        return cast(Arrow, self.__append_element(self.__factory.arrow(self)))
+    def arrow(self, label: str | Text | None = None) -> Arrow:
+        return cast(Arrow, self.__append_element(self.__factory.arrow(self, label)))
 
     def line(self) -> Line:
         return cast(Line, self.__append_element(self.__factory.line()))
 
-    def text(self) -> Text:
-        return cast(Text, self.__append_element(self.__factory.text()))
+    def text(self, text: str | None = None) -> Text:
+        return cast(Text, self.__append_element(self.__factory.text(text)))
 
     def image(self) -> Image:
         return cast(Image, self.__append_element(self.__factory.image(self, self.__image_loader)))
 
-    def frame(self) -> Frame:
-        return cast(Frame, self.__append_element(self.__factory.frame()))
+    def frame(self, title: str | None = None) -> Frame:
+        return cast(Frame, self.__append_element(self.__factory.frame(title)))
 
     def group(self) -> Group:
         return self.__factory.group()
@@ -133,7 +133,7 @@ class ExcaligenStructure(AbstractImageListener, AbstractPlainLabelListener):
         }
 
     def _on_text(self, text: str) -> Text:
-        return cast(Text, self.__append_element(self.__factory.text().content(text)))
+        return cast(Text, self.__append_element(self.__factory.text(text)))
 
     def __append_element(self, element: AbstractElement) -> AbstractElement:
         element._index = self.__index

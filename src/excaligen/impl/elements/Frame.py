@@ -30,12 +30,12 @@ class Frame(AbstractShape):
     sized. Frames can also have titles and background colors, making them useful for
     grouping related elements and creating visual hierarchies in the layout.
     """
-    def __init__(self, defaults: Defaults):
+    def __init__(self, defaults: Defaults, title: str | None = None):
         super().__init__("frame", defaults)
         self._width = 0.0
         self._height = 0.0
         self._background_color = getattr(defaults, "_background_color")
-        self._title = None
+        self._title = title
 
     def title(self, title: str) -> Self:
         """Set the title of the frame.
