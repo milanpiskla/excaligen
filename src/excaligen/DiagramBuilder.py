@@ -65,13 +65,19 @@ class DiagramBuilder(ExcaligenStructure):
     def rectangle(self, label: str | Text | None = None) -> Rectangle:
         """Add a rectangle element to the diagram.
 
+        Args:
+            label (str | Text | None): The text label for the rectangle.
+        
         Returns:
             Rectangle: The rectangle element.
         """
-        return super().rectangle()
+        return super().rectangle(label)
 
     def diamond(self, label: str | Text | None = None) -> Diamond:
         """Add a diamond element to the diagram.
+
+        Args:
+            label (str | Text | None): The text label for the diamond.
 
         Returns:
             Diamond: The diamond element.
@@ -81,18 +87,24 @@ class DiagramBuilder(ExcaligenStructure):
     def ellipse(self, label: str | Text | None = None) -> Ellipse:
         """Add an ellipse element to the diagram.
 
+        Args:
+            label (str | Text | None): The text label for the ellipse.
+
         Returns:
             Ellipse: The ellipse element.
         """
-        return super().ellipse()
+        return super().ellipse(label)
 
     def arrow(self, label: str | Text | None = None) -> Arrow:
         """Add an arrow element to the diagram.
 
+        Args:
+            label (str | Text | None): The text label for the arrow.
+
         Returns:
             Arrow: The arrow element.
         """
-        return super().arrow()
+        return super().arrow(label)
 
     def line(self) -> Line:
         """Add a line element to the diagram.
@@ -105,10 +117,13 @@ class DiagramBuilder(ExcaligenStructure):
     def text(self, text: str | None = None) -> Text:
         """Add a text element to the diagram.
 
+        Args:
+            text (str | None): The text string.
+
         Returns:
             Text: The text element.
         """
-        return super().text()
+        return super().text(text)
 
     def image(self) -> Image:
         """Add an image element to the diagram.
@@ -121,10 +136,13 @@ class DiagramBuilder(ExcaligenStructure):
     def frame(self, title: str | None = None) -> Frame:
         """Add a frame element to the diagram.
 
+        Args:
+            title (str | None): The title of the frame.
+
         Returns:
             Frame: The frame element.
         """
-        return super().frame()
+        return super().frame(title)
 
     def group(self) -> Group:
         """Generate a group (virtual container).
