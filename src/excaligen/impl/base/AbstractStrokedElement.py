@@ -14,7 +14,7 @@ from ..inputs.Sloppiness import Sloppiness
 from ..inputs.Stroke import Stroke
 from ..inputs.Thickness import Thickness
 
-from typing import Self
+from typing import Self, override
 
 class AbstractStrokedElement(AbstractElement):
     def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None):
@@ -102,11 +102,25 @@ class AbstractStrokedElement(AbstractElement):
             case _:
                 raise ValueError("Invalid type for label. Use Text or str.")
 
-        self.__label._x = self._x + (self._width - self.__label._width) / 2  # Center horizontally
-        self.__label._y = self._y + (self._height - self.__label._height - self.__label._line_height) / 2  # Center vertically
-
+        self._center_label()
         self._add_bound_element(self.__label)
         self.__label._container_id = self._id
+        return self
+
+    @override
+    def position(self, x: float, y: float) -> Self:
+        return super().position(x, y)._center_label()
+
+    @override
+    def center(self, x: float, y: float) -> Self:
+        return super().center(x, y)._center_label()
+
+    def _center_label(self) -> Self:
+        """Center the label within the element."""
+        if self.__label:
+            self.__label._x = self._x + (self._width - self.__label._width) / 2  # Center horizontally
+            self.__label._y = self._y + (self._height - self.__label._height - self.__label._line_height) / 2  # Center vertically
+
         return self
 
     def _add_group_id(self, id: str) -> None:
