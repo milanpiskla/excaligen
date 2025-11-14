@@ -14,13 +14,13 @@ import math
 def test_arrow_star(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = DiagramBuilder()
 
-    start_element = xg.ellipse().center(0, 0).size(100, 100).label(xg.text().content("center"))
+    start_element = xg.ellipse('center').center(0, 0).size(100, 100)
 
     for angle in range(0, 360, 30):
         radians = angle * math.pi / 180
         x = 300 * math.cos(radians)
         y = 300 * math.sin(radians)
-        end_element = xg.rectangle().center(x, y).size(100, 50).label(xg.text().content(str(angle))).roundness('round')
+        end_element = xg.rectangle(str(angle)).center(x, y).size(100, 50).roundness('round')
         xg.arrow().bind(start_element, end_element)
 
     evaluate(reference_json, xg, request)
