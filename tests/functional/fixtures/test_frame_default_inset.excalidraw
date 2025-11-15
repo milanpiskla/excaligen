@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "rectangle",
-      "id": "2c4c9296-cc35-4e9b-9a13-5703a8ab837b",
-      "seed": 466911841,
+      "id": "624bde22-a42d-468c-8788-96508017fd24",
+      "seed": 317457815,
       "version": 1,
-      "versionNonce": 535217678,
+      "versionNonce": 509121483,
       "isDeleted": false,
       "x": -50.0,
       "y": -50.0,
@@ -18,11 +18,11 @@
       "angle": 0,
       "index": "a0",
       "groupIds": [],
-      "frameId": "0168d65c-beb9-4708-9150-4f02de0d9f87",
+      "frameId": "fbf8d8ff-e436-4714-aed6-453b76edec4d",
       "link": null,
       "boundElements": [
         {
-          "id": "5c46945e-cb4d-4f7a-93a5-5f483a5ca7de",
+          "id": "7fba3045-a7f3-4f9f-a72f-2a869788f2c4",
           "type": "text"
         }
       ],
@@ -38,13 +38,13 @@
     },
     {
       "type": "text",
-      "id": "5c46945e-cb4d-4f7a-93a5-5f483a5ca7de",
-      "seed": 968215885,
+      "id": "7fba3045-a7f3-4f9f-a72f-2a869788f2c4",
+      "seed": 203345623,
       "version": 1,
-      "versionNonce": 242572150,
+      "versionNonce": 564233776,
       "isDeleted": false,
       "x": -38.4,
-      "y": -10.625,
+      "y": -10.0,
       "width": 76.8,
       "height": 20.0,
       "opacity": 100,
@@ -62,14 +62,14 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "2c4c9296-cc35-4e9b-9a13-5703a8ab837b"
+      "containerId": "624bde22-a42d-468c-8788-96508017fd24"
     },
     {
       "type": "ellipse",
-      "id": "1cac5aa5-4a50-467c-a95d-eb2fe20c4d40",
-      "seed": 502414004,
+      "id": "8e56a88e-08ca-4924-a962-67f4adbc8aa6",
+      "seed": 897609127,
       "version": 1,
-      "versionNonce": 915216209,
+      "versionNonce": 775790495,
       "isDeleted": false,
       "x": 100.0,
       "y": 100.0,
@@ -79,11 +79,11 @@
       "angle": 0,
       "index": "a2",
       "groupIds": [],
-      "frameId": "0168d65c-beb9-4708-9150-4f02de0d9f87",
+      "frameId": "fbf8d8ff-e436-4714-aed6-453b76edec4d",
       "link": null,
       "boundElements": [
         {
-          "id": "ee1fbea8-cea4-4ddf-975f-2b6bf7ea37c3",
+          "id": "4b623838-b602-4e44-9d25-457bc9207529",
           "type": "text"
         }
       ],
@@ -96,13 +96,13 @@
     },
     {
       "type": "text",
-      "id": "ee1fbea8-cea4-4ddf-975f-2b6bf7ea37c3",
-      "seed": 917571395,
+      "id": "4b623838-b602-4e44-9d25-457bc9207529",
+      "seed": 228132460,
       "version": 1,
-      "versionNonce": 411694029,
+      "versionNonce": 238609013,
       "isDeleted": false,
       "x": 111.6,
-      "y": 139.375,
+      "y": 140.0,
       "width": 76.8,
       "height": 20.0,
       "opacity": 100,
@@ -120,14 +120,14 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "1cac5aa5-4a50-467c-a95d-eb2fe20c4d40"
+      "containerId": "8e56a88e-08ca-4924-a962-67f4adbc8aa6"
     },
     {
       "type": "diamond",
-      "id": "be6053ac-72d7-46d5-b0a0-a30756731e1e",
-      "seed": 961969587,
+      "id": "a2a38937-5078-4121-96a9-9d38bdafb89e",
+      "seed": 230140565,
       "version": 1,
-      "versionNonce": 734722674,
+      "versionNonce": 895673192,
       "isDeleted": false,
       "x": -200.0,
       "y": -200.0,
@@ -141,7 +141,7 @@
       "link": null,
       "boundElements": [
         {
-          "id": "92b7ca12-8fcc-4164-87fc-90e77a2f9fdf",
+          "id": "952dad7d-eec0-4b0d-aa6e-bb5290fbb082",
           "type": "text"
         }
       ],
@@ -157,13 +157,13 @@
     },
     {
       "type": "text",
-      "id": "92b7ca12-8fcc-4164-87fc-90e77a2f9fdf",
-      "seed": 108495621,
+      "id": "952dad7d-eec0-4b0d-aa6e-bb5290fbb082",
+      "seed": 203027075,
       "version": 1,
-      "versionNonce": 238469500,
+      "versionNonce": 626965669,
       "isDeleted": false,
       "x": -207.6,
-      "y": -160.625,
+      "y": -160.0,
       "width": 115.19999999999999,
       "height": 20.0,
       "opacity": 100,
@@ -181,14 +181,14 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "be6053ac-72d7-46d5-b0a0-a30756731e1e"
+      "containerId": "a2a38937-5078-4121-96a9-9d38bdafb89e"
     },
     {
       "type": "frame",
-      "id": "0168d65c-beb9-4708-9150-4f02de0d9f87",
-      "seed": 950945138,
+      "id": "fbf8d8ff-e436-4714-aed6-453b76edec4d",
+      "seed": 874874758,
       "version": 1,
-      "versionNonce": 471989320,
+      "versionNonce": 420595855,
       "isDeleted": false,
       "x": -80.0,
       "y": -80.0,

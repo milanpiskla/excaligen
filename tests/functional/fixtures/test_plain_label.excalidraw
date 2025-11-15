@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "rectangle",
-      "id": "876eef80-78a8-4711-9b84-6126534ea7d6",
-      "seed": 968792382,
+      "id": "4ca0ff7c-2ae4-45c3-b882-c3fc96f1557c",
+      "seed": 351627433,
       "version": 1,
-      "versionNonce": 885449037,
+      "versionNonce": 92917747,
       "isDeleted": false,
       "x": 0,
       "y": 0,
@@ -22,7 +22,7 @@
       "link": null,
       "boundElements": [
         {
-          "id": "0f17f88e-7566-401d-8c06-31d53ec06f74",
+          "id": "1a72db44-8432-4bda-8afc-aad0ffeab7a9",
           "type": "text"
         }
       ],
@@ -38,13 +38,13 @@
     },
     {
       "type": "text",
-      "id": "0f17f88e-7566-401d-8c06-31d53ec06f74",
-      "seed": 208600358,
+      "id": "1a72db44-8432-4bda-8afc-aad0ffeab7a9",
+      "seed": 579891771,
       "version": 1,
-      "versionNonce": 982165826,
+      "versionNonce": 521521537,
       "isDeleted": false,
       "x": 41.0,
-      "y": 29.375,
+      "y": 30.0,
       "width": 48.0,
       "height": 20.0,
       "opacity": 100,
@@ -62,7 +62,7 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "876eef80-78a8-4711-9b84-6126534ea7d6"
+      "containerId": "4ca0ff7c-2ae4-45c3-b882-c3fc96f1557c"
     }
   ],
   "appState": {

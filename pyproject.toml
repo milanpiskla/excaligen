@@ -19,7 +19,7 @@ artifacts = [
 
 [project]
 name = "excaligen"
-version = "0.9.3"
+version = "0.9.4"
 description = "Python library for generating Excalidraw diagrams"
 authors = [
     {name = "Milan Piskla", email = "milan.piskla@gmail.com"}

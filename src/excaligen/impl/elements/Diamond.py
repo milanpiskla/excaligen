@@ -30,5 +30,5 @@ class Diamond(AbstractCorneredShape):
         Returns:
         Self: The instance of the diamond with the updated size.
         """
-        return self._size(width, height)._center_label()
+        return self._size(width, height)._justify_label()
     

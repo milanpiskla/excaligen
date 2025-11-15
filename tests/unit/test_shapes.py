@@ -130,7 +130,7 @@ def test_rectangle_label():
     assert rect._bound_elements[0]['id'] == text._id
     # Check that the text is centered within the rectangle
     assert text._x == rect._x + (rect._width - text._width) / 2
-    assert text._y == rect._y + (rect._height - text._height - text._line_height) / 2
+    assert text._y == rect._y + (rect._height - text._height) / 2
 
 def test_rectangle_roundness_valid():
     rect = Rectangle(Defaults(), DummyListener())

@@ -34,4 +34,4 @@ class Ellipse(AbstractStrokedElement, AbstractShape):
         Returns:
         Self: The instance of the ellipse with the updated size.
         """
-        return self._size(width, height)._center_label()
+        return self._size(width, height)._justify_label()

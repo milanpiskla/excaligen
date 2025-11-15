@@ -102,18 +102,18 @@ class AbstractStrokedElement(AbstractElement):
             case _:
                 raise ValueError("Invalid type for label. Use Text or str.")
 
-        self._center_label()
+        self._justify_label()
         self._add_bound_element(self.__label)
         self.__label._container_id = self._id
         return self
 
     @override
     def position(self, x: float, y: float) -> Self:
-        return super().position(x, y)._center_label()
+        return super().position(x, y)._justify_label()
 
     @override
     def center(self, x: float, y: float) -> Self:
-        return super().center(x, y)._center_label()
+        return super().center(x, y)._justify_label()
 
     def _center_label(self) -> Self:
         """Center the label within the element."""
@@ -121,6 +121,13 @@ class AbstractStrokedElement(AbstractElement):
             self.__label._x = self._x + (self._width - self.__label._width) / 2  # Center horizontally
             self.__label._y = self._y + (self._height - self.__label._height - self.__label._line_height) / 2  # Center vertically
 
+        return self
+    
+    def _justify_label(self) -> Self:
+        """Justify the label within the element."""
+        if self.__label:
+            self.__label.justify(self._x + 10, self._y + 6, self._width - 20, self._height - 12)
+        
         return self
 
     def _add_group_id(self, id: str) -> None:

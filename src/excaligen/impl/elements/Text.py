@@ -40,6 +40,8 @@ class Text(AbstractElement):
     """
     CHAR_WIDTH_FACTOR = 0.6  # Approximate width of a character relative to the font size
     LINE_HEIGHT_FACTOR = 1.25  # Approximate line height factor
+    HORIZONTAL_INSET = 8.0  # Horizontal inset for text box
+    VERTICAL_INSET = 2.0    # Vertical inset for text box
 
     def __init__(self, defaults: Defaults, text: str | None = None):
         super().__init__("text", defaults)
@@ -219,6 +221,23 @@ class Text(AbstractElement):
             Self: The instance of the element, allowing for method chaining.
         """
         return self.anchor(x, y, "center", "middle")
+    
+    def justify(self, x: float, y: float, width: float, height: float) -> Self:
+        """Justify the text element within a rectangle defined by (x, y, width, height).
+
+        Args:
+            x (float): The x-coordinate of the rectangle's top-left corner.
+            y (float): The y-coordinate of the rectangle's top-left corner.
+            width (float): The width of the rectangle.
+            height (float): The height of the rectangle.
+
+        Returns:
+            Self: The current instance of the Text class.
+        """
+        self.__is_anchored = True
+        cx, cy = _ANCHOR_OFFSETS_COEFFS[self._text_align][self._vertical_align]
+        self.__do_anchor(x + cx * width, y + cy * height)
+        return self
 
     def __calculate_dimensions(self):
         """Calculate the width and height based on the text content."""

@@ -32,4 +32,4 @@ class Rectangle(AbstractCorneredShape):
         Returns:
         Self: The instance of the rectangle with the updated size.
         """
-        return self._size(width, height)._center_label()
+        return self._size(width, height)._justify_label()
