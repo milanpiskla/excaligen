@@ -17,6 +17,9 @@ from ..inputs.Thickness import Thickness
 from typing import Self, override
 
 class AbstractStrokedElement(AbstractElement):
+    LABEL_HORIZONTAL_INSET = 10
+    LABEL_VERTICAL_INSET = 6
+    
     def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None):
         super().__init__(type, defaults)
         self._stroke_color = getattr(defaults, "_stroke_color")
@@ -115,18 +118,12 @@ class AbstractStrokedElement(AbstractElement):
     def center(self, x: float, y: float) -> Self:
         return super().center(x, y)._justify_label()
 
-    def _center_label(self) -> Self:
-        """Center the label within the element."""
-        if self.__label:
-            self.__label._x = self._x + (self._width - self.__label._width) / 2  # Center horizontally
-            self.__label._y = self._y + (self._height - self.__label._height - self.__label._line_height) / 2  # Center vertically
-
-        return self
-    
     def _justify_label(self) -> Self:
         """Justify the label within the element."""
         if self.__label:
-            self.__label.justify(self._x + 10, self._y + 6, self._width - 20, self._height - 12)
+            x, y = self._x + self.LABEL_HORIZONTAL_INSET, self._y + self.LABEL_VERTICAL_INSET
+            w, h = self._width - 2 * self.LABEL_HORIZONTAL_INSET, self._height - 2 * self.LABEL_VERTICAL_INSET
+            self.__label.justify(x, y, w, h)
         
         return self
 

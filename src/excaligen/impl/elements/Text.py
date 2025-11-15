@@ -40,8 +40,6 @@ class Text(AbstractElement):
     """
     CHAR_WIDTH_FACTOR = 0.6  # Approximate width of a character relative to the font size
     LINE_HEIGHT_FACTOR = 1.25  # Approximate line height factor
-    HORIZONTAL_INSET = 8.0  # Horizontal inset for text box
-    VERTICAL_INSET = 2.0    # Vertical inset for text box
 
     def __init__(self, defaults: Defaults, text: str | None = None):
         super().__init__("text", defaults)
