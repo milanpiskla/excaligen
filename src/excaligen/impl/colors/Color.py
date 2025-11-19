@@ -7,6 +7,31 @@ Description: Color class for handling RGB and HSL colors. Contains also a static
 from typing import Self
 
 class Color:
+    """ Color class for handling RGB and HSL colors. Contains also a static method for parsing color strings.
+    The following color names are supported (case insensitive):
+    ```
+    AliceBlue, AntiqueWhite, Aqua, Aquamarine, Azure, Beige,
+    Bisque, Black, BlanchedAlmond, Blue, BlueViolet, Brown, BurlyWood,
+    CadetBlue, Chartreuse, Chocolate, Coral, CornflowerBlue, Cornsilk, Crimson, Cyan,
+    DarkBlue, DarkCyan, DarkGoldenRod, DarkGray, DarkGrey, DarkGreen, DarkKhaki, DarkMagenta, DarkOliveGreen, DarkOrange, DarkOrchid, DarkRed, DarkSalmon, DarkSeaGreen, DarkSlateBlue, DarkSlateGray, DarkSlateGrey, DarkTurquoise, DarkViolet, DeepPink, DeepSkyBlue, DimGray, DimGrey, DodgerBlue,
+    FireBrick, FloralWhite, ForestGreen, Fuchsia,
+    Gainsboro, GhostWhite, Gold, GoldenRod, Gray, Grey, Green, GreenYellow, 
+    HoneyDew, HotPink,
+    IndianRed, Indigo, Ivory, 
+    Khaki, 
+    Lavender, LavenderBlush, LawnGreen, LemonChiffon, LightBlue, LightCoral, LightCyan, LightGoldenRodYellow, LightGray, LightGrey, LightGreen, LightPink, LightSalmon, LightSeaGreen, LightSkyBlue, LightSlateGray, LightSlateGrey, LightSteelBlue, LightYellow, Lime, LimeGreen, Linen,
+    Magenta, Maroon, MediumAquaMarine, MediumBlue, MediumOrchid, MediumPurple, MediumSeaGreen, MediumSlateBlue, MediumSpringGreen, MediumTurquoise, MediumVioletRed, MidnightBlue, MintCream, MistyRose, Moccasin,
+    NavajoWhite, Navy,
+    OldLace, Olive, OliveDrab, Orange, OrangeRed, Orchid,
+    PaleGoldenRod, PaleGreen, PaleTurquoise, PaleVioletRed, PapayaWhip, PeachPuff, Peru, Pink, Plum, PowderBlue, Purple,
+    RebeccaPurple, Red, RosyBrown, RoyalBlue, 
+    SaddleBrown, Salmon, SandyBrown, SeaGreen, SeaShell, Sienna, Silver, SkyBlue, SlateBlue, SlateGray, SlateGrey, Snow, SpringGreen, SteelBlue,
+    Tan, Teal, Thistle, Tomato, Turquoise,
+    Violet,
+    Wheat, White, WhiteSmoke,
+    Yellow, YellowGreen
+    ```
+    """
     _COLOR_NAMES = {
         "AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood",
         "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey",
@@ -28,12 +53,14 @@ class Color:
         self._b = 0
 
     def rgb(self, r: int, g: int, b: int) -> Self:
+        """ Sets the color using RGB values. The values must be integers in the range 0-255. """
         if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
             raise ValueError("RGB values must be in the range 0-255.")
         self._r, self._g, self._b = r, g, b
         return self
 
     def hsl(self, h: int, s: int, l: int):
+        """ Sets the color using HSL values. H must be in the range 0-360, S and L in the range 0-100. """
         if not (0 <= h <= 360 and 0 <= s <= 100 and 0 <= l <= 100):
             raise ValueError("HSL values must be in the range H: 0-360, S/L: 0-100.")
         c = (1 - abs(2 * l / 100 - 1)) * (s / 100)
@@ -75,6 +102,7 @@ class Color:
 
     @staticmethod
     def from_(input_color: "str | Color") -> str:
+        """ Converts input color to string representation. Accepts either a Color instance or a string. """
         match input_color:
             case Color() as color:
                 return str(color)

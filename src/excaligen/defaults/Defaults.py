@@ -20,7 +20,7 @@ from typing import Self, Any
 
 class Defaults:
     """A class to hold default values for various element properties.
-    This class provides a centralized way to manage default settings for elements,
+    This class provides a centralized way to manage default settings for elements/
     The initial values are:
     ```
     size(130, 80)

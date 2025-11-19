@@ -10,7 +10,7 @@ from ...defaults.Defaults import Defaults
 
 from ..inputs.Opacity import Opacity
 
-# TODO make it consistent with excalidraw/packages/excalidraw/element/types.ts
+# TODO make it consistent with excalidraw/packages/element/src/types.ts
 
 class AbstractElement:
     """Base class for all Excalidraw elements."""
