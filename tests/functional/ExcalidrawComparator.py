@@ -5,6 +5,7 @@ Description: A simplified comparator class to compare two Excalidraw JSON object
 # Licensed under the MIT License - see LICENSE file for details
 
 from typing import Any, Set, Optional, List, Dict
+import math
 
 class ExcalidrawComparator:
     """
@@ -154,6 +155,11 @@ class ExcalidrawComparator:
                 if not self._compare_recursive(item1, item2, new_path):
                     return False
             return True
+        elif isinstance(obj1, (int, float)) and isinstance(obj2, (int, float)):
+            if math.isclose(obj1, obj2):
+                return True
+            self.differences.append(f"Numeric mismatch at '{path}': {obj1} != {obj2})")
+            return False
         else:
             if obj1 != obj2:
                 self.differences.append(f"Value mismatch at '{path}': {obj1} != {obj2}")
