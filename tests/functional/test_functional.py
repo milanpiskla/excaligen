@@ -4,21 +4,21 @@ Description: Functional tests for various elements.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from excaligen.DiagramBuilder import DiagramBuilder
+from excaligen.SceneBuilder import SceneBuilder
 from .evaluate import *
 from typing import Any
 
 from pytest import FixtureRequest
 
 def test_grid(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     xg.grid(50, 10, True)
     xg.rectangle().center(0, 0).size(100, 100)
     
     evaluate(reference_json, xg, request)
 
 def test_view_background(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     xg.grid(50, 10, True)
     xg.background('#0000FF')
     xg.rectangle().center(0, 0).size(100, 100)
@@ -26,7 +26,7 @@ def test_view_background(reference_json: dict[str, Any], request: FixtureRequest
     evaluate(reference_json, xg, request)
 
 def test_texts(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     xg.text().content("Hello, World!").fontsize("L").font("Hand-drawn").align("center").baseline("top").spacing(1.5).color("#FF0000")
     xg.text().position(100, 100).content("Hello, Excalifont!").fontsize(40).font("excalifont").align("center").baseline("top").spacing(1.5).color("#0000FF").autoresize(True)
 
@@ -38,7 +38,7 @@ def test_text_anchors(reference_json: dict[str, Any], request: FixtureRequest) -
         xg.line().points([[x - 20, y], [x + 20, y]]).color(color)
         xg.line().points([[x, y - 20], [x, y + 20]]).color(color)
 
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     x = 42.0
     y = 0.0
 
@@ -51,20 +51,20 @@ def test_text_anchors(reference_json: dict[str, Any], request: FixtureRequest) -
     evaluate(reference_json, xg, request)
 
 def test_labels(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     label = xg.text().content("Hello, World!").fontsize("M").font("Hand-drawn").spacing(1.5).color("#FF0000")
     xg.rectangle().position(10, 20).size(300, 100).label(label)
 
     evaluate(reference_json, xg, request)
 
 def test_plain_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     xg.rectangle().label("Hello")
 
     evaluate(reference_json, xg, request)
 
 def test_sandbox(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
 
     def cross(center: tuple[float, float], color: str) -> None:
         x, y = center
@@ -82,7 +82,7 @@ def test_sandbox(reference_json: dict[str, Any], request: FixtureRequest) -> Non
     evaluate(reference_json, xg, request)
 
 def test_lines(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
 
     xg.line().color('#00FF00').points([(0, 0), (100, 50)]).sloppiness(2).stroke('solid')
     xg.line().color('#0000FF').points([(0, 0), (100, -50)]).sloppiness(0).stroke('dotted')
@@ -91,21 +91,21 @@ def test_lines(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     evaluate(reference_json, xg, request)
 
 def test_closed_lines_background(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
 
     xg.line().color('black').points([(0, 0), (100, 50), (50, 100)]).close().background('green').fill('solid')
 
     evaluate(reference_json, xg, request)
 
 def test_closed_lines_fill(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
 
     xg.line().color('black').points([(0, 0), (100, 50), (50, 100)]).close().background('red').fill('cross-hatch')
     
     evaluate(reference_json, xg, request)
 
 def test_group(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("Group part"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("Group part"))
     diamond = xg.diamond().center(-150, -150).size(100, 100).label(xg.text().content("Not Group"))
@@ -114,7 +114,7 @@ def test_group(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     evaluate(reference_json, xg, request)
 
 def test_frame_default_inset(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("In frame"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("In frame"))
     diamond = xg.diamond().center(-150, -150).size(100, 100).label(xg.text().content("Not in frame"))
@@ -123,7 +123,7 @@ def test_frame_default_inset(reference_json: dict[str, Any], request: FixtureReq
     evaluate(reference_json, xg, request)
 
 def test_frame(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     rect = xg.rectangle().center(0, 0).size(100, 100).label(xg.text().content("In frame"))
     ellipse = xg.ellipse().center(150, 150).size(100, 100).label(xg.text().content("In frame"))
     diamond = xg.diamond().center(-150, -150).size(100, 100).label(xg.text().content("Not in frame"))

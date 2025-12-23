@@ -5,11 +5,11 @@ Description: Unit tests for few elements.
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
-from excaligen.DiagramBuilder import DiagramBuilder
+from excaligen.SceneBuilder import SceneBuilder
 from excaligen.defaults.Defaults import Defaults
 
 def test_excalidraw_init():
-    xd = DiagramBuilder()
+    xd = SceneBuilder()
     assert xd._type == "excalidraw"
     assert xd._version == 2
     assert xd._source == "https://excalidraw.com"
@@ -17,14 +17,14 @@ def test_excalidraw_init():
     assert len(xd._elements) == 0
 
 def test_add_rectangle():
-    xd = DiagramBuilder()
+    xd = SceneBuilder()
     rect = xd.rectangle()
     assert rect._type == "rectangle"
     assert len(xd._elements) == 1
     assert xd._elements[0]._type == "rectangle"
 
 def test_add_text():
-    xd = DiagramBuilder()
+    xd = SceneBuilder()
     text = xd.text().content("Hello, Excalidraw!")
     assert text._text == "Hello, Excalidraw!"
     assert text._font_size == getattr(xd.defaults(), '_font_size')
@@ -32,7 +32,7 @@ def test_add_text():
     assert xd._elements[0]._type == "text"
 
 def test_json_output():
-    xd = DiagramBuilder()
+    xd = SceneBuilder()
     xd.rectangle().size(200, 100)
     json_output = xd.json()
     assert "rectangle" in json_output
@@ -40,7 +40,7 @@ def test_json_output():
     assert '"height": 100' in json_output
 
 def test_save_to_file(tmp_path):
-    xd = DiagramBuilder()
+    xd = SceneBuilder()
     xd.rectangle().size(200, 100)
     file_path = tmp_path / "output.json"
     xd.save(str(file_path))

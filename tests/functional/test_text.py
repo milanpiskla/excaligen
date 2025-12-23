@@ -4,14 +4,14 @@ Description: Functional tests for various elements.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from excaligen.DiagramBuilder import DiagramBuilder
+from excaligen.SceneBuilder import SceneBuilder
 from .evaluate import *
 from typing import Any
 
 from pytest import FixtureRequest
 
 def test_text_justify(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = DiagramBuilder()
+    xg = SceneBuilder()
     
     y = 0
     for baseline in ['top', 'middle', 'bottom']:

@@ -451,7 +451,7 @@ if __name__ == "__main__":
     sys.path.insert(0, src_path)
     
     DOC_TARGETS = [
-        ("excaligen.DiagramBuilder", "./src/excaligen/DiagramBuilder.py"),
+        ("excaligen.SceneBuilder", "./src/excaligen/SceneBuilder.py"),
         ("excaligen.impl.elements.Arrow", "./src/excaligen/impl/elements/Arrow.py"),
         ("excaligen.impl.elements.Diamond", "./src/excaligen/impl/elements/Diamond.py"),
         ("excaligen.impl.elements.Ellipse", "./src/excaligen/impl/elements/Ellipse.py"),
