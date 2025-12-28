@@ -1,6 +1,6 @@
 # Excaligen User Manual
 
-If you appreciate the aesthetic of Excalidraw but require capabilities beyond simple manual drafting, Excaligen offers a bridge between code and visual expression.
+If you appreciate the aesthetic of Excalidraw but require capabilities beyond simple manual drafting, **Excaligen** offers a bridge between code and visual expression.
 
 It allows you to generate Excalidraw-compatible files directly from Python, enabling the visualization of data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
@@ -8,7 +8,7 @@ It allows you to generate Excalidraw-compatible files directly from Python, enab
 
 ## Chapter 1: The First Sketch
 
-We begin with the essential `SceneBuilder`.
+We begin with the essential `SceneBuilder`. This is your canvas.
 
 Create a file named `hello_world.py`:
 
@@ -26,28 +26,52 @@ Executing this script produces a file ready for Excalidraw. It is that straightf
 
 ## Chapter 2: Shapes & Styles
 
-Excalidraw is known for its hand-drawn feel. Excaligen gives you full control over this aesthetic.
+Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.
 
 ### Elemental Shapes
-Add fundamental geometry with ease:
+Excalidraw provides a set of core primitives. We expose them directly:
+
+- **Rectangle**: The workhorse of diagrams. Perfect for nodes, heavy containers, or UI mockups.
+- **Ellipse**: Great for states, start/end points, or emphasizing flow.
+- **Diamond**: The classic decision node in flowcharts.
 
 ```python
-scene.rectangle().label("Box")
-scene.ellipse().label("Circle")
+scene.rectangle().label("Process")
+scene.ellipse().label("Start")
 scene.diamond().label("Decision")
 ```
 
-### The Art of Styling
-You are not limited to defaults. Customize every aspect:
+### The Visual Vocabulary
+A diagram communicates through more than just shapes. The *style* of a line tells a story.
 
-- **Stroke**: `solid`, `dashed`, or `dotted`.
-- **Fill**: `solid`, `hachure`, or `cross-hatch`.
-- **Thickness**: `thin` (1), `bold` (2), or `extra-bold` (3).
-- **Fonts**: `Hand-drawn`, `Normal`, `Code`, and more.
+#### Stroke Styles
+How a line is drawn changes its meaning:
+- **Solid**: A strong, definite relationship or boundary. The default.
+- **Dashed**: Often implies a tentative connection, a future state, or a secondary boundary.
+- **Dotted**: Used for weak links, annotations, or "ghost" elements.
 
 ```python
-scene.rectangle().stroke("dashed").fill("cross-hatch").thickness(2)
-scene.text("Code Font").font("Code")
+scene.rectangle().stroke("dashed")
+```
+
+#### Fill Styles
+Excalidraw's fill styles are iconic. You can choose how your shapes are filled:
+- **Hachure**: The classic, sketchy diagonal lines. Distinctively "Excalidraw".
+- **Cross-Hatch**: Dense, crossed lines for a heavier, darker selection.
+- **Solid**: A full, opaque fill.
+
+```python
+scene.ellipse().fill("hachure").background("LightBlue")
+```
+
+#### Sloppiness (Roughness)
+This is the magic ingredient. It determines how "hand-drawn" your diagram looks.
+- **Architect**: Precise, straight lines. Clean and professional.
+- **Artist**: The default. A balanced, natural sketchiness.
+- **Cartoonist**: Very messy and playful.
+
+```python
+scene.defaults().sloppiness("architect") # Clean lines for a tech spec
 ```
 
 ### Colors
@@ -56,39 +80,36 @@ Express with precision using:
 - **RGB**: `scene.color().rgb(100, 149, 237)`.
 - **HSL**: `scene.color().hsl(200, 80, 60)`.
 
-See `examples/styles_demo.py` for a gallery of these possibilities.
-
 ---
 
 ## Chapter 3: Connecting the Dots
 
-diagrams are about relationships.
+Diagrams are fundamentally about relationships.
 
 ### Intelligent Binding
-Link elements dynamically. If the nodes move, the connection adapts.
+In manual drawing, moving a box means redrawing the lines. In Excaligen, you **bind** arrows to elements. If the nodes move, the arrow adapts automatically.
 
 ```python
 scene.arrow().bind(start_node, end_node)
 ```
 
 ### Path Control
-- **Elbow**: Orthogonal lines for structured diagrams.
-- **Curve**: Elegant Bezier paths.
-- **Arc**: Simple circular connections.
+The path an arrow takes is crucial for readability:
+- **Elbow**: Orthogonal lines (90-degree turns). Essential for technical diagrams like org charts or circuit boards where clarity is paramount.
+- **Curve**: Elegant Bezier paths. Natural and flowing.
+- **Arc**: Simple circular connections, great for annotation or jumping over other lines.
 
 ```python
-scene.arrow().bind(a, b).elbow("R", "L") # Right to Left
+scene.arrow().bind(a, b).elbow("R", "L") # Leave Right, Enter Left
 ```
-
-Refer to `examples/arrows_demo.py` for comprehensive examples.
 
 ---
 
 ## Chapter 4: Consistency & Defaults
 
-When creating a large diagram, repeating style method calls (`.font("Code").color("Blue")`) is redundant.
+When creating a large diagram, repeating style method calls (`.font("Code").color("Blue")`) is redundant and error-prone.
 
-Use `scene.defaults()` to establish a baseline for your entire scene:
+Use `scene.defaults()` to establish a baseline for your entire scene. This sets the "theme" of your diagram.
 
 ```python
 # Set global style: "Artist" sloppiness, specific font, and color.
