@@ -105,12 +105,3 @@ json_data = xg.json()
 
 ## About the Author ✍️
 My name is Milan Piskla. I'm just coding for fun 😊.
-
-
-
- pip install -e .
- pytest -s
-
- python -m pytest
-
- 

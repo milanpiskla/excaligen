@@ -1,7 +1,7 @@
 """
 Description: Excalidraw file generator. 
 This module defines the SceneBuilder class, which serves as the main interface with fluent API for creating
-Excalidraw diagram. 
+Excalidraw scene/diagram. 
 """
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
