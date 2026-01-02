@@ -261,7 +261,9 @@ class MarkdownWriter:
         # Add method signature
         content.append(f"### {method_name}\n")
         content.append("```python\n")
-        content.append(f"{inspect.getsource(method).splitlines()[0]}\n")
+        source_lines = inspect.getsource(method).splitlines()
+        signature_line = next((line for line in source_lines if line.strip().startswith('def ')), source_lines[0])
+        content.append(f"{signature_line}\n")
         content.append("```\n")
         
         if doc_info:
