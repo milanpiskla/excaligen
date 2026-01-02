@@ -325,7 +325,7 @@ class MarkdownWriter:
             content.append(f"## {simple_module}\n\n")
             content.extend(self._format_class_entries(module_classes))
         
-        filepath = os.path.join(self.output_dir, "api.md")
+        filepath = os.path.join(self.output_dir, "index.md")
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write("".join(content))
 
@@ -466,5 +466,5 @@ if __name__ == "__main__":
         ("excaligen.defaults.Defaults", "./src/excaligen/defaults/Defaults.py"),
     ]
 
-    generator = Generator("docs")
+    generator = Generator(os.path.join("docs", "api"))
     generator.generate(DOC_TARGETS)
