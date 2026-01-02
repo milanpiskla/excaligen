@@ -4,14 +4,16 @@ Description: Ellipse shape.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
+
 from ..base.AbstractStrokedElement import AbstractStrokedElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractShape import AbstractShape
+from ..base.AbstractLabeledElement import AbstractLabeledElement
 from ..elements.Text import Text
 from ...defaults.Defaults import Defaults
 from typing import Self, override
 
-class Ellipse(AbstractStrokedElement, AbstractShape):
+class Ellipse(AbstractStrokedElement, AbstractShape, AbstractLabeledElement):
     """
     A class representing an elliptical shape element.
 
@@ -20,7 +22,8 @@ class Ellipse(AbstractStrokedElement, AbstractShape):
     is defined by its center point and two radii (rx and ry).
     """
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
-        super().__init__("ellipse", defaults, listener, label)
+        super().__init__("ellipse", defaults)
+        self._init_labels(listener, label)
 
     @override
     def size(self, width: float, height: float) -> Self:
@@ -34,4 +37,4 @@ class Ellipse(AbstractStrokedElement, AbstractShape):
         Returns:
         Self: The instance of the ellipse with the updated size.
         """
-        return self._size(width, height)._justify_label()
+        return self._size(width, height)

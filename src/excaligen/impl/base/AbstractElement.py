@@ -146,3 +146,11 @@ class AbstractElement:
 
         if not element._id in self._bound_elements: # TODO check if this works to prevent binding twice
             self._bound_elements.append({"id": element._id, "type": element._type})
+
+    def _add_group_id(self, id: str) -> None:
+        """Add a group ID to the element.
+
+        Args:
+            id (str): The group ID to add.
+        """
+        self._group_ids.append(id)

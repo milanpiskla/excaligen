@@ -4,8 +4,10 @@ Description: Arrow element.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
+
 from ..base.AbstractElement import AbstractElement
 from ..base.AbstractLine import AbstractLine
+from ..base.AbstractLabeledElement import AbstractLabeledElement
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..elements.Text import Text
 
@@ -23,7 +25,7 @@ from ...defaults.Defaults import Defaults
 from enum import Enum
 from typing import Self, Any
 
-class Arrow(AbstractLine):
+class Arrow(AbstractLine, AbstractLabeledElement):
     """A class representing an arrow element in Excalidraw with various connection styles.
 
     It creates arrow elements that can connect different elements
@@ -43,7 +45,8 @@ class Arrow(AbstractLine):
         ELBOW = 3
 
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None) -> None:
-        super().__init__("arrow", defaults, listener, label)
+        AbstractLine.__init__(self, "arrow", defaults)
+        self._init_labels(listener, label)
         self._start_binding = None
         self._end_binding = None
         self._start_arrowhead = getattr(defaults, "_start_arrowhead")

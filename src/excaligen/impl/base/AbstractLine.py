@@ -4,17 +4,16 @@ Description: Base class for lines and arrows.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
+
 from ..base.AbstractStrokedElement import AbstractStrokedElement
-from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ..elements.Text import Text
+from ..base.AbstractRoundableElement import AbstractRoundableElement
 from ...defaults.Defaults import Defaults
 from ..geometry.Point import Point
-from ..inputs.Roundness import Roundness
 from typing import Self
 
-class AbstractLine(AbstractStrokedElement):
-    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
-        super().__init__(type, defaults, listener, label)
+class AbstractLine(AbstractStrokedElement, AbstractRoundableElement):
+    def __init__(self, type: str, defaults: Defaults):
+        super().__init__(type, defaults)
         self._points: list[Point] = []
         self._roundness = getattr(defaults, "_roundness")
 
@@ -32,22 +31,4 @@ class AbstractLine(AbstractStrokedElement):
         self._width = max(x_coords) - min(x_coords)
         self._height = max(y_coords) - min(y_coords)
 
-        return self
-
-    def roundness(self, roundness: str) -> Self:
-        """
-        Set the roundness style of the shape.
-
-        Parameters:
-        roundness (str): The roundness style to set. Acceptable values are:
-                 - "sharp": Sets the shape to have sharp corners.
-                 - "round": Sets the shape to have rounded corners.
-
-        Returns:
-        Self: The instance of the shape with the updated roundness style.
-
-        Raises:
-        ValueError: If the provided roundness style is not "sharp" or "round".
-        """
-        self._roundness = Roundness.from_(roundness)
         return self

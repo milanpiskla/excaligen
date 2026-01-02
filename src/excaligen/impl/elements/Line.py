@@ -4,15 +4,15 @@ Description: Line element.
 # Copyright (c) 2024 - 2025 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
+
 from ..base.AbstractLine import AbstractLine
-from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
-from ..elements.Text import Text
+from ..base.AbstractShape import AbstractShape
 from ..colors.Color import Color
 from ..inputs.Fill import Fill
 from ...defaults.Defaults import Defaults
 from typing import Self
 
-class Line(AbstractLine):
+class Line(AbstractLine, AbstractShape):
     """A line element that draws a straight or curved line segments between the given points.
 
     This class represents a line element in the drawing canvas.
@@ -20,11 +20,7 @@ class Line(AbstractLine):
     configurations for styling and positioning.
     """
     def __init__(self, defaults: Defaults):
-        class DummyListener(AbstractPlainLabelListener):
-            def _on_text(self, text: str) -> Text:
-                return Text(defaults)
-
-        super().__init__("line", defaults, DummyListener())
+        super().__init__("line", defaults)
         self._background_color = getattr(defaults, "_background_color")
         self._fill_style = getattr(defaults, "_fill_style")
 

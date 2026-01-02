@@ -5,31 +5,23 @@ Description: Base class for stroked elements.
 # Licensed under the MIT License - see LICENSE file for details
 
 from .AbstractElement import AbstractElement
-from ..elements.Text import Text
-from ..colors.Color import Color
-from .AbstractPlainLabelListener import AbstractPlainLabelListener
 from ...defaults.Defaults import Defaults
+from ..colors.Color import Color
 
 from ..inputs.Sloppiness import Sloppiness
 from ..inputs.Stroke import Stroke
 from ..inputs.Thickness import Thickness
 
-from typing import Self, override
+from typing import Self
+
 
 class AbstractStrokedElement(AbstractElement):
-    LABEL_HORIZONTAL_INSET = 10
-    LABEL_VERTICAL_INSET = 6
-    
-    def __init__(self, type: str, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None):
+    def __init__(self, type: str, defaults: Defaults):
         super().__init__(type, defaults)
         self._stroke_color = getattr(defaults, "_stroke_color")
         self._stroke_width = getattr(defaults, "_stroke_width")
         self._stroke_style = getattr(defaults, "_stroke_style")
         self._roughness = getattr(defaults, "_roughness")
-        self.__listener = listener
-        self.__label: Text | None = None
-        if label is not None:
-            self.label(label)
 
     def color(self, color: str | Color) -> Self:
         """Set the stroke (outline) color as #RRGGBB, color name or Color object.
@@ -87,52 +79,3 @@ class AbstractStrokedElement(AbstractElement):
         """
         self._stroke_style = Stroke.from_(style)
         return self
-
-    def label(self, text: Text | str) -> Self:
-        """Set the label text for the element.
-
-        Args:
-            text (Text | str): The text element to set as the label or plain text.
-
-        Returns:
-            Self: The current instance of the AbstractStrokedElement class.
-        """
-        match text:
-            case Text():
-                self.__label = text
-            case str():
-                self.__label = self.__listener._on_text(text)
-            case _:
-                raise ValueError("Invalid type for label. Use Text or str.")
-
-        self._justify_label()
-        self._add_bound_element(self.__label)
-        self.__label._container_id = self._id
-        return self
-
-    @override
-    def position(self, x: float, y: float) -> Self:
-        return super().position(x, y)._justify_label()
-
-    @override
-    def center(self, x: float, y: float) -> Self:
-        return super().center(x, y)._justify_label()
-
-    def _justify_label(self) -> Self:
-        """Justify the label within the element."""
-        if self.__label:
-            x, y = self._x + self.LABEL_HORIZONTAL_INSET, self._y + self.LABEL_VERTICAL_INSET
-            w, h = self._width - 2 * self.LABEL_HORIZONTAL_INSET, self._height - 2 * self.LABEL_VERTICAL_INSET
-            self.__label.justify(x, y, w, h)
-        
-        return self
-
-    def _add_group_id(self, id: str) -> None:
-        """Add a group ID to the element.
-
-        Args:
-            id (str): The group ID to add.
-        """
-        self._group_ids.append(id)
-        if self.__label:
-            self.__label._group_ids.append(id)
