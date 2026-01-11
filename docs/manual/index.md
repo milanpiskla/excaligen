@@ -1,8 +1,8 @@
 # Excaligen User Manual
 
-If you appreciate the aesthetic of Excalidraw but require capabilities beyond simple manual drafting, **Excaligen** offers a bridge between code and visual expression.
+**Excaligen** bridges the gap between code and visual expression, bringing programmatic power to the Excalidraw aesthetic.
 
-It allows you to generate Excalidraw-compatible files directly from Python, enabling the visualization of data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
+Generate Excalidraw-compatible files directly from Python. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
 ---
 
@@ -47,21 +47,38 @@ A diagram communicates through more than just shapes. The *style* of a line tell
 #### Stroke Styles
 How a line is drawn changes its meaning:
 - **Solid**: A strong, definite relationship or boundary. The default.
+
+    ![](images/stroke_style_solid.svg)
+
 - **Dashed**: Often implies a tentative connection, a future state, or a secondary boundary.
+
+    ![](images/stroke_style_dashed.svg)
+
 - **Dotted**: Used for weak links, annotations, or "ghost" elements.
 
+    ![](images/stroke_style_dotted.svg)
+
+Example:
 ```python
-scene.rectangle().stroke("dashed")
+scene.rectangle().stroke("dotted")
 ```
 
 #### Fill Styles
 Excalidraw's fill styles are iconic. You can choose how your shapes are filled:
-- **Hachure**: The classic, sketchy diagonal lines. Distinctively "Excalidraw".
-- **Cross-Hatch**: Dense, crossed lines for a heavier, darker selection.
 - **Solid**: A full, opaque fill.
 
+    ![Fill Styles](images/fill_style_solid.svg)
+
+- **Hachure**: The classic, sketchy diagonal lines. Distinctively "Excalidraw".
+
+    ![](images/fill_style_hachure.svg)
+
+- **Cross-Hatch**: Dense, crossed lines for a heavier, darker selection.
+
+    ![](images/fill_style_crosshatch.svg)
+
 ```python
-scene.ellipse().fill("hachure").background("LightBlue")
+scene.ellipse().fill("crosshatch")
 ```
 
 #### Sloppiness (Roughness)
