@@ -82,7 +82,80 @@ Express with precision using:
 
 ---
 
-## Chapter 3: Connecting the Dots
+## Chapter 3: Typography & Text
+
+A picture is worth a thousand words, but sometimes you just need the words.
+
+### The Basics
+Adding text is as simple as adding a shape. The `Text` element handles multi-line strings automatically.
+
+```python
+scene.text("Use text\nfor labels\nand notes.")
+```
+
+### Styling Text
+You have granular control over how your text appears.
+
+#### Font Family
+Choose the right voice for your text:
+- **Hand-drawn**: The classic Excalidraw look (Virgil).
+- **Code**: Monospaced, perfect for snippets (Cascadia).
+- **Normal**: Clean sans-serif (Helvetica/Arial).
+- Others: `Comic Shaans`, `Lilita One`, `Nunito`.
+
+```python
+scene.text("def hello():\n    print('Hi')").font("Code")
+```
+
+#### Size & Alignment
+- **Size**: Use semantic sizes (`"S"`, `"M"`, `"L"`, `"XL"`) or exact integers.
+- **Alignment**:
+  - Horizontal: `.align("left")`, `.align("center")`, `.align("right")`
+  - Vertical: `.baseline("top")`, `.baseline("middle")`, `.baseline("bottom")`
+
+```python
+scene.text("Title").fontsize("XL").align("center")
+```
+
+### Layout Helpers
+Positioning text precisely can be tricky. Excaligen provides helpers to place text relative to coordinates or boxes.
+
+- **`anchor(x, y, align, baseline)`**: Anchors the text to a specific point.
+- **`center(x, y)`**: Centers the text exactly at the given point.
+- **`justify(x, y, w, h)`**: Aligns the text within a bounding box according to its alignment settings.
+
+```python
+# Places text centered in a 100x50 box at (0,0)
+scene.text("Button").align("center").justify(0, 0, 100, 50)
+
+# Anchors text top-left corner to (10, 10)
+scene.text("Chapter 1").anchor(10, 10, "left", "top")
+```
+
+---
+
+## Chapter 4: Images
+
+Bring external assets—screenshots, logos, or diagrams—into your scene.
+
+### Loading Images
+You can load images from various sources:
+
+- **Local File**: `scene.image().file("./assets/logo.png")`
+- **URL**: `scene.image().url("https://example.com/chart.png")`
+- **Raw Data**: `scene.image().data(svg_string_or_bytes)`
+
+### Sizing
+Images often need to fit into a specific layout. Use `.fit()` to scale an image to fit within a bounding box while preserving its aspect ratio.
+
+```python
+# Load a logo and constrain it to a 200x200 box
+scene.image().file("logo.png").fit(200, 200)
+```
+
+---
+
+## Chapter 5: Connecting the Dots
 
 Diagrams are fundamentally about relationships.
 
@@ -105,7 +178,7 @@ scene.arrow().bind(a, b).elbow("R", "L") # Leave Right, Enter Left
 
 ---
 
-## Chapter 4: Consistency & Defaults
+## Chapter 6: Consistency & Defaults
 
 When creating a large diagram, repeating style method calls (`.font("Code").color("Blue")`) is redundant and error-prone.
 
@@ -124,7 +197,7 @@ This ensures visual consistency and keeps your code clean.
 
 ---
 
-## Chapter 5: Algorithmic Generation
+## Chapter 7: Algorithmic Generation
 
 The true power of Excaligen lies in automation. You can visualize recursive structures or generate diagrams from data that would be tedious to draw by hand.
 
