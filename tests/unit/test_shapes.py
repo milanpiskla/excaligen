@@ -114,7 +114,7 @@ def test_rectangle_fill_valid():
 
 def test_rectangle_fill_invalid():
     rect = Rectangle(Defaults(), DummyListener())
-    with pytest.raises(ValueError, match="Invalid fill style 'gradient'. Use 'hatchure', 'cross-hatch', or 'solid'."):
+    with pytest.raises(ValueError, match="Invalid fill style 'gradient'. Use 'hachure', 'cross-hatch', or 'solid'."):
         rect.fill("gradient")
 
 def test_rectangle_background():

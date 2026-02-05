@@ -122,7 +122,7 @@ def test_baseline_invalid_values(invalid_align):
     assert "Use 'top', 'middle', or 'bottom'" in str(exc_info.value)
 
 @pytest.mark.parametrize("style", [
-    "hatchure",
+    "hachure",
     "cross-hatch",
     "solid"
 ])
@@ -147,7 +147,7 @@ def test_fill_invalid_styles(invalid_style):
     with pytest.raises(ValueError) as exc_info:
         Fill.from_(invalid_style)
     assert "Invalid fill style" in str(exc_info.value)
-    assert "Use 'hatchure', 'cross-hatch', or 'solid'" in str(exc_info.value)
+    assert "Use 'hachure', 'cross-hatch', or 'solid'" in str(exc_info.value)
 
 @pytest.mark.parametrize("font,expected", [
     ("hand-drawn", 1),

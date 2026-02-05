@@ -16,11 +16,15 @@ Create a file named `hello_world.py`:
 from excaligen.SceneBuilder import SceneBuilder
 
 scene = SceneBuilder()
-scene.text("Hello, World!")
-scene.save("hello_world.excalidraw")
+scene.text('Hello, World!')
+scene.save('hello_world.excalidraw')
 ```
 
-Executing this script produces a file ready for Excalidraw. It is that straightforward.
+Executing this script produces a file ready for Excalidraw.
+
+![Hello World](images/hello_world.svg)
+
+It is that straightforward.
 
 ---
 
@@ -29,17 +33,53 @@ Executing this script produces a file ready for Excalidraw. It is that straightf
 Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.
 
 ### Elemental Shapes
-Excalidraw provides a set of core primitives. We expose them directly:
+Excalidraw provides a set of core primitives. We expose them in Excaligen directly.
 
 - **Rectangle**: The workhorse of diagrams. Perfect for nodes, heavy containers, or UI mockups.
 - **Ellipse**: Great for states, start/end points, or emphasizing flow.
 - **Diamond**: The classic decision node in flowcharts.
 
+We can assign labels to shapes, set their positions and sizes.
+
 ```python
-scene.rectangle().label("Process")
-scene.ellipse().label("Start")
-scene.diamond().label("Decision")
+scene.rectangle('Rectangle').center(-150, 0)
+scene.ellipse('Ellipse').center(0, 0)
+scene.diamond('Diamond').center(150, 0)
 ```
+
+The texts in the above example 'Rectangle', 'Ellipse' and 'Diamond' are the labels of the shapes. They have nothing to do with the shape type; you can put any text you want in the label.
+
+![Shapes](images/shapes.svg)
+
+### Shape Center & Position
+You have seen how to set the center of a shape. The x and y coordinates of the center() method define the center of the shape (higher y values are further down the page).
+
+```python
+scene.ellipse().center(0, 0)
+scene.rectangle().center(0, -120)
+scene.diamond().center(150, 0)
+```
+![Shape Center](images/shape_center.svg)
+
+Sometimes it is more convenient to set the position of the shape instead of the center. The position() method defines the upper left corner of the shape.
+
+```python
+scene.rectangle('Rectangle 1').position(0, 0)
+scene.rectangle('Rectangle 2').position(150, 0)
+scene.rectangle('Rectangle 3').position(0, 120)
+```
+![Shape Position](images/shape_position.svg)
+
+### Shape Size
+TODO
+
+```python
+scene.rectangle('Small').size(80, 64).center(0, 0)    
+scene.rectangle('Medium').size(100, 80).center(100, 0)
+scene.rectangle('Large').size(150, 120).center(235, 0)
+```
+![Shape Size](images/shape_size.svg)
+
 
 ### The Visual Vocabulary
 A diagram communicates through more than just shapes. The *style* of a line tells a story.
@@ -47,39 +87,30 @@ A diagram communicates through more than just shapes. The *style* of a line tell
 #### Stroke Styles
 How a line is drawn changes its meaning:
 - **Solid**: A strong, definite relationship or boundary. The default.
-
-    ![](images/stroke_style_solid.svg)
-
 - **Dashed**: Often implies a tentative connection, a future state, or a secondary boundary.
-
-    ![](images/stroke_style_dashed.svg)
-
 - **Dotted**: Used for weak links, annotations, or "ghost" elements.
-
-    ![](images/stroke_style_dotted.svg)
 
 Example:
 ```python
-scene.rectangle().stroke("dotted")
+scene.ellipse().center(-150, 0).stroke('solid')
+scene.ellipse().center(0, 0).stroke('dashed')
+scene.ellipse().center(150, 0).stroke('dotted')
 ```
+
+![Stroke Styles](images/stroke_styles.svg)
 
 #### Fill Styles
 Excalidraw's fill styles are iconic. You can choose how your shapes are filled:
 - **Solid**: A full, opaque fill.
-
-    ![Fill Styles](images/fill_style_solid.svg)
-
 - **Hachure**: The classic, sketchy diagonal lines. Distinctively "Excalidraw".
-
-    ![](images/fill_style_hachure.svg)
-
 - **Cross-Hatch**: Dense, crossed lines for a heavier, darker selection.
 
-    ![](images/fill_style_crosshatch.svg)
-
 ```python
-scene.ellipse().fill("crosshatch")
+scene.ellipse().center(-150, 0).background('gray').fill('solid')
+scene.ellipse().center(0, 0).background('gray').fill('hachure')
+scene.ellipse().center(150, 0).background('gray').fill('cross-hatch')
 ```
+![Fill Styles](./images/fills.svg)
 
 #### Sloppiness (Roughness)
 This is the magic ingredient. It determines how "hand-drawn" your diagram looks.
@@ -88,24 +119,83 @@ This is the magic ingredient. It determines how "hand-drawn" your diagram looks.
 - **Cartoonist**: Very messy and playful.
 
 ```python
-scene.defaults().sloppiness("architect") # Clean lines for a tech spec
+scene.ellipse().center(-150, 0).sloppiness('architect')
+scene.ellipse().center(0, 0).sloppiness('artist')
+scene.ellipse().center(150, 0).sloppiness('cartoonist')spec
+```
+![Sloppiness](./images/sloppiness.svg)
+
+#### Stroke Thickness
+You can choose how thick your lines are:
+- **Thin**: A light, delicate line.
+- **Bold**: A strong, bold line.
+- **Extra-bold**: A heavy, powerful line.
+
+```python
+scene.ellipse().center(-150, 0).thickness('thin')
+scene.ellipse().center(0, 0).thickness('bold')
+scene.ellipse().center(150, 0).thickness('extra-bold')
 ```
 
+The method thickness() also accepts integers 1, 2 or 3.
+
+![Stroke Thickness](./images/thickness.svg)
+
+### Roundness
+TODO
+```python
+scene.rectangle('Rounded').roundness('round').center(0, 0)
+scene.rectangle('Sharp').roundness('sharp').center(150, 0)
+scene.diamond('Rounded').roundness('round').center(0, 100)
+scene.diamond('Sharp').roundness('sharp').center(150, 100)
+```
+
+![Shape Roundness](./images/shape_roundness.svg)
+
 ### Colors
-Express with precision using:
+So far we have only used the black/gray colors. But we can use any color we want.
+Excaligen supports multiple color formats:
 - **Named Colors**: `"MidnightBlue"`, `"Tomato"`, `"MintCream"`.
+- **RGB as a string (Hex Colors)**: `"#FF5733"`.
 - **RGB**: `scene.color().rgb(100, 149, 237)`.
 - **HSL**: `scene.color().hsl(200, 80, 60)`.
 
+
+```python
+# Add a rectangle with a named color
+(
+    scene.rectangle('Action')
+    .position(0, 0)
+    .color("BlueViolet")
+    .background("Lavender")
+)
+
+# Add an ellipse with RGB color as a string
+(
+    scene.ellipse('Start')
+    .position(150, 0)
+    .color('#FF5733')
+    .background('#FFBD33')
+)
+
+# Add a diamond with HSL color
+(
+    scene.diamond('Decision')
+    .position(300, 0)
+    .color(scene.color().hsl(120, 100, 25))
+    .background(scene.color().hsl(120, 100, 85))
+)
+```
+![Shape Colors](./images/shape_colors.svg)
+
 ---
-
 ## Chapter 3: Typography & Text
-
-A picture is worth a thousand words, but sometimes you just need the words.
-
 ### The Basics
-Adding text is as simple as adding a shape. The `Text` element handles multi-line strings automatically.
-
+Adding text is as simple as adding a shape.
+```python
+scene.text('Hello, World!')
+```
+The 'Text' element also handles multi-line strings.
 ```python
 scene.text("Use text\nfor labels\nand notes.")
 ```
