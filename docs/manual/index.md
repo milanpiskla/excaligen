@@ -71,7 +71,7 @@ scene.rectangle('Rectangle 3').position(0, 120)
 ![Shape Position](images/shape_position.svg)
 
 ### Shape Size
-TODO
+You can define the dimensions of a shape using the `size()` method. It accepts width and height.
 
 ```python
 scene.rectangle('Small').size(80, 64).center(0, 0)    
@@ -121,7 +121,7 @@ This is the magic ingredient. It determines how "hand-drawn" your diagram looks.
 ```python
 scene.ellipse().center(-150, 0).sloppiness('architect')
 scene.ellipse().center(0, 0).sloppiness('artist')
-scene.ellipse().center(150, 0).sloppiness('cartoonist')spec
+scene.ellipse().center(150, 0).sloppiness('cartoonist')
 ```
 ![Sloppiness](./images/sloppiness.svg)
 
@@ -142,7 +142,7 @@ The method thickness() also accepts integers 1, 2 or 3.
 ![Stroke Thickness](./images/thickness.svg)
 
 ### Roundness
-TODO
+Shapes can have sharp or rounded corners. Use the `roundness()` method to toggle between them. Note that this method is not applicable to the `Ellipse` shape.
 ```python
 scene.rectangle('Rounded').roundness('round').center(0, 0)
 scene.rectangle('Sharp').roundness('sharp').center(150, 0)
@@ -189,7 +189,30 @@ Excaligen supports multiple color formats:
 ![Shape Colors](./images/shape_colors.svg)
 
 ---
-## Chapter 3: Typography & Text
+## Chapter 3: Connecting the Dots
+
+Diagrams are fundamentally about relationships.
+
+### Intelligent Binding
+In manual drawing, moving a box means redrawing the lines. In Excaligen, you **bind** arrows to elements. If the nodes move, the arrow adapts automatically.
+
+```python
+scene.arrow().bind(start_node, end_node)
+```
+
+### Path Control
+The path an arrow takes is crucial for readability:
+- **Elbow**: Orthogonal lines (90-degree turns). Essential for technical diagrams like org charts or circuit boards where clarity is paramount.
+- **Curve**: Elegant Bezier paths. Natural and flowing.
+- **Arc**: Simple circular connections, great for annotation or jumping over other lines.
+
+```python
+scene.arrow().bind(a, b).elbow("R", "L") # Leave Right, Enter Left
+```
+
+---
+
+## Chapter 4: Typography & Text
 ### The Basics
 Adding text is as simple as adding a shape.
 ```python
@@ -241,7 +264,7 @@ scene.text("Chapter 1").anchor(10, 10, "left", "top")
 
 ---
 
-## Chapter 4: Images
+## Chapter 5: Images
 
 Bring external assets—screenshots, logos, or diagrams—into your scene.
 
@@ -262,28 +285,7 @@ scene.image().file("logo.png").fit(200, 200)
 
 ---
 
-## Chapter 5: Connecting the Dots
 
-Diagrams are fundamentally about relationships.
-
-### Intelligent Binding
-In manual drawing, moving a box means redrawing the lines. In Excaligen, you **bind** arrows to elements. If the nodes move, the arrow adapts automatically.
-
-```python
-scene.arrow().bind(start_node, end_node)
-```
-
-### Path Control
-The path an arrow takes is crucial for readability:
-- **Elbow**: Orthogonal lines (90-degree turns). Essential for technical diagrams like org charts or circuit boards where clarity is paramount.
-- **Curve**: Elegant Bezier paths. Natural and flowing.
-- **Arc**: Simple circular connections, great for annotation or jumping over other lines.
-
-```python
-scene.arrow().bind(a, b).elbow("R", "L") # Leave Right, Enter Left
-```
-
----
 
 ## Chapter 6: Consistency & Defaults
 
