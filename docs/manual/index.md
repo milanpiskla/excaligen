@@ -4,6 +4,17 @@
 
 Generate Excalidraw-compatible files directly from Python. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
+
+## Table of Contents
+- [Chapter 1: The First Sketch](#chapter-1-the-first-sketch)
+- [Chapter 2: Shapes & Styles](#chapter-2-shapes--styles)
+- [Chapter 3: Arrows & Connecting the Elements](#chapter-3-arrows--connecting-the-elements)
+- [Chapter 4: Typography & Text](#chapter-4-typography--text)
+- [Chapter 5: Lines](#chapter-5-lines)
+- [Chapter 6: Images](#chapter-6-images)
+- [Chapter 7: Consistency & Defaults](#chapter-7-consistency--defaults)
+- [Chapter 8: Algorithmic Generation](#chapter-8-algorithmic-generation)
+
 ---
 
 ## Chapter 1: The First Sketch
@@ -32,7 +43,7 @@ It is that straightforward.
 
 Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.
 
-### Elemental Shapes
+### Elements
 Excalidraw provides a set of core primitives. We expose them in Excaligen directly.
 
 - **Rectangle**: The workhorse of diagrams. Perfect for nodes, heavy containers, or UI mockups.
@@ -47,12 +58,12 @@ scene.ellipse('Ellipse').center(0, 0)
 scene.diamond('Diamond').center(150, 0)
 ```
 
-The texts in the above example 'Rectangle', 'Ellipse' and 'Diamond' are the labels of the shapes. They have nothing to do with the shape type; you can put any text you want in the label.
+The texts in the above example 'Rectangle', 'Ellipse' and 'Diamond' are the labels of the elements. They have nothing to do with the element type; you can put any text you want in the label.
 
 ![Shapes](images/shapes.svg)
 
-### Shape Center & Position
-You have seen how to set the center of a shape. The x and y coordinates of the center() method define the center of the shape (higher y values are further down the page).
+### Element Center & Position
+You have seen how to set the center of an element. The x and y coordinates of the center() method define the center of the element (higher y values are further down the page).
 
 ```python
 scene.ellipse().center(0, 0)
@@ -61,24 +72,24 @@ scene.diamond().center(150, 0)
 ```
 ![Shape Center](images/shape_center.svg)
 
-Sometimes it is more convenient to set the position of the shape instead of the center. The position() method defines the upper left corner of the shape.
+Sometimes it is more convenient to set the position of the element instead of the center. The position() method defines the upper left corner of the element.
 
 ```python
 scene.rectangle('Rectangle 1').position(0, 0)
 scene.rectangle('Rectangle 2').position(150, 0)
 scene.rectangle('Rectangle 3').position(0, 120)
 ```
-![Shape Position](images/shape_position.svg)
+![Element Position](images/shape_position.svg)
 
-### Shape Size
-You can define the dimensions of a shape using the `size()` method. It accepts width and height.
+### Element Size
+You can define the dimensions of an element using the `size()` method. It accepts width and height.
 
 ```python
 scene.rectangle('Small').size(80, 64).center(0, 0)    
 scene.rectangle('Medium').size(100, 80).center(100, 0)
 scene.rectangle('Large').size(150, 120).center(235, 0)
 ```
-![Shape Size](images/shape_size.svg)
+![Element Size](images/shape_size.svg)
 
 
 ### The Visual Vocabulary
@@ -142,7 +153,7 @@ The method thickness() also accepts integers 1, 2 or 3.
 ![Stroke Thickness](./images/thickness.svg)
 
 ### Roundness
-Shapes can have sharp or rounded corners. Use the `roundness()` method to toggle between them. Note that this method is not applicable to the `Ellipse` shape.
+Elements can have sharp or rounded corners. Use the `roundness()` method to toggle between them. Note that this method is not applicable to the `Ellipse` element.
 ```python
 scene.rectangle('Rounded').roundness('round').center(0, 0)
 scene.rectangle('Sharp').roundness('sharp').center(150, 0)
@@ -186,28 +197,71 @@ Excaligen supports multiple color formats:
     .background(scene.color().hsl(120, 100, 85))
 )
 ```
-![Shape Colors](./images/shape_colors.svg)
+## Chapter 3: Arrows & Connecting the Elements
 
----
-## Chapter 3: Connecting the Dots
-
-Diagrams are fundamentally about relationships.
+Diagrams are fundamentally about relationships. Arrows are the most common way to express these relationships.
 
 ### Intelligent Binding
-In manual drawing, moving a box means redrawing the lines. In Excaligen, you **bind** arrows to elements. If the nodes move, the arrow adapts automatically.
+In Excaligen, you **bind** arrows to elements. If the nodes move, the arrow adapts automatically.
 
 ```python
 scene.arrow().bind(start_node, end_node)
 ```
 
-### Path Control
-The path an arrow takes is crucial for readability:
-- **Elbow**: Orthogonal lines (90-degree turns). Essential for technical diagrams like org charts or circuit boards where clarity is paramount.
-- **Curve**: Elegant Bezier paths. Natural and flowing.
-- **Arc**: Simple circular connections, great for annotation or jumping over other lines.
+### Labeling
+Arrows can communicate what the relationship is. You can pass a label directly to the arrow constructor.
 
 ```python
-scene.arrow().bind(a, b).elbow("R", "L") # Leave Right, Enter Left
+scene.arrow("connects to").bind(a, b)
+```
+
+### Arrowheads
+Arrows don't just point. They can start or end with different symbols.
+Supported styles: `'arrow'`, `'bar'`, `'dot'`, `'triangle'`, or `None`.
+
+```python
+scene.arrow().bind(a, b).arrowheads(start='dot', end='arrow')
+```
+
+### Path Control
+The path an arrow takes is crucial for readability.
+
+#### Elbow (Orthogonal)
+Perfect for technical diagrams. You specify the exit and entry directions ('U', 'D', 'L', 'R').
+
+```python
+# Leave Right, Enter Left
+scene.arrow().bind(a, b).elbow("R", "L") 
+```
+
+#### Curve & Arc
+For organic flows.
+- **Curve**: `curve(start_angle, end_angle)` defaults to 0.
+- **Arc**: `arc(radius)` creates a circular path.
+
+```python
+scene.arrow().bind(a, b).arc(10)
+```
+
+### Explicit Points
+For total control, you can define the exact points the arrow follows. When defining points manually, you can also control the `roundness()` (sharp or round).
+
+```python
+from excaligen.geometry.Point import Point
+
+# A custom path with sharp corners
+(
+    scene.arrow()
+    .points([Point(0, 0), Point(50, 50), Point(100, 0)])
+    .roundness("sharp")
+)
+```
+
+### Spacing (Gaps)
+Sometimes you want some breathing room. Use `gap()` to offset the arrow from the bound elements.
+
+```python
+scene.arrow().bind(a, b).gap(20)
 ```
 
 ---
@@ -262,9 +316,53 @@ scene.text("Button").align("center").justify(0, 0, 100, 50)
 scene.text("Chapter 1").anchor(10, 10, "left", "top")
 ```
 
+
 ---
 
-## Chapter 5: Images
+## Chapter 5: Lines
+
+Sometimes you need more than a simple rectangle or ellipse. The `Line` element allows you to draw arbitrary paths.
+
+### Basic Lines
+A line is defined by a sequence of points.
+
+```python
+from excaligen.geometry.Point import Point
+
+scene.line().points([
+    Point(0, 0),
+    Point(100, 50),
+    Point(200, 0)
+])
+```
+
+### Custom Shapes (Closed Lines)
+You can `close()` a line to connect its last point back to the first. This effectively creates a custom polygon.
+
+Once closed, the line behaves like a shape: you can give it a **background color** and a **fill style**.
+
+```python
+# Create a triangle
+(
+    scene.line()
+    .points([Point(0, 0), Point(50, 100), Point(100, 0)])
+    .close()
+    .background("MistyRose")
+    .fill("cross-hatch")
+)
+```
+
+### Styling
+Just like other elements, lines accept standard styles for stroke, roughness, and roundness.
+
+```python
+# A smoothed path
+scene.line().points([...]).roundness("round")
+```
+
+---
+
+## Chapter 6: Images
 
 Bring external assets—screenshots, logos, or diagrams—into your scene.
 
@@ -287,7 +385,7 @@ scene.image().file("logo.png").fit(200, 200)
 
 
 
-## Chapter 6: Consistency & Defaults
+## Chapter 7: Consistency & Defaults
 
 When creating a large diagram, repeating style method calls (`.font("Code").color("Blue")`) is redundant and error-prone.
 
@@ -306,7 +404,7 @@ This ensures visual consistency and keeps your code clean.
 
 ---
 
-## Chapter 7: Algorithmic Generation
+## Chapter 8: Algorithmic Generation
 
 The true power of Excaligen lies in automation. You can visualize recursive structures or generate diagrams from data that would be tedious to draw by hand.
 
