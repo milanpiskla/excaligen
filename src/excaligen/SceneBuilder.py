@@ -82,7 +82,7 @@ class SceneBuilder(ExcaligenStructure):
         Returns:
             Diamond: The diamond element.
         """
-        return super().diamond()
+        return super().diamond(label)
 
     def ellipse(self, label: str | Text | None = None) -> Ellipse:
         """Add an ellipse element to the diagram.
