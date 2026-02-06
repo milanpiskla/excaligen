@@ -14,37 +14,43 @@ Excalidraw is an amazing tool for sketching diagrams and visualizing ideas. Howe
 - Export to Excalidraw: Generate JSON files ready to be imported into Excalidraw.
 
 ## Installation 🛠️
-Clone the repository:
-```
-git clone https://github.com/milanpiskla/excaligen.git
-cd excaligen
-```
-Install dependencies:
-```
-pip install -r requirements.txt
-```
+pip install excaligen
 
 ## Quick Start 🌟
-Here's how to get started:
+Here's how to create a simple diagram:
 
 ```Python
-from Excaligen import Excaligen
+from excaligen.SceneBuilder import SceneBuilder
 
-# Initialize Excalidraw instance
-xg = Excaligen()
+# Initialize Scene
+scene = SceneBuilder()
 
 # Add a rectangle
-xg.rectangle().position(50, 50).size(200, 100).color("#FF5733").background("#C70039")
+scene.rectangle('Hello Excalidraw').position(50, 50).size(200, 100).color("Red").background("Pink")
 
-# Add text
-xg.text().content("Hello, Excalidraw!").position(50, 0).fontsize(24).color("#154360")
+# Add an arrow connecting to it
+scene.arrow().bind(scene.rectangle('Start'), scene.rectangle('End'))
 
 # Export to file
-xg.save('my_diagram.excalidraw')
+scene.save('my_diagram.excalidraw')
 ```
-Open my_diagram.excalidraw in the Excalidraw web app to see your creation!
 
-![example](./assets/example.png)
+### What You Can Build
+From simple flowcharts to complex data visualizations:
+
+```python
+# Code from examples/mind_map_structure.py
+# Generate an organic, symmetrical layout
+for i in range(-3, 4):
+    angle = i * math.pi / 12
+    # Calculate positions...
+    
+    # Bind with a curve for organic flow
+    scene.arrow().curve(0, math.pi).bind(center_element, right_node)
+    scene.arrow().curve(math.pi, 0).bind(center_element, left_node)
+```
+
+![Mind Map Structure](assets/mind_map_structure.png)
 
 ## Supported Elements 🎨
 - Shapes: Rectangle, Diamond, Ellipse, Line, Arrow
@@ -56,52 +62,41 @@ Open my_diagram.excalidraw in the Excalidraw web app to see your creation!
 ## Customization Options 🧩
 Each element can be customized:
 
-- Position: .position(x, y)
-- Size: .size(width, height)
-- Color: .color(stroke_color), .background(fill_color)
-- Opacity: .opacity(opacity_percentage)
-- Rotation: .rotate(angle_in_degrees)
-- Stroke Style: .stroke('solid' | 'dotted' | 'dashed')
-- Thickness: .thickness(value)
+- Orientation: `.center(x, y)` or `.position(x, y)`
+- Size: `.size(width, height)`
+- Color: `.color(stroke_color)`, `.background(fill_color)`
+- Stroke Style: `.stroke('solid' | 'dotted' | 'dashed')`
+- Thickness: `.thickness(value)`
+- Roughness: `.sloppiness('architect' | 'artist' | 'cartoonist')`
 
 Example:
 ```Python
-xg.arrow().position(150, 150).size(100, 0).color("#0000FF").thickness(2).stroke("dashed")
+scene.arrow().bind(node_a, node_b).thickness("bold").stroke("dashed")
 ```
 
 ## Image Handling 🖼️
 Add images to your diagrams:
 ```Python
 # Load an SVG image
-xg.image().file('path/to/image.svg').position(50, 300).fit(200, 200)
-
-# Load a PNG, JPEG or GIF image
-xg.image().file('path/to/image.png').position(300, 300).fit(150, 150)
+scene.image().file('path/to/image.svg').fit(200, 200).center(0, 0)
 ```
 
 ## Configuration ⚙️
-Customize default settings using the Config class:
+Customize default settings using `scene.defaults()`:
 ```Python
-from config.Config import Config
-
-custom_config = Config({
-    "strokeColor": "#000000",
-    "backgroundColor": "#FFFFFF",
-    "strokeWidth": 2,
-})
-
-xg.config(custom_config)
+scene.defaults().sloppiness("architect").font("Code").color("#333")
 ```
 
 ## Exporting 📤
 Export your diagram:
 ```Python
-xg.save('my_diagram.excalidraw')
+scene.save('my_diagram.excalidraw')
 ```
 Or just get the JSON string:
 ```Python
-json_data = xg.json()
+json_data = scene.json()
 ```
 
 ## About the Author ✍️
-My name is Milan Piskla. I'm just coding for fun 😊.
+## About the Author ✍️
+Created by **Milan Piskla**. Built with 💜 for connecting code and creativity.
