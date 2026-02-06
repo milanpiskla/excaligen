@@ -1,7 +1,7 @@
 """
 Description: Evaluate the generated JSON against the reference JSON.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
@@ -22,8 +22,11 @@ def reference_json(request: FixtureRequest) -> dict[str, Any]:
     test_name = request.node.name
     fixture_dir = os.path.join(os.path.dirname(__file__), 'fixtures')
     reference_file = os.path.join(fixture_dir, f"{test_name}.excalidraw")
-    with open(reference_file, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(reference_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
 
 def evaluate(reference_json: dict[str, Any], xg: SceneBuilder, request: FixtureRequest) -> None:
     generated_json = json.loads(xg.json())
@@ -37,7 +40,7 @@ def evaluate(reference_json: dict[str, Any], xg: SceneBuilder, request: FixtureR
         test_name = request.node.name
         generated_dir = os.path.join(os.path.dirname(__file__), 'generated')
         os.makedirs(generated_dir, exist_ok=True)
-        generated_file = os.path.join(generated_dir, f"{test_name}_generated_bad.excalidraw")
+        generated_file = os.path.join(generated_dir, f"{test_name}.excalidraw")
         with open(generated_file, 'w', encoding='utf-8') as f:
             f.write(xg.json())
         assert False, f"Generated JSON does not match the reference JSON. See '{generated_file}' for details."

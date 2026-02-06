@@ -121,3 +121,11 @@ def test_shape_roundness(reference_json: dict[str, Any], request: FixtureRequest
     scene.diamond('Sharp').roundness('sharp').center(150, 100)
     
     evaluate(reference_json, scene, request)
+
+def test_shape_styled_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+
+    label = scene.text('Styled Label').color('SkyBlue')
+    scene.rectangle(label)
+
+    evaluate(reference_json, scene, request)

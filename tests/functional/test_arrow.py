@@ -1,7 +1,7 @@
 """
 Description: Functional tests for arrows.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 from excaligen.SceneBuilder import SceneBuilder
@@ -26,17 +26,25 @@ def test_arrow_star(reference_json: dict[str, Any], request: FixtureRequest) -> 
     evaluate(reference_json, xg, request)
 
 def test_arrow_curve(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow')
+    scene = SceneBuilder()
     
-    evaluate(reference_json, xg, request)
+    center = scene.rectangle('center').center(0, 0).size(160, 70)
+    ur = scene.ellipse('up-right').center(400, -200).size(130, 50)
+    ul = scene.ellipse('up-left').center(-400, -200).size(130, 50)
+    dr = scene.ellipse('down-right').center(200, 300).size(130, 50)
+    dl = scene.ellipse('down-left').center(-200, 300).size(130, 50)
+   
+    scene.arrow().curve('R', 'L').bind(center, ur).arrowheads(None, 'arrow')
+    scene.arrow().curve('L', 'R').bind(center, ul).arrowheads(None, 'arrow')
+    scene.arrow().curve('D', 'U').bind(center, dr).arrowheads(None, 'arrow')
+    scene.arrow().curve('D', 'U').bind(center, dl).arrowheads(None, 'arrow')
+    
+    evaluate(reference_json, scene, request)
 
 def test_arrow_curve_narrow(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
-    start_element = xg.ellipse().center(-150, -150).size(120, 80).label(xg.text().content("center 1"))
-    end_element = xg.ellipse().center(150, 150).size(120, 80).label(xg.text().content("center 2"))
+    start_element = xg.ellipse('Begin').center(-150, -150).size(120, 80)
+    end_element = xg.ellipse('End').center(150, 150).size(120, 80)
     xg.arrow().curve(0.0, 3.14 * 0.75).bind(start_element, end_element)
 
     evaluate(reference_json, xg, request)
@@ -45,26 +53,26 @@ def test_arrow_curve_complex(reference_json: dict[str, Any], request: FixtureReq
     xg = SceneBuilder()
     RADIUS = 700
     XOFFSET = -200
-    center_element = xg.rectangle().center(0, 0).size(120, 80).roundness('round').label(xg.text().content("Center"))
+    center_element = xg.rectangle('center').center(0, 0).size(120, 80).roundness('round')
 
     for i in range(-3, 4):
         angle = i * math.pi / 14
         xr = RADIUS * math.cos(angle) + XOFFSET
         yr = RADIUS * math.sin(angle)
-        relement = xg.rectangle().center(xr, yr).size(120, 80).roundness('round').label(xg.text().content(f"Right {i}"))
+        relement = xg.rectangle(f'right {i}').center(xr, yr).size(120, 80).roundness('round')
         xg.arrow().curve(0, math.pi).bind(center_element, relement).arrowheads(None, 'arrow')
         
         xl = RADIUS * math.cos(angle + math.pi) - XOFFSET
         yl = RADIUS * math.sin(angle + math.pi)
-        lelement = xg.rectangle().center(xl, yl).size(120, 80).roundness('round').label(xg.text().content(f"Left {i}"))
+        lelement = xg.rectangle(f'left {i}').center(xl, yl).size(120, 80).roundness('round')
         xg.arrow().curve(math.pi, 0).bind(center_element, lelement).arrowheads(None, 'arrow')
 
     evaluate(reference_json, xg, request)
 
-def test_arrow_curve_str_directions(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+def test_arrow_curve_all_directions(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    center_element = xg.rectangle('Begin').center(0, 0).size(160, 70).roundness('round')
+    element_1 = xg.ellipse('End').center(400, -200).size(130, 50)
     xg.arrow().curve('R', 'L').bind(center_element, element_1).arrowheads(None, 'arrow')
     xg.arrow().curve('U', 'U').bind(center_element, element_1).arrowheads(None, 'arrow')
     xg.arrow().curve('D', 'D').bind(center_element, element_1).arrowheads(None, 'arrow')
@@ -73,17 +81,25 @@ def test_arrow_curve_str_directions(reference_json: dict[str, Any], request: Fix
     evaluate(reference_json, xg, request)
 
 def test_arrow_curve_diff_calling_order(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
-    xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').curve(0, 3.14)
+    scene = SceneBuilder()
     
-    evaluate(reference_json, xg, request)
+    center = scene.rectangle('center').center(0, 0).size(160, 70)
+    ur = scene.ellipse('up-right').center(400, -200).size(130, 50)
+    ul = scene.ellipse('up-left').center(-400, -200).size(130, 50)
+    dr = scene.ellipse('down-right').center(200, 300).size(130, 50)
+    dl = scene.ellipse('down-left').center(-200, 300).size(130, 50)
+   
+    scene.arrow().bind(center, ur).arrowheads(None, 'arrow').curve('R', 'L')
+    scene.arrow().bind(center, ul).arrowheads(None, 'arrow').curve('L', 'R')
+    scene.arrow().bind(center, dr).arrowheads(None, 'arrow').curve('D', 'U')
+    scene.arrow().bind(center, dl).arrowheads(None, 'arrow').curve('D', 'U')
+    
+    evaluate(reference_json, scene, request)
 
 def test_arrow_elbows(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    center_element = xg.rectangle('Begin').center(0, 0).size(160, 70).roundness('round')
+    element_1 = xg.ellipse('End').center(400, -200).size(130, 50)
     xg.arrow().elbow('R', 'L').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
     xg.arrow().elbow('U', 'U').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
     xg.arrow().elbow('D', 'D').bind(center_element, element_1).arrowheads(None, 'arrow').roundness('sharp')
@@ -93,8 +109,8 @@ def test_arrow_elbows(reference_json: dict[str, Any], request: FixtureRequest) -
 
 def test_arrow_elbows_diff_calling_order(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    center_element = xg.rectangle('Begin').center(0, 0).size(160, 70).roundness('round')
+    element_1 = xg.ellipse('End').center(400, -200).size(130, 50)
     xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('R', 'L').roundness('sharp')
     xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('U', 'U').roundness('sharp')
     xg.arrow().bind(center_element, element_1).arrowheads(None, 'arrow').elbow('D', 'D').roundness('sharp')
@@ -113,7 +129,7 @@ def test_arrow_arc(reference_json: dict[str, Any], request: FixtureRequest) -> N
         x = RADIUS * math.cos(radians)
         y = RADIUS * math.sin(radians)
 
-        rect = xg.ellipse().center(x, y).size(80, 60).label(xg.text().content(f"{angle}°"))
+        rect = xg.ellipse(f'{angle}°').center(x, y).size(80, 60)
         elements.append(rect)
 
     start_element = elements[0]
@@ -125,17 +141,17 @@ def test_arrow_arc(reference_json: dict[str, Any], request: FixtureRequest) -> N
 
 def test_arrow_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label(xg.text().content("center"))
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label(xg.text().content('UR'))
+    center_element = xg.rectangle('Begin').center(0, 0).size(160, 70).roundness('round')
+    element_1 = xg.ellipse('End').center(400, -200).size(130, 50)
     label = xg.text().content('Label')
-    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow').label(label)
+    xg.arrow(label).curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow')
     
     evaluate(reference_json, xg, request)
 
 def test_arrow_plain_label(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
-    center_element = xg.rectangle().center(0, 0).size(160, 70).roundness('round').label('center')
-    element_1 = xg.ellipse().center(400, -200).size(130, 50).label('UR')
-    xg.arrow().curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow').label('Label')
+    center_element = xg.rectangle('Begin').center(0, 0).size(160, 70).roundness('round')
+    element_1 = xg.ellipse('End').center(400, -200).size(130, 50)
+    xg.arrow('Label').curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow')
     
     evaluate(reference_json, xg, request)
