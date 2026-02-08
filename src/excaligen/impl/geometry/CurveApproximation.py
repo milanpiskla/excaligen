@@ -67,11 +67,10 @@ class CurveApproximation:
         # Dimensions for aspect ratio
         w, h = abs(D[0]), abs(D[1])
 
-        # Adjust tangents to bounding box proportions while preserving direction
-        # We want the magnitude to scale with w/h as before (to support smoothstep shapes)
-        # but strictly preserve the angle of T0u/T3u.
-        scale0 = math.hypot(T0u[0] * w, T0u[1] * h)
-        scale3 = math.hypot(T3u[0] * w, T3u[1] * h)
+        # Adjust tangents to the projection of the distance vector onto the tangent
+        # This is rotationally invariant (fixes symmetry issues) and prevents overshoot (fixes "S" shapes).
+        scale0 = abs(D[0] * T0u[0] + D[1] * T0u[1])
+        scale3 = abs(D[0] * T3u[0] + D[1] * T3u[1])
 
         T0p = (T0u[0] * scale0, T0u[1] * scale0)
         T3p = (T3u[0] * scale3, T3u[1] * scale3)
@@ -89,15 +88,10 @@ class CurveApproximation:
         s1 = -1.0 if cross(D, T0u) > 0 else 1.0
         s2 = -1.0 if cross(sub(A0, A3), T3u) > 0 else 1.0
 
-        # Offset magnitudes
+        # Perpendicular offsets
         dir_angle = math.atan2(D[1], D[0])
-        aspect_ratio = max(w, h) / (min(w, h) + 1e-9)  # Avoid division by zero
         start_offset = alpha * abs(normalize_angle(start_angle - dir_angle)) / math.pi * L
         end_offset = alpha * abs(normalize_angle(end_angle - dir_angle + math.pi)) / math.pi * L
-
-        # Dynamically adjust offsets for narrow bounding boxes
-        start_offset *= (1 + 0.20 / (aspect_ratio + 1))
-        end_offset *= (1 + 0.20 / (aspect_ratio + 1))
 
         # Apply offsets
         P1 = add(P1_prime, mul(N0, s1 * start_offset))

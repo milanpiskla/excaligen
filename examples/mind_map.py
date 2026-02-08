@@ -65,7 +65,7 @@ class MindMap:
         return self
 
     def _draw_title(self):
-        self.scene.text(DATA["title"]).center(0, -200).fontsize("XL")
+        self.scene.text(DATA["title"]).center(0, -700).fontsize("XL")
 
     def _draw_central_topic(self):
         text = self.scene.text(self._compact_text(DATA["central_topic"]) ).fontsize("L")
@@ -105,7 +105,7 @@ class MindMap:
         return text.replace(" ", "\n")
 
     def _draw_notice(self):
-        self.scene.text(DATA["notice"]).center(0, 500).fontsize("S")
+        self.scene.text(DATA["notice"]).center(0, 700).fontsize("S")
 
 if __name__ == "__main__":
     MindMap().spawn().save("mind_map.excalidraw")
