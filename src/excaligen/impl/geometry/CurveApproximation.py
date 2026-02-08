@@ -64,10 +64,17 @@ class CurveApproximation:
         T0u = components(start_angle)
         T3u = components(end_angle)
 
-        # Adjust tangents to bounding box proportions
+        # Dimensions for aspect ratio
         w, h = abs(D[0]), abs(D[1])
-        T0p = (T0u[0] * w, T0u[1] * h)
-        T3p = (T3u[0] * w, T3u[1] * h)
+
+        # Adjust tangents to bounding box proportions while preserving direction
+        # We want the magnitude to scale with w/h as before (to support smoothstep shapes)
+        # but strictly preserve the angle of T0u/T3u.
+        scale0 = math.hypot(T0u[0] * w, T0u[1] * h)
+        scale3 = math.hypot(T3u[0] * w, T3u[1] * h)
+
+        T0p = (T0u[0] * scale0, T0u[1] * scale0)
+        T3p = (T3u[0] * scale3, T3u[1] * scale3)
 
         # Fixed tangent factor
         TANGENT_FACTOR = 0.333

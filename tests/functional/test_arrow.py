@@ -69,6 +69,19 @@ def test_arrow_curve_complex(reference_json: dict[str, Any], request: FixtureReq
 
     evaluate(reference_json, xg, request)
 
+def test_arrow_beams_as_curves(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+    start_element = scene.ellipse('Center').center(0, 0).size(100, 100)
+    
+    for angle in range(0, 360, 30):
+        radians = angle * math.pi / 180
+        x = 300 * math.cos(radians)
+        y = 300 * math.sin(radians)
+        end_element = scene.ellipse(str(angle)).center(x, y).size(80, 80)
+        scene.arrow().curve(radians, radians -math.pi).bind(start_element, end_element)
+
+    evaluate(reference_json, scene, request)
+
 def test_arrow_curve_all_directions(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
     center_element = xg.rectangle('Begin').center(0, 0).size(160, 70).roundness('round')
