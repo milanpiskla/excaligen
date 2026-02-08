@@ -1,3 +1,9 @@
+"""
+Description: Excaligen example for generating a visualization with curves and arrows.
+"""
+# Copyright (c) 2024 - 2026 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
+
 from excaligen.SceneBuilder import SceneBuilder
 import math
 
