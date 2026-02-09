@@ -7,6 +7,7 @@ Description: Functional tests for various elements.
 from excaligen.SceneBuilder import SceneBuilder
 from .evaluate import *
 from typing import Any
+import math
 
 from pytest import FixtureRequest
 
@@ -127,5 +128,34 @@ def test_shape_styled_label(reference_json: dict[str, Any], request: FixtureRequ
 
     label = scene.text('Styled Label').color('SkyBlue')
     scene.rectangle(label)
+
+    evaluate(reference_json, scene, request)
+
+def test_shape_orbit_point(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+
+    RADIUS = 100
+
+    scene.line().points([(-20, 0), (20, 0)]).color('red')
+    scene.line().points([(0, -20), (0, 20)]).color('red')
+    scene.ellipse().center(0, 0).size(RADIUS * 2, RADIUS * 2).stroke('dashed').color('red')
+
+    scene.rectangle('Rectangle').orbit(0, 0, RADIUS, 0)
+    scene.ellipse('Ellipse').orbit(0, 0, RADIUS, math.pi / 2)
+    scene.diamond('Diamond').orbit(0, 0, RADIUS, math.pi)
+
+    evaluate(reference_json, scene, request)
+
+def test_shape_orbit_element(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+
+    RADIUS = 200
+
+    ref = scene.ellipse('Reference').size(120, 120).center(0, 0).color('red')
+    scene.ellipse().center(0, 0).size(RADIUS * 2, RADIUS * 2).stroke('dashed').color('red')
+
+    scene.rectangle('Rectangle').orbit(ref, RADIUS, 0)
+    scene.ellipse('Ellipse').orbit(ref, RADIUS, math.pi / 2)
+    scene.diamond('Diamond').orbit(ref, RADIUS, math.pi)
 
     evaluate(reference_json, scene, request)

@@ -1,11 +1,12 @@
 """
 Description: Base class for all Excalidraw elements.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
+import math
 import uuid
-from typing import Self
+from typing import Self, overload
 from ...defaults.Defaults import Defaults
 
 from ..inputs.Opacity import Opacity
@@ -68,6 +69,51 @@ class AbstractElement:
         self._x = x - 0.5 * self._width
         self._y = y - 0.5 * self._height
         return self
+
+    @overload
+    def orbit(self, element: "AbstractElement", radius: float, angle: float) -> Self: ...
+
+    @overload
+    def orbit(self, x: float, y: float, radius: float, angle: float) -> Self: ...
+
+    def orbit(self, *args) -> Self:
+        """
+        Positions the element relative to a reference using polar coordinates.
+        
+        This method allows placing the element such that its center will be at (radius, angle)
+        from a reference. The reference can be either another AbstractElement or a point (x, y).
+
+        Args:
+            *args: Supports two signatures:
+                1. orbit(element, radius, angle)
+                    element (AbstractElement): The reference element to orbit around.
+                    radius (float): The distance from the center of the reference.
+                    angle (float): The angle to position the element at, in radians.
+                
+                2. orbit(x, y, radius, angle)
+                    x (float): The x-coordinate of the reference point.
+                    y (float): The y-coordinate of the reference point.
+                    radius (float): The distance from the reference point.
+                    angle (float): The angle to position the element at, in radians.
+
+        Returns:
+            Self: The instance of the element.
+            
+        Raises:
+            ValueError: If the arguments do not match the expected signatures.
+        """
+        match args:
+            case (AbstractElement() as ref, radius, angle):
+                cx, cy = ref.get_center()
+            case (cx, cy, radius, angle):
+                pass
+            case _:
+                raise ValueError("Invalid arguments for orbit. Expected (element, radius, angle) or (x, y, radius, angle).")
+
+        x = cx + radius * math.cos(angle)
+        y = cy + radius * math.sin(angle)
+        
+        return self.center(x, y)
 
     def rotate(self, angle: float) -> Self:
         """
