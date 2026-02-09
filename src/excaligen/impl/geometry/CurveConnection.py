@@ -60,7 +60,7 @@ class CurveConnection:
             case _:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")
             
-        return tuple(p + t for p, t in zip(intersection, element.get_center()))
+        return tuple(p + t for p, t in zip(intersection, element.center()))
     
     def __convert_angle_arg(self, angle: float | str) -> float:
         match angle:

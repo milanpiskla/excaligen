@@ -16,8 +16,8 @@ class StraightConnection:
         self._end_element = end_element
 
     def points(self) -> list[Point]:
-        xs, ys = self._start_element.get_center()
-        xe, ye = self._end_element.get_center()
+        xs, ys = self._start_element.center()
+        xe, ye = self._end_element.center()
 
         points = []
 
@@ -52,5 +52,5 @@ class StraightConnection:
             case _:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")
             
-        return tuple(p + t for p, t in zip(intersection, element.get_center()))
+        return tuple(p + t for p, t in zip(intersection, element.center()))
             

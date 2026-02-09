@@ -19,13 +19,13 @@ def test_orbit_element():
     # Orbit at radius 50, angle 0 (right)
     orbiting_rect.orbit(center_rect, 50, 0)
     
-    cx, cy = orbiting_rect.get_center()
+    cx, cy = orbiting_rect.center()
     assert cx == approx(150)
     assert cy == approx(100)
     
     # Orbit at radius 50, angle pi/2 (down)
     orbiting_rect.orbit(center_rect, 50, math.pi / 2)
-    cx, cy = orbiting_rect.get_center()
+    cx, cy = orbiting_rect.center()
     assert cx == approx(100)
     assert cy == approx(150)
 
@@ -36,13 +36,13 @@ def test_orbit_point():
     # Orbit around (100, 100) at radius 50, angle 0 (right)
     orbiting_rect.orbit(100, 100, 50, 0)
     
-    cx, cy = orbiting_rect.get_center()
+    cx, cy = orbiting_rect.center()
     assert cx == approx(150)
     assert cy == approx(100)
     
     # Orbit around (100, 100) at radius 50, angle pi/2 (down)
     orbiting_rect.orbit(100, 100, 50, math.pi / 2)
-    cx, cy = orbiting_rect.get_center()
+    cx, cy = orbiting_rect.center()
     assert cx == approx(100)
     assert cy == approx(150)
 

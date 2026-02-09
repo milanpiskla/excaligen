@@ -1,10 +1,10 @@
 """
 Description: Mixin for elements that support labels.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from typing import Self, override
+from typing import Self, override, overload
 from ..elements.Text import Text
 from ..base.AbstractPlainLabelListener import AbstractPlainLabelListener
 from ..base.AbstractElement import AbstractElement
@@ -46,9 +46,22 @@ class AbstractLabeledElement(AbstractElement):
     def position(self, x: float, y: float) -> Self:
         return super().position(x, y)._justify_label()
 
+    @overload
+    def center(self) -> tuple[float, float]: ...
+
+    @overload
+    def center(self, x: float, y: float) -> Self: ...
+
     @override
-    def center(self, x: float, y: float) -> Self:
-        return super().center(x, y)._justify_label()
+    def center(self, *args) -> Self | tuple[float, float]:
+        match args:
+            case ():
+                return super().center()
+            case (x, y):
+                super().center(x, y)
+                return self._justify_label()
+            case _:
+                raise ValueError("Invalid arguments for center. Expected () or (x, y).")
     
     @override
     def _size(self, width: float, height: float) -> Self:

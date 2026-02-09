@@ -20,8 +20,8 @@ class ArcConnection:
         self._radius = radius
 
     def points(self) -> list[Point]:
-        center_start = self._start_element.get_center()
-        center_end = self._end_element.get_center()
+        center_start = self._start_element.center()
+        center_end = self._end_element.center()
 
         # Step 1: Compute possible circle centers
         circle_centers = self._compute_circle_centers(center_start, center_end, self._radius)
@@ -62,7 +62,7 @@ class ArcConnection:
     def __find_intersection_with_element(self, element: AbstractElement, circle_center: Point, angle_start_element: float, angle_end_element: float) -> Optional[Point]:
         """Find the precise intersection point between a circle and the element's edge."""
 
-        element_center = element.get_center()
+        element_center = element.center()
 
         # Shift coordinates to element's local coordinate system
         cx, cy = circle_center
@@ -118,7 +118,7 @@ class ArcConnection:
                 min_dist = dist
                 selected_point = point
 
-#        return tuple(p + t for p, t in zip(selected_point, element.get_center()))
+#        return tuple(p + t for p, t in zip(selected_point, element.center()))
         return selected_point
     
 

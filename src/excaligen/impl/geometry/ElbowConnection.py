@@ -99,7 +99,7 @@ class ElbowConnection:
         if direction not in Directions.keys():
             raise ValueError(f'Wrong direction {direction}, shoould be one of the U, L, D, R')
         
-        cx, cy = element.get_center()
+        cx, cy = element.center()
         a, b = element._width / 2, element._height / 2
         dx, dy = Directions.dxdy(direction)
         
@@ -155,7 +155,7 @@ class ElbowConnection:
         dx, dy = Directions.dxdy(direction)
         end = self._clamp_point((x + w * dx, y + h * dy))
 
-        intersections = AaLineSegmentIntersection.with_rectangle(start, end, obstacle.get_center(), obstacle._width / 2, obstacle._height / 2)
+        intersections = AaLineSegmentIntersection.with_rectangle(start, end, obstacle.center(), obstacle._width / 2, obstacle._height / 2)
         return (start, end) if not intersections else (start, min(intersections, key = lambda point: manhattan_distance(point, start)))
 
     def _clamp_point(self, point: Point) -> Point:

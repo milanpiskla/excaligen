@@ -36,7 +36,7 @@ def test_rectangle_center_first():
     W, H = 150, 80
     
     rect = Rectangle(Defaults(), DummyListener()).center(CX, CY).size(W, H)
-    cx, cy = rect.get_center()
+    cx, cy = rect.center()
     assert cx == approx(CX)
     assert cy == approx(CY)
     assert rect._x == approx(CX - W / 2)
@@ -47,7 +47,7 @@ def test_rectangle_center_second():
     W, H = 150, 80
     
     rect = Rectangle(Defaults(), DummyListener()).size(W, H).center(CX, CY)
-    cx, cy = rect.get_center()
+    cx, cy = rect.center()
     assert cx == approx(CX)
     assert cy == approx(CY)
     assert rect._x == approx(CX - W / 2)

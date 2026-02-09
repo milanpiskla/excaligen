@@ -11,7 +11,7 @@ from ..inputs.Font import Font
 from ..inputs.Fontsize import Fontsize
 from ..inputs.Align import Align
 from ..inputs.Baseline import Baseline
-from typing import Self
+from typing import Self, overload
 
 _ANCHOR_OFFSETS_COEFFS = {
     "left" : {
@@ -206,19 +206,33 @@ class Text(AbstractElement):
         self.__do_anchor(x, y)
         return self
     
-    def center(self, x: float, y: float) -> Self:
+    @overload
+    def center(self) -> tuple[float, float]: ...
+
+    @overload
+    def center(self, x: float, y: float) -> Self: ...
+
+    def center(self, *args) -> Self | tuple[float, float]:
         """
-        Centers the text element at the given (x, y) coordinates.
-        It is equivalent to calling anchor(x, y, "center", "middle")
+        Get or set the center coordinates of the element.
 
         Args:
-            x (float): The x-coordinate to center the element.
-            y (float): The y-coordinate to center the element.
+            *args: Supports two signatures:
+                1. center() -> tuple[float, float]
+                    Returns the (x, y) coordinates of the center.
+                2. center(x, y) -> Self
+                    Sets the center to (x, y) and returns self for chaining.
 
         Returns:
-            Self: The instance of the element, allowing for method chaining.
+            tuple[float, float] | Self: Depending on the arguments.
         """
-        return self.anchor(x, y, "center", "middle")
+        match args:
+            case ():
+                return super().center()
+            case (x, y):
+                return self.anchor(x, y, "center", "middle")
+            case _:
+                raise ValueError("Invalid arguments for center. Expected () or (x, y).")
     
     def justify(self, x: float, y: float, width: float, height: float) -> Self:
         """Justify the text element within a rectangle defined by (x, y, width, height).

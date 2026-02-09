@@ -48,24 +48,36 @@ class AbstractElement:
         self._y = y
         return self
     
-    def center(self, x: float, y: float) -> Self:
-        """
-        Centers the element at the given (x, y) coordinates.
+    @overload
+    def center(self) -> tuple[float, float]: ...
 
-        This method sets the element's position such that its center is located
-        at the specified (x, y) coordinates. It also marks the element as centered.
+    @overload
+    def center(self, x: float, y: float) -> Self: ...
+
+    def center(self, *args) -> Self | tuple[float, float]:
+        """
+        Get or set the center coordinates of the element.
 
         Args:
-            x (float): The x-coordinate to center the element.
-            y (float): The y-coordinate to center the element.
+            *args: Supports two signatures:
+                1. center() -> tuple[float, float]
+                    Returns the (x, y) coordinates of the center.
+                2. center(x, y) -> Self
+                    Sets the center to (x, y) and returns self for chaining.
 
         Returns:
-            Self: The instance of the element, allowing for method chaining.
+            tuple[float, float] | Self: Depending on the arguments.
         """
-        self.__is_centered = True
-        self._x = x - 0.5 * self._width
-        self._y = y - 0.5 * self._height
-        return self
+        match args:
+            case ():
+                return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
+            case (x, y):
+                self.__is_centered = True
+                self._x = x - 0.5 * self._width
+                self._y = y - 0.5 * self._height
+                return self
+            case _:
+                raise ValueError("Invalid arguments for center. Expected () or (x, y).")
 
     @overload
     def orbit(self, element: "AbstractElement", radius: float, angle: float) -> Self: ...
@@ -101,7 +113,7 @@ class AbstractElement:
         """
         match args:
             case (AbstractElement() as ref, radius, angle):
-                cx, cy = ref.get_center()
+                cx, cy = ref.center()
             case (cx, cy, radius, angle):
                 pass
             case _:
@@ -164,23 +176,33 @@ class AbstractElement:
                 raise ValueError("Link target must be a string or an AbstractElement.")
         return self
 
-    def get_center(self) -> tuple[float, float]:
+    @overload
+    def size(self) -> tuple[float, float]: ...
+
+    @overload
+    def size(self, width: float, height: float) -> Self: ...
+
+    def size(self, *args) -> Self | tuple[float, float]:
         """
-        Calculate and return the center coordinates of the element.
+        Get or set the size of the element.
+
+        Args:
+            *args: Supports two signatures:
+                1. size() -> tuple[float, float]
+                    Returns the (width, height) of the element.
+                2. size(width, height) -> Self
+                    Sets the size to (width, height) and returns self for chaining.
 
         Returns:
-            tuple[float, float]: A tuple containing the x and y coordinates of the center of the element.
+            tuple[float, float] | Self: Depending on the arguments.
         """
-        return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
-
-    def get_size(self) -> tuple[float, float]:
-        """
-        Get the size of the element.
-
-        Returns:
-            tuple[float, float]: A tuple containing the width and height of the element.
-        """
-        return (self._width, self._height)
+        match args:
+            case ():
+                return (self._width, self._height)
+            case (width, height):
+                return self._size(width, height)
+            case _:
+                raise ValueError("Invalid arguments for size. Expected () or (width, height).")
 
     def _size(self, width: float, height: float) -> Self:
         """Set the shape size."""
