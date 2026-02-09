@@ -1,7 +1,7 @@
 """
 Description: Base class for lines and arrows.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 
