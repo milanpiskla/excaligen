@@ -4,7 +4,8 @@ Description: Color class for handling RGB and HSL colors. Contains also a static
 # Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
-from typing import Self
+from typing import Self, overload
+
 
 class Color:
     """ Color class for handling RGB and HSL colors. Contains also a static method for parsing color strings.
@@ -61,37 +62,97 @@ class Color:
         self._g = 0
         self._b = 0
 
-    def rgb(self, r: int, g: int, b: int) -> Self:
-        """ Sets the color using RGB values. The values must be integers in the range 0-255. """
-        if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
-            raise ValueError("RGB values must be in the range 0-255.")
-        self._r, self._g, self._b = r, g, b
-        return self
+    @overload
+    def rgb(self, r: int, g: int, b: int) -> Self: ...
 
-    def hsl(self, h: int, s: int, l: int):
-        """ Sets the color using HSL values. H must be in the range 0-360, S and L in the range 0-100. """
+    @overload
+    def rgb(self) -> tuple[int, int, int]: ...
+
+    def rgb(self, *args) -> "Self | tuple[int, int, int]":
+        """ 
+        Sets the color using RGB values, or returns the current RGB values if no arguments are provided.
+        """
+        match args:
+            case ():
+                return (self._r, self._g, self._b)
+            case (int(r), int(g), int(b)):
+                if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
+                    raise ValueError("RGB values must be in the range 0-255.")
+                self._r, self._g, self._b = r, g, b
+                return self
+            case _:
+                raise TypeError("Invalid arguments for rgb(). Expected (r, g, b) or ().")
+
+    @overload
+    def hsl(self, h: int, s: int, l: int) -> Self: ...
+
+    @overload
+    def hsl(self) -> tuple[int, int, int]: ...
+
+    def hsl(self, *args) -> "Self | tuple[int, int, int]":
+        """ 
+        Sets the color using HSL values, or returns the current HSL values if no arguments are provided. 
+        """
+        match args:
+            case ():
+                return Color.rgb_to_hsl(self._r, self._g, self._b)
+            case (int(h), int(s), int(l)):
+                r, g, b = Color.hsl_to_rgb(h, s, l)
+                self._r, self._g, self._b = r, g, b
+                return self
+            case _:
+                raise TypeError("Invalid arguments for hsl(). Expected (h, s, l) or ().")
+    
+    @staticmethod
+    def rgb_to_hsl(r: int, g: int, b: int) -> tuple[int, int, int]:
+        """ Converts RGB values to HSL. """
+        r_norm, g_norm, b_norm = r / 255.0, g / 255.0, b / 255.0
+        c_max = max(r_norm, g_norm, b_norm)
+        c_min = min(r_norm, g_norm, b_norm)
+        delta = c_max - c_min
+
+        l = (c_max + c_min) / 2
+
+        if delta == 0:
+            h = 0
+            s = 0
+        else:
+            s = delta / (1 - abs(2 * l - 1))
+            if c_max == r_norm:
+                h = ((g_norm - b_norm) / delta) % 6
+            elif c_max == g_norm:
+                h = (b_norm - r_norm) / delta + 2
+            else:
+                h = (r_norm - g_norm) / delta + 4
+            h *= 60
+
+        return (round(h), round(s * 100), round(l * 100))
+
+    @staticmethod
+    def hsl_to_rgb(h: int, s: int, l: int) -> tuple[int, int, int]:
+        """ Converts HSL values to RGB. """
         if not (0 <= h <= 360 and 0 <= s <= 100 and 0 <= l <= 100):
             raise ValueError("HSL values must be in the range H: 0-360, S/L: 0-100.")
+        
         c = (1 - abs(2 * l / 100 - 1)) * (s / 100)
         x = c * (1 - abs((h / 60) % 2 - 1))
         m = l / 100 - c / 2
 
         match h:
             case h if 0 <= h < 60:
-                r, g, b = c, x, 0
+                r_temp, g_temp, b_temp = c, x, 0
             case h if 60 <= h < 120:
-                r, g, b = x, c, 0
+                r_temp, g_temp, b_temp = x, c, 0
             case h if 120 <= h < 180:
-                r, g, b = 0, c, x
+                r_temp, g_temp, b_temp = 0, c, x
             case h if 180 <= h < 240:
-                r, g, b = 0, x, c
+                r_temp, g_temp, b_temp = 0, x, c
             case h if 240 <= h < 300:
-                r, g, b = x, 0, c
+                r_temp, g_temp, b_temp = x, 0, c
             case _:
-                r, g, b = c, 0, x
+                r_temp, g_temp, b_temp = c, 0, x
 
-        self._r, self._g, self._b = [round((v + m) * 255) for v in (r, g, b)]
-        return self
+        return (round((r_temp + m) * 255), round((g_temp + m) * 255), round((b_temp + m) * 255))
     
     def __str__(self) -> str:
         return f"#{self._r:02X}{self._g:02X}{self._b:02X}"

@@ -8,10 +8,7 @@ import math
 import uuid
 from typing import Self, overload
 from ...defaults.Defaults import Defaults
-
 from ..inputs.Opacity import Opacity
-
-# TODO make it consistent with excalidraw/packages/element/src/types.ts
 
 class AbstractElement:
     """Base class for all Excalidraw elements."""
@@ -175,6 +172,15 @@ class AbstractElement:
             tuple[float, float]: A tuple containing the x and y coordinates of the center of the element.
         """
         return (self._x + 0.5 * self._width, self._y + 0.5 * self._height)
+
+    def get_size(self) -> tuple[float, float]:
+        """
+        Get the size of the element.
+
+        Returns:
+            tuple[float, float]: A tuple containing the width and height of the element.
+        """
+        return (self._width, self._height)
 
     def _size(self, width: float, height: float) -> Self:
         """Set the shape size."""
