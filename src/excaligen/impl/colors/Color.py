@@ -66,6 +66,9 @@ class Color:
     def rgb(self, r: int, g: int, b: int) -> Self: ...
 
     @overload
+    def rgb(self, hex: str) -> Self: ...
+
+    @overload
     def rgb(self) -> tuple[int, int, int]: ...
 
     def rgb(self, *args) -> "Self | tuple[int, int, int]":
@@ -76,9 +79,12 @@ class Color:
             case ():
                 return (self._r, self._g, self._b)
             case (int(r), int(g), int(b)):
-                if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
+                if not Color._is_valid_rgb(r, g, b):
                     raise ValueError("RGB values must be in the range 0-255.")
                 self._r, self._g, self._b = r, g, b
+                return self
+            case (str(hex)):
+                self._r, self._g, self._b = Color.hex_to_rgb(hex)
                 return self
             case _:
                 raise TypeError("Invalid arguments for rgb(). Expected (r, g, b) or ().")
@@ -97,6 +103,8 @@ class Color:
             case ():
                 return Color.rgb_to_hsl(self._r, self._g, self._b)
             case (int(h), int(s), int(l)):
+                if not Color._is_valid_hsl(h, s, l):
+                    raise ValueError("HSL values must be in the range H: 0-360, S/L: 0-100.")
                 r, g, b = Color.hsl_to_rgb(h, s, l)
                 self._r, self._g, self._b = r, g, b
                 return self
@@ -106,6 +114,8 @@ class Color:
     @staticmethod
     def rgb_to_hsl(r: int, g: int, b: int) -> tuple[int, int, int]:
         """ Converts RGB values to HSL. """
+        if not Color._is_valid_rgb(r, g, b):
+            raise ValueError("RGB values must be in the range 0-255.")
         r_norm, g_norm, b_norm = r / 255.0, g / 255.0, b / 255.0
         c_max = max(r_norm, g_norm, b_norm)
         c_min = min(r_norm, g_norm, b_norm)
@@ -131,7 +141,7 @@ class Color:
     @staticmethod
     def hsl_to_rgb(h: int, s: int, l: int) -> tuple[int, int, int]:
         """ Converts HSL values to RGB. """
-        if not (0 <= h <= 360 and 0 <= s <= 100 and 0 <= l <= 100):
+        if not Color._is_valid_hsl(h, s, l):
             raise ValueError("HSL values must be in the range H: 0-360, S/L: 0-100.")
         
         c = (1 - abs(2 * l / 100 - 1)) * (s / 100)
@@ -161,7 +171,7 @@ class Color:
     def _string(color: str) -> str:
         color = color.strip()
         if color.startswith("#"):
-            if len(color) == 7 and all(c in "0123456789ABCDEFabcdef" for c in color[1:]):
+            if Color._is_valid_hex_color(color):
                 return color.upper()
             else:
                 raise ValueError(f"Invalid hex color: {color}")
@@ -180,3 +190,25 @@ class Color:
                 return Color._string(color_str)
             case _:
                 raise TypeError("Invalid input type. Expected str or Color.")
+
+    @staticmethod
+    def _hex_to_rgb(hex: str) -> tuple[int, int, int]:
+        """ Converts hex color to RGB. """
+        if not Color._is_valid_hex_color(hex):
+            raise ValueError(f"Invalid hex color: {hex}")
+        return (int(hex[1:3], 16), int(hex[3:5], 16), int(hex[5:7], 16))
+
+    @staticmethod
+    def _is_valid_hex_color(hex: str) -> bool:
+        """ Checks if a hex color is valid. """
+        return len(hex) == 7 and all(c in "0123456789ABCDEFabcdef" for c in hex[1:])
+
+    @staticmethod
+    def _is_valid_rgb(r: int, g: int, b: int) -> bool:
+        """ Checks if RGB values are valid. """
+        return 0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255
+
+    @staticmethod
+    def _is_valid_hsl(h: int, s: int, l: int) -> bool:
+        """ Checks if HSL values are valid. """
+        return 0 <= h <= 360 and 0 <= s <= 100 and 0 <= l <= 100
