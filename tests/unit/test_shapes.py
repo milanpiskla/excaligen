@@ -252,6 +252,22 @@ def test_line_points_size():
     assert line._width == 110
     assert line._height == 70
 
+def test_line_append():
+    line = Line(Defaults())
+    line.points([(0, 0.5), (50, 50.5)])
+    line.append([(100, 0.7), (150, 50.7)])
+    assert line._points == [(0, 0.5), (50, 50.5), (100, 0.7), (150, 50.7)]
+    assert line._width == approx(150)
+    assert line._height == approx(50.2)
+
+def test_line_prepend():
+    line = Line(Defaults())
+    line.points([(50, 50.1), (100, -0.1)])
+    line.prepend([(-50, 0.5), (-25, 25.5)])
+    assert line._points == [(-50, 0.5), (-25, 25.5), (50, 50.1), (100, -0.1)]
+    assert line._width == approx(150)
+    assert line._height == approx(50.2)
+
 def test_line_color():
     line = Line(Defaults()).color("#ABCDEF")
     assert line._stroke_color == "#ABCDEF"
