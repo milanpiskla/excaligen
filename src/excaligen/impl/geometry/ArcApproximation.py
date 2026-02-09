@@ -1,7 +1,7 @@
 """
 Description: Generates a list of points approximating an arc between two elements.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import math
@@ -10,10 +10,9 @@ from .CircleIntersection import CircleIntersection
 from .Point import Point
 
 class ArcApproximation:
-    """Generates a list of points approximating an arc between two elements.
+    """Generates a list of points approximating an arc between two points.
 
-    The arc is part of a circle with a given radius, passes through the centers of the elements,
-    and starts and ends at the precise intersection points of the circle and the elements' edges.
+    The arc is part of a circle with a given radius, passes through the two points.
     """
 
     @staticmethod
