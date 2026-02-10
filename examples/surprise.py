@@ -9,31 +9,18 @@ from excaligen.SceneBuilder import SceneBuilder
 from math import floor
 
 s = SceneBuilder()
-# Constants derived from your GLSL
-SPRITE_WIDTH = 11
-MSB = 5  # The Center Axis (Middle Significant Bit)
+
 M = 20
+A = 2*42**4 + 12*42**3 + 15*42**2 + 16*42 + 12
+B = 23*42**3 + 20*42**2 + 11*42 + 9
 
 for y in range(8):
-    # Select the correct 24-bit float based on row
-    d = 7139592.0 if y < 4 else 1739775.0
-    
-    for x in range(SPRITE_WIDTH):
-        # 1. Calculate the Bit Sector (Row offset in bits)
-        # Matches: floor(BITS_PER_ROW * mod(y, SPRITE_HALF_HEIGHT))
+    d = A if y < 4 else B
+    for x in range(11):
         bs = floor(6 * (y % 4))
-        
-        # 2. Calculate Bit Offset (The Fix)
-        # GLSL: bitSector + abs(MSB - floor(st.s * SPRITE_WIDTH))
-        # Python: x is already floor(st.s * width)
-        bo = bs + abs(MSB - x)
-        
-        # 3. Extract Bit
+        bo = bs + abs(5 - x)
         c = floor(floor(d / pow(2.0, bo)) % 2.0)
-        
         if c == 1:
-            # Invert Y for drawing because usually canvas Y goes down, 
-            # while Shader Y goes up. (Optional, depending on pref)
-            s.rectangle().position(x * M, y * M).size(M, M).background("black").fill("solid").roundness('sharp')
+            s.rectangle().position(x * M, y * M).size(M, M).color('red').background("red").fill("solid").roundness('sharp')
 
 s.save("surprise.excalidraw")
