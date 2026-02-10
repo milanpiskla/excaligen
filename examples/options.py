@@ -69,14 +69,20 @@ class Options:
     def _draw_options(self):
         for i in range(-(OPTS_PER_ERA // 2), OPTS_PER_ERA // 2 + 1):
             angle = i * math.pi / (2 * OPTS_PER_ERA)
-            xr, yr = RADIUS * math.cos(angle) + XOFFSET, RADIUS * math.sin(angle)
-            self._draw_option_with_arrow(DATA['enlightened']['technologies'][i + OPTS_PER_ERA // 2], xr, yr, OPTION_WIDTH, OPTION_HEIGHT, False)
             
-            xl, yl = RADIUS * math.cos(angle + math.pi) - XOFFSET, RADIUS * math.sin(angle + math.pi)
-            self._draw_option_with_arrow(DATA['primitive']['technologies'][i + OPTS_PER_ERA // 2], xl, yl, OPTION_WIDTH, OPTION_HEIGHT, True)
+            text = DATA['enlightened']['technologies'][i + OPTS_PER_ERA // 2]
+            self._draw_option_with_arrow(text, XOFFSET, 0, OPTION_WIDTH, OPTION_HEIGHT, angle, False)
+            
+            text = DATA['primitive']['technologies'][i + OPTS_PER_ERA // 2]
+            self._draw_option_with_arrow(text, -XOFFSET, 0, OPTION_WIDTH, OPTION_HEIGHT, angle + math.pi, True)
 
-    def _draw_option_with_arrow(self, name, x, y, w, h, is_left):
-        option = self.scene.rectangle(name).center(x, y).size(w, h).background('White').fill('solid')
+    def _draw_option_with_arrow(self, name, x, y, w, h, angle, is_left):
+        option = (self.scene.rectangle(name)
+            .orbit(x, y, RADIUS, angle)
+            .size(w, h)
+            .background('White')
+            .fill('solid')
+        )
 
         start_dir, end_dir = ('L', 'R') if is_left else ('R', 'L')
         self.scene.arrow().curve(start_dir, end_dir).bind(self.center_element, option).arrowheads(None, 'arrow')

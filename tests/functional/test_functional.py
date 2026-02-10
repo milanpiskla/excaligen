@@ -1,12 +1,13 @@
 """
 Description: Functional tests for various elements.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 from excaligen.SceneBuilder import SceneBuilder
 from .evaluate import *
 from typing import Any
+import math
 
 from pytest import FixtureRequest
 
@@ -102,6 +103,30 @@ def test_closed_lines_fill(reference_json: dict[str, Any], request: FixtureReque
 
     xg.line().color('black').points([(0, 0), (100, 50), (50, 100)]).close().background('red').fill('cross-hatch')
     
+    evaluate(reference_json, xg, request)
+
+def test_line_arcs_round(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    xg = SceneBuilder()
+    xg.line().arc(0, 0, 50, 0.25 * math.pi, 0.5 * math.pi)
+    xg.line().arc(0, 0, 75, 0.15 * math.pi, 0.7 * math.pi)
+    xg.line().arc(0, 0, 100, 0.1 * math.pi, 0.8 * math.pi)
+
+    xg.line().arc(0, 0, 125, -0.1 * math.pi, -0.8 * math.pi)
+    xg.line().arc(0, 0, 150, -0.15 * math.pi, -0.7 * math.pi)
+    xg.line().arc(0, 0, 175, -0.25 * math.pi, -0.5 * math.pi)
+
+    evaluate(reference_json, xg, request)
+
+def test_line_arcs_sharp(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    xg = SceneBuilder()
+    xg.line().roundness('sharp').arc(0, 0, 50, 0.25 * math.pi, 0.5 * math.pi)
+    xg.line().roundness('sharp').arc(0, 0, 75, 0.15 * math.pi, 0.7 * math.pi)
+    xg.line().roundness('sharp').arc(0, 0, 100, 0.1 * math.pi, 0.8 * math.pi)
+
+    xg.line().roundness('sharp').arc(0, 0, 125, -0.1 * math.pi, -0.8 * math.pi)
+    xg.line().roundness('sharp').arc(0, 0, 150, -0.15 * math.pi, -0.7 * math.pi)
+    xg.line().roundness('sharp').arc(0, 0, 175, -0.25 * math.pi, -0.5 * math.pi)
+
     evaluate(reference_json, xg, request)
 
 def test_group(reference_json: dict[str, Any], request: FixtureRequest) -> None:

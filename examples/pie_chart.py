@@ -40,7 +40,7 @@ class PieChart:
 
         for item in DATA:
             percentage = item["value"] / self.total
-            angle_span = percentage * 360
+            angle_span = percentage * 2 * math.pi
             
             self._draw_slice(item, current_angle, angle_span)
             self._draw_legend_item(item, current_legend_y)
@@ -48,25 +48,15 @@ class PieChart:
             current_legend_y += LEGEND_Y_STEP
             current_angle += angle_span
 
-    def _draw_slice(self, item, start_angle_deg, angle_span_deg):
-        points = [CENTER]
-        steps = int(angle_span_deg)
-        if steps < 2: steps = 2
-            
-        for i in range(steps + 1):
-            angle_rad = math.radians(start_angle_deg + i * (angle_span_deg / steps))
-            x = CENTER[0] + RADIUS * math.cos(angle_rad)
-            y = CENTER[1] + RADIUS * math.sin(angle_rad)
-            points.append((x, y))
-            
-        (
-            self.scene.line()
-            .points(points)
+    def _draw_slice(self, item, start_angle, angle_span):
+        arc = (self.scene.line()
+            .roundness("sharp")
+            .arc(0, 0, RADIUS, start_angle, angle_span)
+            .append([CENTER])
             .close()
             .background(item["color"])
             .fill(item["fill"])
             .stroke("solid")
-            .roundness("sharp")
         )
 
     def _draw_legend_item(self, item, y):

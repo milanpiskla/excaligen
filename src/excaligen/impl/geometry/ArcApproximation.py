@@ -15,8 +15,10 @@ class ArcApproximation:
     The arc is part of a circle with a given radius, passes through the two points.
     """
 
+    DEFAULT_POINTS_PER_SEGMENT = 37
+
     @staticmethod
-    def generate_points(circle_center: Point, radius: float, start_point: Point, end_point: Point, points_per_segment: int = 37) -> list[Point]:
+    def generate_points(circle_center: Point, radius: float, start_point: Point, end_point: Point, points_per_segment: int = DEFAULT_POINTS_PER_SEGMENT) -> list[Point]:
         """Generate points along the arc between start_point and end_point."""
         cx, cy = circle_center
         angle_start = math.atan2(start_point[1] - cy, start_point[0] - cx)

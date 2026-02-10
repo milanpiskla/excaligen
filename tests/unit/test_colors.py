@@ -1,13 +1,22 @@
 """
 Description: Unit tests for colors.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
 
-from src.excaligen.impl.colors.Color import Color
+from excaligen.impl.colors.Color import Color
 
+def test_color_rgb_from_hex_str():
+    c = Color().rgb("#FF8000")
+    assert c.rgb() == (255, 128, 0)
+    assert str(c) == "#FF8000"
+
+    c = Color().rgb("#003264")
+    assert c.rgb() == (0, 50, 100)
+    assert str(c) == "#003264"
+    
 def test_color_hex():
     color = Color().rgb(255, 128, 0)
     assert str(color) == "#FF8000"
@@ -114,6 +123,15 @@ def test_hsl_to_rgb_roundtrip():
 
     c = Color().hsl(60, 100, 25)
     assert c.rgb_to_hsl(*c.hsl_to_rgb(*c.hsl())) == c.hsl()
+
+def test_invalid_args():
+    c = Color()
+    with pytest.raises(TypeError):
+        c.rgb(1, 2)
+    
+    with pytest.raises(TypeError):
+        c.hsl(1, 2)
+
 
         
     

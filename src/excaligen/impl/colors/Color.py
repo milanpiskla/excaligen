@@ -83,8 +83,8 @@ class Color:
                     raise ValueError("RGB values must be in the range 0-255.")
                 self._r, self._g, self._b = r, g, b
                 return self
-            case (str(hex)):
-                self._r, self._g, self._b = Color.hex_to_rgb(hex)
+            case (str(hex_str),):
+                self._r, self._g, self._b = Color._hex_to_rgb(hex_str)
                 return self
             case _:
                 raise TypeError("Invalid arguments for rgb(). Expected (r, g, b) or ().")
