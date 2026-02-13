@@ -33,7 +33,7 @@ class Workflow:
         self.arrow_base_points = self._calculate_base_arrow_points()
 
     def spawn(self):
-        self._draw_title()
+        self._draw_background()
         self._draw_workflow()
         return self
 
@@ -41,9 +41,11 @@ class Workflow:
         self.scene.save(file_name)
         return self
 
-    def _draw_title(self):
-        self.scene.text(DATA["title"]).center(0, -160).fontsize("L")
-        self.scene.text(DATA["note"]).center(0, 160).fontsize("S")
+    def _draw_background(self):
+        title = self.scene.text(DATA["title"]).baseline("top").fontsize("L")
+        self.scene.rectangle(title).size(len(DATA["steps"]) * ARROW_BASE_WIDTH * 1.6, ARROW_BASE_HEIGHT * 4).center(0, 0).color("LightGray")
+
+        self.scene.text(DATA["note"]).center(0, 160).fontsize("S").color("gray")
 
     def _draw_workflow(self):
         for i, step in enumerate(DATA["steps"], -len(DATA["steps"]) // 2 + 1):

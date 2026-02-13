@@ -136,3 +136,46 @@ def test_invalid_args():
         
     
 
+
+def test_lighten():
+    c = Color().hsl(0, 100, 50) # Red
+    c.lighten(10)
+    assert c.hsl() == (0, 100, 60)
+    
+    c.lighten(50)
+    assert c.hsl() == (0, 0, 100) # Cap at 100, Saturation becomes 0 for White
+
+    c = Color().hsl(0, 0, 0) # Black
+    c.lighten(100)
+    assert c.hsl() == (0, 0, 100) # White
+
+def test_darken():
+    c = Color().hsl(0, 100, 50) # Red
+    c.darken(10)
+    assert c.hsl() == (0, 100, 40)
+    
+    c.darken(50)
+    assert c.hsl() == (0, 0, 0) # Cap at 0, Saturation becomes 0 for Black
+
+    c = Color().hsl(0, 0, 100) # White
+    c.darken(100)
+    assert c.hsl() == (0, 0, 0) # Black
+
+def test_lighten_darken_invalid():
+    c = Color()
+    with pytest.raises(ValueError):
+        c.lighten(-10)
+    
+    with pytest.raises(ValueError):
+        c.lighten(110)
+
+    with pytest.raises(ValueError):
+        c.darken(-10)
+    
+    with pytest.raises(ValueError):
+        c.darken(110)
+
+def test_chaining():
+    c = Color().rgb(255, 0, 0).lighten(10).darken(5)
+    # 50 -> 60 -> 55
+    assert c.hsl() == (0, 100, 55)

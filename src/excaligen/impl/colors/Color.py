@@ -111,6 +111,31 @@ class Color:
             case _:
                 raise TypeError("Invalid arguments for hsl(). Expected (h, s, l) or ().")
     
+
+    def lighten(self, percent: int) -> "Self":
+        """ 
+        Lightens the color by a given percentage. 
+        percent should be an integer between 0 and 100.
+        Calculation is absolute: new_lightness = current_lightness + percent
+        """
+        if not 0 <= percent <= 100:
+            raise ValueError("Percentage must be between 0 and 100.")
+
+        h, s, l = self.hsl()
+        return self.hsl(h, s, min(l + percent, 100))
+
+    def darken(self, percent: int) -> "Self":
+        """ 
+        Darkens the color by a given percentage. 
+        percent should be an integer between 0 and 100.
+        Calculation is absolute: new_lightness = current_lightness - percent
+        """
+        if not 0 <= percent <= 100:
+            raise ValueError("Percentage must be between 0 and 100.")
+
+        h, s, l = self.hsl()
+        return self.hsl(h, s, max(l - percent, 0))
+    
     @staticmethod
     def rgb_to_hsl(r: int, g: int, b: int) -> tuple[int, int, int]:
         """ Converts RGB values to HSL. """

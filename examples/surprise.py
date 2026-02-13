@@ -1,6 +1,5 @@
 """
 Description: Who will guess what this code will generate?
-I'm so proud that I wrote it :)
 """
 # Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
