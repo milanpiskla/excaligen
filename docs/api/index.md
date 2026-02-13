@@ -16,6 +16,11 @@ This is the API documentation for the Excaligen library
 * [Defaults](defaults.md)
     A class to hold default values for various element properties
 
+## Color
+
+* [Color](color.md)
+    Color class for handling RGB and HSL colors
+
 ## Arrow
 
 * [Arrow](arrow.md)

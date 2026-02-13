@@ -95,23 +95,21 @@ The current instance of the Text class.
 
 ### center
 ```python
-    def center(self, x: float, y: float) -> Self:
+    def center(self, *args) -> Self | tuple[float, float]:
 ```
-Centers the text element at the given (x, y) coordinates.
-It is equivalent to calling anchor(x, y, "center", "middle")
+Get or set the center coordinates of the element.
 
 #### Arguments
 
 | Name | Type | Description |
 |------|------|-------------|
-| `x` | `float` | The x-coordinate to center the element. |
-| `y` | `float` | The y-coordinate to center the element. |
+| `*args` | `None` | Supports two signatures: 1. center() -> tuple[float, float] Returns the (x, y) coordinates of the center. 2. center(x, y) -> Self Sets the center to (x, y) and returns self for chaining. |
 
 #### Returns
 
-**Type**: `Self`
+**Type**: `tuple[float, float]  or  Self`
 
-The instance of the element, allowing for method chaining.
+Depending on the arguments.
 
 ### color
 ```python
@@ -195,18 +193,6 @@ The current instance of the Text class.
 
 **TypeError**: If the size is not an int or a valid string.
 
-### get_center
-```python
-    def get_center(self) -> tuple[float, float]:
-```
-Calculate and return the center coordinates of the element.
-
-#### Returns
-
-**Type**: `tuple[float, float]`
-
-A tuple containing the x and y coordinates of the center of the element.
-
 ### justify
 ```python
     def justify(self, x: float, y: float, width: float, height: float) -> Self:
@@ -272,6 +258,33 @@ The instance of the element with updated opacity.
 
 **ValueError**: If the opacity value is not within the range 0-100.
 
+### orbit
+```python
+    def orbit(self, *args) -> Self:
+```
+Positions the element relative to a reference using polar coordinates.
+This method allows placing the element such that its center will be at (radius, angle)
+from a reference. The reference can be either another AbstractElement or a point (x, y).
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. orbit(element, radius, angle) |
+| `element` | `AbstractElement` | The reference element to orbit around. |
+| `radius` | `float` | The distance from the center of the reference. |
+| `angle` | `float` | The angle to position the element at, in radians. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the element.
+
+#### Raises
+
+**ValueError**: If the arguments do not match the expected signatures.
+
 ### position
 ```python
     def position(self, x: float, y: float) -> Self:
@@ -308,6 +321,24 @@ Rotate the element clockwise by a specified angle.
 **Type**: `Self`
 
 The instance of the element after rotation.
+
+### size
+```python
+    def size(self, *args) -> Self | tuple[float, float]:
+```
+Get or set the size of the element.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. size() -> tuple[float, float] Returns the (width, height) of the element. 2. size(width, height) -> Self Sets the size to (width, height) and returns self for chaining. |
+
+#### Returns
+
+**Type**: `tuple[float, float]  or  Self`
+
+Depending on the arguments.
 
 ### spacing
 ```python

@@ -1,9 +1,9 @@
 # Excaligen User Manual
 
-**Excaligen** bridges the gap between code and visual expression, bringing programmatic power to the Excalidraw aesthetic.
+**Excaligen** bridges the gap between the fantastic diagram editor [Excalidraw](https://excalidraw.com/) and algorithmic visualization.
+The [Excalidraw](https://excalidraw.com/) is well known for its beautiful, hand-drawn aesthetic. 
 
-Generate Excalidraw-compatible files directly from Python. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
-
+If you want to generate Excalidraw-compatible files directly from Python, Excaligen is the tool for you. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
 ## Table of Contents
 - [Chapter 1: The First Sketch](#chapter-1-the-first-sketch)
@@ -16,10 +16,9 @@ Generate Excalidraw-compatible files directly from Python. Visualize data struct
 - [Chapter 8: Algorithmic Generation](#chapter-8-algorithmic-generation)
 
 ---
-
 ## Chapter 1: The First Sketch
 
-We begin with the essential `SceneBuilder`. This is your canvas.
+The entry point of Excaligen API is the `SceneBuilder` class. This is your canvas.
 
 Create a file named `hello_world.py`:
 
@@ -36,21 +35,39 @@ Executing this script produces a file ready for Excalidraw.
 ![Hello World](images/hello_world.svg)
 
 It is that straightforward.
+The SceneBuilder exposes a fluent API for building Excalidraw scenes. The fluent API means that you can chain method calls together.
+
+Let's quickly create a more complex scene.
+
+```python
+from excaligen.SceneBuilder import SceneBuilder
+
+scene = SceneBuilder()
+central_topic = scene.ellipse('Central topic').center(0, 0)
+subtopic = scene.rectangle('Subtopic').center(350, 100)
+scene.arrow('points to').bind(central_topic, subtopic)
+
+scene.save('binding.excalidraw')
+```
+The code above creates a simple diagram with a central topic and subtopic, connected by an arrow.
+
+![Binding](images/binding.svg)
+
+The next chapters will explain the API in more detail. **We will omit the import statements as well as the scene.save() call for brevity in the examples.**
 
 ---
-
 ## Chapter 2: Shapes & Styles
 
 Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.
 
 ### Elements
-Excalidraw provides a set of core primitives. We expose them in Excaligen directly.
+Excalidraw provides a set of core shapes. We expose them in Excaligen directly.
 
-- **Rectangle**: The workhorse of diagrams. Perfect for nodes, heavy containers, or UI mockups.
-- **Ellipse**: Great for states, start/end points, or emphasizing flow.
-- **Diamond**: The classic decision node in flowcharts.
+- **Rectangle**
+- **Ellipse**
+- **Diamond**
 
-We can assign labels to shapes, set their positions and sizes.
+We can assign labels to shapes and set their positions.
 
 ```python
 scene.rectangle('Rectangle').center(-150, 0)
@@ -62,7 +79,7 @@ The texts in the above example 'Rectangle', 'Ellipse' and 'Diamond' are the labe
 
 ![Shapes](images/shapes.svg)
 
-### Element Center & Position
+### Element Center, Position and Orbit
 You have seen how to set the center of an element. The x and y coordinates of the center() method define the center of the element (higher y values are further down the page).
 
 ```python
@@ -81,8 +98,24 @@ scene.rectangle('Rectangle 3').position(0, 120)
 ```
 ![Element Position](images/shape_position.svg)
 
+What if we want to place several elements around a central point? The orbit() method allows you to do that.
+```Python
+RADIUS = 150
+SUBTOPICS = 6
+
+scene = SceneBuilder()
+central_topic = scene.ellipse('Central topic').center(0, 0)
+for i in range(SUBTOPICS):
+    angle = i * 2 * math.pi / SUBTOPICS
+    scene.rectangle(f'Subtopic {i}').orbit(central_topic, RADIUS, angle)
+
+scene.save('sandbox.excalidraw')
+```
+
+![Orbit](images/orbit.svg)
+
 ### Element Size
-You can define the dimensions of an element using the `size()` method. It accepts width and height.
+You can define the size of an element using the `size()` method. It accepts width and height.
 
 ```python
 scene.rectangle('Small').size(80, 64).center(0, 0)    
@@ -408,10 +441,19 @@ This ensures visual consistency and keeps your code clean.
 
 The true power of Excaligen lies in automation. You can visualize recursive structures or generate diagrams from data that would be tedious to draw by hand.
 
-### Recursive Mind Map
-Consider a mind map generated from a dictionary. With a simple recursive function, you can layout a tree structure where branches position themselves automatically.
+You can get inspired by the examples in the `examples/` directory:
 
-See `examples/mind_map.py` for an implementation that turns a Python dictionary into a visual tree, handling node creation and connections recursively.
+### Mind Map Example
+![Mind Map](images/example_mind_map.svg)
+
+### Workflow Example
+![Workflow](images/example_workflow_arrows.svg)
+
+### Pie Chart Example
+![Pie Chart](images/example_pie_chart.svg)
+
+### Curves and Arrows Example
+![Curves and Arrows](images/example_options.svg)
 
 ---
 

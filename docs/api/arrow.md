@@ -14,6 +14,18 @@ The arrow can be styled with:
 ```python
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None) -> None:
 ```
+### append
+```python
+    def append(self, points: list[Point]) -> Self:
+```
+Appends points to the line.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `points` | `list[Point]` | A list of Point objects to append. Returns: Self: The instance of the class with updated points, width, and height. |
+
 ### arc
 ```python
     def arc(self, radius: float) -> Self:
@@ -79,7 +91,7 @@ The current instance of the Arrow class.
 
 ### center
 ```python
-    def center(self, x: float, y: float) -> Self:
+    def center(self, *args) -> Self | tuple[float, float]:
 ```
 ### color
 ```python
@@ -156,18 +168,6 @@ Set the gap at the start and end of the arrow.
 
 The current instance of the Arrow class.
 
-### get_center
-```python
-    def get_center(self) -> tuple[float, float]:
-```
-Calculate and return the center coordinates of the element.
-
-#### Returns
-
-**Type**: `tuple[float, float]`
-
-A tuple containing the x and y coordinates of the center of the element.
-
 ### label
 ```python
     def label(self, text: Text | str) -> Self:
@@ -230,6 +230,33 @@ The instance of the element with updated opacity.
 
 **ValueError**: If the opacity value is not within the range 0-100.
 
+### orbit
+```python
+    def orbit(self, *args) -> Self:
+```
+Positions the element relative to a reference using polar coordinates.
+This method allows placing the element such that its center will be at (radius, angle)
+from a reference. The reference can be either another AbstractElement or a point (x, y).
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. orbit(element, radius, angle) |
+| `element` | `AbstractElement` | The reference element to orbit around. |
+| `radius` | `float` | The distance from the center of the reference. |
+| `angle` | `float` | The angle to position the element at, in radians. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the element.
+
+#### Raises
+
+**ValueError**: If the arguments do not match the expected signatures.
+
 ### points
 ```python
     def points(self, points: list[Point]) -> Self:
@@ -246,6 +273,18 @@ Sets the points for the line and calculates the width and height.
 ```python
     def position(self, x: float, y: float) -> Self:
 ```
+### prepend
+```python
+    def prepend(self, points: list[Point]) -> Self:
+```
+Prepends points to the line.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `points` | `list[Point]` | A list of Point objects to prepend. Returns: Self: The instance of the class with updated points, width, and height. |
+
 ### rotate
 ```python
     def rotate(self, angle: float) -> Self:
@@ -285,6 +324,24 @@ The instance of the shape with the updated roundness style.
 #### Raises
 
 **ValueError**: If the provided roundness style is not "sharp" or "round".
+
+### size
+```python
+    def size(self, *args) -> Self | tuple[float, float]:
+```
+Get or set the size of the element.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. size() -> tuple[float, float] Returns the (width, height) of the element. 2. size(width, height) -> Self Sets the size to (width, height) and returns self for chaining. |
+
+#### Returns
+
+**Type**: `tuple[float, float]  or  Self`
+
+Depending on the arguments.
 
 ### sloppiness
 ```python

@@ -26,6 +26,7 @@ class SceneBuilder(ExcaligenStructure):
 
     The elemnts include rectangles, diamonds, ellipses, arrows, lines, text, images, groups, and frames.
     Additionally, it offers serialization of the diagram to JSON and allows saving it to a file.
+    The fluent API allows chaining method calls for a more concise code.
     """
     def __init__(self):
         super().__init__()

@@ -8,6 +8,41 @@ configurations for styling and positioning.
 ```python
     def __init__(self, defaults: Defaults):
 ```
+### append
+```python
+    def append(self, points: list[Point]) -> Self:
+```
+Appends points to the line.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `points` | `list[Point]` | A list of Point objects to append. Returns: Self: The instance of the class with updated points, width, and height. |
+
+### arc
+```python
+    def arc(self, x: float, y: float, radius: float, start_angle: float, angle_span: float) -> Self:
+```
+Adds an arc to the line.
+Approximates an arc between two points, given by the center of the arc, radius, start angle and angle span.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `x` | `float` | The x-coordinate of the center of the arc. |
+| `y` | `float` | The y-coordinate of the center of the arc. |
+| `radius` | `float` | The radius of the arc. |
+| `start_angle` | `float` | The starting angle of the arc, in radians. |
+| `angle_span` | `float` | The angle span of the arc, in radians. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the class for method chaining.
+
 ### background
 ```python
     def background(self, color: str | Color) -> Self:
@@ -28,24 +63,21 @@ The instance of the class for method chaining.
 
 ### center
 ```python
-    def center(self, x: float, y: float) -> Self:
+    def center(self, *args) -> Self | tuple[float, float]:
 ```
-Centers the element at the given (x, y) coordinates.
-This method sets the element's position such that its center is located
-at the specified (x, y) coordinates. It also marks the element as centered.
+Get or set the center coordinates of the element.
 
 #### Arguments
 
 | Name | Type | Description |
 |------|------|-------------|
-| `x` | `float` | The x-coordinate to center the element. |
-| `y` | `float` | The y-coordinate to center the element. |
+| `*args` | `None` | Supports two signatures: 1. center() -> tuple[float, float] Returns the (x, y) coordinates of the center. 2. center(x, y) -> Self Sets the center to (x, y) and returns self for chaining. |
 
 #### Returns
 
-**Type**: `Self`
+**Type**: `tuple[float, float]  or  Self`
 
-The instance of the element, allowing for method chaining.
+Depending on the arguments.
 
 ### close
 ```python
@@ -93,18 +125,6 @@ The instance of the shape with the updated fill style.
 
 **ValueError**: If the provided style is not one of 'hatchure', 'cross-hatch', or 'solid'.
 
-### get_center
-```python
-    def get_center(self) -> tuple[float, float]:
-```
-Calculate and return the center coordinates of the element.
-
-#### Returns
-
-**Type**: `tuple[float, float]`
-
-A tuple containing the x and y coordinates of the center of the element.
-
 ### link
 ```python
     def link(self, target: "str | AbstractElement") -> Self:
@@ -149,6 +169,33 @@ The instance of the element with updated opacity.
 
 **ValueError**: If the opacity value is not within the range 0-100.
 
+### orbit
+```python
+    def orbit(self, *args) -> Self:
+```
+Positions the element relative to a reference using polar coordinates.
+This method allows placing the element such that its center will be at (radius, angle)
+from a reference. The reference can be either another AbstractElement or a point (x, y).
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. orbit(element, radius, angle) |
+| `element` | `AbstractElement` | The reference element to orbit around. |
+| `radius` | `float` | The distance from the center of the reference. |
+| `angle` | `float` | The angle to position the element at, in radians. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the element.
+
+#### Raises
+
+**ValueError**: If the arguments do not match the expected signatures.
+
 ### points
 ```python
     def points(self, points: list[Point]) -> Self:
@@ -179,6 +226,18 @@ Sets the position of the element.
 **Type**: `Self`
 
 The instance of the element with updated position.
+
+### prepend
+```python
+    def prepend(self, points: list[Point]) -> Self:
+```
+Prepends points to the line.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `points` | `list[Point]` | A list of Point objects to prepend. Returns: Self: The instance of the class with updated points, width, and height. |
 
 ### rotate
 ```python

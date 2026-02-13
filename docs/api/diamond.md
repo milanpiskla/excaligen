@@ -26,7 +26,7 @@ The instance of the class for method chaining.
 
 ### center
 ```python
-    def center(self, x: float, y: float) -> Self:
+    def center(self, *args) -> Self | tuple[float, float]:
 ```
 ### color
 ```python
@@ -67,18 +67,6 @@ The instance of the shape with the updated fill style.
 #### Raises
 
 **ValueError**: If the provided style is not one of 'hatchure', 'cross-hatch', or 'solid'.
-
-### get_center
-```python
-    def get_center(self) -> tuple[float, float]:
-```
-Calculate and return the center coordinates of the element.
-
-#### Returns
-
-**Type**: `tuple[float, float]`
-
-A tuple containing the x and y coordinates of the center of the element.
 
 ### label
 ```python
@@ -141,6 +129,33 @@ The instance of the element with updated opacity.
 #### Raises
 
 **ValueError**: If the opacity value is not within the range 0-100.
+
+### orbit
+```python
+    def orbit(self, *args) -> Self:
+```
+Positions the element relative to a reference using polar coordinates.
+This method allows placing the element such that its center will be at (radius, angle)
+from a reference. The reference can be either another AbstractElement or a point (x, y).
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. orbit(element, radius, angle) |
+| `element` | `AbstractElement` | The reference element to orbit around. |
+| `radius` | `float` | The distance from the center of the reference. |
+| `angle` | `float` | The angle to position the element at, in radians. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the element.
+
+#### Raises
+
+**ValueError**: If the arguments do not match the expected signatures.
 
 ### position
 ```python

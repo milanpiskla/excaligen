@@ -455,6 +455,7 @@ if __name__ == "__main__":
     DOC_TARGETS = [
         ("excaligen.SceneBuilder", "./src/excaligen/SceneBuilder.py"),
         ("excaligen.impl.elements.Arrow", "./src/excaligen/impl/elements/Arrow.py"),
+        ("excaligen.impl.colors.Color", "./src/excaligen/impl/colors/Color.py"),
         ("excaligen.impl.elements.Diamond", "./src/excaligen/impl/elements/Diamond.py"),
         ("excaligen.impl.elements.Ellipse", "./src/excaligen/impl/elements/Ellipse.py"),
         ("excaligen.impl.elements.Frame", "./src/excaligen/impl/elements/Frame.py"),

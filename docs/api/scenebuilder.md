@@ -2,6 +2,7 @@
 The SceneBuilder class provides methods to add various diagram elements.
 The elemnts include rectangles, diamonds, ellipses, arrows, lines, text, images, groups, and frames.
 Additionally, it offers serialization of the diagram to JSON and allows saving it to a file.
+The fluent API allows chaining method calls for a more concise code.
 ## Methods
 ### __init__
 ```python
@@ -64,7 +65,7 @@ Retrieve the default parameters for elements.
 
 #### Returns
 
-**Type**: `Defaults`
+**Type**: `[Defaults](./defaults.md)`
 
 The default parameteres for elements.
 
