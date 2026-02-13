@@ -25,8 +25,8 @@ CENTER_SIZE = 120
 OPTION_WIDTH = 140
 OPTION_HEIGHT = 80
 PANELS_HEIGHT = 2.1 * (RADIUS + XOFFSET)
-BK_WIDTH = 2.1 * RADIUS
-BK_HEIGHT = 1.1 * PANELS_HEIGHT
+BK_WIDTH = 2.2 * RADIUS
+BK_HEIGHT = 1.2 * PANELS_HEIGHT
 
 class Options:
     def __init__(self):
@@ -101,7 +101,7 @@ class Options:
         )
 
     def _draw_pro_tip(self):
-        self.scene.text(f'Pro-Tip: Always carry a towel. It’s the only thing that works with all {2 * OPTS_PER_ERA} technologies').fontsize('S').center(0, BK_HEIGHT / 2 - 20).color('Gray')
+        self.scene.text(f'Pro-Tip: Always carry a towel. It’s the only thing that works with all {2 * OPTS_PER_ERA} technologies').fontsize('S').center(0, BK_HEIGHT / 2 - 60).color('Gray')
 
 if __name__ == "__main__":
     Options().spawn().save("options.excalidraw")
