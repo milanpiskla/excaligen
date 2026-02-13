@@ -1,6 +1,8 @@
 # Class Diamond
 A class representing a diamond shape in the diagram.
 Diamond shape is a four-sided polygon with equal sides and opposite angles equal.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.diamond()` instead.
 ## Methods
 ### __init__
 ```python

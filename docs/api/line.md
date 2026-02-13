@@ -3,6 +3,8 @@ A line element that draws a straight or curved line segments between the given p
 This class represents a line element in the drawing canvas.
 It provides functionality for creating and manipulating straight pr curved lines with specified
 configurations for styling and positioning.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.line()` instead.
 ## Methods
 ### __init__
 ```python

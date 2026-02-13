@@ -37,6 +37,9 @@ class Text(AbstractElement):
     framework. It provides various text customization options including font styles, sizes, 
     alignments, and colors. The class supports auto-resizing capabilities and multiple font 
     families.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.text()` instead.
     """
     CHAR_WIDTH_FACTOR = 0.6  # Approximate width of a character relative to the font size
     LINE_HEIGHT_FACTOR = 1.25  # Approximate line height factor

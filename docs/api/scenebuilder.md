@@ -67,7 +67,7 @@ Retrieve the default parameters for elements.
 
 **Type**: `Defaults`
 
-The [Defaults](defaults.md) parameteres for elements.
+The [Defaults](defaults.md) parameters for elements.
 
 ### diamond
 ```python

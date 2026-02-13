@@ -3,6 +3,8 @@ A container class that represents a group of elements.
 This class allows for organizing and managing multiple elements as a single unit. Elements
 within a group can be manipulated together while maintaining their individual properties.
 Each group is identified by a unique UUID.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.group()` instead.
 ## Methods
 ### __init__
 ```python

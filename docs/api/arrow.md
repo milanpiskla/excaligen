@@ -9,6 +9,8 @@ The arrow can be styled with:
 - Adjustable gaps between connected elements
 - Binding capabilities to connect elements
 - Various arrow directions and angles
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.arrow()` instead.
 ## Methods
 ### __init__
 ```python

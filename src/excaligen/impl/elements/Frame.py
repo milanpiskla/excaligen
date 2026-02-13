@@ -29,6 +29,9 @@ class Frame(AbstractShape):
     It can automatically calculate its dimensions based on its contents or be explicitly
     sized. Frames can also have titles and background colors, making them useful for
     grouping related elements and creating visual hierarchies in the layout.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.frame()` instead.
     """
     def __init__(self, defaults: Defaults, title: str | None = None):
         super().__init__("frame", defaults)

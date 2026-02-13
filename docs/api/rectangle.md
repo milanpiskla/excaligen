@@ -2,6 +2,8 @@
 A class representing a rectangular shape in a 2D space.
 The rectangle is defined by its position and dimensions,
 and can be configured with various visual properties through the config parameter.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.rectangle()` instead.
 ## Methods
 ### __init__
 ```python

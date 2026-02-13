@@ -20,6 +20,9 @@ class Line(AbstractLine, AbstractShape):
     This class represents a line element in the drawing canvas.
     It provides functionality for creating and manipulating straight pr curved lines with specified 
     configurations for styling and positioning.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.line()` instead.
     """
     def __init__(self, defaults: Defaults):
         super().__init__("line", defaults)

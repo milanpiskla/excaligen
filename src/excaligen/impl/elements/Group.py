@@ -27,6 +27,9 @@ class Group():
     This class allows for organizing and managing multiple elements as a single unit. Elements
     within a group can be manipulated together while maintaining their individual properties.
     Each group is identified by a unique UUID.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.group()` instead.
     """
     def __init__(self, defaults: Defaults):
         self.__id = str(uuid.uuid4())

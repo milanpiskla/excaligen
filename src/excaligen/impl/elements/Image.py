@@ -17,6 +17,9 @@ class Image(AbstractElement):
     This class provides functionality to load and manipulate images from files, URLs, 
     or raw data (bytes/SVG). It supports basic image operations like scaling and 
     fitting within bounds while maintaining aspect ratio.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.image()` instead.
     """
     def __init__(self, defaults: Defaults, listener: AbstractImageListener, loader: AbstractImageLoader):
         super().__init__("image", defaults)

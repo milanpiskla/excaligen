@@ -4,6 +4,8 @@ Frame is a fundamental layout component that serves as a container for other ele
 It can automatically calculate its dimensions based on its contents or be explicitly
 sized. Frames can also have titles and background colors, making them useful for
 grouping related elements and creating visual hierarchies in the layout.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.frame()` instead.
 ## Methods
 ### __init__
 ```python

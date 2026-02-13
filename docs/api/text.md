@@ -4,6 +4,8 @@ The Text class is designed to handle and manipulate text elements within the exc
 framework. It provides various text customization options including font styles, sizes,
 alignments, and colors. The class supports auto-resizing capabilities and multiple font
 families.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.text()` instead.
 ## Methods
 ### __init__
 ```python

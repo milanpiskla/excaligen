@@ -6,20 +6,25 @@ Excalidraw is well known for its beautiful, hand-drawn aesthetic.
 If you want to generate Excalidraw-compatible files directly from Python, Excaligen is the tool for you. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
 ## Table of Contents
-- [Chapter 1: The First Sketch](#chapter-1-the-first-sketch)
+- [Chapter 1: Concepts & The First Sketch](#chapter-1-concepts--the-first-sketch)
 - [Chapter 2: Shapes & Styles](#chapter-2-shapes--styles)
-- [Chapter 3: Arrows & Connecting the Elements](#chapter-3-arrows--connecting-the-elements)
-- [Chapter 4: Typography & Text](#chapter-4-typography--text)
-- [Chapter 5: Lines](#chapter-5-lines)
+- [Chapter 3: Connectors (Arrows)](#chapter-3-connectors-arrows)
+- [Chapter 4: Typography (Text)](#chapter-4-typography-text)
+- [Chapter 5: Lines & Custom Shapes](#chapter-5-lines--custom-shapes)
 - [Chapter 6: Images](#chapter-6-images)
-- [Chapter 7: Consistency & Defaults](#chapter-7-consistency--defaults)
-- [Chapter 8: Algorithmic Generation](#chapter-8-algorithmic-generation)
-- [Chapter 9: Groups & Frames](#chapter-9-groups--frames)
+- [Chapter 7: Groups & Frames](#chapter-7-groups--frames)
+- [Chapter 8: Consistency & Defaults](#chapter-8-consistency--defaults)
+- [Chapter 9: Algorithmic Generation](#chapter-9-algorithmic-generation)
 
 ---
-## Chapter 1: The First Sketch
+## Chapter 1: Concepts & The First Sketch
 
-The entry point of Excaligen API is the `SceneBuilder` class. This is your canvas.
+### The SceneBuilder
+The heart of Excaligen is the `SceneBuilder` class. Think of it as your canvas and your toolbox combined.
+
+**Important**: You should always create elements using the `SceneBuilder` methods (like `.rectangle()`, `.arrow()`, etc.). **Do not instantiate element classes directly.** The builder ensures everything is correctly initialized and tied to the diagram.
+
+### Hello World
 
 Create a file named `hello_world.py`:
 
@@ -35,10 +40,8 @@ Executing this script produces a file ready for Excalidraw.
 
 ![Hello World](images/hello_world.svg)
 
-It is that straightforward.
-The SceneBuilder exposes a fluent API for building Excalidraw scenes. The fluent API means that you can chain method calls together.
-
-Let's quickly create a more complex scene.
+### The Fluent API
+Excaligen uses a "fluent" API style. This means you can chain method calls together to configure your elements concisely.
 
 ```python
 from excaligen.SceneBuilder import SceneBuilder
@@ -50,25 +53,21 @@ scene.arrow('points to').bind(central_topic, subtopic)
 
 scene.save('binding.excalidraw')
 ```
-The code above creates a simple diagram with a central topic and subtopic, connected by an arrow.
 
 ![Binding](images/binding.svg)
 
-The next chapters will explain the API in more detail. **We will omit the import statements as well as the scene.save() call for brevity in the examples.**
+The next chapters will explain the API in detail. **We will omit the imports and `scene.save()` calls in examples for brevity.**
 
 ---
 ## Chapter 2: Shapes & Styles
 
 Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.
 
-### Elements
-Excalidraw provides a set of core shapes. We expose them in Excaligen directly.
-
-- **Rectangle**
-- **Ellipse**
-- **Diamond**
-
-We can assign labels to shapes and set their positions.
+### Core Shapes
+Excaligen exposes the core Excalidraw shapes:
+- **Rectangle**: `scene.rectangle()`
+- **Ellipse**: `scene.ellipse()`
+- **Diamond**: `scene.diamond()`
 
 ```python
 scene.rectangle('Rectangle').center(-150, 0)
@@ -76,21 +75,21 @@ scene.ellipse('Ellipse').center(0, 0)
 scene.diamond('Diamond').center(150, 0)
 ```
 
-The texts in the above example 'Rectangle', 'Ellipse' and 'Diamond' are the labels of the elements. They have nothing to do with the element type; you can put any text you want in the label.
-
 ![Shapes](images/shapes.svg)
 
-### Element Center, Position and Orbit
-You have seen how to set the center of an element. The x and y coordinates of the center() method define the center of the element (higher y values are further down the page).
+### Positioning
+You have flexible control over where elements go.
 
-```python
-scene.ellipse().center(0, 0)
-scene.rectangle().center(0, -120)
-scene.diamond().center(150, 0)
-```
-![Shape Center](images/shape_center.svg)
+#### Center
+`center(x, y)` places the geometric center of the element at (x, y).
+![Center](images/shape_center.svg)
 
-Sometimes it is more convenient to set the position of the element instead of the center. The position() method defines the upper left corner of the element.
+#### Position
+`position(x, y)` places the top-left corner of the element's bounding box at (x, y).
+![Position](images/shape_position.svg)
+
+#### Orbit / Polar Coordinates
+Ideally suited for mind maps or circular layouts, `orbit()` places an element relative to another one using an angle and radius.
 
 ```python
 scene.rectangle('Rectangle 1').position(0, 0)
@@ -115,8 +114,8 @@ scene.save('sandbox.excalidraw')
 
 ![Orbit](images/orbit.svg)
 
-### Element Size
-You can define the size of an element using the `size()` method. It accepts width and height.
+### Rotation
+You can rotate any element. Angles are in radians.
 
 ```python
 scene.rectangle('Small').size(80, 64).center(0, 0)    
@@ -126,85 +125,76 @@ scene.rectangle('Large').size(150, 120).center(235, 0)
 ![Element Size](images/shape_size.svg)
 
 
-### The Visual Vocabulary
-A diagram communicates through more than just shapes. The *style* of a line tells a story.
+### Styling
+A diagram communicates through more than just shapes. The *style* tells a story.
 
-#### Stroke Styles
-How a line is drawn changes its meaning:
-- **Solid**: A strong, definite relationship or boundary. The default.
-- **Dashed**: Often implies a tentative connection, a future state, or a secondary boundary.
-- **Dotted**: Used for weak links, annotations, or "ghost" elements.
-
-Example:
+#### Stroke Style
+Control the line style with `.stroke()`. Options: `'solid'`, `'dashed'`, `'dotted'`.
 ```python
 scene.ellipse().center(-150, 0).stroke('solid')
 scene.ellipse().center(0, 0).stroke('dashed')
 scene.ellipse().center(150, 0).stroke('dotted')
 ```
-
 ![Stroke Styles](images/stroke_styles.svg)
 
-#### Fill Styles
-Excalidraw's fill styles are iconic. You can choose how your shapes are filled:
-- **Solid**: A full, opaque fill.
-- **Hachure**: The classic, sketchy diagonal lines. Distinctively "Excalidraw".
-- **Cross-Hatch**: Dense, crossed lines for a heavier, darker selection.
+#### Stroke Thickness
+Adjust the line width with `.thickness()`. Options: `'thin'` (1), `'bold'` (2), `'extra-bold'` (3).
+```python
+scene.rectangle().thickness('thin')
+scene.rectangle().thickness('bold')
+scene.rectangle().thickness('extra-bold')
+```
+![Thickness](images/thickness.svg)
 
+#### Fill Style
+Choose how shapes are filled with `.fill()`. Options: `'solid'`, `'hachure'` (sketchy lines), `'cross-hatch'`.
 ```python
 scene.ellipse().center(-150, 0).background('gray').fill('solid')
 scene.ellipse().center(0, 0).background('gray').fill('hachure')
 scene.ellipse().center(150, 0).background('gray').fill('cross-hatch')
 ```
-![Fill Styles](./images/fills.svg)
+![Fills](images/fills.svg)
 
-#### Sloppiness (Roughness)
-This is the magic ingredient. It determines how "hand-drawn" your diagram looks.
-- **Architect**: Precise, straight lines. Clean and professional.
-- **Artist**: The default. A balanced, natural sketchiness.
-- **Cartoonist**: Very messy and playful.
-
+#### Roundness
+Toggle corner rounding with `.roundness()`. Options: `'sharp'`, `'round'`.
 ```python
-scene.ellipse().center(-150, 0).sloppiness('architect')
-scene.ellipse().center(0, 0).sloppiness('artist')
-scene.ellipse().center(150, 0).sloppiness('cartoonist')
+scene.rectangle().roundness('sharp')
+scene.rectangle().roundness('round')
 ```
-![Sloppiness](./images/sloppiness.svg)
+![Roundness](images/shape_roundness.svg)
 
-#### Stroke Thickness
-You can choose how thick your lines are:
-- **Thin**: A light, delicate line.
-- **Bold**: A strong, bold line.
-- **Extra-bold**: A heavy, powerful line.
-
+#### Sloppiness
+Control the hand-drawn effect with `.sloppiness()`. Options: `'architect'` (clean), `'artist'` (balanced), `'cartoonist'` (messy).
 ```python
-scene.ellipse().center(-150, 0).thickness('thin')
-scene.ellipse().center(0, 0).thickness('bold')
-scene.ellipse().center(150, 0).thickness('extra-bold')
+scene.rectangle().sloppiness('architect')
+scene.rectangle().sloppiness('artist')
+scene.rectangle().sloppiness('cartoonist')
 ```
+![Sloppiness](images/sloppiness.svg)
 
-The method thickness() also accepts integers 1, 2 or 3.
-
-![Stroke Thickness](./images/thickness.svg)
-
-### Roundness
-Elements can have sharp or rounded corners. Use the `roundness()` method to toggle between them. Note that this method is not applicable to the `Ellipse` element.
+#### Opacity
+Control transparency with `.opacity(0-100)`.
 ```python
-scene.rectangle('Rounded').roundness('round').center(0, 0)
-scene.rectangle('Sharp').roundness('sharp').center(150, 0)
-scene.diamond('Rounded').roundness('round').center(0, 100)
-scene.diamond('Sharp').roundness('sharp').center(150, 100)
+scene.rectangle("Ghost").opacity(50)
 ```
-
-![Shape Roundness](./images/shape_roundness.svg)
 
 ### Colors
-So far we have only used the black/gray colors. But we can use any color we want.
-Excaligen supports multiple color formats:
-- **Named Colors**: `"MidnightBlue"`, `"Tomato"`, `"MintCream"`.
-- **RGB as a string (Hex Colors)**: `"#FF5733"`.
-- **RGB**: `scene.color().rgb(100, 149, 237)`.
-- **HSL**: `scene.color().hsl(200, 80, 60)`.
+Excaligen supports rich color handling.
 
+#### Setting Colors
+- **Named Colors**: `"MidnightBlue"`, `"Tomato"`.
+- **Hex**: `"#FF5733"`.
+- **RGB/HSL**: via the helper methods.
+
+```python
+scene.rectangle().color("Blue") # Stroke color
+scene.rectangle().background("LightBlue") # Fill color
+```
+
+![Colors](images/shape_colors.svg)
+
+#### Advanced Color Manipulation
+You can manipulate colors programmatically using the `scene.color()` helper. This is great for generating palettes or gradients.
 
 ```python
 # Add a rectangle with a named color
@@ -231,218 +221,175 @@ Excaligen supports multiple color formats:
     .background(scene.color().hsl(120, 100, 85))
 )
 ```
-## Chapter 3: Arrows & Connecting the Elements
 
-Diagrams are fundamentally about relationships. Arrows are the most common way to express these relationships.
-
-### Intelligent Binding
-In Excaligen, you **bind** arrows to elements. If the nodes move, the arrow adapts automatically.
+### Hyperlinks
+You can make any element clickable by adding a link.
 
 ```python
-scene.arrow().bind(start_node, end_node)
+scene.rectangle("Click Me").link("https://google.com")
 ```
 
-### Labeling
-Arrows can communicate what the relationship is. You can pass a label directly to the arrow constructor.
+---
+## Chapter 3: Connectors (Arrows)
+
+Diagrams are about relationships. `Arrow` is a powerful element in Excaligen designed to handle complex connections.
+
+### Binding
+The most robust way to connect elements is **binding**. When elements move, bound arrows follow.
 
 ```python
-scene.arrow("connects to").bind(a, b)
+scene.arrow().bind(start_element, end_element)
 ```
 
 ### Arrowheads
-Arrows don't just point. They can start or end with different symbols.
-Supported styles: `'arrow'`, `'bar'`, `'dot'`, `'triangle'`, or `None`.
+Customize the start and end markers.
+Options: `'arrow'`, `'bar'`, `'dot'`, `'triangle'`, `None`.
 
 ```python
+# A bi-directional arrow with a dot at the start
 scene.arrow().bind(a, b).arrowheads(start='dot', end='arrow')
 ```
 
-### Path Control
-The path an arrow takes is crucial for readability.
+### Path Styles
+Control *how* the arrow gets from A to B.
 
-#### Elbow (Orthogonal)
-Perfect for technical diagrams. You specify the exit and entry directions ('U', 'D', 'L', 'R').
+#### 1. Straight (Default)
+A direct line between centers.
+
+#### 2. Elbow (Orthogonal)
+Perfect for flowcharts. You specify the exit direction from `start` and entry direction to `end` (`'U'`, `'D'`, `'L'`, `'R'`).
 
 ```python
-# Leave Right, Enter Left
-scene.arrow().bind(a, b).elbow("R", "L") 
+# Exit Right, Enter Left
+scene.arrow().elbow('R', 'L').bind(node_a, node_b)
 ```
 
-#### Curve & Arc
-For organic flows.
-- **Curve**: `curve(start_angle, end_angle)` defaults to 0.
-- **Arc**: `arc(radius)` creates a circular path.
+#### 3. Curve (Bezier)
+Organic, flowing lines. You define the "tangent" angle at the start and end.
+Angles can be radians or convenience directions (`'U'`, `'D'`, `'L'`, `'R'`).
 
 ```python
-scene.arrow().bind(a, b).arc(10)
+# Curve leaving Up and arriving Down
+scene.arrow().curve('U', 'D').bind(node_a, node_b)
 ```
 
-### Explicit Points
-For total control, you can define the exact points the arrow follows. When defining points manually, you can also control the `roundness()` (sharp or round).
+#### 4. Arc
+A circular arc between points.
 
 ```python
-from excaligen.geometry.Point import Point
-
-# A custom path with sharp corners
-(
-    scene.arrow()
-    .points([Point(0, 0), Point(50, 50), Point(100, 0)])
-    .roundness("sharp")
-)
+scene.arrow().arc(100).bind(node_a, node_b)
 ```
 
-### Spacing (Gaps)
-Sometimes you want some breathing room. Use `gap()` to offset the arrow from the bound elements.
+### Spacing (Gap)
+Add breathing room between the arrow tip and the element.
 
 ```python
-scene.arrow().bind(a, b).gap(20)
+scene.arrow().bind(a, b).gap(20) # 20px gap on both ends
 ```
 
 ---
 
-## Chapter 4: Typography & Text
-### The Basics
-Adding text is as simple as adding a shape.
-```python
-scene.text('Hello, World!')
-```
-The 'Text' element also handles multi-line strings.
-```python
-scene.text("Use text\nfor labels\nand notes.")
-```
+## Chapter 4: Typography (Text)
 
-### Styling Text
-You have granular control over how your text appears.
-
-#### Font Family
-Choose the right voice for your text:
-- **Hand-drawn**: The classic Excalidraw look (Virgil).
-- **Code**: Monospaced, perfect for snippets (Cascadia).
-- **Normal**: Clean sans-serif (Helvetica/Arial).
-- Others: `Comic Shaans`, `Lilita One`, `Nunito`.
+Adding text is simple.
 
 ```python
-scene.text("def hello():\n    print('Hi')").font("Code")
-```
-
-#### Size & Alignment
-- **Size**: Use semantic sizes (`"S"`, `"M"`, `"L"`, `"XL"`) or exact integers.
-- **Alignment**:
-  - Horizontal: `.align("left")`, `.align("center")`, `.align("right")`
-  - Vertical: `.baseline("top")`, `.baseline("middle")`, `.baseline("bottom")`
-
-```python
-scene.text("Title").fontsize("XL").align("center")
-```
-
-### Layout Helpers
-Positioning text precisely can be tricky. Excaligen provides helpers to place text relative to coordinates or boxes.
-
-- **`anchor(x, y, align, baseline)`**: Anchors the text to a specific point.
-- **`center(x, y)`**: Centers the text exactly at the given point.
-- **`justify(x, y, w, h)`**: Aligns the text within a bounding box according to its alignment settings.
-
-```python
-# Places text centered in a 100x50 box at (0,0)
-scene.text("Button").align("center").justify(0, 0, 100, 50)
-
-# Anchors text top-left corner to (10, 10)
-scene.text("Chapter 1").anchor(10, 10, "left", "top")
-```
-
-
----
-
-## Chapter 5: Lines
-
-Sometimes you need more than a simple rectangle or ellipse. The `Line` element allows you to draw arbitrary paths.
-
-### Basic Lines
-A line is defined by a sequence of points.
-
-```python
-from excaligen.geometry.Point import Point
-
-scene.line().points([
-    Point(0, 0),
-    Point(100, 50),
-    Point(200, 0)
-])
-```
-
-### Custom Shapes (Closed Lines)
-You can `close()` a line to connect its last point back to the first. This effectively creates a custom polygon.
-
-Once closed, the line behaves like a shape: you can give it a **background color** and a **fill style**.
-
-```python
-# Create a triangle
-(
-    scene.line()
-    .points([Point(0, 0), Point(50, 100), Point(100, 0)])
-    .close()
-    .background("MistyRose")
-    .fill("cross-hatch")
-)
+scene.text('Hello\nWorld')
 ```
 
 ### Styling
-Just like other elements, lines accept standard styles for stroke, roughness, and roundness.
+- **Font Family**: `.font("Hand-drawn")`, `.font("Code")`, `.font("Normal")`.
+- **Size**: `.fontsize("S")`, `"M"`, `"L"`, `"XL"`.
+- **Alignment**: `.align("left/center/right")`.
+
+### Layout Helpers
+Text needs to be placed precisely.
+- **`justify(x, y, w, h)`**: Aligns text within a box.
+- **`anchor(x, y, h_align, v_align)`**: Anchors text to a point (e.g., top-left).
+
+---
+
+## Chapter 5: Lines & Custom Shapes
+
+For arbitrary paths or polygons, use `scene.line()`.
+
+### Building a Line
+A line is a sequence of points.
 
 ```python
-# A smoothed path
-scene.line().points([...]).roundness("round")
+from excaligen.geometry.Point import Point
+
+scene.line().points([Point(0,0), Point(100,0), Point(100,100)])
+```
+
+### Modifying Points
+You can extend lines dynamically:
+- **`append([points])`**: Add points to the end.
+- **`prepend([points])`**: Add points to the start.
+
+### Custom Polygons
+Call `.close()` to connect the last point to the first. This creates a shape that can be filled.
+
+```python
+# A custom triangle
+scene.line().points([...]).close().background("Red").fill("solid")
 ```
 
 ---
 
 ## Chapter 6: Images
 
-Bring external assets—screenshots, logos, or diagrams—into your scene.
-
-### Loading Images
-You can load images from various sources:
-
-- **Local File**: `scene.image().file("./assets/logo.png")`
-- **URL**: `scene.image().url("https://example.com/chart.png")`
-- **Raw Data**: `scene.image().data(svg_string_or_bytes)`
-
-### Sizing
-Images often need to fit into a specific layout. Use `.fit()` to scale an image to fit within a bounding box while preserving its aspect ratio.
+Embed external assets like icons or screenshots.
 
 ```python
-# Load a logo and constrain it to a 200x200 box
-scene.image().file("logo.png").fit(200, 200)
+# From file
+scene.image().file("./assets/logo.png").fit(200, 200)
+
+# From URL
+scene.image().url("https://example.com/chart.png")
+```
+
+The `.fit(w, h)` method ensures the image fits within dimensions while maintaining aspect ratio.
+
+---
+
+## Chapter 7: Groups & Frames
+
+Organizing elements is key for complex diagrams. 
+
+### Groups
+A **Group** is a virtual container. Elements in a group are selected together in Excalidraw options.
+
+```python
+scene.group().elements(rect1, rect2)
+```
+
+### Frames
+A **Frame** is a visual container with a label and background. It physically surrounds its content.
+
+```python
+scene.frame("Section A").elements(rect1, rect2)
 ```
 
 ---
 
+## Chapter 8: Consistency & Defaults
 
-
-## Chapter 7: Consistency & Defaults
-
-When creating a large diagram, repeating style method calls (`.font("Code").color("Blue")`) is redundant and error-prone.
-
-Use `scene.defaults()` to establish a baseline for your entire scene. This sets the "theme" of your diagram.
+Repeatable styles? Use `defaults()`.
 
 ```python
-# Set global style: "Artist" sloppiness, specific font, and color.
-scene.defaults().sloppiness("artist").font("Nunito").color("DarkSlateGray")
+# Set the theme for the scene
+scene.defaults().font("Code").color("DarkSlateGray")
 
-# All subsequent elements inherit these traits
-scene.text("I inherit the default style")
-scene.rectangle().label("Me too")
+# All new elements inherit this
+scene.text("I am code font now")
 ```
-
-This ensures visual consistency and keeps your code clean.
 
 ---
 
-## Chapter 8: Algorithmic Generation
+## Chapter 9: Algorithmic Generation
 
-The true power of Excaligen lies in automation. You can visualize recursive structures or generate diagrams from data that would be tedious to draw by hand.
-
-You can get inspired by the examples in the `examples/` directory:
+The true power of Excaligen lies in automation. Below are real-world examples of generating complex diagrams programmatically.
 
 ### Mind Map Example
 ![Mind Map](images/example_mind_map.svg)
@@ -494,6 +441,8 @@ You can also set the title of the frame explicitly:
 ```python
 scene.frame().title("My Frame").elements(...)
 ```
+
+
 
 ---
 

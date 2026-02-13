@@ -14,6 +14,9 @@ class Diamond(AbstractCorneredShape):
     """A class representing a diamond shape in the diagram.
 
     Diamond shape is a four-sided polygon with equal sides and opposite angles equal.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.diamond()` instead.
     """
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
         super().__init__("diamond", defaults, listener, label)

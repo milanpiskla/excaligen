@@ -37,6 +37,9 @@ class Arrow(AbstractLine, AbstractLabeledElement):
     - Adjustable gaps between connected elements
     - Binding capabilities to connect elements
     - Various arrow directions and angles
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.arrow()` instead.
     """
     class ConnectionType(Enum):
         STRAIGHT = 0

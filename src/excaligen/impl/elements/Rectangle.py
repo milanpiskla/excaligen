@@ -16,6 +16,9 @@ class Rectangle(AbstractCorneredShape):
 
     The rectangle is defined by its position and dimensions,
     and can be configured with various visual properties through the config parameter.
+
+    > [!WARNING]
+    > Do not instantiate this class directly. Use `SceneBuilder.rectangle()` instead.
     """
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
         super().__init__("rectangle", defaults, listener, label)

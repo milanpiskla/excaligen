@@ -3,6 +3,8 @@ A class representing an image element that can be loaded from various sources.
 This class provides functionality to load and manipulate images from files, URLs,
 or raw data (bytes/SVG). It supports basic image operations like scaling and
 fitting within bounds while maintaining aspect ratio.
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.image()` instead.
 ## Methods
 ### __init__
 ```python

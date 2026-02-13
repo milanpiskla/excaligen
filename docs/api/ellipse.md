@@ -3,6 +3,8 @@ A class representing an elliptical shape element.
 This class extends both AbstractStrokedElement and AbstractShape to create an
 ellipse element that can be rendered with stroke properties. The ellipse
 is defined by its center point and two radii (rx and ry).
+> [!WARNING]
+> Do not instantiate this class directly. Use `SceneBuilder.ellipse()` instead.
 ## Methods
 ### __init__
 ```python
