@@ -24,7 +24,7 @@ Add an arrow element to the diagram.
 
 **Type**: `Arrow`
 
-The arrow element.
+The [Arrow](arrow.md) element.
 
 ### background
 ```python
@@ -55,7 +55,7 @@ It can be used as an argument for setting stroke and background colors.
 
 **Type**: `Color`
 
-The color object.
+The [Color](color.md) object.
 
 ### defaults
 ```python
@@ -65,9 +65,9 @@ Retrieve the default parameters for elements.
 
 #### Returns
 
-**Type**: `[Defaults](./defaults.md)`
+**Type**: `Defaults`
 
-The default parameteres for elements.
+The [Defaults](defaults.md) parameteres for elements.
 
 ### diamond
 ```python
@@ -85,7 +85,7 @@ Add a diamond element to the diagram.
 
 **Type**: `Diamond`
 
-The diamond element.
+The [Diamond](diamond.md) element.
 
 ### ellipse
 ```python
@@ -103,7 +103,7 @@ Add an ellipse element to the diagram.
 
 **Type**: `Ellipse`
 
-The ellipse element.
+The [Ellipse](ellipse.md) element.
 
 ### frame
 ```python
@@ -121,7 +121,7 @@ Add a frame element to the diagram.
 
 **Type**: `Frame`
 
-The frame element.
+The [Frame](frame.md) element.
 
 ### grid
 ```python
@@ -153,7 +153,7 @@ Generate a group (virtual container).
 
 **Type**: `Group`
 
-The group container.
+The [Group](group.md) container.
 
 ### image
 ```python
@@ -165,7 +165,7 @@ Add an image element to the diagram.
 
 **Type**: `Image`
 
-The image element.
+The [Image](image.md) element.
 
 ### json
 ```python
@@ -189,7 +189,7 @@ Add a line element to the diagram.
 
 **Type**: `Line`
 
-The line element.
+The [Line](line.md) element.
 
 ### rectangle
 ```python
@@ -207,7 +207,7 @@ Add a rectangle element to the diagram.
 
 **Type**: `Rectangle`
 
-The rectangle element.
+The [Rectangle](rectangle.md) element.
 
 ### save
 ```python
@@ -243,5 +243,5 @@ Add a text element to the diagram.
 
 **Type**: `Text`
 
-The text element.
+The [Text](text.md) element.
 

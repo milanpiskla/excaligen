@@ -1,7 +1,7 @@
 # Excaligen User Manual
 
 **Excaligen** bridges the gap between the fantastic diagram editor [Excalidraw](https://excalidraw.com/) and algorithmic visualization.
-The [Excalidraw](https://excalidraw.com/) is well known for its beautiful, hand-drawn aesthetic. 
+Excalidraw is well known for its beautiful, hand-drawn aesthetic. 
 
 If you want to generate Excalidraw-compatible files directly from Python, Excaligen is the tool for you. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
@@ -14,6 +14,7 @@ If you want to generate Excalidraw-compatible files directly from Python, Excali
 - [Chapter 6: Images](#chapter-6-images)
 - [Chapter 7: Consistency & Defaults](#chapter-7-consistency--defaults)
 - [Chapter 8: Algorithmic Generation](#chapter-8-algorithmic-generation)
+- [Chapter 9: Groups & Frames](#chapter-9-groups--frames)
 
 ---
 ## Chapter 1: The First Sketch
@@ -454,6 +455,45 @@ You can get inspired by the examples in the `examples/` directory:
 
 ### Curves and Arrows Example
 ![Curves and Arrows](images/example_options.svg)
+
+---
+
+---
+
+## Chapter 9: Groups & Frames
+
+Organizing elements is key for complex diagrams. Excaligen provides two ways to group elements: **Groups** and **Frames**.
+
+### Groups
+A **Group** is a virtual container. Elements in a group are treated as a single unit when moving or selecting them in Excalidraw, but visually they remain separate.
+
+```python
+# Create elements
+rect1 = scene.rectangle("A").position(0, 0)
+rect2 = scene.rectangle("B").position(100, 0)
+
+# Group them together
+scene.group().elements(rect1, rect2)
+```
+
+### Frames
+A **Frame** is a visual container that physically surrounds its content. It has a background color and a label. It's perfect for distinct sections of a diagram.
+
+Frames automatically adjust their size to fit their content.
+
+```python
+# Create elements
+step1 = scene.rectangle("Step 1").position(0, 0)
+step2 = scene.rectangle("Step 2").position(200, 0)
+
+# Wrap them in a frame
+scene.frame("Process Flow").elements(step1, step2)
+```
+
+You can also set the title of the frame explicitly:
+```python
+scene.frame().title("My Frame").elements(...)
+```
 
 ---
 

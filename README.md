@@ -16,7 +16,7 @@ If you love [Excalidraw](https://excalidraw.com/) as much as I do and wish you c
 pip install excaligen
 
 ## How to use 💡
-The Excaligen exposes a fluent API, using a builder pattern.
+Excaligen exposes a fluent API, using a builder pattern.
 Example:
 ```python
 from excaligen.SceneBuilder import SceneBuilder

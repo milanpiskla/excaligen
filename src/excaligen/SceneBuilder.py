@@ -35,7 +35,7 @@ class SceneBuilder(ExcaligenStructure):
         """Retrieve the default parameters for elements.
 
         Returns:
-            Defaults: The default parameteres for elements.
+            Defaults: The [Defaults](defaults.md) parameters for elements.
         """
         return super().defaults()
     
@@ -70,7 +70,7 @@ class SceneBuilder(ExcaligenStructure):
             label (str | Text | None): The text label for the rectangle.
         
         Returns:
-            Rectangle: The rectangle element.
+            Rectangle: The [Rectangle](rectangle.md) element.
         """
         return super().rectangle(label)
 
@@ -81,7 +81,7 @@ class SceneBuilder(ExcaligenStructure):
             label (str | Text | None): The text label for the diamond.
 
         Returns:
-            Diamond: The diamond element.
+            Diamond: The [Diamond](diamond.md) element.
         """
         return super().diamond(label)
 
@@ -92,7 +92,7 @@ class SceneBuilder(ExcaligenStructure):
             label (str | Text | None): The text label for the ellipse.
 
         Returns:
-            Ellipse: The ellipse element.
+            Ellipse: The [Ellipse](ellipse.md) element.
         """
         return super().ellipse(label)
 
@@ -103,7 +103,7 @@ class SceneBuilder(ExcaligenStructure):
             label (str | Text | None): The text label for the arrow.
 
         Returns:
-            Arrow: The arrow element.
+            Arrow: The [Arrow](arrow.md) element.
         """
         return super().arrow(label)
 
@@ -111,7 +111,7 @@ class SceneBuilder(ExcaligenStructure):
         """Add a line element to the diagram.
 
         Returns:
-            Line: The line element.
+            Line: The [Line](line.md) element.
         """
         return super().line()
 
@@ -122,7 +122,7 @@ class SceneBuilder(ExcaligenStructure):
             text (str | None): The text string.
 
         Returns:
-            Text: The text element.
+            Text: The [Text](text.md) element.
         """
         return super().text(text)
 
@@ -130,7 +130,7 @@ class SceneBuilder(ExcaligenStructure):
         """Add an image element to the diagram.
 
         Returns:
-            Image: The image element.
+            Image: The [Image](image.md) element.
         """
         return super().image()
 
@@ -141,7 +141,7 @@ class SceneBuilder(ExcaligenStructure):
             title (str | None): The title of the frame.
 
         Returns:
-            Frame: The frame element.
+            Frame: The [Frame](frame.md) element.
         """
         return super().frame(title)
 
@@ -149,7 +149,7 @@ class SceneBuilder(ExcaligenStructure):
         """Generate a group (virtual container).
 
         Returns:
-            Group: The group container.
+            Group: The [Group](group.md) container.
         """
         return super().group()
 
@@ -159,7 +159,7 @@ class SceneBuilder(ExcaligenStructure):
         It can be used as an argument for setting stroke and background colors.
 
         Returns:
-            Color: The color object.
+            Color: The [Color](color.md) object.
         """
         return super().color()
 
