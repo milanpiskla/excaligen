@@ -158,7 +158,7 @@ Sets the fill style of the element.
 
 | Name | Type | Description |
 |------|------|-------------|
-| `style` | `str` | The fill style to be applied. Must be one of 'hatchure', 'cross-hatch', or 'solid'. |
+| `style` | `str` | The fill style to be applied. Must be one of 'hachure', 'cross-hatch', or 'solid'. |
 
 #### Returns
 

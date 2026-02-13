@@ -115,7 +115,7 @@ Set the fill style for the shape created by a closed line segments.
 
 | Name | Type | Description |
 |------|------|-------------|
-| `style` | `str` | The fill style to be applied. Must be one of 'hatchure', 'cross-hatch', or 'solid'. |
+| `style` | `str` | The fill style to be applied. Must be one of 'hachure', 'cross-hatch', or 'solid'. |
 
 #### Returns
 
@@ -125,7 +125,7 @@ The instance of the shape with the updated fill style.
 
 #### Raises
 
-**ValueError**: If the provided style is not one of 'hatchure', 'cross-hatch', or 'solid'.
+**ValueError**: If the provided style is not one of 'hachure', 'cross-hatch', or 'solid'.
 
 ### link
 ```python

@@ -192,7 +192,7 @@ class Defaults:
         Sets the fill style of the element.
 
         Args:
-            style (str): The fill style to be applied. Must be one of 'hatchure', 'cross-hatch', or 'solid'.
+            style (str): The fill style to be applied. Must be one of 'hachure', 'cross-hatch', or 'solid'.
 
         Returns:
             Self: The instance defaults with updated fill style.
