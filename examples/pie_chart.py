@@ -21,7 +21,7 @@ DATA = {
 RADIUS = 150
 CENTER_X = 0
 CENTER_Y = 0
-LEGEND_X = 200
+LEGEND_X = 240
 LEGEND_START_Y = -100
 LEGEND_Y_STEP = 40
 
@@ -60,7 +60,7 @@ class PieChart:
             .arc(CENTER_X, CENTER_Y, RADIUS, start_angle, angle_span)
             .append([(CENTER_X, CENTER_Y)])
             .close()
-            .color(item["color"])
+            .color(self._get_outline_color(item["color"]))
             .background(item["color"])
             .fill(item["fill"])
             .stroke("solid")
@@ -73,11 +73,14 @@ class PieChart:
             current_legend_y += LEGEND_Y_STEP
 
     def _draw_legend_item(self, item, y):
-        self.scene.rectangle().size(20, 20).position(LEGEND_X, y).background(item["color"]).fill(item["fill"])
+        self.scene.rectangle().size(20, 20).position(LEGEND_X, y).color(self._get_outline_color(item["color"])).background(item["color"]).fill(item["fill"])
         self.scene.text(f"{item['label']} ({item['value']}%)").position(LEGEND_X + 30, y).anchor(LEGEND_X + 30, y, "left", "top")
 
+    def _get_outline_color(self, color):
+        return self.scene.color().rgb(color).darken(20)
+
     def _draw_pro_tip(self):
-        self.scene.text(DATA['pro_tip']).center(0, 200).fontsize("S").color("Gray")
+        self.scene.text(DATA['pro_tip']).center(0, 200).fontsize("S").color("LightGray")
 
 if __name__ == "__main__":
     PieChart().spawn().save("pie_chart.excalidraw")

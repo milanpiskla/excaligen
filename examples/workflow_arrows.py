@@ -14,7 +14,7 @@ DATA = {
         "DON'T PANIC (YET)",
         "GRAB YOUR TOWEL",
         "IGNORE THE PHYSICS",
-        "THE ANSWER IS 42"
+        "THE ANSWER IS\t42"
     ],
     "note": "Estimated Time: 5 to 500,000,000 years\n(subject to local hyperspace bypass construction)."
 }
@@ -45,7 +45,7 @@ class Workflow:
         title = self.scene.text(DATA["title"]).baseline("top").fontsize("L")
         self.scene.rectangle(title).size(len(DATA["steps"]) * ARROW_BASE_WIDTH * 1.6, ARROW_BASE_HEIGHT * 4).center(0, 0).color("LightGray")
 
-        self.scene.text(DATA["note"]).center(0, 160).fontsize("S").color("gray")
+        self.scene.text(DATA["note"]).center(0, 140).fontsize("S").color("LightGray")
 
     def _draw_workflow(self):
         for i, step in enumerate(DATA["steps"], -len(DATA["steps"]) // 2 + 1):
