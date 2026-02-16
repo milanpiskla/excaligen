@@ -1,4 +1,5 @@
-# Excaligen User Manual
+## Excaligen Developer Guide
+### 📐 Excalidraw File Generation via Python ✨
 
 **Excaligen** bridges the gap between the fantastic diagram editor [Excalidraw](https://excalidraw.com/) and algorithmic visualization.
 Excalidraw is well known for its beautiful, hand-drawn aesthetic. 
@@ -390,6 +391,7 @@ scene.text("I am code font now")
 ## Chapter 9: Algorithmic Generation
 
 The true power of Excaligen lies in automation. Below are real-world examples of generating complex diagrams programmatically.
+You can find the source code for these examples in the 'examples' directory.
 
 ### Mind Map Example
 ![Mind Map](images/example_mind_map.svg)

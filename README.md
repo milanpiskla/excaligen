@@ -1,4 +1,4 @@
-# Excaligen:  Excalidraw File Generator 📐✨
+# 📐 Excaligen: **Excalidraw File Generator** ✨
 
 ![Pyrhon to Excalidraw](./assets/py2ex.svg)
 
@@ -52,4 +52,4 @@ The limit is your imagination. Here are some examples:
 
 ![Options](./docs/manual/images/example_options.svg)
 
-Created by **Milan Piskla** with 💜 for connecting code and creativity.
+Developed by **Milan Piskla** with 💜 for connecting code and creativity.
