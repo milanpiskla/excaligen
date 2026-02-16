@@ -1,6 +1,9 @@
-# Excalidraw File Generator 📐✨
+# Excaligen:  Excalidraw File Generator 📐✨
 
-If you love [Excalidraw](https://excalidraw.com/) as much as I do and wish you could automate creating visualizations in Excalidraw style, this library is for you.
+![Pyrhon to Excalidraw](./assets/py2ex.svg)
+
+Excaligen is a Python library to generate [Excalidraw](https://excalidraw.com/) files. 
+If you wish to automate creating visualizations in Excalidraw style, this library is for you.
 
 ## Why This Library?
 [Excalidraw](https://excalidraw.com/) is an amazing tool for sketching diagrams and visualizing ideas. However, creating diagrams programmatically isn't fully supported out of the box. This library bridges that gap, allowing you to generate Excalidraw-compatible JSON files with Python code.
@@ -49,5 +52,4 @@ The limit is your imagination. Here are some examples:
 
 ![Options](./docs/manual/images/example_options.svg)
 
-## About the Author ✍️
-Created by **Milan Piskla**. Built with 💜 for connecting code and creativity.
+Created by **Milan Piskla** with 💜 for connecting code and creativity.
