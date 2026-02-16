@@ -13,7 +13,9 @@ If you love [Excalidraw](https://excalidraw.com/) as much as I do and wish you c
 - Export to Excalidraw: Generate JSON files ready to be imported into Excalidraw.
 
 ## Installation 🛠️
+```
 pip install excaligen
+```
 
 ## How to use 💡
 Excaligen exposes a fluent API, using a builder pattern.
