@@ -7,18 +7,18 @@ Excalidraw is well known for its beautiful, hand-drawn aesthetic.
 If you want to generate Excalidraw-compatible files directly from Python, Excaligen is the tool for you. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
 ## Table of Contents
-- [Chapter 1: Concepts & The First Sketch](#chapter-1-concepts--the-first-sketch)
-- [Chapter 2: Shapes & Styles](#chapter-2-shapes--styles)
-- [Chapter 3: Connectors (Arrows)](#chapter-3-connectors-arrows)
-- [Chapter 4: Typography (Text)](#chapter-4-typography-text)
-- [Chapter 5: Lines & Custom Shapes](#chapter-5-lines--custom-shapes)
-- [Chapter 6: Images](#chapter-6-images)
-- [Chapter 7: Groups & Frames](#chapter-7-groups--frames)
-- [Chapter 8: Consistency & Defaults](#chapter-8-consistency--defaults)
-- [Chapter 9: Algorithmic Generation](#chapter-9-algorithmic-generation)
+- [Concepts & The First Sketch](#concepts--the-first-sketch)
+- [Shapes & Styles](#shapes--styles)
+- [Connectors (Arrows)](#connectors-arrows)
+- [Typography (Text)](#typography-text)
+- [Lines & Custom Shapes](#lines--custom-shapes)
+- [Images](#images)
+- [Groups & Frames](#groups--frames)
+- [Consistency & Defaults](#consistency--defaults)
+- [Algorithmic Generation](#algorithmic-generation)
 
 ---
-## Chapter 1: Concepts & The First Sketch
+## Concepts & The First Sketch
 
 ### The SceneBuilder
 The heart of Excaligen is the `SceneBuilder` class. Think of it as your canvas and your toolbox combined.
@@ -60,7 +60,7 @@ scene.save('binding.excalidraw')
 The next chapters will explain the API in detail. **We will omit the imports and `scene.save()` calls in examples for brevity.**
 
 ---
-## Chapter 2: Shapes & Styles
+## Shapes & Styles
 
 Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.
 
@@ -231,7 +231,7 @@ scene.rectangle("Click Me").link("https://google.com")
 ```
 
 ---
-## Chapter 3: Connectors (Arrows)
+## Connectors (Arrows)
 
 Diagrams are about relationships. `Arrow` is a powerful element in Excaligen designed to handle complex connections.
 
@@ -290,7 +290,7 @@ scene.arrow().bind(a, b).gap(20) # 20px gap on both ends
 
 ---
 
-## Chapter 4: Typography (Text)
+## Typography (Text)
 
 Adding text is simple.
 
@@ -310,7 +310,7 @@ Text needs to be placed precisely.
 
 ---
 
-## Chapter 5: Lines & Custom Shapes
+## Lines & Custom Shapes
 
 For arbitrary paths or polygons, use `scene.line()`.
 
@@ -338,80 +338,55 @@ scene.line().points([...]).close().background("Red").fill("solid")
 
 ---
 
-## Chapter 6: Images
+## Images
+Sometimes you need to include images in your scenes. You can do this using Image objects.
+Excaligen supports loading images from files, URLs, or even directly from data.
 
-Embed external assets like icons or screenshots.
-
+### Loading Images from Files
+The following example shows how to load an image from a file and combine it with text.
 ```python
-# From file
-scene.image().file("./assets/logo.png").fit(200, 200)
-
-# From URL
-scene.image().url("https://example.com/chart.png")
+scene.image().file("assets/robot.svg").center(0, 0)
+scene.text("Oh look, I'm expressing joy").center(0, -150)
+scene.text("how utterly revolting").center(0, 130)
 ```
 
-The `.fit(w, h)` method ensures the image fits within dimensions while maintaining aspect ratio.
+![Image from file](./images/example_image.svg)
 
----
-
-## Chapter 7: Groups & Frames
-
-Organizing elements is key for complex diagrams. 
-
-### Groups
-A **Group** is a virtual container. Elements in a group are selected together in Excalidraw options.
-
+### Loading Images from Data
+You can provide the image data directly. The following example shows how to load an SVG image from a string
 ```python
-scene.group().elements(rect1, rect2)
+    IMAGE_DATA = '''
+        <svg xmlns="http://www.w3.org/2000/svg" width="467" height="462" stroke="#000" stroke-width="2">
+            <rect x="80" y="60" width="250" height="250" rx="20" fill="#F80"/>
+            <circle cx="310" cy="290" r="120" fill="#00F" fill-opacity=".7"/>
+        </svg>'''
+
+    scene.image().data(IMAGE_DATA)
 ```
 
-### Frames
-A **Frame** is a visual container with a label and background. It physically surrounds its content.
+![Image from data](./images/image_from_data.svg)
 
+You can load images from binary data as well, but that is outside the scope of this guide.
+
+### Loading Images from URLs
 ```python
-scene.frame("Section A").elements(rect1, rect2)
+scene.image().url("https://picsum.photos/512/320")
 ```
 
----
-
-## Chapter 8: Consistency & Defaults
-
-Repeatable styles? Use `defaults()`.
-
+### Fitting Images
+You can fit images to a specific size using the `.fit(w, h)` method. This way you don't need to take care of the image size and its aspect ratio, while putting the image in a certain box.
 ```python
-# Set the theme for the scene
-scene.defaults().font("Code").color("DarkSlateGray")
-
-# All new elements inherit this
-scene.text("I am code font now")
+scene.rectangle().size(200, 160).center(0, 0)
+scene.image().file('assets/robot.svg').fit(140, 140).center(0, 0)
 ```
 
----
-
-## Chapter 9: Algorithmic Generation
-
-The true power of Excaligen lies in automation. Below are real-world examples of generating complex diagrams programmatically.
-You can find the source code for these examples in the 'examples' directory.
-
-### Mind Map Example
-![Mind Map](images/example_mind_map.svg)
-
-### Workflow Example
-![Workflow](images/example_workflow_arrows.svg)
-
-### Pie Chart Example
-![Pie Chart](images/example_pie_chart.svg)
-
-### Curves and Arrows Example
-![Curves and Arrows](images/example_options.svg)
+![Image fit](./images/image_fit.svg)
 
 ---
 
----
+## Groups & Frames
 
-## Chapter 9: Groups & Frames
-
-Organizing elements is key for complex diagrams. Excaligen provides two ways to group elements: **Groups** and **Frames**.
+Organizing elements is key for complex diagrams. Excaligen supports Excalidraw's **Groups** and **Frames**.
 
 ### Groups
 A **Group** is a virtual container. Elements in a group are treated as a single unit when moving or selecting them in Excalidraw, but visually they remain separate.
@@ -444,8 +419,39 @@ You can also set the title of the frame explicitly:
 scene.frame().title("My Frame").elements(...)
 ```
 
+---
 
+## Consistency & Defaults
+
+Repeatable styles? Use `defaults()`.
+
+```python
+# Set the theme for the scene
+scene.defaults().font("Code").color("DarkSlateGray")
+
+# All new elements inherit this
+scene.text("I am code font now")
+```
 
 ---
 
-**Excaligen**. valid. plain. visual.
+## Algorithmic Generation
+
+The true power of Excaligen lies in automation. Below are real-world examples of generating complex diagrams programmatically.
+You can find the source code for these examples in the 'examples' directory.
+
+### Mind Map Example
+![Mind Map](images/example_mind_map.svg)
+
+### Workflow Example
+![Workflow](images/example_workflow_arrows.svg)
+
+### Pie Chart Example
+![Pie Chart](images/example_pie_chart.svg)
+
+### Curves and Arrows Example
+![Curves and Arrows](images/example_options.svg)
+
+---
+
+Have fun with **Excaligen**.

@@ -1,0 +1,46 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "image",
+      "id": "10427edc-976f-4460-bc4e-01a593d8d961",
+      "seed": 322760394,
+      "version": 1,
+      "versionNonce": 867935423,
+      "isDeleted": false,
+      "x": 0,
+      "y": 0,
+      "width": 467.0,
+      "height": 462.0,
+      "opacity": 100,
+      "angle": 0,
+      "index": "a0",
+      "groupIds": [],
+      "frameId": null,
+      "link": null,
+      "boundElements": null,
+      "fileId": "1f79f0ad-146f-4eb3-ae51-bd25cdba5673",
+      "scale": [
+        1,
+        1
+      ],
+      "status": "pending",
+      "backgroundColor": "transparent"
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {
+    "1f79f0ad-146f-4eb3-ae51-bd25cdba5673": {
+      "mimeType": "image/svg+xml",
+      "id": "1f79f0ad-146f-4eb3-ae51-bd25cdba5673",
+      "dataURL": "data:image/svg+xml;base64,CiAgICAgICAgPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NjciIGhlaWdodD0iNDYyIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiI+CiAgICAgICAgICAgIDxyZWN0IHg9IjgwIiB5PSI2MCIgd2lkdGg9IjI1MCIgaGVpZ2h0PSIyNTAiIHJ4PSIyMCIgZmlsbD0iI0Y4MCIvPgogICAgICAgICAgICA8cmVjdCB4PSIxNDAiIHk9IjEyMCIgd2lkdGg9IjI1MCIgaGVpZ2h0PSIyNTAiIHJ4PSI0MCIgZmlsbD0iIzAwRiIgZmlsbC1vcGFjaXR5PSIuNyIvPgogICAgICAgIDwvc3ZnPg=="
+    }
+  }
+}

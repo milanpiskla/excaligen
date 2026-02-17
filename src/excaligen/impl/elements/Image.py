@@ -1,7 +1,7 @@
 """
 Description: Image element.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import uuid
@@ -71,15 +71,6 @@ class Image(AbstractElement):
         self._apply_image_data(image_data)
         return self
 
-    def _apply_image_data(self, image_data: ImageData) -> None:
-        """Apply image data to the Image element.
-
-        Args:
-            image_data (ImageData): The image data to apply.
-        """
-        self._size(image_data.width, image_data.height)
-        self.__listener._on_image(self._file_id, image_data.mime_type, image_data.data_url)
-
     def fit(self, max_width: float, max_height: float) -> Self:
         """Scale the image to fit within a bounding box while maintaining aspect ratio.
 
@@ -103,3 +94,13 @@ class Image(AbstractElement):
         new_height = original_height * scaling_factor
 
         return self._size(new_width, new_height)
+
+    def _apply_image_data(self, image_data: ImageData) -> None:
+        """Apply image data to the Image element.
+
+        Args:
+            image_data (ImageData): The image data to apply.
+        """
+        self._size(image_data.width, image_data.height)
+        self.__listener._on_image(self._file_id, image_data.mime_type, image_data.data_url)
+
