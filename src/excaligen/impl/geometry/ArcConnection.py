@@ -1,7 +1,7 @@
 """
 Description: Connection between two elements using an arc.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 from ..base.AbstractElement import AbstractElement
@@ -118,7 +118,6 @@ class ArcConnection:
                 min_dist = dist
                 selected_point = point
 
-#        return tuple(p + t for p, t in zip(selected_point, element.center()))
         return selected_point
     
 

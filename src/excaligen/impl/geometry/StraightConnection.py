@@ -1,7 +1,7 @@
 """
 Description: Straight connection between two elements.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 from ..base.AbstractElement import AbstractElement
@@ -52,5 +52,8 @@ class StraightConnection:
             case _:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")
             
+        if intersection is None:
+            return None
+
         return tuple(p + t for p, t in zip(intersection, element.center()))
             

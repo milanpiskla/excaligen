@@ -233,31 +233,81 @@ scene.rectangle("Click Me").link("https://google.com")
 ---
 ## Connectors (Arrows)
 
-Diagrams are about relationships. `Arrow` is a powerful element in Excaligen designed to handle complex connections.
+Diagrams are about relationships. `Arrow` is a powerful element to express them.
 
 ### Binding
-The most robust way to connect elements is **binding**. When elements move, bound arrows follow.
+The most robust way to connect elements is **binding** them by an arrow. When elements move, bound arrows follow.
+
+```Python
+source = scene.rectangle('Source').center(0, 0)
+target = scene.rectangle('Target').center(120, 0)
+scene.arrow().bind(source, target)
+```
+![Binding](images/arrow_binding.svg)
+
+### Labels
+Arrows can have labels.
+
+```Python
+source = scene.rectangle('Source').center(0, 0)
+target = scene.rectangle('Target').center(320, 0)
+scene.arrow('My Label').bind(source, target)
+```
+
+![Arrow with Label](images/arrow_with_label.svg)
+
+### Styling
+You can adjust color, stroke style, thickness, and sloppiness in the same way as for shapes.
 
 ```python
-scene.arrow().bind(start_element, end_element)
+source = scene.rectangle('Source').center(0, 0)
+target = scene.rectangle('Target').center(220, 0)
+scene.arrow().bind(source, target).color('red').stroke('dashed').thickness('extra-bold')
 ```
+
+![Arrow Styling](images/arrow_style.svg)
+
 
 ### Arrowheads
 Customize the start and end markers.
-Options: `'arrow'`, `'bar'`, `'dot'`, `'triangle'`, `None`.
+Options are:
+- `'arrow'`
+- `'bar'`
+- `'dot'`
+- `'triangle'`
+- `None`
 
 ```python
-# A bi-directional arrow with a dot at the start
-scene.arrow().bind(a, b).arrowheads(start='dot', end='arrow')
+y = 0
+for arrow_head in [None, 'arrow', 'bar', 'dot', 'triangle']:
+    start_element = scene.ellipse().center(0, y).size(20, 20).color('gray')
+    end_element = scene.rectangle(f"{arrow_head}").center(120, y).size(100, 20).color('gray')
+    scene.arrow().bind(start_element, end_element).arrowheads(None, arrow_head).color('blue')
+    y += 30
 ```
 
+![Arrowheads](images/arrowheads.svg)
+
+You can of course use any combination of arrowheads, e.g. starting with a dot and ending with a triangle.
+
 ### Path Styles
-Control *how* the arrow gets from A to B.
+It's about how the arrow gets from A to B.
+Excalidraw supports direct, elbowed and freeform paths. Excaligen adds convenience methods to control the curved and arc paths. 
+In summary, you can control the arrow path to achieve:
+- Straight connection
+- Elbow (orthogonal) connection
+- Curved connection
+- Arc connection
+- Freeform connection
 
-#### 1. Straight (Default)
-A direct line between centers.
+#### Straight connection(Default)
+A direct line between shapes, you saw it in the previous examples.
 
-#### 2. Elbow (Orthogonal)
+```python
+scene.arrow().bind(node_a, node_b)
+```
+
+#### Elbow (Orthogonal)
 Perfect for flowcharts. You specify the exit direction from `start` and entry direction to `end` (`'U'`, `'D'`, `'L'`, `'R'`).
 
 ```python
@@ -452,6 +502,19 @@ You can find the source code for these examples in the 'examples' directory.
 ### Curves and Arrows Example
 ![Curves and Arrows](images/example_options.svg)
 
----
+### Beyond Diagrams
+You are not limited to creating diagrams. Excalidraw is a tool for creative people and so is Excaligen.
+Can you guess what the following code generates?
 
+```Python
+D = 42 * (42 * (42 * (42 * (42 * (42 * (42 * (42 * 3) + 25) + 26) + 2) + 28) + 30) + 8)
+
+for y in range(8):
+    for x in range(11):
+        if (D >> ((y * 6) + abs(5 - x))) & 1:
+            s.rectangle().position(x * 42, y * 42).size(42, 42).color('#ff4242').background("#ff4242").fill("solid").roundness('sharp').sloppiness('architect')
+```
+Congratulations you have reached the end of the guide. After running the last example code you know the "Answer to the Ultimate Question of Life, the Universe, and Everything" 😀
+
+---
 Have fun with **Excaligen**.

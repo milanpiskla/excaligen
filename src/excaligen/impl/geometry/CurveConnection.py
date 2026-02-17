@@ -59,6 +59,9 @@ class CurveConnection:
 
             case _:
                 raise TypeError(f"Cannot find intersection with unknown type {element._type}")
+
+        if intersection is None:
+            return None
             
         return tuple(p + t for p, t in zip(intersection, element.center()))
     
