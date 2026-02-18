@@ -308,35 +308,75 @@ scene.arrow().bind(node_a, node_b)
 ```
 
 #### Elbow (Orthogonal)
-Perfect for flowcharts. You specify the exit direction from `start` and entry direction to `end` (`'U'`, `'D'`, `'L'`, `'R'`).
+Elbow arrows provide a structured way to connect elements using only horizontal and vertical segments. This is ideal for complex diagrams like flowcharts or system architectures, as it helps avoid diagonal lines that can make a layout look cluttered or confusing.
+
+You specify the exit direction from `start` and entry direction to `end` (`'U'`, `'D'`, `'L'`, `'R'`) meaning up, down, left, right.
 
 ```python
-# Exit Right, Enter Left
-scene.arrow().elbow('R', 'L').bind(node_a, node_b)
+begin = scene.rectangle('Begin').center(0, 0).size(160, 70)
+end = scene.ellipse('End').center(400, -200).size(130, 50)
+scene.arrow().elbow('R', 'L').bind(begin, end)
+scene.arrow().elbow('U', 'U').bind(begin, end)
+scene.arrow().elbow('D', 'D').bind(begin, end)
+scene.arrow().elbow('L', 'R').bind(begin, end)
 ```
 
-#### 3. Curve (Bezier)
-Organic, flowing lines. You define the "tangent" angle at the start and end.
+![Elbowed Arrows](images/arrow_elbow.svg)
+
+#### 3. Curve
+If you prefer more organic, flowing lines, use curve arrows. You define the "tangent" angle at the start and end.
 Angles can be radians or convenience directions (`'U'`, `'D'`, `'L'`, `'R'`).
 
 ```python
-# Curve leaving Up and arriving Down
-scene.arrow().curve('U', 'D').bind(node_a, node_b)
+center = scene.ellipse('Center').center(0, 0)
+top_left = scene.rectangle('Top Left').center(-300, -100)
+top_right = scene.rectangle('Top Right').center(300, -100)
+bottom_left = scene.rectangle('Bottom Left').center(-300, 100)
+bottom_right = scene.rectangle('Bottom Right').center(300, 100)
+
+scene.arrow().curve('L', 'R').bind(center, top_left)
+scene.arrow().curve('L', 'R').bind(center, bottom_left)
+scene.arrow().curve('R', 'L').bind(center, top_right)
+scene.arrow().curve('R', 'L').bind(center, bottom_right)
 ```
+
+![Curved Arrows](images/arrow_curve.svg)
+
+As mentioned above, you can use angles instead of directions. Just please be aware that the underlying approximation algorithm tries to use as few control points as possible, so the resulting curve might not be exactly what you expect.
+
+```python
+center = scene.ellipse('Main').center(-250, 0)
+bottom_left = scene.rectangle('Bottom Left').center(-160, 200)
+bottom_right = scene.rectangle('Bottom Right').center(160, 200)
+bottom_center = scene.rectangle('Bottom Center').center(0, 200)
+
+scene.arrow().curve(math.radians(15), 'U').bind(center, bottom_right)
+scene.arrow().curve(math.radians(30), 'U').bind(center, bottom_center)
+scene.arrow().curve(math.radians(45), 'U').bind(center, bottom_left)
+```
+
+![Curved Arrows with Angles](images/arrow_curve_angle.svg)
 
 #### 4. Arc
-A circular arc between points.
+Arc arrows create a circular path between two points, maintaining a constant radius. This is ideal for circular layouts, cycles, or when you need a consistent, rounded connection that follows a specific curvature.
 
 ```python
-scene.arrow().arc(100).bind(node_a, node_b)
+RADIUS = 300
+elements = []
+
+for angle in range(0, 360, 30):
+    rect = scene.ellipse(f'{angle}°').orbit(0, 0, RADIUS, math.radians(angle)).size(80, 60)
+    elements.append(rect)
+
+start_element = elements[0]
+for i in range(1, len(elements)):
+    scene.arrow().arc(RADIUS).bind(start_element, elements[i])
+    start_element = elements[i]
 ```
 
-### Spacing (Gap)
-Add breathing room between the arrow tip and the element.
+![Arc Arrows](images/arrow_arc.svg)
 
-```python
-scene.arrow().bind(a, b).gap(20) # 20px gap on both ends
-```
+
 
 ---
 
