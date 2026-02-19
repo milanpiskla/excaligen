@@ -168,3 +168,35 @@ def test_arrow_plain_label(reference_json: dict[str, Any], request: FixtureReque
     xg.arrow('Label').curve(0, 3.14).bind(center_element, element_1).arrowheads(None, 'arrow')
     
     evaluate(reference_json, xg, request)
+
+def test_arrow_free_points_sharp(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+    
+    START = 50
+    END = 500
+
+    start = scene.ellipse('start').center(0, 0).size(100, 100)
+    end = scene.ellipse('end').center(530, 0).size(60, 60)
+    points = [(START, 0), (300, -30), (250, 30), (END, 0)]
+    scene.arrow().points(points).bind(start, end).roundness('sharp')
+
+    evaluate(reference_json, scene, request)
+
+def test_arrow_free_points_round(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+    
+    START = 50
+    END = 500
+    NUM_POINTS = 30
+    NUM_CYCLES = 5
+    points = [(
+        x := START + (t := i / (NUM_POINTS - 1)) * (END - START), 
+        (envelope := 50 * math.sin(math.pi * t)) * math.sin(2 * math.pi * NUM_CYCLES * t)
+    ) for i in range(NUM_POINTS)]
+
+    start = scene.ellipse('start').center(0, 0).size(100, 100)
+    end = scene.ellipse('end').center(530, 0).size(60, 60)
+
+    scene.arrow().points(points).bind(start, end)
+
+    evaluate(reference_json, scene, request)

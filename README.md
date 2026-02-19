@@ -1,9 +1,10 @@
-# 📐 Excaligen: **Excalidraw File Generator** ✨
+# *Excaligen*: Excalidraw File Generator ✨
 
-![Pyrhon to Excalidraw](./assets/py2ex.svg)
+![Python to Excalidraw](./assets/py2ex.svg)
 
 Excaligen is a Python library to generate [Excalidraw](https://excalidraw.com/) files. 
 If you wish to automate creating visualizations in Excalidraw style, this library is for you.
+It's light-weight, without any external dependencies.
 
 ## Why This Library?
 [Excalidraw](https://excalidraw.com/) is an amazing tool for sketching diagrams and visualizing ideas. However, creating diagrams programmatically isn't fully supported out of the box. This library bridges that gap, allowing you to generate Excalidraw-compatible JSON files with Python code.
@@ -35,21 +36,21 @@ scene.save('binding.excalidraw')
 ```
 The code above creates a simple diagram with a central topic and subtopic, connected by an arrow.
 
-![Binding](./docs/manual/images/binding.svg)
+![Binding](./docs/guide/images/binding.svg)
 
 Please refer to the detailed documentation for more information:
-- [User Manual](./docs/manual/index.md)
+- [User Manual](./docs/guide/index.md)
 - [Detailed API](./docs/api/index.md)
 
 ## What you can build 🏗️
-The limit is your imagination. Here are some examples:
+The only limit is your imagination. Here are some examples:
 
-![Mind Map](./docs/manual/images/example_mind_map.svg)
+![Mind Map](./docs/guide/images/example_mind_map.svg)
 
-![Workflows](./docs/manual/images/example_workflow_arrows.svg)
+![Workflows](./docs/guide/images/example_workflow_arrows.svg)
 
-![Pie Chart](./docs/manual/images/example_pie_chart.svg)
+![Pie Chart](./docs/guide/images/example_pie_chart.svg)
 
-![Options](./docs/manual/images/example_options.svg)
+![Options](./docs/guide/images/example_options.svg)
 
-Developed by **Milan Piskla** with 💜 for connecting code and creativity.
+Developed by **Milan Piskla** with 💙 for connecting code and creativity.

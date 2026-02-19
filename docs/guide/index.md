@@ -300,14 +300,14 @@ In summary, you can control the arrow path to achieve:
 - Arc connection
 - Freeform connection
 
-#### Straight connection(Default)
+#### Straight Connection(Default)
 A direct line between shapes, you saw it in the previous examples.
 
 ```python
 scene.arrow().bind(node_a, node_b)
 ```
 
-#### Elbow (Orthogonal)
+#### Elbow (Orthogonal) Connection
 Elbow arrows provide a structured way to connect elements using only horizontal and vertical segments. This is ideal for complex diagrams like flowcharts or system architectures, as it helps avoid diagonal lines that can make a layout look cluttered or confusing.
 
 You specify the exit direction from `start` and entry direction to `end` (`'U'`, `'D'`, `'L'`, `'R'`) meaning up, down, left, right.
@@ -323,7 +323,7 @@ scene.arrow().elbow('L', 'R').bind(begin, end)
 
 ![Elbowed Arrows](images/arrow_elbow.svg)
 
-#### 3. Curve
+#### Curve Connection
 If you prefer more organic, flowing lines, use curve arrows. You define the "tangent" angle at the start and end.
 Angles can be radians or convenience directions (`'U'`, `'D'`, `'L'`, `'R'`).
 
@@ -357,7 +357,7 @@ scene.arrow().curve(math.radians(45), 'U').bind(center, bottom_left)
 
 ![Curved Arrows with Angles](images/arrow_curve_angle.svg)
 
-#### 4. Arc
+#### 4. Arc Connection
 Arc arrows create a circular path between two points, maintaining a constant radius. This is ideal for circular layouts, cycles, or when you need a consistent, rounded connection that follows a specific curvature.
 
 ```python
@@ -376,7 +376,43 @@ for i in range(1, len(elements)):
 
 ![Arc Arrows](images/arrow_arc.svg)
 
+#### Freeform Connection
+Freeform arrows provide a flexible way to connect elements using a series of points. This is ideal for complex diagrams where you need to create a custom path between two points.
+The line segments can connect to each other in a sharp or rounded way.
 
+```python
+START = 50
+END = 500
+
+start = scene.ellipse('start').center(0, 0).size(100, 100)
+end = scene.ellipse('end').center(530, 0).size(60, 60)
+points = [(START, 0), (300, -30), (250, 30), (END, 0)]
+scene.arrow().points(points).bind(start, end).roundness('sharp')
+```
+
+
+
+![Freeform Arrow sHARP](images/arrow_free_points_sharp.svg)
+
+You can e.g. generate the points by using harmonic functions:
+
+```python
+START = 50
+END = 500
+NUM_POINTS = 30
+NUM_CYCLES = 5
+points = [(
+    x := START + (t := i / (NUM_POINTS - 1)) * (END - START), 
+    (envelope := 50 * math.sin(math.pi * t)) * math.sin(2 * math.pi * NUM_CYCLES * t)) 
+    for i in range(NUM_POINTS)]
+
+start = scene.ellipse('start').center(0, 0).size(100, 100)
+end = scene.ellipse('end').center(530, 0).size(60, 60)
+
+scene.arrow().points(points).bind(start, end)
+```
+
+![Freeform Arrow ROUNDED](images/arrow_free_points_round.svg)
 
 ---
 

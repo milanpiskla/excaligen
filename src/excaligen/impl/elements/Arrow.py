@@ -46,6 +46,7 @@ class Arrow(AbstractLine, AbstractLabeledElement):
         ARC = 1
         CURVE = 2
         ELBOW = 3
+        FREE = 4
 
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None) -> None:
         AbstractLine.__init__(self, "arrow", defaults)
@@ -156,6 +157,20 @@ class Arrow(AbstractLine, AbstractLabeledElement):
         self.__start_direction = start_direction
         self.__end_direction = end_direction
         self.__try_connect_elements()
+        return self
+
+    def points(self, points: list[Point]) -> Self:
+        """Set the points of the arrow.
+
+        Args:
+            points (list[Point]): The points of the arrow.
+
+        Returns:
+            Self: The current instance of the Arrow class.
+        """
+        super().points(points)
+        self.__connection_type = Arrow.ConnectionType.FREE
+        self.__try_connect_elements()
         return self 
 
     def bind(self, start: AbstractElement, end: AbstractElement) -> Self:
@@ -264,7 +279,7 @@ class Arrow(AbstractLine, AbstractLabeledElement):
         self._y = points[0][1]
 
         relative_points = [(x - self._x, y - self._y) for x, y in points]
-        self.points(relative_points) # type: ignore
+        super().points(relative_points) # type: ignore
 
         return self
     
