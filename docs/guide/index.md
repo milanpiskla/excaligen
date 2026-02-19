@@ -119,11 +119,20 @@ scene.save('sandbox.excalidraw')
 You can rotate any element. Angles are in radians.
 
 ```python
+scene.rectangle('Rotated by 45°').center(0, 0).rotate(math.radians(45))
+```
+
+![Rotation](images/shape_rotated.svg)
+
+
+```python
 scene.rectangle('Small').size(80, 64).center(0, 0)    
 scene.rectangle('Medium').size(100, 80).center(100, 0)
 scene.rectangle('Large').size(150, 120).center(235, 0)
 ```
 ![Element Size](images/shape_size.svg)
+
+
 
 
 ### Styling
@@ -415,17 +424,55 @@ scene.arrow().points(points).bind(start, end)
 ---
 
 ## Typography (Text)
+You have already seen some text labels in the previous examples. Those labels used the default font and default styling.
+E.g. the code `rectangle('Hello')` creates a rectangle with the text 'Hello' in it, rendered in the default font and styling.
 
-Adding text is simple.
+If you want to create a text label using non-default font and styling, you need to create a text element using the `text()` instead of using a plain text string.
+
+### Fonts
+The following fonts are available in Excalidraw:
+- Excalifont
+- Comic Shaans
+- Lilita One
+- Nunito
+- Hand-drawn
+- Normal
+- Code
 
 ```python
-scene.text('Hello\nWorld')
+for i, font in enumerate(['Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code']):
+    scene.text(f"{font}").center(0, i * 20).font(font)
 ```
 
-### Styling
-- **Font Family**: `.font("Hand-drawn")`, `.font("Code")`, `.font("Normal")`.
-- **Size**: `.fontsize("S")`, `"M"`, `"L"`, `"XL"`.
-- **Alignment**: `.align("left/center/right")`.
+![Fonts](./images/text_font.svg)
+
+### Font Size
+You can set the font size using the `.fontsize()` method. The available sizes are 'S', 'M', 'L', and 'XL'.
+You can also get the size of a text element using the `size()` method without any arguments.
+
+```python
+y = 0
+for size in ['S', 'M', 'L', 'XL']:
+    text = scene.text(f"Excalifont ({size})").font('Excalifont').center(0, y).fontsize(size)
+    w, h = text.size()
+    y += h
+```
+
+![Font Size](./images/text_font_size.svg)
+
+### Color
+Let's create a non-default text label for an element apply some color to it.
+
+```python
+colored_text = (scene.text("Hello, World!")
+    .font('Lilita One')
+    .fontsize('L')
+    .color('Violet')
+)
+scene.rectangle(colored_text).size(200, 100).center(0, 0)
+```
+
+![Text Color](./images/text_color.svg)
 
 ### Layout Helpers
 
@@ -465,9 +512,6 @@ for h_align in ["left", "center", "right"]:
 Text needs to be placed precisely.
 - **`justify(x, y, w, h)`**: Aligns text within a box.
 - **`anchor(x, y, h_align, v_align)`**: Anchors text to a point (e.g., top-left).
-
-
-
 ---
 
 ## Lines & Custom Shapes
@@ -492,9 +536,20 @@ You can extend lines dynamically:
 Call `.close()` to connect the last point to the first. This creates a shape that can be filled.
 
 ```python
-# A custom triangle
-scene.line().points([...]).close().background("Red").fill("solid")
+points = [[-100, 0], [100, 0], [0, -100]]
+(
+    scene.line()
+    .points(points)
+    .close()
+    .background('lightgreen')
+    .fill('cross-hatch')
+    .color('darkgreen')
+    .roundness('sharp')
+    .thickness('bold')
+)
 ```
+![Line Polygon](./images/line_polygon.svg)
+
 
 ---
 

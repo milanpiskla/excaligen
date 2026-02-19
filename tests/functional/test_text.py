@@ -40,3 +40,23 @@ def test_text_anchors(reference_json: dict[str, Any], request: FixtureRequest) -
             y += 60.0
 
     evaluate(reference_json, scene, request)
+
+def test_text_fonts(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+    
+    for i, font in enumerate(['Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code']):
+        scene.text(f"{font}").center(0, i * 20).font(font)
+
+    evaluate(reference_json, scene, request)
+
+def test_text_font_size(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+    
+    for column, font in enumerate(['Excalifont', 'Comic Shaans', 'Lilita One', 'Nunito', 'Hand-drawn', 'Normal', 'Code']):
+        y = 0
+        for size in ['S', 'M', 'L', 'XL']:
+            text = scene.text(f"{font} ({size})").font(font).center(column * 300, y).fontsize(size)
+            w, h = text.size()
+            y += h
+
+    evaluate(reference_json, scene, request)

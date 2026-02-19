@@ -23,7 +23,7 @@ from ..inputs.Arrowheads import Arrowheads
 from ...defaults.Defaults import Defaults
 
 from enum import Enum
-from typing import Self, Any
+from typing import Self, Any, override
 
 class Arrow(AbstractLine, AbstractLabeledElement):
     """A class representing an arrow element in Excalidraw with various connection styles.
@@ -159,6 +159,7 @@ class Arrow(AbstractLine, AbstractLabeledElement):
         self.__try_connect_elements()
         return self
 
+    @override
     def points(self, points: list[Point]) -> Self:
         """Set the points of the arrow.
 

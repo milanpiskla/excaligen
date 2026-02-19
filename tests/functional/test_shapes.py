@@ -159,3 +159,13 @@ def test_shape_orbit_element(reference_json: dict[str, Any], request: FixtureReq
     scene.diamond('Diamond').orbit(ref, RADIUS, math.pi)
 
     evaluate(reference_json, scene, request)
+
+def test_shape_rotation(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    scene = SceneBuilder()
+
+    x = 0
+    for angle in range(0, 360, 45):
+        scene.rectangle(f'Rotated {angle}°').center(x, 0).rotate(math.radians(angle))
+        x += 150
+
+    evaluate(reference_json, scene, request)

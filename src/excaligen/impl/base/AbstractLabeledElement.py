@@ -64,6 +64,12 @@ class AbstractLabeledElement(AbstractElement):
                 raise ValueError("Invalid arguments for center. Expected () or (x, y).")
     
     @override
+    def rotate(self, angle: float) -> Self:
+        if self.__label:
+            self.__label.rotate(angle)
+        return super().rotate(angle)
+
+    @override
     def _size(self, width: float, height: float) -> Self:
         return super()._size(width, height)._justify_label()
 
