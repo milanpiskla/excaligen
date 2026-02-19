@@ -22,3 +22,21 @@ def test_text_justify(reference_json: dict[str, Any], request: FixtureRequest) -
         y += 150
 
     evaluate(reference_json, xg, request)
+
+def test_text_anchors(reference_json: dict[str, Any], request: FixtureRequest) -> None:
+    def cross(center: tuple[float, float], color: str) -> None:
+        x, y = center
+        scene.line().points([[x - 20, y], [x + 20, y]]).color(color)
+        scene.line().points([[x, y - 20], [x, y + 20]]).color(color)
+
+    scene = SceneBuilder()
+    x = 42.0
+    y = 0.0
+
+    for h_align in ["left", "center", "right"]:
+        for v_align in ["top", "middle", "bottom"]:
+            cross((x, y), 'red')
+            scene.text().anchor(x, y, h_align, v_align).content(f"{h_align}-{v_align}").fontsize("M").font("Hand-drawn").color("black")
+            y += 60.0
+
+    evaluate(reference_json, scene, request)

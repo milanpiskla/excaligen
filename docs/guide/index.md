@@ -280,10 +280,10 @@ Options are:
 ```python
 y = 0
 for arrow_head in [None, 'arrow', 'bar', 'dot', 'triangle']:
-    start_element = scene.ellipse().center(0, y).size(20, 20).color('gray')
-    end_element = scene.rectangle(f"{arrow_head}").center(120, y).size(100, 20).color('gray')
+    start_element = scene.ellipse().center(0, y).size(30, 30).color('gray')
+    end_element = scene.rectangle(f"{arrow_head}").center(120, y).size(100, 30).color('gray')
     scene.arrow().bind(start_element, end_element).arrowheads(None, arrow_head).color('blue')
-    y += 30
+    y += 50
 ```
 
 ![Arrowheads](images/arrowheads.svg)
@@ -357,7 +357,7 @@ scene.arrow().curve(math.radians(45), 'U').bind(center, bottom_left)
 
 ![Curved Arrows with Angles](images/arrow_curve_angle.svg)
 
-#### 4. Arc Connection
+#### Arc Connection
 Arc arrows create a circular path between two points, maintaining a constant radius. This is ideal for circular layouts, cycles, or when you need a consistent, rounded connection that follows a specific curvature.
 
 ```python
@@ -389,8 +389,6 @@ end = scene.ellipse('end').center(530, 0).size(60, 60)
 points = [(START, 0), (300, -30), (250, 30), (END, 0)]
 scene.arrow().points(points).bind(start, end).roundness('sharp')
 ```
-
-
 
 ![Freeform Arrow sHARP](images/arrow_free_points_sharp.svg)
 
@@ -430,9 +428,45 @@ scene.text('Hello\nWorld')
 - **Alignment**: `.align("left/center/right")`.
 
 ### Layout Helpers
+
+#### Justification
+```python
+y = 0
+for baseline in ['top', 'middle', 'bottom']:
+    x = -300
+    for align in ['left', 'center', 'right']:
+        scene.rectangle(scene.text(f'{align}-{baseline}').align(align).baseline(baseline)).size(200, 120).center(x, y)
+        x += 300
+    y += 150
+```
+
+![Text Justification](./images/text_justification.svg)
+
+#### Anchoring
+```python
+def cross(center: tuple[float, float], color: str) -> None:
+    x, y = center
+    scene.line().points([[x - 20, y], [x + 20, y]]).color(color)
+    scene.line().points([[x, y - 20], [x, y + 20]]).color(color)
+
+scene = SceneBuilder()
+x = 42.0
+y = 0.0
+
+for h_align in ["left", "center", "right"]:
+    for v_align in ["top", "middle", "bottom"]:
+        cross((x, y), 'red')
+        scene.text().anchor(x, y, h_align, v_align).content(f"{h_align}-{v_align}").fontsize("M").font("Hand-drawn").color("black")
+        y += 60.0
+```
+
+![Text Anchoring](./images/text_anchoring.svg)
+
 Text needs to be placed precisely.
 - **`justify(x, y, w, h)`**: Aligns text within a box.
 - **`anchor(x, y, h_align, v_align)`**: Anchors text to a point (e.g., top-left).
+
+
 
 ---
 

@@ -33,24 +33,6 @@ def test_texts(reference_json: dict[str, Any], request: FixtureRequest) -> None:
 
     evaluate(reference_json, xg, request)
 
-def test_text_anchors(reference_json: dict[str, Any], request: FixtureRequest) -> None:
-    def cross(center: tuple[float, float], color: str) -> None:
-        x, y = center
-        xg.line().points([[x - 20, y], [x + 20, y]]).color(color)
-        xg.line().points([[x, y - 20], [x, y + 20]]).color(color)
-
-    xg = SceneBuilder()
-    x = 42.0
-    y = 0.0
-
-    for h_align in ["left", "center", "right"]:
-        for v_align in ["top", "middle", "bottom"]:
-            cross((x, y), 'red')
-            xg.text().anchor(x, y, h_align, v_align).content(f"{h_align}-{v_align}").fontsize("M").font("Hand-drawn").color("black")
-            y += 60.0
-
-    evaluate(reference_json, xg, request)
-
 def test_labels(reference_json: dict[str, Any], request: FixtureRequest) -> None:
     xg = SceneBuilder()
     label = xg.text().content("Hello, World!").fontsize("M").font("Hand-drawn").spacing(1.5).color("#FF0000")
