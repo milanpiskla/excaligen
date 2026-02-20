@@ -1,7 +1,7 @@
 """
 Description: Frame container for elements.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 from ..base.AbstractElement import AbstractElement
@@ -17,6 +17,7 @@ from ..elements.Image import Image
 from ...defaults.Defaults import Defaults
 
 from typing import Self
+import math
 
 Element = Rectangle | Diamond | Ellipse | Arrow | Line | Text | Image
 
@@ -38,7 +39,7 @@ class Frame(AbstractShape):
         self._width = 0.0
         self._height = 0.0
         self._background_color = getattr(defaults, "_background_color")
-        self._title = title
+        self._name = title
 
     def title(self, title: str) -> Self:
         """Set the title of the frame.
@@ -49,7 +50,7 @@ class Frame(AbstractShape):
         Returns:
             Self: The current instance of the Frame class.
         """
-        self._title = title
+        self._name = title
         return self
     
     def elements(self, *elements: AbstractElement) -> Self:
@@ -58,11 +59,11 @@ class Frame(AbstractShape):
         Args:
             elements (AbstractElement): The elements to add to the frame.
 
-        Returns:
+        Returns:pp
             Self: The current instance of the Frame class.
         """
-        min_x, min_y = 0.0, 0.0
-        max_x, max_y = 0.0, 0.0
+        min_x, min_y = math.inf, math.inf
+        max_x, max_y = -math.inf, -math.inf
         
         for element in elements:
             element._frame_id = self._id

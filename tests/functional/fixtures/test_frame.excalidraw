@@ -5,10 +5,10 @@
   "elements": [
     {
       "type": "rectangle",
-      "id": "aaaad3af-8e6b-44ad-bc07-b71344aa298b",
-      "seed": 183512221,
+      "id": "4a59a026-7b85-4b8d-8405-3b1b58a01c0d",
+      "seed": 318331525,
       "version": 1,
-      "versionNonce": 644074238,
+      "versionNonce": 777535485,
       "isDeleted": false,
       "x": -50.0,
       "y": -50.0,
@@ -18,11 +18,11 @@
       "angle": 0,
       "index": "a0",
       "groupIds": [],
-      "frameId": "290ad33b-5380-4d78-abf9-9a1dd53cbb84",
+      "frameId": "f081005e-2e53-4210-aee4-5cacb38025b1",
       "link": null,
       "boundElements": [
         {
-          "id": "a29e531e-215f-4b52-adf8-9225e3ebe3fb",
+          "id": "2c084d76-faff-4f6e-bb17-e7af8debcf32",
           "type": "text"
         }
       ],
@@ -38,10 +38,10 @@
     },
     {
       "type": "text",
-      "id": "a29e531e-215f-4b52-adf8-9225e3ebe3fb",
-      "seed": 478590772,
+      "id": "2c084d76-faff-4f6e-bb17-e7af8debcf32",
+      "seed": 752176862,
       "version": 1,
-      "versionNonce": 113769599,
+      "versionNonce": 378067271,
       "isDeleted": false,
       "x": -38.4,
       "y": -10.0,
@@ -62,14 +62,14 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "aaaad3af-8e6b-44ad-bc07-b71344aa298b"
+      "containerId": "4a59a026-7b85-4b8d-8405-3b1b58a01c0d"
     },
     {
       "type": "ellipse",
-      "id": "8343c314-cc2e-4127-8a55-ae949a26bb2d",
-      "seed": 86129470,
+      "id": "02c7aaa6-f908-44e3-aa76-bacc883bafe4",
+      "seed": 18219071,
       "version": 1,
-      "versionNonce": 884513239,
+      "versionNonce": 116452062,
       "isDeleted": false,
       "x": 100.0,
       "y": 100.0,
@@ -79,11 +79,11 @@
       "angle": 0,
       "index": "a2",
       "groupIds": [],
-      "frameId": "290ad33b-5380-4d78-abf9-9a1dd53cbb84",
+      "frameId": "f081005e-2e53-4210-aee4-5cacb38025b1",
       "link": null,
       "boundElements": [
         {
-          "id": "701862b1-8bcc-4d70-863a-d3f69f1e9401",
+          "id": "4fdf5d58-6fea-4548-965a-bc9183f8634c",
           "type": "text"
         }
       ],
@@ -96,10 +96,10 @@
     },
     {
       "type": "text",
-      "id": "701862b1-8bcc-4d70-863a-d3f69f1e9401",
-      "seed": 492963579,
+      "id": "4fdf5d58-6fea-4548-965a-bc9183f8634c",
+      "seed": 567141191,
       "version": 1,
-      "versionNonce": 975848508,
+      "versionNonce": 305492927,
       "isDeleted": false,
       "x": 111.6,
       "y": 140.0,
@@ -120,14 +120,14 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "8343c314-cc2e-4127-8a55-ae949a26bb2d"
+      "containerId": "02c7aaa6-f908-44e3-aa76-bacc883bafe4"
     },
     {
       "type": "diamond",
-      "id": "9a0facd0-a6fa-4295-8e61-865243c6dbee",
-      "seed": 830154399,
+      "id": "79aaf074-c901-4f66-979f-0c83e718e990",
+      "seed": 404851346,
       "version": 1,
-      "versionNonce": 713067610,
+      "versionNonce": 324471510,
       "isDeleted": false,
       "x": -200.0,
       "y": -200.0,
@@ -141,7 +141,7 @@
       "link": null,
       "boundElements": [
         {
-          "id": "573073a1-1269-4502-ae86-e8edb672acce",
+          "id": "10fc52ae-83e7-48ae-ba6e-44b7005c39dd",
           "type": "text"
         }
       ],
@@ -157,10 +157,10 @@
     },
     {
       "type": "text",
-      "id": "573073a1-1269-4502-ae86-e8edb672acce",
-      "seed": 351448129,
+      "id": "10fc52ae-83e7-48ae-ba6e-44b7005c39dd",
+      "seed": 894002102,
       "version": 1,
-      "versionNonce": 506560472,
+      "versionNonce": 889189629,
       "isDeleted": false,
       "x": -207.6,
       "y": -160.0,
@@ -181,14 +181,14 @@
       "lineHeight": 1.25,
       "autoResize": true,
       "strokeColor": "#000000",
-      "containerId": "9a0facd0-a6fa-4295-8e61-865243c6dbee"
+      "containerId": "79aaf074-c901-4f66-979f-0c83e718e990"
     },
     {
       "type": "frame",
-      "id": "290ad33b-5380-4d78-abf9-9a1dd53cbb84",
-      "seed": 361892597,
+      "id": "f081005e-2e53-4210-aee4-5cacb38025b1",
+      "seed": 701306223,
       "version": 1,
-      "versionNonce": 87161176,
+      "versionNonce": 43055788,
       "isDeleted": false,
       "x": -190.0,
       "y": -150.0,
@@ -203,7 +203,7 @@
       "boundElements": null,
       "backgroundColor": "transparent",
       "fillStyle": "hachure",
-      "title": "Test frame"
+      "name": "Test frame"
     }
   ],
   "appState": {

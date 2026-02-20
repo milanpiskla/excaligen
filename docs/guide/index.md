@@ -14,7 +14,7 @@ If you want to generate Excalidraw-compatible files directly from Python, Excali
 - [Lines & Custom Shapes](#lines--custom-shapes)
 - [Images](#images)
 - [Groups & Frames](#groups--frames)
-- [Consistency & Defaults](#consistency--defaults)
+- [Defaults](#defaults)
 - [Algorithmic Generation](#algorithmic-generation)
 
 ---
@@ -682,35 +682,79 @@ scene.group().elements(face, eye_l, eye_r, mouth)
 ![Group](./images/group.svg)
 
 ### Frames
-A **Frame** is a visual container that physically surrounds its content. It has a background color and a label. It's perfect for distinct sections of a diagram or creating presentation slides.
+A **Frame** is a visual container that physically surrounds its content. It has a background color and a title. It's perfect for distinct sections of a diagram or creating presentation slides.
+
+The following example also demonstrates how to generate links.
+Excalidraw support external links and links to other elements in the same scene. As the frame is also an element, it can be linked to.
 
 ```python
-# Create elements
-step1 = scene.rectangle("Step 1").position(0, 0)
-step2 = scene.rectangle("Step 2").position(200, 0)
+first_frame = scene.frame("Frame 1")
+second_frame = scene.frame("Frame 2")
 
-# Wrap them in a frame
-scene.frame("Process Flow").elements(step1, step2)
-```
+headline_first = (
+    scene.text("First Slide")
+    .center(0, -150)
+)
 
-You can also set the title of the frame explicitly:
-```python
-scene.frame().title("My Frame").elements(...)
+circle_with_link = (
+    scene.ellipse()
+    .size(50, 50)
+    .background("Green")
+    .fill("solid")
+    .center(0, -100)
+    .link("https://www.google.com")
+)
+
+button_next = (
+    scene.rectangle("Next")
+    .size(100, 50)
+    .background("LightBlue")
+    .fill("solid")
+    .center(0, 0)
+    .link(second_frame)
+)
+
+headline_second = (
+    scene.text("Second Slide")
+    .center(0, 300)
+)
+
+button_back = (
+    scene.rectangle("Back")
+    .size(100, 50)
+    .background("LightBlue")
+    .fill("solid")
+    .center(0, 400)
+    .link(first_frame)
+)
+
+first_frame.elements(headline_first, circle_with_link, button_next)
+second_frame.elements(headline_second, button_back)
 ```
+![Frames](./images/frames.svg)
 
 ---
 
-## Consistency & Defaults
-
-Repeatable styles? Use `defaults()`.
+## Defaults
+What if you want to use specific styles for several elements, but you don't want to type e.g. `stroke('solid')`, `fill('solid')`, etc. for each element? 
+Excaligen provides the `Defaults` object for this purpose. Here is an example that we used in the firts chapter, but with our own defaults:
 
 ```python
-# Set the theme for the scene
-scene.defaults().font("Code").color("DarkSlateGray")
+(
+    scene.defaults()
+    .stroke('solid')
+    .thickness('bold')
+    .fill('solid')
+    .roundness('round')
+    .sloppiness('architect')
+    .font('Nunito')
+)
 
-# All new elements inherit this
-scene.text("I am code font now")
+central_topic = scene.ellipse('Central topic').center(0, 0)
+subtopic = scene.rectangle('Subtopic').center(350, 100)
+scene.arrow('points to').bind(central_topic, subtopic)  
 ```
+![Defaults](./images/defaults.svg)
 
 ---
 
