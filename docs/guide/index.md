@@ -83,23 +83,25 @@ You have flexible control over where elements go.
 
 #### Center
 `center(x, y)` places the geometric center of the element at (x, y).
+```python
+scene.ellipse().center(0, 0)
+scene.rectangle().center(0, -120)
+scene.diamond().center(150, 0)
+```
+
 ![Center](images/shape_center.svg)
 
 #### Position
 `position(x, y)` places the top-left corner of the element's bounding box at (x, y).
-![Position](images/shape_position.svg)
-
-#### Orbit / Polar Coordinates
-Ideally suited for mind maps or circular layouts, `orbit()` places an element relative to another one using an angle and radius.
-
 ```python
 scene.rectangle('Rectangle 1').position(0, 0)
 scene.rectangle('Rectangle 2').position(150, 0)
 scene.rectangle('Rectangle 3').position(0, 120)
 ```
-![Element Position](images/shape_position.svg)
+![Position](images/shape_position.svg)
 
-What if we want to place several elements around a central point? The orbit() method allows you to do that.
+#### Orbit / Polar Coordinates
+What if we want to place several elements around a central point? The `orbit()` method allows you to do that.
 ```Python
 RADIUS = 150
 SUBTOPICS = 6
@@ -124,6 +126,8 @@ scene.rectangle('Rotated by 45°').center(0, 0).rotate(math.radians(45))
 
 ![Rotation](images/shape_rotated.svg)
 
+### Shape Size
+You can define the dimensions of a shape using the `size()` method. It accepts width and height.
 
 ```python
 scene.rectangle('Small').size(80, 64).center(0, 0)    
@@ -131,8 +135,6 @@ scene.rectangle('Medium').size(100, 80).center(100, 0)
 scene.rectangle('Large').size(150, 120).center(235, 0)
 ```
 ![Element Size](images/shape_size.svg)
-
-
 
 
 ### Styling
@@ -166,10 +168,12 @@ scene.ellipse().center(150, 0).background('gray').fill('cross-hatch')
 ![Fills](images/fills.svg)
 
 #### Roundness
-Toggle corner rounding with `.roundness()`. Options: `'sharp'`, `'round'`.
+Shapes can have sharp or rounded corners. Use the `roundness()` method to toggle between them. Note that this method is not applicable to the `Ellipse` element.
 ```python
-scene.rectangle().roundness('sharp')
-scene.rectangle().roundness('round')
+scene.rectangle('Rounded').roundness('round').center(0, 0)
+scene.rectangle('Sharp').roundness('sharp').center(150, 0)
+scene.diamond('Rounded').roundness('round').center(0, 100)
+scene.diamond('Sharp').roundness('sharp').center(150, 100)
 ```
 ![Roundness](images/shape_roundness.svg)
 
@@ -183,28 +187,20 @@ scene.rectangle().sloppiness('cartoonist')
 ![Sloppiness](images/sloppiness.svg)
 
 #### Opacity
-Control transparency with `.opacity(0-100)`.
+Control opacity/transparency with `.opacity(0-100)`.
 ```python
-scene.rectangle("Ghost").opacity(50)
+scene.ellipse().center(70, 0).background('gray').fill('cross-hatch')
+scene.ellipse().center(0, 0).background('DarkGray').fill('solid').opacity(80)
 ```
+![Opacity](images/opacity.svg)
 
 ### Colors
-Excaligen supports rich color handling.
-
-#### Setting Colors
-- **Named Colors**: `"MidnightBlue"`, `"Tomato"`.
-- **Hex**: `"#FF5733"`.
-- **RGB/HSL**: via the helper methods.
-
-```python
-scene.rectangle().color("Blue") # Stroke color
-scene.rectangle().background("LightBlue") # Fill color
-```
-
-![Colors](images/shape_colors.svg)
-
-#### Advanced Color Manipulation
-You can manipulate colors programmatically using the `scene.color()` helper. This is great for generating palettes or gradients.
+So far we have only used the black/gray colors. But we can use any color we want.
+Excaligen supports multiple color formats:
+- **Named Colors**: `"MidnightBlue"`, `"Tomato"`, `"MintCream"`.
+- **RGB as a string (Hex Colors)**: `"#FF5733"`.
+- **RGB**: `scene.color().rgb(100, 149, 237)`.
+- **HSL**: `scene.color().hsl(200, 80, 60)`.
 
 ```python
 # Add a rectangle with a named color
@@ -231,6 +227,68 @@ You can manipulate colors programmatically using the `scene.color()` helper. Thi
     .background(scene.color().hsl(120, 100, 85))
 )
 ```
+
+![Colors](images/shape_colors.svg)
+
+#### Advanced Color Manipulation
+Look again at the previous example. A shape's `color()` method accepts either a string or a `Color` object.
+
+Passing a string as e.g. 'Lavender' or '#FF5733' is the easiest way to set a color.
+
+However, if you need more control, you can pass a Color object, that you can create using the `scene.color()` helper. This is useful for **generating colors programatically**. The color object exposes the `rgb()` and `hsl()` methods to create colors.
+
+```python
+color_1 = scene.color().rgb(250, 120, 10)
+color_2 = scene.color().hsl(200, 80, 60)
+
+scene.rectangle('Color 1').color(color_1).background(color_1).center(0, 0)
+scene.rectangle('Color 2').color(color_2).background(color_2).center(150, 0)
+```
+
+![Colors RGB and HSL](./images/color_rgb_hsl.svg)
+
+There are also methods `lighten()` and `darken()` to manipulate lightness of the colors, taking a percentage as an argument.
+
+```python
+for i in range(5, 30, 5):
+    color = scene.color().rgb(250, 120, 10).darken(i)
+    (
+        scene.ellipse()
+        .center(i * 20, 0)
+        .size(80, 80)
+        .color(color)
+        .background(color)
+        .fill('solid')
+    )
+```
+
+![Colors Darken](./images/color_darken.svg)
+
+Using the HSL color space you can also manipulate the saturation and hue of the colors.
+
+```python
+for i in range(0, 90, 10):
+    color = scene.color().hsl(200, 80 - i, 60)
+    (
+        scene.ellipse()
+        .center(i * 10, 0)
+        .size(80, 80)
+        .color(color)
+        .background(color)
+        .fill('solid')
+    )
+
+    color = scene.color().hsl(200 + i, 80, 60)
+    (
+        scene.ellipse()
+        .center(i * 10, 100)
+        .size(80, 80)
+        .color(color)
+        .background(color)
+        .fill('solid')
+    )
+```
+![Colors Hue and Saturation](./images/color_hue_saturation.svg)
 
 ### Hyperlinks
 You can make any element clickable by adding a link.
@@ -275,7 +333,6 @@ scene.arrow().bind(source, target).color('red').stroke('dashed').thickness('extr
 ```
 
 ![Arrow Styling](images/arrow_style.svg)
-
 
 ### Arrowheads
 Customize the start and end markers.
@@ -515,25 +572,16 @@ Text needs to be placed precisely.
 ---
 
 ## Lines & Custom Shapes
-
-For arbitrary paths or polygons, use `scene.line()`.
-
-### Building a Line
-A line is a sequence of points.
+The Line object accepts a list of points. It uses 'round' interpolation between points by default.
 
 ```python
-from excaligen.geometry.Point import Point
-
-scene.line().points([Point(0,0), Point(100,0), Point(100,100)])
+scene.line().points([(-100, 0), (0, 30), (50, -50), (100, 0)]).thickness('extra-bold')
 ```
+![Line rounded](./images/line_round.svg)
 
-### Modifying Points
-You can extend lines dynamically:
-- **`append([points])`**: Add points to the end.
-- **`prepend([points])`**: Add points to the start.
 
 ### Custom Polygons
-Call `.close()` to connect the last point to the first. This creates a shape that can be filled.
+The Line object has a convenience method `.close()` to connect the last point to the first. This creates a shape that can be filled.
 
 ```python
 points = [[-100, 0], [100, 0], [0, -100]]
@@ -550,6 +598,22 @@ points = [[-100, 0], [100, 0], [0, -100]]
 ```
 ![Line Polygon](./images/line_polygon.svg)
 
+Example of a more complex polygon:
+
+```python
+OUTER_R = 80
+INNER_R = 35
+NUM_POINTS = 10
+
+star_points = [(
+    (r := (OUTER_R if i % 2 == 0 else INNER_R)) * math.cos(theta := i * (2 * math.pi / NUM_POINTS)),
+    r * math.sin(theta)
+) for i in range(NUM_POINTS)]
+
+scene.line().points(star_points).close().roundness('sharp')
+```
+
+![Line Star](./images/line_star.svg)
 
 ---
 
@@ -604,21 +668,21 @@ scene.image().file('assets/robot.svg').fit(140, 140).center(0, 0)
 Organizing elements is key for complex diagrams. Excaligen supports Excalidraw's **Groups** and **Frames**.
 
 ### Groups
-A **Group** is a virtual container. Elements in a group are treated as a single unit when moving or selecting them in Excalidraw, but visually they remain separate.
+A **Group** is a virtual container. Elements in a group are treated as a single unit when moving or selecting them in Excalidraw.
 
 ```python
-# Create elements
-rect1 = scene.rectangle("A").position(0, 0)
-rect2 = scene.rectangle("B").position(100, 0)
+face = scene.ellipse().center(0, 0).size(120, 120).background('Yellow').fill('solid')
+eye_l = scene.ellipse().center(-20, -15).size(15, 25).background('Black').fill('solid')
+eye_r = scene.ellipse().center(20, -15).size(15, 25).background('Black').fill('solid')
+mouth = scene.line().points([(-40, 10), (-15, 35), (15, 35), (40, 10)]).thickness('bold')
 
-# Group them together
-scene.group().elements(rect1, rect2)
+scene.group().elements(face, eye_l, eye_r, mouth)
 ```
 
-### Frames
-A **Frame** is a visual container that physically surrounds its content. It has a background color and a label. It's perfect for distinct sections of a diagram.
+![Group](./images/group.svg)
 
-Frames automatically adjust their size to fit their content.
+### Frames
+A **Frame** is a visual container that physically surrounds its content. It has a background color and a label. It's perfect for distinct sections of a diagram or creating presentation slides.
 
 ```python
 # Create elements
