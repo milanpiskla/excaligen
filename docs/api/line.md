@@ -10,6 +10,8 @@ configurations for styling and positioning.
 ```python
     def __init__(self, defaults: Defaults):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### append
 ```python
     def append(self, points: list[Point]) -> Self:

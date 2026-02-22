@@ -234,7 +234,8 @@ class MarkdownWriter:
         # Document methods
         for method_name, method in inspect.getmembers(class_obj, predicate=inspect.isfunction):
             if not method_name.startswith('_') or method_name == '__init__':
-                doc_info = DocstringParser.parse(method.__doc__) if method.__doc__ else None
+                docstring = inspect.getdoc(method)
+                doc_info = DocstringParser.parse(docstring) if docstring else None
                 self._write_method_doc(method_name, method, doc_info, content)
         
         # Write to file

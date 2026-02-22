@@ -16,6 +16,8 @@ The arrow can be styled with:
 ```python
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None) -> None:
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### append
 ```python
     def append(self, points: list[Point]) -> Self:
@@ -95,6 +97,20 @@ The current instance of the Arrow class.
 ```python
     def center(self, *args) -> Self | tuple[float, float]:
 ```
+Get or set the center coordinates of the element.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. center() -> tuple[float, float] Returns the (x, y) coordinates of the center. 2. center(x, y) -> Self Sets the center to (x, y) and returns self for chaining. |
+
+#### Returns
+
+**Type**: `tuple[float, float]  or  Self`
+
+Depending on the arguments.
+
 ### color
 ```python
     def color(self, color: str | Color) -> Self:
@@ -263,18 +279,39 @@ The instance of the element.
 ```python
     def points(self, points: list[Point]) -> Self:
 ```
-Sets the points for the line and calculates the width and height.
+Set the points of the arrow.
 
 #### Arguments
 
 | Name | Type | Description |
 |------|------|-------------|
-| `points` | `list[Point]` | A list of Point objects representing the coordinates of the line. Returns: Self: The instance of the class with updated points, width, and height. |
+| `points` | `list[Point]` | The points of the arrow. |
+
+#### Returns
+
+**Type**: `Self`
+
+The current instance of the Arrow class.
 
 ### position
 ```python
     def position(self, x: float, y: float) -> Self:
 ```
+Sets the position of the element.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `x` | `float` | The x-coordinate of the element. |
+| `y` | `float` | The y-coordinate of the element. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the element with updated position.
+
 ### prepend
 ```python
     def prepend(self, points: list[Point]) -> Self:

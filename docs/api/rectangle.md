@@ -9,6 +9,8 @@ and can be configured with various visual properties through the config paramete
 ```python
     def __init__(self, defaults: Defaults, listener: AbstractPlainLabelListener, label: str | Text | None = None):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### background
 ```python
     def background(self, color: str | Color) -> Self:
@@ -31,6 +33,20 @@ The instance of the class for method chaining.
 ```python
     def center(self, *args) -> Self | tuple[float, float]:
 ```
+Get or set the center coordinates of the element.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `*args` | `None` | Supports two signatures: 1. center() -> tuple[float, float] Returns the (x, y) coordinates of the center. 2. center(x, y) -> Self Sets the center to (x, y) and returns self for chaining. |
+
+#### Returns
+
+**Type**: `tuple[float, float]  or  Self`
+
+Depending on the arguments.
+
 ### color
 ```python
     def color(self, color: str | Color) -> Self:
@@ -164,6 +180,21 @@ The instance of the element.
 ```python
     def position(self, x: float, y: float) -> Self:
 ```
+Sets the position of the element.
+
+#### Arguments
+
+| Name | Type | Description |
+|------|------|-------------|
+| `x` | `float` | The x-coordinate of the element. |
+| `y` | `float` | The y-coordinate of the element. |
+
+#### Returns
+
+**Type**: `Self`
+
+The instance of the element with updated position.
+
 ### rotate
 ```python
     def rotate(self, angle: float) -> Self:

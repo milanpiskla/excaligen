@@ -11,6 +11,8 @@ grouping related elements and creating visual hierarchies in the layout.
 ```python
     def __init__(self, defaults: Defaults, title: str | None = None):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### background
 ```python
     def background(self, color: str | Color) -> Self:
@@ -61,9 +63,7 @@ Add elements to the frame and adjust the frame size accordingly.
 
 #### Returns
 
-**Type**: `Self`
-
-The current instance of the Frame class.
+pp
 
 ### fill
 ```python

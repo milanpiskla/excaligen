@@ -1,5 +1,5 @@
 ## Excaligen Developer Guide
-### 📐 Excalidraw File Generation via Python ✨
+### Excalidraw File Generation via Python ✨
 
 **Excaligen** bridges the gap between the fantastic diagram editor [Excalidraw](https://excalidraw.com/) and algorithmic visualization.
 Excalidraw is well known for its beautiful, hand-drawn aesthetic. 
@@ -79,7 +79,10 @@ scene.diamond('Diamond').center(150, 0)
 ![Shapes](images/shapes.svg)
 
 ### Positioning
-You have flexible control over where elements go.
+You can position elements using three methods:
+- `center(x, y)`
+- `position(x, y)`
+- `orbit(center, radius, angle)`
 
 #### Center
 `center(x, y)` places the geometric center of the element at (x, y).
@@ -101,7 +104,7 @@ scene.rectangle('Rectangle 3').position(0, 120)
 ![Position](images/shape_position.svg)
 
 #### Orbit / Polar Coordinates
-What if we want to place several elements around a central point? The `orbit()` method allows you to do that.
+What if we want to place several elements around a central point? The `orbit(center, radius, angle)` method allows you to do that.
 ```Python
 RADIUS = 150
 SUBTOPICS = 6
@@ -116,6 +119,9 @@ scene.save('sandbox.excalidraw')
 ```
 
 ![Orbit](images/orbit.svg)
+
+There is another variant of the orbit method - `orbit(x, y, radius, angle)` that allows you to specify the coordinates of the center instead of an element.
+
 
 ### Rotation
 You can rotate any element. Angles are in radians.
@@ -456,9 +462,9 @@ points = [(START, 0), (300, -30), (250, 30), (END, 0)]
 scene.arrow().points(points).bind(start, end).roundness('sharp')
 ```
 
-![Freeform Arrow sHARP](images/arrow_free_points_sharp.svg)
+![Freeform Arrow Sharp](images/arrow_free_points_sharp.svg)
 
-You can e.g. generate the points by using harmonic functions:
+For example, you can generate the points using harmonic functions:
 
 ```python
 START = 50
@@ -685,7 +691,7 @@ scene.group().elements(face, eye_l, eye_r, mouth)
 A **Frame** is a visual container that physically surrounds its content. It has a background color and a title. It's perfect for distinct sections of a diagram or creating presentation slides.
 
 The following example also demonstrates how to generate links.
-Excalidraw support external links and links to other elements in the same scene. As the frame is also an element, it can be linked to.
+Excalidraw supports external links and links to other elements in the same scene. As the frame is also an element, it can be linked to.
 
 ```python
 first_frame = scene.frame("Frame 1")
@@ -737,7 +743,7 @@ second_frame.elements(headline_second, button_back)
 
 ## Defaults
 What if you want to use specific styles for several elements, but you don't want to type e.g. `stroke('solid')`, `fill('solid')`, etc. for each element? 
-Excaligen provides the `Defaults` object for this purpose. Here is an example that we used in the firts chapter, but with our own defaults:
+Excaligen provides the `Defaults` object for this purpose. Let's take the same setup we used in the first chapter, but this time, we'll override the defaults and apply our own styling:
 
 ```python
 (
@@ -787,7 +793,10 @@ for y in range(8):
         if (D >> ((y * 6) + abs(5 - x))) & 1:
             s.rectangle().position(x * 42, y * 42).size(42, 42).color('#ff4242').background("#ff4242").fill("solid").roundness('sharp').sloppiness('architect')
 ```
-Congratulations you have reached the end of the guide. After running the last example code you know the "Answer to the Ultimate Question of Life, the Universe, and Everything" 😀
+
+After running the last example code you know the "Answer to the Ultimate Question of Life, the Universe, and Everything" 😀
+
+And that's a wrap! 🎉 You've made it to the end of the guide. You now have everything you need to start generating beautiful Excalidraw scenes from your Python code.
 
 ---
 Have fun with **Excaligen**.

@@ -26,6 +26,8 @@ arrowheads(None, 'arrow')
 ```python
     def __init__(self):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### align
 ```python
     def align(self, align: str) -> Self:

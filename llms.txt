@@ -1,0 +1,51 @@
+# Excaligen
+
+Excaligen is a lightweight, zero-dependency Python library for programmatically generating Excalidraw-compatible JSON files. It uses a fluent API (builder pattern) to create diagrams, shapes, and connections.
+
+## Installation
+`pip install excaligen`
+
+## Core Concepts
+The library is centered around the `SceneBuilder` class, which acts as the canvas. Elements are added to the scene and can be chained with styling and positioning methods.
+
+## Quick Start
+```python
+from excaligen.SceneBuilder import SceneBuilder
+
+# Initialize the scene
+scene = SceneBuilder()
+
+# Add elements
+central_topic = scene.ellipse('Central topic').center(0, 0)
+subtopic = scene.rectangle('Subtopic').center(350, 100)
+
+# Bind elements with an arrow
+scene.arrow('points to').bind(central_topic, subtopic)
+
+# Save to an Excalidraw file
+scene.save('output.excalidraw')
+```
+
+## Available Elements
+The SceneBuilder supports the following elements:
+- scene.rectangle(text)
+- scene.ellipse(text)
+- scene.diamond(text)
+- scene.text(text)
+- scene.arrow(text)
+- scene.line()
+- scene.image(file_path)
+- scene.group()
+- scene.frame(name)
+
+## Styling and Layout
+Elements support fluent method chaining for styling:
+- .center(x, y): Positions the center of the element.
+- .color(hex_or_name): Sets the stroke color.
+- .background(hex_or_name): Sets the background color.
+- .fill(style): Sets the fill style (e.g., "solid", "hachure", "cross-hatch").
+- .roundness(style): Sets the corner style (e.g., "sharp", "round").
+- .opacity(int): Sets element opacity (0-100).
+
+## Binding
+Arrows can bind shapes together using .bind(start_element, end_element).

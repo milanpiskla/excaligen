@@ -11,6 +11,8 @@ families.
 ```python
     def __init__(self, defaults: Defaults, text: str | None = None):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### align
 ```python
     def align(self, align: str) -> Self:

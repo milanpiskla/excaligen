@@ -10,6 +10,8 @@ Each group is identified by a unique UUID.
 ```python
     def __init__(self, defaults: Defaults):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### elements
 ```python
     def elements(self, *elements: Element) -> Self:

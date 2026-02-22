@@ -28,6 +28,8 @@ Yellow, YellowGreen
 ```python
     def __init__(self):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### darken
 ```python
     def darken(self, percent: int) -> "Self":

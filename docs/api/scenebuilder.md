@@ -8,6 +8,8 @@ The fluent API allows chaining method calls for a more concise code.
 ```python
     def __init__(self):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### arrow
 ```python
     def arrow(self, label: str | Text | None = None) -> Arrow:

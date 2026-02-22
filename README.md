@@ -1,10 +1,11 @@
 # *Excaligen*: Excalidraw File Generator ✨
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![Python to Excalidraw](./assets/py2ex.svg)
 
 Excaligen is a Python library to generate [Excalidraw](https://excalidraw.com/) files. 
 If you wish to automate creating visualizations in Excalidraw style, this library is for you.
-It's light-weight, without any external dependencies.
+It is lightweight and has no external dependencies.
 
 ## Why This Library?
 [Excalidraw](https://excalidraw.com/) is an amazing tool for sketching diagrams and visualizing ideas. However, creating diagrams programmatically isn't fully supported out of the box. This library bridges that gap, allowing you to generate Excalidraw-compatible JSON files with Python code.
@@ -16,10 +17,8 @@ It's light-weight, without any external dependencies.
 - Group and Frame Elements: Organize your diagrams better.
 - Export to Excalidraw: Generate JSON files ready to be imported into Excalidraw.
 
-## Installation 🛠️
-```
-pip install excaligen
-```
+## Requirements 🛠️
+Python 3.12+
 
 ## How to use 💡
 Excaligen exposes a fluent API, using a builder pattern.
@@ -39,8 +38,8 @@ The code above creates a simple diagram with a central topic and subtopic, conne
 ![Binding](./docs/guide/images/binding.svg)
 
 Please refer to the detailed documentation for more information:
-- [User Manual](./docs/guide/index.md)
-- [Detailed API](./docs/api/index.md)
+- [Developer Guide](./docs/guide/index.md)
+- [API Reference](./docs/api/index.md)
 
 ## What you can build 🏗️
 The only limit is your imagination. Here are some examples:

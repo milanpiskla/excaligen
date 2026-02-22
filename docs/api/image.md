@@ -10,6 +10,8 @@ fitting within bounds while maintaining aspect ratio.
 ```python
     def __init__(self, defaults: Defaults, listener: AbstractImageListener, loader: AbstractImageLoader):
 ```
+Initialize self.  See help(type(self)) for accurate signature.
+
 ### center
 ```python
     def center(self, *args) -> Self | tuple[float, float]:
