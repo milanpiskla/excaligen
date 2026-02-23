@@ -37,9 +37,10 @@ The code above creates a simple diagram with a central topic and subtopic, conne
 
 ![Binding](./docs/guide/images/binding.svg)
 
+### Documentation
 Please refer to the detailed documentation for more information:
-- [Developer Guide](./docs/guide/index.md)
-- [API Reference](./docs/api/index.md)
+
+[Documentation](https://milanpiskla.github.io/excaligen/)
 
 ## What you can build 🏗️
 Here are some examples:

@@ -37,8 +37,9 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/milanpiskla/excaligen"
-Documentation = "https://github.com/milanpiskla/excaligen/docs"
-Repository = "https://github.com/milanpiskla/excaligen.git"
+Documentation = "https://milanpiskla.github.io/excaligen/"
+Repository = "https://github.com/milanpiskla/excaligen"
+Issues = "https://github.com/milanpiskla/excaligen/issues"
 
 [tool.hatch.build.hooks.custom]
 path = "hatch_build.py"
