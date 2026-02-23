@@ -1,13 +1,13 @@
 """
 Description: Unit tests for image handling.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
-from src.excaligen.impl.elements.Image import Image
-from src.excaligen.impl.base.AbstractImageListener import AbstractImageListener
-from src.excaligen.impl.images.ImageLoader import ImageLoader
+from excaligen.impl.elements.Image import Image
+from excaligen.impl.base.AbstractImageListener import AbstractImageListener
+from excaligen.impl.images.ImageLoader import ImageLoader
 from excaligen.defaults.Defaults import Defaults
 import os
 import io

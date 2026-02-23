@@ -1,11 +1,16 @@
+"""
+Description: Unit tests for orbit methods.
+"""
+# Copyright (c) 2024 - 2026 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
 
 import math
 import pytest
 from pytest import approx
-from src.excaligen.impl.elements.Rectangle import Rectangle
-from src.excaligen.defaults.Defaults import Defaults
-from src.excaligen.impl.elements.Text import Text
-from src.excaligen.impl.base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from excaligen.impl.elements.Rectangle import Rectangle
+from excaligen.defaults.Defaults import Defaults
+from excaligen.impl.elements.Text import Text
+from excaligen.impl.base.AbstractPlainLabelListener import AbstractPlainLabelListener
 
 class DummyListener(AbstractPlainLabelListener):
     def _on_text(self, text: str) -> Text:

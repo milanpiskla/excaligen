@@ -1,11 +1,11 @@
 """
 Description: Unit tests for IndexGenerator.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
-from src.excaligen.impl.indexer.IndexGenerator import IndexGenerator
+from excaligen.impl.indexer.IndexGenerator import IndexGenerator
 
 def test_default():
     idxr = IndexGenerator()

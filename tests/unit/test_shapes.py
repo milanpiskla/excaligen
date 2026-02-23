@@ -1,19 +1,19 @@
 """
 Description: Unit tests for shapes.
 """
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import pytest
 from pytest import approx
-from src.excaligen.impl.elements.Rectangle import Rectangle
-from src.excaligen.impl.elements.Diamond import Diamond
-from src.excaligen.impl.elements.Ellipse import Ellipse
-from src.excaligen.impl.elements.Text import Text
-from src.excaligen.impl.elements.Line import Line
-from src.excaligen.impl.elements.Arrow import Arrow
+from excaligen.impl.elements.Rectangle import Rectangle
+from excaligen.impl.elements.Diamond import Diamond
+from excaligen.impl.elements.Ellipse import Ellipse
+from excaligen.impl.elements.Text import Text
+from excaligen.impl.elements.Line import Line
+from excaligen.impl.elements.Arrow import Arrow
 from excaligen.defaults.Defaults import Defaults
-from src.excaligen.impl.base.AbstractPlainLabelListener import AbstractPlainLabelListener
+from excaligen.impl.base.AbstractPlainLabelListener import AbstractPlainLabelListener
 
 class DummyListener(AbstractPlainLabelListener):
             def _on_text(self, text: str) -> Text:
