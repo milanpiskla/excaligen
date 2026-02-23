@@ -63,7 +63,9 @@ Add elements to the frame and adjust the frame size accordingly.
 
 #### Returns
 
-pp
+**Type**: `Self`
+
+The current instance of the Frame class.
 
 ### fill
 ```python

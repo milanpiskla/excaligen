@@ -7,13 +7,13 @@ Excalidraw is well known for its beautiful, hand-drawn aesthetic.
 If you want to generate Excalidraw-compatible files directly from Python, Excaligen is the tool for you. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.
 
 ## Table of Contents
-- [Concepts & The First Sketch](#concepts--the-first-sketch)
-- [Shapes & Styles](#shapes--styles)
+- [Concepts & The First Sketch](#concepts-the-first-sketch)
+- [Shapes & Styles](#shapes-styles)
 - [Connectors (Arrows)](#connectors-arrows)
 - [Typography (Text)](#typography-text)
-- [Lines & Custom Shapes](#lines--custom-shapes)
+- [Lines & Custom Shapes](#lines-custom-shapes)
 - [Images](#images)
-- [Groups & Frames](#groups--frames)
+- [Groups & Frames](#groups-frames)
 - [Defaults](#defaults)
 - [Algorithmic Generation](#algorithmic-generation)
 
