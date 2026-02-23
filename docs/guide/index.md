@@ -66,6 +66,7 @@ Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programm
 
 ### Core Shapes
 Excaligen exposes the core Excalidraw shapes:
+
 - **Rectangle**: `scene.rectangle()`
 - **Ellipse**: `scene.ellipse()`
 - **Diamond**: `scene.diamond()`
@@ -80,6 +81,7 @@ scene.diamond('Diamond').center(150, 0)
 
 ### Positioning
 You can position elements using three methods:
+
 - `center(x, y)`
 - `position(x, y)`
 - `orbit(center, radius, angle)`
@@ -147,7 +149,12 @@ scene.rectangle('Large').size(150, 120).center(235, 0)
 A diagram communicates through more than just shapes. The *style* tells a story.
 
 #### Stroke Style
-Control the line style with `.stroke()`. Options: `'solid'`, `'dashed'`, `'dotted'`.
+Control the line style with `.stroke()`. Options:
+
+- `'solid'`
+- `'dashed'`
+- `'dotted'`
+
 ```python
 scene.ellipse().center(-150, 0).stroke('solid')
 scene.ellipse().center(0, 0).stroke('dashed')
@@ -156,7 +163,12 @@ scene.ellipse().center(150, 0).stroke('dotted')
 ![Stroke Styles](images/stroke_styles.svg)
 
 #### Stroke Thickness
-Adjust the line width with `.thickness()`. Options: `'thin'` (1), `'bold'` (2), `'extra-bold'` (3).
+Adjust the line width with `.thickness()`. Options: 
+
+- `'thin'` (1)
+- `'bold'` (2)
+- `'extra-bold'` (3)
+
 ```python
 scene.rectangle().thickness('thin')
 scene.rectangle().thickness('bold')
@@ -165,7 +177,12 @@ scene.rectangle().thickness('extra-bold')
 ![Thickness](images/thickness.svg)
 
 #### Fill Style
-Choose how shapes are filled with `.fill()`. Options: `'solid'`, `'hachure'` (sketchy lines), `'cross-hatch'`.
+Choose how shapes are filled with `.fill()`. Options:
+
+- `'solid'`
+- `'hachure'` (sketchy lines)
+- `'cross-hatch'`
+
 ```python
 scene.ellipse().center(-150, 0).background('gray').fill('solid')
 scene.ellipse().center(0, 0).background('gray').fill('hachure')
@@ -184,7 +201,12 @@ scene.diamond('Sharp').roundness('sharp').center(150, 100)
 ![Roundness](images/shape_roundness.svg)
 
 #### Sloppiness
-Control the hand-drawn effect with `.sloppiness()`. Options: `'architect'` (clean), `'artist'` (balanced), `'cartoonist'` (messy).
+Control the hand-drawn effect with `.sloppiness()`. Options:
+
+- `'architect'` (clean)
+- `'artist'` (balanced)
+- `'cartoonist'` (messy)
+
 ```python
 scene.rectangle().sloppiness('architect')
 scene.rectangle().sloppiness('artist')
@@ -203,6 +225,7 @@ scene.ellipse().center(0, 0).background('DarkGray').fill('solid').opacity(80)
 ### Colors
 So far we have only used the black/gray colors. But we can use any color we want.
 Excaligen supports multiple color formats:
+
 - **Named Colors**: `"MidnightBlue"`, `"Tomato"`, `"MintCream"`.
 - **RGB as a string (Hex Colors)**: `"#FF5733"`.
 - **RGB**: `scene.color().rgb(100, 149, 237)`.
@@ -296,13 +319,6 @@ for i in range(0, 90, 10):
 ```
 ![Colors Hue and Saturation](./images/color_hue_saturation.svg)
 
-### Hyperlinks
-You can make any element clickable by adding a link.
-
-```python
-scene.rectangle("Click Me").link("https://google.com")
-```
-
 ---
 ## Connectors (Arrows)
 
@@ -343,6 +359,7 @@ scene.arrow().bind(source, target).color('red').stroke('dashed').thickness('extr
 ### Arrowheads
 Customize the start and end markers.
 Options are:
+
 - `'arrow'`
 - `'bar'`
 - `'dot'`
@@ -366,6 +383,7 @@ You can of course use any combination of arrowheads, e.g. starting with a dot an
 It's about how the arrow gets from A to B.
 Excalidraw supports direct, elbowed and freeform paths. Excaligen adds convenience methods to control the curved and arc paths. 
 In summary, you can control the arrow path to achieve:
+
 - Straight connection
 - Elbow (orthogonal) connection
 - Curved connection
@@ -494,6 +512,7 @@ If you want to create a text label using non-default font and styling, you need 
 
 ### Fonts
 The following fonts are available in Excalidraw:
+
 - Excalifont
 - Comic Shaans
 - Lilita One
@@ -573,8 +592,9 @@ for h_align in ["left", "center", "right"]:
 ![Text Anchoring](./images/text_anchoring.svg)
 
 Text needs to be placed precisely.
-- **`justify(x, y, w, h)`**: Aligns text within a box.
-- **`anchor(x, y, h_align, v_align)`**: Anchors text to a point (e.g., top-left).
+
+- `justify(x, y, w, h)` Aligns text within a box.
+- `anchor(x, y, h_align, v_align)` Anchors text to a point (e.g., top-left).
 ---
 
 ## Lines & Custom Shapes

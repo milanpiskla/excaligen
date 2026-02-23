@@ -4,7 +4,7 @@ Build PyPI README.md
 This script generates a README.md file for PyPI by replacing relative links with absolute links.
 """
 
-# Copyright (c) 2024 - 2025 Milan Piskla
+# Copyright (c) 2024 - 2026 Milan Piskla
 # Licensed under the MIT License - see LICENSE file for details
 
 import re

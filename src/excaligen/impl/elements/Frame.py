@@ -59,7 +59,7 @@ class Frame(AbstractShape):
         Args:
             elements (AbstractElement): The elements to add to the frame.
 
-        Returns:pp
+        Returns:
             Self: The current instance of the Frame class.
         """
         min_x, min_y = math.inf, math.inf
