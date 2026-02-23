@@ -42,7 +42,7 @@ Please refer to the detailed documentation for more information:
 - [API Reference](./docs/api/index.md)
 
 ## What you can build 🏗️
-The only limit is your imagination. Here are some examples:
+Here are some examples:
 
 ![Mind Map](./docs/guide/images/example_mind_map.svg)
 

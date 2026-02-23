@@ -1,3 +1,12 @@
+"""
+Documentation generator for Excaligen
+
+This script generates documentation for Excaligen by parsing the source code and generating Markdown files.
+"""
+
+# Copyright (c) 2024 - 2025 Milan Piskla
+# Licensed under the MIT License - see LICENSE file for details
+
 import os
 import sys
 import inspect

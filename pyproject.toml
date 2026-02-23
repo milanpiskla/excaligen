@@ -25,7 +25,7 @@ authors = [
     {name = "Milan Piskla", email = "milan.piskla@gmail.com"}
 ]
 license = {text = "MIT"}
-readme = "README.md"
+readme = "README_PYPI.md"
 requires-python = ">=3.12"
 keywords = ["excalidraw", "diagram", "drawing"]
 classifiers = [
