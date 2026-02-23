@@ -2,6 +2,7 @@
 [![Documentation](https://img.shields.io/badge/docs-GitHub_Pages-blue.svg)](https://milanpiskla.github.io/excaligen/)
 [![PyPI version](https://img.shields.io/pypi/v/excaligen.svg?color=blue)](https://pypi.org/project/excaligen/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/excaligen.svg)](https://pypi.org/project/excaligen/)
+[![Tests](https://github.com/milanpiskla/excaligen/actions/workflows/test.yml/badge.svg)](https://github.com/milanpiskla/excaligen/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![Python to Excalidraw](./assets/py2ex.svg)
