@@ -25,6 +25,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip' # Speeds up the workflow by caching dependencies
 
+      - name: Generate PyPI Readme
+        run: python build_pypi_readme.py
+
       - name: Install package and test dependencies
         run: |
           python -m pip install --upgrade pip
