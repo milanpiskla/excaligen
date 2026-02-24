@@ -24,6 +24,11 @@ It is lightweight and has no external dependencies.
 ## Requirements 🛠️
 Python 3.12+
 
+## Installation 📦
+```bash
+pip install excaligen
+```
+
 ## How to use 💡
 Excaligen exposes a fluent API, using a builder pattern.
 Example:
