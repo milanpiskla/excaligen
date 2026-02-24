@@ -1,0 +1,2558 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A lightweight Python library for generating Excalidraw files.">
+      
+      
+        <meta name="author" content="Milan Piskla">
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>Developer Guide - Excaligen</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#excaligen-developer-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Excaligen" class="md-header__button md-logo" aria-label="Excaligen" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Excaligen
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Developer Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/milanpiskla/excaligen" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Excaligen" class="md-nav__button md-logo" aria-label="Excaligen" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Excaligen
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/milanpiskla/excaligen" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#excaligen-developer-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excaligen Developer Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Excaligen Developer Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#excalidraw-file-generation-via-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excalidraw File Generation via Python ✨
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concepts-the-first-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepts &amp; The First Sketch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts &amp; The First Sketch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-scenebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The SceneBuilder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hello World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fluent-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fluent API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shapes-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shapes &amp; Styles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shapes &amp; Styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-shapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Shapes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Positioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Center
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orbit-polar-coordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orbit / Polar Coordinates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shape Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Styling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stroke-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stroke Style
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stroke-thickness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stroke Thickness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fill-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fill Style
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roundness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roundness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sloppiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sloppiness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opacity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Colors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Colors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-color-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Color Manipulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connectors-arrows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connectors (Arrows)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectors (Arrows)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrowheads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrowheads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Styles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#straight-connectiondefault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Straight Connection(Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elbow-orthogonal-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elbow (Orthogonal) Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curve-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curve Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arc-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arc Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freeform-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Freeform Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typography-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typography (Text)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Typography (Text)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#font-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Font Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout Helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layout Helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#justification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Justification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anchoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anchoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lines-custom-shapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lines &amp; Custom Shapes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lines &amp; Custom Shapes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-polygons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Polygons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-images-from-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Images from Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-images-from-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Images from Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-images-from-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Images from URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fitting-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fitting Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups &amp; Frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Groups &amp; Frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithmic-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmic Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithmic Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mind-map-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mind Map Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pie-chart-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pie Chart Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curves-and-arrows-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curves and Arrows Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beyond-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beyond Diagrams
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#excaligen-developer-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excaligen Developer Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Excaligen Developer Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#excalidraw-file-generation-via-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Excalidraw File Generation via Python ✨
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concepts-the-first-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepts &amp; The First Sketch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts &amp; The First Sketch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-scenebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The SceneBuilder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hello World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fluent-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fluent API
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shapes-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shapes &amp; Styles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shapes &amp; Styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-shapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Shapes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Positioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#center" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Center
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orbit-polar-coordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orbit / Polar Coordinates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shape Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Styling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stroke-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stroke Style
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stroke-thickness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stroke Thickness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fill-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fill Style
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roundness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roundness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sloppiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sloppiness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opacity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Colors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Colors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-color-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Color Manipulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connectors-arrows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connectors (Arrows)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectors (Arrows)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrowheads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrowheads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-styles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Styles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Path Styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#straight-connectiondefault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Straight Connection(Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elbow-orthogonal-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elbow (Orthogonal) Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curve-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curve Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arc-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arc Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freeform-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Freeform Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typography-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typography (Text)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Typography (Text)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#font-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Font Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout Helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layout Helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#justification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Justification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anchoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anchoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lines-custom-shapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lines &amp; Custom Shapes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lines &amp; Custom Shapes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-polygons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Polygons
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-images-from-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Images from Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-images-from-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Images from Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loading-images-from-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Images from URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fitting-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fitting Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups &amp; Frames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Groups &amp; Frames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defaults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithmic-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmic Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithmic Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mind-map-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mind Map Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pie-chart-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pie Chart Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curves-and-arrows-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Curves and Arrows Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beyond-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beyond Diagrams
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Developer Guide</h1>
+
+<h2 id="excaligen-developer-guide">Excaligen Developer Guide</h2>
+<h3 id="excalidraw-file-generation-via-python">Excalidraw File Generation via Python ✨</h3>
+<p><strong>Excaligen</strong> bridges the gap between the fantastic diagram editor <a href="https://excalidraw.com/">Excalidraw</a> and algorithmic visualization.
+Excalidraw is well known for its beautiful, hand-drawn aesthetic. </p>
+<p>If you want to generate Excalidraw-compatible files directly from Python, Excaligen is the tool for you. Visualize data structures, automated reports, and complex algorithmic patterns with minimal boilerplate.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#concepts-the-first-sketch">Concepts &amp; The First Sketch</a></li>
+<li><a href="#shapes-styles">Shapes &amp; Styles</a></li>
+<li><a href="#connectors-arrows">Connectors (Arrows)</a></li>
+<li><a href="#typography-text">Typography (Text)</a></li>
+<li><a href="#lines-custom-shapes">Lines &amp; Custom Shapes</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#groups-frames">Groups &amp; Frames</a></li>
+<li><a href="#defaults">Defaults</a></li>
+<li><a href="#algorithmic-generation">Algorithmic Generation</a></li>
+</ul>
+<hr />
+<h2 id="concepts-the-first-sketch">Concepts &amp; The First Sketch</h2>
+<h3 id="the-scenebuilder">The SceneBuilder</h3>
+<p>The heart of Excaligen is the <code>SceneBuilder</code> class. Think of it as your canvas and your toolbox combined.</p>
+<p><strong>Important</strong>: You should always create elements using the <code>SceneBuilder</code> methods (like <code>.rectangle()</code>, <code>.arrow()</code>, etc.). <strong>Do not instantiate element classes directly.</strong> The builder ensures everything is correctly initialized and tied to the diagram.</p>
+<h3 id="hello-world">Hello World</h3>
+<p>Create a file named <code>hello_world.py</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">excaligen.SceneBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">SceneBuilder</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">SceneBuilder</span><span class="p">()</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Hello, World!&#39;</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">scene</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;hello_world.excalidraw&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Executing this script produces a file ready for Excalidraw.</p>
+<p><img alt="Hello World" src="images/hello_world.svg" /></p>
+<h3 id="the-fluent-api">The Fluent API</h3>
+<p>Excaligen uses a "fluent" API style. This means you can chain method calls together to configure your elements concisely.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">excaligen.SceneBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">SceneBuilder</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">SceneBuilder</span><span class="p">()</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">central_topic</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Central topic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">subtopic</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Subtopic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="s1">&#39;points to&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">central_topic</span><span class="p">,</span> <span class="n">subtopic</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">scene</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;binding.excalidraw&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Binding" src="images/binding.svg" /></p>
+<p>The next chapters will explain the API in detail. <strong>We will omit the imports and <code>scene.save()</code> calls in examples for brevity.</strong></p>
+<hr />
+<h2 id="shapes-styles">Shapes &amp; Styles</h2>
+<p>Excalidraw is beloved for its hand-drawn feel. Excaligen gives you full programmatic control over this unique aesthetic.</p>
+<h3 id="core-shapes">Core Shapes</h3>
+<p>Excaligen exposes the core Excalidraw shapes:</p>
+<ul>
+<li><strong>Rectangle</strong>: <code>scene.rectangle()</code></li>
+<li><strong>Ellipse</strong>: <code>scene.ellipse()</code></li>
+<li><strong>Diamond</strong>: <code>scene.diamond()</code></li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Ellipse&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">diamond</span><span class="p">(</span><span class="s1">&#39;Diamond&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Shapes" src="images/shapes.svg" /></p>
+<h3 id="positioning">Positioning</h3>
+<p>You can position elements using three methods:</p>
+<ul>
+<li><code>center(x, y)</code></li>
+<li><code>position(x, y)</code></li>
+<li><code>orbit(center, radius, angle)</code></li>
+</ul>
+<h4 id="center">Center</h4>
+<p><code>center(x, y)</code> places the geometric center of the element at (x, y).
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">120</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">diamond</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p><img alt="Center" src="images/shape_center.svg" /></p>
+<h4 id="position">Position</h4>
+<p><code>position(x, y)</code> places the top-left corner of the element's bounding box at (x, y).
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Rectangle 1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Rectangle 2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Rectangle 3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Position" src="images/shape_position.svg" /></p>
+<h4 id="orbit-polar-coordinates">Orbit / Polar Coordinates</h4>
+<p>What if we want to place several elements around a central point? The <code>orbit(center, radius, angle)</code> method allows you to do that.
+<div class="language-Python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">RADIUS</span> <span class="o">=</span> <span class="mi">150</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">SUBTOPICS</span> <span class="o">=</span> <span class="mi">6</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">SceneBuilder</span><span class="p">()</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">central_topic</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Central topic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SUBTOPICS</span><span class="p">):</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">angle</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">SUBTOPICS</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Subtopic </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">orbit</span><span class="p">(</span><span class="n">central_topic</span><span class="p">,</span> <span class="n">RADIUS</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">scene</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;sandbox.excalidraw&#39;</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p><img alt="Orbit" src="images/orbit.svg" /></p>
+<p>There is another variant of the orbit method - <code>orbit(x, y, radius, angle)</code> that allows you to specify the coordinates of the center instead of an element.</p>
+<h3 id="rotation">Rotation</h3>
+<p>You can rotate any element. Angles are in radians.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Rotated by 45°&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">45</span><span class="p">))</span>
+</span></code></pre></div>
+<p><img alt="Rotation" src="images/shape_rotated.svg" /></p>
+<h3 id="shape-size">Shape Size</h3>
+<p>You can define the dimensions of a shape using the <code>size()</code> method. It accepts width and height.</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Small&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>    
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Medium&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Large&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">235</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Element Size" src="images/shape_size.svg" /></p>
+<h3 id="styling">Styling</h3>
+<p>A diagram communicates through more than just shapes. The <em>style</em> tells a story.</p>
+<h4 id="stroke-style">Stroke Style</h4>
+<p>Control the line style with <code>.stroke()</code>. Options:</p>
+<ul>
+<li><code>'solid'</code></li>
+<li><code>'dashed'</code></li>
+<li><code>'dotted'</code></li>
+</ul>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Stroke Styles" src="images/stroke_styles.svg" /></p>
+<h4 id="stroke-thickness">Stroke Thickness</h4>
+<p>Adjust the line width with <code>.thickness()</code>. Options: </p>
+<ul>
+<li><code>'thin'</code> (1)</li>
+<li><code>'bold'</code> (2)</li>
+<li><code>'extra-bold'</code> (3)</li>
+</ul>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;thin&#39;</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;extra-bold&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Thickness" src="images/thickness.svg" /></p>
+<h4 id="fill-style">Fill Style</h4>
+<p>Choose how shapes are filled with <code>.fill()</code>. Options:</p>
+<ul>
+<li><code>'solid'</code></li>
+<li><code>'hachure'</code> (sketchy lines)</li>
+<li><code>'cross-hatch'</code></li>
+</ul>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;hachure&#39;</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;cross-hatch&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Fills" src="images/fills.svg" /></p>
+<h4 id="roundness">Roundness</h4>
+<p>Shapes can have sharp or rounded corners. Use the <code>roundness()</code> method to toggle between them. Note that this method is not applicable to the <code>Ellipse</code> element.
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Rounded&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;round&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Sharp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;sharp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">diamond</span><span class="p">(</span><span class="s1">&#39;Rounded&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;round&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">scene</span><span class="o">.</span><span class="n">diamond</span><span class="p">(</span><span class="s1">&#39;Sharp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;sharp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Roundness" src="images/shape_roundness.svg" /></p>
+<h4 id="sloppiness">Sloppiness</h4>
+<p>Control the hand-drawn effect with <code>.sloppiness()</code>. Options:</p>
+<ul>
+<li><code>'architect'</code> (clean)</li>
+<li><code>'artist'</code> (balanced)</li>
+<li><code>'cartoonist'</code> (messy)</li>
+</ul>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">sloppiness</span><span class="p">(</span><span class="s1">&#39;architect&#39;</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">sloppiness</span><span class="p">(</span><span class="s1">&#39;artist&#39;</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">sloppiness</span><span class="p">(</span><span class="s1">&#39;cartoonist&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Sloppiness" src="images/sloppiness.svg" /></p>
+<h4 id="opacity">Opacity</h4>
+<p>Control opacity/transparency with <code>.opacity(0-100)</code>.
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;cross-hatch&#39;</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;DarkGray&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">opacity</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Opacity" src="images/opacity.svg" /></p>
+<h3 id="colors">Colors</h3>
+<p>So far we have only used the black/gray colors. But we can use any color we want.
+Excaligen supports multiple color formats:</p>
+<ul>
+<li><strong>Named Colors</strong>: <code>"MidnightBlue"</code>, <code>"Tomato"</code>, <code>"MintCream"</code>.</li>
+<li><strong>RGB as a string (Hex Colors)</strong>: <code>"#FF5733"</code>.</li>
+<li><strong>RGB</strong>: <code>scene.color().rgb(100, 149, 237)</code>.</li>
+<li><strong>HSL</strong>: <code>scene.color().hsl(200, 80, 60)</code>.</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Add a rectangle with a named color</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">(</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Action&#39;</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;BlueViolet&quot;</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s2">&quot;Lavender&quot;</span><span class="p">)</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">)</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="c1"># Add an ellipse with RGB color as a string</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="p">(</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Start&#39;</span><span class="p">)</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    <span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;#FF5733&#39;</span><span class="p">)</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;#FFBD33&#39;</span><span class="p">)</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="p">)</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="c1"># Add a diamond with HSL color</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="p">(</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">diamond</span><span class="p">(</span><span class="s1">&#39;Decision&#39;</span><span class="p">)</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    <span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>    <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">hsl</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">hsl</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">85</span><span class="p">))</span>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Colors" src="images/shape_colors.svg" /></p>
+<h4 id="advanced-color-manipulation">Advanced Color Manipulation</h4>
+<p>Look again at the previous example. A shape's <code>color()</code> method accepts either a string or a <code>Color</code> object.</p>
+<p>Passing a string as e.g. 'Lavender' or '#FF5733' is the easiest way to set a color.</p>
+<p>However, if you need more control, you can pass a Color object, that you can create using the <code>scene.color()</code> helper. This is useful for <strong>generating colors programatically</strong>. The color object exposes the <code>rgb()</code> and <code>hsl()</code> methods to create colors.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">color_1</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">rgb</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">color_2</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">hsl</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Color 1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color_1</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">color_1</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Color 2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color_2</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">color_2</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Colors RGB and HSL" src="images/color_rgb_hsl.svg" /></p>
+<p>There are also methods <code>lighten()</code> and <code>darken()</code> to manipulate lightness of the colors, taking a percentage as an argument.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">color</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">rgb</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">darken</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="p">(</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Colors Darken" src="images/color_darken.svg" /></p>
+<p>Using the HSL color space you can also manipulate the saturation and hue of the colors.</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="n">color</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">hsl</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">80</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="p">(</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        <span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>        <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>        <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>        <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>    <span class="p">)</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>    <span class="n">color</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="o">.</span><span class="n">hsl</span><span class="p">(</span><span class="mi">200</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>    <span class="p">(</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>        <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>        <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>        <span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>        <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>        <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>        <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<img alt="Colors Hue and Saturation" src="images/color_hue_saturation.svg" /></p>
+<hr />
+<h2 id="connectors-arrows">Connectors (Arrows)</h2>
+<p>Diagrams are about relationships. <code>Arrow</code> is a powerful element to express them.</p>
+<h3 id="binding">Binding</h3>
+<p>The most robust way to connect elements is <strong>binding</strong> them by an arrow. When elements move, bound arrows follow.</p>
+<p><div class="language-Python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">source</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">target</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Target&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Binding" src="images/arrow_binding.svg" /></p>
+<h3 id="labels">Labels</h3>
+<p>Arrows can have labels.</p>
+<div class="language-Python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">source</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">target</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Target&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="s1">&#39;My Label&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Arrow with Label" src="images/arrow_with_label.svg" /></p>
+<h3 id="styling_1">Styling</h3>
+<p>You can adjust color, stroke style, thickness, and sloppiness in the same way as for shapes.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">source</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">target</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Target&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;extra-bold&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Arrow Styling" src="images/arrow_style.svg" /></p>
+<h3 id="arrowheads">Arrowheads</h3>
+<p>Customize the start and end markers.
+Options are:</p>
+<ul>
+<li><code>'arrow'</code></li>
+<li><code>'bar'</code></li>
+<li><code>'dot'</code></li>
+<li><code>'triangle'</code></li>
+<li><code>None</code></li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">for</span> <span class="n">arrow_head</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;arrow&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;dot&#39;</span><span class="p">,</span> <span class="s1">&#39;triangle&#39;</span><span class="p">]:</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">start_element</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="n">end_element</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">arrow_head</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">start_element</span><span class="p">,</span> <span class="n">end_element</span><span class="p">)</span><span class="o">.</span><span class="n">arrowheads</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">arrow_head</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">y</span> <span class="o">+=</span> <span class="mi">50</span>
+</span></code></pre></div>
+<p><img alt="Arrowheads" src="images/arrowheads.svg" /></p>
+<p>You can of course use any combination of arrowheads, e.g. starting with a dot and ending with a triangle.</p>
+<h3 id="path-styles">Path Styles</h3>
+<p>It's about how the arrow gets from A to B.
+Excalidraw supports direct, elbowed and freeform paths. Excaligen adds convenience methods to control the curved and arc paths. 
+In summary, you can control the arrow path to achieve:</p>
+<ul>
+<li>Straight connection</li>
+<li>Elbow (orthogonal) connection</li>
+<li>Curved connection</li>
+<li>Arc connection</li>
+<li>Freeform connection</li>
+</ul>
+<h4 id="straight-connectiondefault">Straight Connection(Default)</h4>
+<p>A direct line between shapes, you saw it in the previous examples.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">node_a</span><span class="p">,</span> <span class="n">node_b</span><span class="p">)</span>
+</span></code></pre></div>
+<h4 id="elbow-orthogonal-connection">Elbow (Orthogonal) Connection</h4>
+<p>Elbow arrows provide a structured way to connect elements using only horizontal and vertical segments. This is ideal for complex diagrams like flowcharts or system architectures, as it helps avoid diagonal lines that can make a layout look cluttered or confusing.</p>
+<p>You specify the exit direction from <code>start</code> and entry direction to <code>end</code> (<code>'U'</code>, <code>'D'</code>, <code>'L'</code>, <code>'R'</code>) meaning up, down, left, right.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">begin</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Begin&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">end</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;End&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">130</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">elbow</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">elbow</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">elbow</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">elbow</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Elbowed Arrows" src="images/arrow_elbow.svg" /></p>
+<h4 id="curve-connection">Curve Connection</h4>
+<p>If you prefer more organic, flowing lines, use curve arrows. You define the "tangent" angle at the start and end.
+Angles can be radians or convenience directions (<code>'U'</code>, <code>'D'</code>, <code>'L'</code>, <code>'R'</code>).</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">center</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Center&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">top_left</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Top Left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="n">top_right</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Top Right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="n">bottom_left</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Bottom Left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="n">bottom_right</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Bottom Right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">top_left</span><span class="p">)</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">bottom_left</span><span class="p">)</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">top_right</span><span class="p">)</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">bottom_right</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Curved Arrows" src="images/arrow_curve.svg" /></p>
+<p>As mentioned above, you can use angles instead of directions. Just please be aware that the underlying approximation algorithm tries to use as few control points as possible, so the resulting curve might not be exactly what you expect.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">center</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Main&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">250</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">bottom_left</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Bottom Left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">160</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="n">bottom_right</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Bottom Right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="n">bottom_center</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Bottom Center&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">bottom_right</span><span class="p">)</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">bottom_center</span><span class="p">)</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">curve</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">bottom_left</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Curved Arrows with Angles" src="images/arrow_curve_angle.svg" /></p>
+<h4 id="arc-connection">Arc Connection</h4>
+<p>Arc arrows create a circular path between two points, maintaining a constant radius. This is ideal for circular layouts, cycles, or when you need a consistent, rounded connection that follows a specific curvature.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">RADIUS</span> <span class="o">=</span> <span class="mi">300</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="n">rect</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">angle</span><span class="si">}</span><span class="s1">°&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">orbit</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">RADIUS</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="n">start_element</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)):</span>
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="n">RADIUS</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">start_element</span><span class="p">,</span> <span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    <span class="n">start_element</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></code></pre></div>
+<p><img alt="Arc Arrows" src="images/arrow_arc.svg" /></p>
+<h4 id="freeform-connection">Freeform Connection</h4>
+<p>Freeform arrows provide a flexible way to connect elements using a series of points. This is ideal for complex diagrams where you need to create a custom path between two points.
+The line segments can connect to each other in a sharp or rounded way.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">START</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="n">END</span> <span class="o">=</span> <span class="mi">500</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="n">start</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="n">end</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">530</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="n">START</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="n">END</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;sharp&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Freeform Arrow Sharp" src="images/arrow_free_points_sharp.svg" /></p>
+<p>For example, you can generate the points using harmonic functions:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">START</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="n">END</span> <span class="o">=</span> <span class="mi">500</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">NUM_POINTS</span> <span class="o">=</span> <span class="mi">30</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="n">NUM_CYCLES</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="n">points</span> <span class="o">=</span> <span class="p">[(</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    <span class="n">x</span> <span class="o">:=</span> <span class="n">START</span> <span class="o">+</span> <span class="p">(</span><span class="n">t</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">NUM_POINTS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">END</span> <span class="o">-</span> <span class="n">START</span><span class="p">),</span> 
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>    <span class="p">(</span><span class="n">envelope</span> <span class="o">:=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">NUM_CYCLES</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span> 
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_POINTS</span><span class="p">)]</span>
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="n">start</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="n">end</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">530</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Freeform Arrow ROUNDED" src="images/arrow_free_points_round.svg" /></p>
+<hr />
+<h2 id="typography-text">Typography (Text)</h2>
+<p>You have already seen some text labels in the previous examples. Those labels used the default font and default styling.
+E.g. the code <code>rectangle('Hello')</code> creates a rectangle with the text 'Hello' in it, rendered in the default font and styling.</p>
+<p>If you want to create a text label using non-default font and styling, you need to create a text element using the <code>text()</code> instead of using a plain text string.</p>
+<h3 id="fonts">Fonts</h3>
+<p>The following fonts are available in Excalidraw:</p>
+<ul>
+<li>Excalifont</li>
+<li>Comic Shaans</li>
+<li>Lilita One</li>
+<li>Nunito</li>
+<li>Hand-drawn</li>
+<li>Normal</li>
+<li>Code</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">font</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;Excalifont&#39;</span><span class="p">,</span> <span class="s1">&#39;Comic Shaans&#39;</span><span class="p">,</span> <span class="s1">&#39;Lilita One&#39;</span><span class="p">,</span> <span class="s1">&#39;Nunito&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand-drawn&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Code&#39;</span><span class="p">]):</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">font</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">font</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Fonts" src="images/text_font.svg" /></p>
+<h3 id="font-size">Font Size</h3>
+<p>You can set the font size using the <code>.fontsize()</code> method. The available sizes are 'S', 'M', 'L', and 'XL'.
+You can also get the size of a text element using the <code>size()</code> method without any arguments.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;XL&#39;</span><span class="p">]:</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Excalifont (</span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">font</span><span class="p">(</span><span class="s1">&#39;Excalifont&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">fontsize</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    <span class="n">y</span> <span class="o">+=</span> <span class="n">h</span>
+</span></code></pre></div>
+<p><img alt="Font Size" src="images/text_font_size.svg" /></p>
+<h3 id="color">Color</h3>
+<p>Let's create a non-default text label for an element apply some color to it.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">colored_text</span> <span class="o">=</span> <span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>    <span class="o">.</span><span class="n">font</span><span class="p">(</span><span class="s1">&#39;Lilita One&#39;</span><span class="p">)</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>    <span class="o">.</span><span class="n">fontsize</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>    <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;Violet&#39;</span><span class="p">)</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="p">)</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">colored_text</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Text Color" src="images/text_color.svg" /></p>
+<h3 id="layout-helpers">Layout Helpers</h3>
+<h4 id="justification">Justification</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">for</span> <span class="n">baseline</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">]:</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>    <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">300</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>    <span class="k">for</span> <span class="n">align</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>        <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">align</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">baseline</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">align</span><span class="p">)</span><span class="o">.</span><span class="n">baseline</span><span class="p">(</span><span class="n">baseline</span><span class="p">))</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>        <span class="n">x</span> <span class="o">+=</span> <span class="mi">300</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>    <span class="n">y</span> <span class="o">+=</span> <span class="mi">150</span>
+</span></code></pre></div>
+<p><img alt="Text Justification" src="images/text_justification.svg" /></p>
+<h4 id="anchoring">Anchoring</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">cross</span><span class="p">(</span><span class="n">center</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">center</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">line</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">([[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="p">]])</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">line</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">20</span><span class="p">]])</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="n">scene</span> <span class="o">=</span> <span class="n">SceneBuilder</span><span class="p">()</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="n">x</span> <span class="o">=</span> <span class="mf">42.0</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="n">y</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="k">for</span> <span class="n">h_align</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">]:</span>
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>    <span class="k">for</span> <span class="n">v_align</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">]:</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>        <span class="n">cross</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>        <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">anchor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">h_align</span><span class="p">,</span> <span class="n">v_align</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">h_align</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">v_align</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fontsize</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">font</span><span class="p">(</span><span class="s2">&quot;Hand-drawn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>        <span class="n">y</span> <span class="o">+=</span> <span class="mf">60.0</span>
+</span></code></pre></div>
+<p><img alt="Text Anchoring" src="images/text_anchoring.svg" /></p>
+<p>Text needs to be placed precisely.</p>
+<ul>
+<li><code>justify(x, y, w, h)</code> Aligns text within a box.</li>
+<li><code>anchor(x, y, h_align, v_align)</code> Anchors text to a point (e.g., top-left).</li>
+</ul>
+<hr />
+<h2 id="lines-custom-shapes">Lines &amp; Custom Shapes</h2>
+<p>The Line object accepts a list of points. It uses 'round' interpolation between points by default.</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">line</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">([(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span><span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;extra-bold&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Line rounded" src="images/line_round.svg" /></p>
+<h3 id="custom-polygons">Custom Polygons</h3>
+<p>The Line object has a convenience method <code>.close()</code> to connect the last point to the first. This creates a shape that can be filled.</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">points</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">]]</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="p">(</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">line</span><span class="p">()</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>    <span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>    <span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">)</span>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>    <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;cross-hatch&#39;</span><span class="p">)</span>
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>    <span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>    <span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;sharp&#39;</span><span class="p">)</span>
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>    <span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Line Polygon" src="images/line_polygon.svg" /></p>
+<p>Example of a more complex polygon:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">OUTER_R</span> <span class="o">=</span> <span class="mi">80</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="n">INNER_R</span> <span class="o">=</span> <span class="mi">35</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="n">NUM_POINTS</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="n">star_points</span> <span class="o">=</span> <span class="p">[(</span>
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>    <span class="p">(</span><span class="n">r</span> <span class="o">:=</span> <span class="p">(</span><span class="n">OUTER_R</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">INNER_R</span><span class="p">))</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">NUM_POINTS</span><span class="p">)),</span>
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>    <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_POINTS</span><span class="p">)]</span>
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="n">scene</span><span class="o">.</span><span class="n">line</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">star_points</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;sharp&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Line Star" src="images/line_star.svg" /></p>
+<hr />
+<h2 id="images">Images</h2>
+<p>Sometimes you need to include images in your scenes. You can do this using Image objects.
+Excaligen supports loading images from files, URLs, or even directly from data.</p>
+<h3 id="loading-images-from-files">Loading Images from Files</h3>
+<p>The following example shows how to load an image from a file and combine it with text.
+<div class="language-python highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">image</span><span class="p">()</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;assets/robot.svg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Oh look, I&#39;m expressing joy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">150</span><span class="p">)</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;how utterly revolting&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">130</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p><img alt="Image from file" src="images/example_image.svg" /></p>
+<h3 id="loading-images-from-data">Loading Images from Data</h3>
+<p>You can provide the image data directly. The following example shows how to load an SVG image from a string
+<div class="language-python highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>    <span class="n">IMAGE_DATA</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="s1">        &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;467&quot; height=&quot;462&quot; stroke=&quot;#000&quot; stroke-width=&quot;2&quot;&gt;</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="s1">            &lt;rect x=&quot;80&quot; y=&quot;60&quot; width=&quot;250&quot; height=&quot;250&quot; rx=&quot;20&quot; fill=&quot;#F80&quot;/&gt;</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="s1">            &lt;circle cx=&quot;310&quot; cy=&quot;290&quot; r=&quot;120&quot; fill=&quot;#00F&quot; fill-opacity=&quot;.7&quot;/&gt;</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="s1">        &lt;/svg&gt;&#39;&#39;&#39;</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">image</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">IMAGE_DATA</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p><img alt="Image from data" src="images/image_from_data.svg" /></p>
+<p>You can load images from binary data as well, but that is outside the scope of this guide.</p>
+<h3 id="loading-images-from-urls">Loading Images from URLs</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">image</span><span class="p">()</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;https://picsum.photos/512/320&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="fitting-images">Fitting Images</h3>
+<p>You can fit images to a specific size using the <code>.fit(w, h)</code> method. This way you don't need to take care of the image size and its aspect ratio, while putting the image in a certain box.
+<div class="language-python highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">160</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="n">scene</span><span class="o">.</span><span class="n">image</span><span class="p">()</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s1">&#39;assets/robot.svg&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p><img alt="Image fit" src="images/image_fit.svg" /></p>
+<hr />
+<h2 id="groups-frames">Groups &amp; Frames</h2>
+<p>Organizing elements is key for complex diagrams. Excaligen supports Excalidraw's <strong>Groups</strong> and <strong>Frames</strong>.</p>
+<h3 id="groups">Groups</h3>
+<p>A <strong>Group</strong> is a virtual container. Elements in a group are treated as a single unit when moving or selecting them in Excalidraw.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="n">face</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;Yellow&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="n">eye_l</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="n">eye_r</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="n">mouth</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">line</span><span class="p">()</span><span class="o">.</span><span class="n">points</span><span class="p">([(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">)])</span><span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="n">scene</span><span class="o">.</span><span class="n">group</span><span class="p">()</span><span class="o">.</span><span class="n">elements</span><span class="p">(</span><span class="n">face</span><span class="p">,</span> <span class="n">eye_l</span><span class="p">,</span> <span class="n">eye_r</span><span class="p">,</span> <span class="n">mouth</span><span class="p">)</span>
+</span></code></pre></div>
+<p><img alt="Group" src="images/group.svg" /></p>
+<h3 id="frames">Frames</h3>
+<p>A <strong>Frame</strong> is a visual container that physically surrounds its content. It has a background color and a title. It's perfect for distinct sections of a diagram or creating presentation slides.</p>
+<p>The following example also demonstrates how to generate links.
+Excalidraw supports external links and links to other elements in the same scene. As the frame is also an element, it can be linked to.</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">first_frame</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s2">&quot;Frame 1&quot;</span><span class="p">)</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="n">second_frame</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s2">&quot;Frame 2&quot;</span><span class="p">)</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="n">headline_first</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;First Slide&quot;</span><span class="p">)</span>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>    <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">150</span><span class="p">)</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="p">)</span>
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="n">circle_with_link</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">()</span>
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>    <span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s2">&quot;Green&quot;</span><span class="p">)</span>
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>    <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">&quot;solid&quot;</span><span class="p">)</span>
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a>    <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a>    <span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">&quot;https://www.google.com&quot;</span><span class="p">)</span>
+</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a><span class="p">)</span>
+</span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a>
+</span><span id="__span-42-18"><a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a><span class="n">button_next</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-42-19"><a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;Next&quot;</span><span class="p">)</span>
+</span><span id="__span-42-20"><a id="__codelineno-42-20" name="__codelineno-42-20" href="#__codelineno-42-20"></a>    <span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-42-21"><a id="__codelineno-42-21" name="__codelineno-42-21" href="#__codelineno-42-21"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s2">&quot;LightBlue&quot;</span><span class="p">)</span>
+</span><span id="__span-42-22"><a id="__codelineno-42-22" name="__codelineno-42-22" href="#__codelineno-42-22"></a>    <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">&quot;solid&quot;</span><span class="p">)</span>
+</span><span id="__span-42-23"><a id="__codelineno-42-23" name="__codelineno-42-23" href="#__codelineno-42-23"></a>    <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-42-24"><a id="__codelineno-42-24" name="__codelineno-42-24" href="#__codelineno-42-24"></a>    <span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">second_frame</span><span class="p">)</span>
+</span><span id="__span-42-25"><a id="__codelineno-42-25" name="__codelineno-42-25" href="#__codelineno-42-25"></a><span class="p">)</span>
+</span><span id="__span-42-26"><a id="__codelineno-42-26" name="__codelineno-42-26" href="#__codelineno-42-26"></a>
+</span><span id="__span-42-27"><a id="__codelineno-42-27" name="__codelineno-42-27" href="#__codelineno-42-27"></a><span class="n">headline_second</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-42-28"><a id="__codelineno-42-28" name="__codelineno-42-28" href="#__codelineno-42-28"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Second Slide&quot;</span><span class="p">)</span>
+</span><span id="__span-42-29"><a id="__codelineno-42-29" name="__codelineno-42-29" href="#__codelineno-42-29"></a>    <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+</span><span id="__span-42-30"><a id="__codelineno-42-30" name="__codelineno-42-30" href="#__codelineno-42-30"></a><span class="p">)</span>
+</span><span id="__span-42-31"><a id="__codelineno-42-31" name="__codelineno-42-31" href="#__codelineno-42-31"></a>
+</span><span id="__span-42-32"><a id="__codelineno-42-32" name="__codelineno-42-32" href="#__codelineno-42-32"></a><span class="n">button_back</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-42-33"><a id="__codelineno-42-33" name="__codelineno-42-33" href="#__codelineno-42-33"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;Back&quot;</span><span class="p">)</span>
+</span><span id="__span-42-34"><a id="__codelineno-42-34" name="__codelineno-42-34" href="#__codelineno-42-34"></a>    <span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-42-35"><a id="__codelineno-42-35" name="__codelineno-42-35" href="#__codelineno-42-35"></a>    <span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s2">&quot;LightBlue&quot;</span><span class="p">)</span>
+</span><span id="__span-42-36"><a id="__codelineno-42-36" name="__codelineno-42-36" href="#__codelineno-42-36"></a>    <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">&quot;solid&quot;</span><span class="p">)</span>
+</span><span id="__span-42-37"><a id="__codelineno-42-37" name="__codelineno-42-37" href="#__codelineno-42-37"></a>    <span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+</span><span id="__span-42-38"><a id="__codelineno-42-38" name="__codelineno-42-38" href="#__codelineno-42-38"></a>    <span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">first_frame</span><span class="p">)</span>
+</span><span id="__span-42-39"><a id="__codelineno-42-39" name="__codelineno-42-39" href="#__codelineno-42-39"></a><span class="p">)</span>
+</span><span id="__span-42-40"><a id="__codelineno-42-40" name="__codelineno-42-40" href="#__codelineno-42-40"></a>
+</span><span id="__span-42-41"><a id="__codelineno-42-41" name="__codelineno-42-41" href="#__codelineno-42-41"></a><span class="n">first_frame</span><span class="o">.</span><span class="n">elements</span><span class="p">(</span><span class="n">headline_first</span><span class="p">,</span> <span class="n">circle_with_link</span><span class="p">,</span> <span class="n">button_next</span><span class="p">)</span>
+</span><span id="__span-42-42"><a id="__codelineno-42-42" name="__codelineno-42-42" href="#__codelineno-42-42"></a><span class="n">second_frame</span><span class="o">.</span><span class="n">elements</span><span class="p">(</span><span class="n">headline_second</span><span class="p">,</span> <span class="n">button_back</span><span class="p">)</span>
+</span></code></pre></div>
+<img alt="Frames" src="images/frames.svg" /></p>
+<hr />
+<h2 id="defaults">Defaults</h2>
+<p>What if you want to use specific styles for several elements, but you don't want to type e.g. <code>stroke('solid')</code>, <code>fill('solid')</code>, etc. for each element? 
+Excaligen provides the <code>Defaults</code> object for this purpose. Let's take the same setup we used in the first chapter, but this time, we'll override the defaults and apply our own styling:</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="p">(</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>    <span class="n">scene</span><span class="o">.</span><span class="n">defaults</span><span class="p">()</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>    <span class="o">.</span><span class="n">stroke</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>    <span class="o">.</span><span class="n">thickness</span><span class="p">(</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>    <span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>    <span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;round&#39;</span><span class="p">)</span>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>    <span class="o">.</span><span class="n">sloppiness</span><span class="p">(</span><span class="s1">&#39;architect&#39;</span><span class="p">)</span>
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>    <span class="o">.</span><span class="n">font</span><span class="p">(</span><span class="s1">&#39;Nunito&#39;</span><span class="p">)</span>
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a><span class="p">)</span>
+</span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>
+</span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a><span class="n">central_topic</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="s1">&#39;Central topic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-43-12"><a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a><span class="n">subtopic</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;Subtopic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">350</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a><span class="n">scene</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="s1">&#39;points to&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">central_topic</span><span class="p">,</span> <span class="n">subtopic</span><span class="p">)</span>  
+</span></code></pre></div>
+<img alt="Defaults" src="images/defaults.svg" /></p>
+<hr />
+<h2 id="algorithmic-generation">Algorithmic Generation</h2>
+<p>The true power of Excaligen lies in automation. Below are real-world examples of generating complex diagrams programmatically.
+You can find the source code for these examples in the 'examples' directory.</p>
+<h3 id="mind-map-example">Mind Map Example</h3>
+<p><img alt="Mind Map" src="images/example_mind_map.svg" /></p>
+<h3 id="workflow-example">Workflow Example</h3>
+<p><img alt="Workflow" src="images/example_workflow_arrows.svg" /></p>
+<h3 id="pie-chart-example">Pie Chart Example</h3>
+<p><img alt="Pie Chart" src="images/example_pie_chart.svg" /></p>
+<h3 id="curves-and-arrows-example">Curves and Arrows Example</h3>
+<p><img alt="Curves and Arrows" src="images/example_options.svg" /></p>
+<h3 id="beyond-diagrams">Beyond Diagrams</h3>
+<p>You are not limited to creating diagrams. Excalidraw is a tool for creative people and so is Excaligen.
+Can you guess what the following code generates?</p>
+<div class="language-Python highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="n">D</span> <span class="o">=</span> <span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="p">(</span><span class="mi">42</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">25</span><span class="p">)</span> <span class="o">+</span> <span class="mi">26</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">28</span><span class="p">)</span> <span class="o">+</span> <span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">):</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">D</span> <span class="o">&gt;&gt;</span> <span class="p">((</span><span class="n">y</span> <span class="o">*</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="n">x</span><span class="p">)))</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>            <span class="n">s</span><span class="o">.</span><span class="n">rectangle</span><span class="p">()</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">42</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;#ff4242&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">background</span><span class="p">(</span><span class="s2">&quot;#ff4242&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">&quot;solid&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">roundness</span><span class="p">(</span><span class="s1">&#39;sharp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sloppiness</span><span class="p">(</span><span class="s1">&#39;architect&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>After running the last example code you know the "Answer to the Ultimate Question of Life, the Universe, and Everything" 😀</p>
+<p>And that's a wrap! 🎉 You've made it to the end of the guide. You now have everything you need to start generating beautiful Excalidraw scenes from your Python code.</p>
+<hr />
+<p>Have fun with <strong>Excaligen</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
